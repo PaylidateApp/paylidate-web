@@ -1,0 +1,242 @@
+<template>
+  <q-layout view="hHh Lpr lFf">
+    <q-header class="" style="background-color: rgba(255,255,255, 0.5)">
+      <q-toolbar>
+
+        <q-toolbar-title>
+          <q-btn :to=" {name: isLoggedIn ? 'home' : 'index'}" flat dense stack no-caps>
+          <img src="../statics/paylidate-logo.png" style="max-width: 150px">
+          </q-btn>
+        </q-toolbar-title>
+
+
+
+
+        <div v-if="isLoggedIn" class="row">
+           <!-- <ActivateCard v-if="!account || !Object.keys(account).length " /> -->
+          <q-btn color="black" flat no-caps label="Escrow" :to="{name: 'escrow'}" v-if="$q.screen.gt.xs" />
+          <!-- <Notifications class="q-mx-sm"/> -->
+          <Profile v-if="user &&  Object.keys(user).length " :user="user"/>
+        </div>
+
+        <div v-else class="q-gutter-xs">
+          <q-btn color="black" flat no-caps label="About Us" :to="{name: 'about'}" v-if="$q.screen.gt.xs" />
+          <q-btn color="black" flat no-caps label="FAQ" :to="{name: 'faq'}" v-if="$q.screen.gt.xs" />
+          <q-btn color="black" flat no-caps label="Escrow" :to="{name: 'escrow-help'}" v-if="$q.screen.gt.xs" />
+
+          <q-btn color="secondary" size="sm" no-caps label="Signup" :to="{name: 'register'}" />
+          <q-btn color="black" size="sm" no-caps label="Login" :to="{name: 'login'}" />
+        </div>
+
+        <q-btn color="secondary" flat dense round v-if="$q.screen.lt.sm" icon="menu" aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
+
+      </q-toolbar>
+    </q-header>
+
+    <q-drawer
+      v-if="$q.screen.lt.sm"
+      v-model="leftDrawerOpen"
+      show-if-above
+      side="left" behavior="mobile"
+      :width="250"
+    >
+      <q-list>
+        <q-item-label
+          header
+          class="text-secondary text-bold"
+        >
+        </q-item-label>
+        <EssentialLink
+          v-for="(link, index) in dashboardMenu"
+          :key="index"
+          v-bind="link"
+          v-if="linkStatus(link.is_authenticated)"
+        />
+        <LogOut v-if="isLoggedIn" :variant="'large'" class="fixed-bottom" />
+      </q-list>
+    </q-drawer>
+
+ <!-- v-if="isLoggedIn && $q.screen.gt.xs" -->
+    <q-drawer
+      v-if="isLoggedIn && $q.screen.gt.xs && theauth"
+
+      v-model="leftDrawerOpen"
+      behavior="desktop" bordered
+      show-if-above
+      :width="200"
+    >
+      <q-list>
+        <q-item-label
+          header
+          class="text-secondary text-bold"
+        >
+        <!-- Welcome  {{user.name}} -->
+        </q-item-label>
+        <EssentialLink
+          v-for="(link, index) in dashboardMenu"
+          :key="index"
+          v-bind="link"
+          v-if="linkStatus(link.is_authenticated)"
+        />
+        <LogOut v-if="isLoggedIn" :variant="'large'" class="fixed-bottom" />
+      </q-list>
+    </q-drawer>
+
+
+
+    <q-page-container>
+      <router-view />
+    </q-page-container>
+  </q-layout>
+</template>
+
+<script >
+import EssentialLink from 'components/EssentialLink.vue'
+import comingSoon from 'components/common/comingSoon'
+import Notifications from 'components/layout/notification'
+import Profile from 'components/layout/profile'
+import LogOut from 'components/auth/logout.vue'
+import ActivateCard from 'components/cards/partials/activate_card'
+export default {
+  name: 'MainLayout',
+
+  components: {
+    EssentialLink,LogOut,Notifications,Profile,ActivateCard, comingSoon
+  },
+
+  data () {
+    return {
+      leftDrawerOpen: false,
+      name: '',
+      mail: {
+        title: 'App Support',
+        link: 'mailto:hello@paylidate.com?subject=Paylidate%20Customer%20Support',
+      },
+
+      dashboardMenu:[
+        {
+          title: 'About Us',
+          caption: '',
+          icon: 'class',
+          link: 'about',
+          is_active: true,
+          is_authenticated: false
+        },
+        {
+          title: 'FAQ',
+          caption: '',
+          icon: 'quiz',
+          link: 'faq',
+          is_active: true,
+          is_authenticated: false
+        },
+        {
+          title: 'Escrow',
+          caption: '',
+          icon: 'verified_user',
+          link: 'escrow-help',
+          is_active: true,
+          is_authenticated: false
+        },
+        {
+          title: 'Register',
+          caption: '',
+          icon: 'how_to_reg',
+          link: 'register',
+          is_active: true,
+          is_authenticated: false
+        },
+        {
+          title: 'Login',
+          caption: '',
+          icon: 'login',
+          link: 'login',
+          is_active: true,
+          is_authenticated: false
+        },
+        {
+          title: 'Escrow Service',
+          caption: '',
+          icon: 'verified_user',
+          link: 'escrow',
+          is_active: true,
+          is_authenticated: true
+        },
+        // {
+        //   title: 'Home',
+        //   caption: '',
+        //   icon: 'foundation',
+        //   link: 'home',
+        //   is_active: true,
+        //   is_authenticated: true
+        // },
+        {
+          title: 'Virtual Card',
+          caption: '',
+          icon: 'payment',
+          link: 'virtual-card',
+          is_active: false,
+          is_authenticated: true
+        },
+        {
+          title: 'Settings',
+          caption: '',
+          icon: 'settings',
+          link: 'settings',
+          is_active: true,
+          is_authenticated: true
+        },
+        // {
+        //   title: 'Crypto',
+        //   caption: 'comming soon',
+        //   icon: 'fa fa-coins',
+        //   link: 'crypto',
+        //   is_active: false
+        // },
+        // {
+        //   title: 'Gift Card',
+        //   caption: 'comming soon',
+        //   icon: 'card_giftcard',
+        //   link: 'gift-card',
+        //   is_active: false
+        // },
+      ]
+    }
+  },
+
+  computed: {
+    user(){return this.$store.getters["auth/user"] },
+    isLoggedIn(){ return this.$store.state.auth.token},
+    account(){ return this.$store.getters["auth/account"] },
+    theauth(){
+      let myroute = this.$route.name;
+      if(
+        myroute == 'login' || myroute == 'register' || myroute == 'forgot'
+        || myroute == 'view' || myroute == 'checkout' || myroute == 'success'
+        || myroute == 'details' || myroute == 'integration' || myroute == 'finish'
+        || myroute == 'platform' || myroute == 'install' || myroute == 'bank' || myroute == 'product'
+        ){
+        return false
+      }else{
+        return true
+      }
+    },
+
+  },
+
+  methods: {
+    linkStatus(status){
+      if (status && this.$store.state.auth.token) {
+        return true
+      }else if(status && !this.$store.state.auth.token){
+        return false
+      }else if(!status && !this.$store.state.auth.token){
+        return true
+      }
+      return false
+    }
+  },
+
+}
+
+</script>

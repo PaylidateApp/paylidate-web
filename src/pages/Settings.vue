@@ -1,0 +1,157 @@
+<template>
+  <q-page class="bg-grey-2"  padding>
+    <q-splitter
+      v-model="splitterModel"
+    >
+
+      <template v-slot:before>
+        <q-tabs
+          v-model="tab"
+          vertical
+          content-class="text-primary text-left align-left"
+          align="left"
+          no-caps
+
+        >
+        <!-- {{tab}} -->
+        <q-item v-for="(item, index) in settingsNav" :key="index" clickable @click="tabChange(item.tab)" v-model="dBtn" :style="'border-right: 2px solid '+btn" >
+          <q-item-section >
+            <q-item-label>{{item.name}}</q-item-label>
+          </q-item-section>
+        </q-item>
+
+          <!-- <q-tab class="text-left" name="profile" label="Profile" />
+          <q-tab class="text-left" name="password" label="Change Password" />
+          <q-tab class="text-left" name="pin" label="Change Transaction Pin" />
+          <q-tab class="text-left" name="statement" label="Account Statement" />
+          <q-tab class="text-left" name="help" label="Help & Support" /> -->
+        </q-tabs>
+      </template>
+
+      <template v-slot:after>
+        <q-tab-panels
+          v-model="tab"
+          animated
+          swipeable
+          vertical
+          transition-prev="jump-up"
+          transition-next="jump-up"
+        >
+          <q-tab-panel name="profile">
+            <div class="text-h4 q-mb-md">Edit Profile</div>
+            <q-card-section class="q-gutter-sm">
+              <q-input dense square outlined readonly :value="user.name" label="Name" />
+              <q-input dense square outlined readonly :value="user.email" label="Email" />
+              <!-- <q-input square outlined readonly :value="card.data.cvv" label="Card CVV" /> -->
+              <!-- <q-input square outlined readonly :value="card.data.city +'/'+ card.data.state" label="City/State" /> -->
+              <!-- <q-input square outlined readonly :value="card.data.address_1" label="Card Billing Address" /> -->
+              <!-- <q-input square outlined readonly :value="card.data.zip_code" label="Card Zip Code" /> -->
+            </q-card-section>
+             <!-- <q-btn color="white" text-color="black" label="Update Profile" /> -->
+
+          </q-tab-panel>
+
+          <q-tab-panel name="password">
+            <div class="text-h4 q-mb-md">Change Password</div>
+            <q-card-section class="q-gutter-sm">
+              <q-input dense square outlined readonly :value="password.current" label="Current Password" />
+              <q-input dense square outlined readonly :value="password.new" label="New Password" />
+              <q-input dense square outlined readonly :value="password.confirm_new" label="Confirm New Password" />
+              <q-btn color="negative" no-caps label="Change Password" disable/>
+            </q-card-section>
+          </q-tab-panel>
+
+          <q-tab-panel name="pin">
+            <div class="text-h4 q-mb-md">Change Transaction Pin</div>
+            <q-card-section class="q-gutter-sm">
+              <q-input dense square outlined readonly :value="pin.current" label="Current Pin/Password" />
+              <q-input dense square outlined readonly :value="pin.new" label="New Pin" />
+              <q-input dense square outlined readonly :value="pin.confirm_new" label="Confirm New Pin" />
+              <q-btn color="primary" no-caps label="Change Pin" disable/>
+            </q-card-section>
+          </q-tab-panel>
+
+          <q-tab-panel name="account">
+            <div class="text-h4 q-mb-md">Account Details</div>
+            <q-card-section class="q-gutter-sm">
+              <q-select dense square v-model="bank.code" :options="banks" option-value="code"
+                option-label="name" emit-value map-options outlined label="Bank Name" />
+              <q-input dense square outlined label="Account Number" />
+              <q-btn color="primary" no-caps label="Save Account Details" disable/>
+            </q-card-section>
+          </q-tab-panel>
+
+          <q-tab-panel name="help">
+            <div class="text-h4 q-mb-md">Help & Support</div>
+            Call <a href="tel:+2348066984101">+2348066984101</a> or email <a href="mailto:hello@paylidate.com">hello@paylidate.com</a>
+          </q-tab-panel>
+
+        </q-tab-panels>
+      </template>
+
+    </q-splitter>
+  </q-page>
+</template>
+
+<script>
+export default {
+  // name: 'PageName',
+  data(){
+    return {
+      tab: 'profile',
+      splitterModel: 20,
+      dBtn:'',
+      password:{
+        current: '',
+        new: '',
+        confirm_new: ''
+      },
+      pin:{
+        current: '',
+        new: '',
+        confirm_new: ''
+      },
+      bank:{
+        name: '',
+        number: '',
+        code: ''
+      },
+      banks:[],
+
+      settingsNav:[
+        { name:'Profile', tab:'profile' },
+        { name:'Change Password', tab:'password' },
+        { name:'Change Transaction Pin', tab:'pin' },
+        { name:'Account Details', tab:'account' },
+        { name:'Help & Support', tab:'help' }
+      ]
+    }
+  },
+
+  computed: {
+    user(){return this.$store.getters["auth/user"] },
+    btn(tab){
+      if (this.tab == tab) return '#05202f; background-color: rgba(5, 32, 47, 0.1)'
+      else return 'white'
+    }
+  },
+
+  mounted(){
+    this.getBanks()
+  },
+
+  methods: {
+    tabChange(tab){
+      this.tab = tab
+      if (this.tab == tab) return '#05202f; background-color: rgba(5, 32, 47, 0.1)'
+      else return 'white'
+    },
+
+    async getBanks(){
+      const req = await this.$axios.get(process.env.Api + '/api/get-banks')
+      const res = req.data
+      this.banks = res.data;
+    },
+  },
+}
+</script>
