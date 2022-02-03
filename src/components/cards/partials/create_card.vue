@@ -11,7 +11,7 @@
     <q-card-section class="q-gutter-sm">
       <div v-if="error" class="text-negative">{{error}}</div>
       <q-select square outlined v-model="form.currency" :options="options" label="Currency" dense />
-      <q-input square outlined v-model="form.amount" label="Amount" dense />
+      <q-input square outlined readonly v-model="form.amount" label="Amount" dense />
       <div v-if="form.currency === 'USD'">
         <!-- Convertion Rate: {{ rate }} NGN to 1 USD -->
       </div>
@@ -24,13 +24,18 @@
     </q-card-actions>
     </q-card>
     </q-dialog>
-
+   <MakePayment />
   </div>
 </template>
 
 <script>
+import MakePayment from 'components/cards/partials/make_payment'
+
 export default {
   props:['cards'],
+      components:{
+    MakePayment
+  },
     data(){
       return {
         open: false,
@@ -38,7 +43,8 @@ export default {
         form:{
           currency: 'NGN',
           amount: 250,
-          redirect_url: `${window.location.href}/payment`
+          redirect_url: `${window.location.href}/payment`,
+          title:"Create Card",
         },
         options: [
         'USD','NGN'
@@ -76,10 +82,12 @@ export default {
 
         this.$q.localStorage.set('currency', this.form.currency)
         this.$q.localStorage.set('amount', this.form.amount)
+        this.$store.commit('card/PaymentDetails', this.form);
+        this.$store.commit('card/PaymentModel', true);
+        this.open = false;
+        this.error="";
 
-        const req = await this.$axios.post(process.env.Api + '/api/payment/link', this.form)
-        const res = req.data
-        window.location.href = res.data.link;
+
 
         // const req = await this.$axios.post(process.env.Api + '/api/card', this.form)
         // const res = req.data

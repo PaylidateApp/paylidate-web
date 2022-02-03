@@ -217,8 +217,12 @@ export default {
       
       this.$axios.defaults.headers.common["Authorization"] = token;
       try{
-        const req = await this.$axios.post(process.env.Api + '/api/product', this.form)
+        console.log(process.env.Api );
+        const req = await this.$axios.post('http://localhost:8000/api/product', this.form)
         const res = req.data
+        console.log(req.data);
+        console.log('ihfeirufre');
+
         if (res.status == 'success') {
           this.open = false
           this.alert = true
@@ -230,6 +234,7 @@ export default {
         this.loading = false
         this.$q.loading.hide();
       }catch(err){
+        console.log(err.dat);
         this.loading = false
         this.$q.notify({
           message: 'Product creation failed, kindly try again', 

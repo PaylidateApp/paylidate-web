@@ -9,9 +9,6 @@
           </q-btn>
         </q-toolbar-title>
 
-
-
-
         <div v-if="isLoggedIn" class="row">
            <!-- <ActivateCard v-if="!account || !Object.keys(account).length " /> -->
           <q-btn color="black" flat no-caps label="Escrow" :to="{name: 'escrow'}" v-if="$q.screen.gt.xs" />

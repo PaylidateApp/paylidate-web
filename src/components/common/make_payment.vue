@@ -64,13 +64,18 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+   <MakePayment :payment_details="form" :title="'Payment for ' + slug" />
   </div>
 </template>
 
 <script>
 // import router from 'src/router';
+import MakePayment from 'components/cards/partials/make_payment'
 export default {
   props:['amount','slug','product','url'],
+    components:{
+    MakePayment
+  },
     data(){
       return {
         confirm: false,
@@ -81,7 +86,8 @@ export default {
           amount: this.amount,
           slug: this.slug,
           currency: 'NGN',
-          redirect_url: this.url
+          title:'Payment for ' + this.slug
+          
         },
          error: ''
       }
@@ -99,14 +105,16 @@ export default {
       async makePayment() {
         this.loading = true;
 
-        const req = await this.$axios.post(process.env.Api + '/api/payment/link', this.form)
-        const res = req.data
-        window.location.href = res.data.link;
+        this.$store.commit('card/PaymentDetails', this.form);
+        this.loading = false;
+
+        // const req = await this.$axios.post(process.env.Api + '/api/payment/link', this.form)
+        // const res = req.data
+        // window.location.href = res.data.link;
 
         // const req = await this.$axios.post(process.env.Api + '/api/make-payment', this.form)
         // const res = req.data
         // this.open = false;
-        this.loading = false;
       },
        async get_rate() {
         const req = await this.$axios.post(process.env.Api + '/api/get-rate')

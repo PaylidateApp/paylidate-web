@@ -66,7 +66,7 @@ export default {
     async login(){
       this.loading = true
       this.$q.loading.show(this.loadingInfo)
-      this.$axios.post(process.env.Api + '/api/login', this.form)
+      this.$axios.post('http://127.0.0.1:8000/api/login', this.form)
       .then(response => {
         this.$store.commit('auth/login', 'Bearer '+response.data.access_token)
         this.$store.commit('auth/user', response.data.data)
