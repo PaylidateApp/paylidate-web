@@ -7,13 +7,12 @@
         <q-card-section class="q-gutter-xs col-md-6 col-sm-12 col-xs-12">
           <div class="text-h6">Create Escrowed Product</div>
           <q-form @submit="createProduct()" class="q-gutter-md" autocomplete="off" >        
-            <div class="row q-py-xs">
+            
                 <q-input accept="image/*" ref="uploader" :class="`q-mb-md overflow-hidden ${ rightInput }`" outlined stack-label label="Image" @input="addFiles" multiple type="file" bg-color="white"/>
-                <!-- <q-btn unelevated no-caps color="primary" label="Upload Image" @click="uploadProductImage()" /> -->
-                <!-- <div :class="rightInput"><q-input outlined dense v-model="form.image" label="Image" /></div> -->
-                  <div :class="leftInput"><q-input outlined dense v-model="form.product_number" label="Product Id" /></div>
-              </div>
-            <q-select square outlined v-model="form.type" :options="type_option" label="Transaction Type" />
+
+            <q-select square outlined v-model="form.type" :options="type_option" label=" Type" />
+            <q-input outlined dense v-model="form.product_number" label="Product Id" />
+            <q-select square outlined v-model="form.transaction_type" :options="transaction_type_option" label="Transaction Type" />
             <q-input outlined dense v-model="form.name" :rules="schema.name" label="Product/Service*" />
             <q-input outlined dense v-model="form.unit" :rules="schema.unit" label="Amount*" prefix="NGN" oninput="value=value.replace(/[^\d]/g,'')" />
             <q-input outlined dense v-model.number="form.quantity" :rules="schema.quantity" type="number" label="Quantity*" oninput="value=value.replace(/[^\d]/g,'')" />
@@ -86,7 +85,8 @@ export default {
       open: false,
       alert: false,
       loading: false,
-      type_option: ['sell', 'buy'],
+      transaction_type_option: ['sell', 'buy'],
+      type_option: ['Product', 'Service'],
       files: null,
       uploadedImages: [],
       schema: buySchema,
@@ -98,7 +98,8 @@ export default {
         unit: '',
         price: '',
         description: '',
-        type: 'buy',
+        transaction_type: 'buy',
+        type: 'Product',
         clients_email: '',
         delivery_period: ''
       },

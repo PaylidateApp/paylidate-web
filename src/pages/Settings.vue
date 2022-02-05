@@ -98,7 +98,7 @@ export default {
   // name: 'PageName',
   data(){
     return {
-      loading: false,
+      loading : false,
       tab: 'profile',
       splitterModel: 20,
       dBtn:'',
@@ -158,11 +158,8 @@ export default {
 
     async accountDetail(){
 
-      
       let account_number = this.bank.account_number
       let bank_code = this.bank.bank_code
-      this.bank.bank_name = bank_name['0'].name
-
       if(!account_number || account_number.length !=10){
         return
       }
@@ -173,19 +170,28 @@ export default {
         return  value.code == this.bank.bank_code
       });
 
-      this.loading = true
+      this.loading = true;
+
+      this.bank.bank_name = bank_name['0'].name
+    try{
       const req = await this.$axios.post(process.env.Api + '/api/user-bank', this.bank)
         const res = req.data
-      if(res.status = success){
-        this.loading= false
-        this.$q.notify({message: 'Account details where saved Successfully', color: 'green'})
+        console.log(res)
+        if(res){
+          this.loading = false;
+          this.$q.notify({message: 'Account details save successfully', color: 'green'})                   
 
+        }
+        else{
+
+           this.loading = false;
+          this.$q.notify({message: 'A rooro occured while saving account details', color: 'red'})                   
+
+        }
+        }catch(e){
+         this.loading = false;
+          this.$q.notify({message: 'A rooro occured while saving account details', color: 'red'})                   
       }
-
-      else{
-        this.loading = false
-        this.$q.notify({message: 'Error! Account details not save ', color: 'red'})
-}
     }
   },
 }
