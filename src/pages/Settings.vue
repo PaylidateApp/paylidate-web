@@ -74,10 +74,10 @@
           <q-tab-panel name="account">
             <div class="text-h4 q-mb-md">Account Details</div>
             <q-card-section class="q-gutter-sm">
-              <q-select dense square v-model="bank.code" :options="banks" option-value="code"
+              <q-select dense square v-model="bank.bank_code" :options="banks" option-value="code"
                 option-label="name" emit-value map-options outlined label="Bank Name" />
-              <q-input dense square outlined label="Account Number" />
-              <q-btn color="primary" no-caps label="Save Account Details" disable/>
+              <q-input dense square type="number" v-model="bank.account_number" outlined label="Account Number" />
+              <q-btn color="primary" @click="accountDetail()" :loading="loading" no-caps label="Save Account Details" />
             </q-card-section>
           </q-tab-panel>
 
@@ -98,6 +98,7 @@ export default {
   // name: 'PageName',
   data(){
     return {
+      loading: false,
       tab: 'profile',
       splitterModel: 20,
       dBtn:'',
@@ -112,9 +113,9 @@ export default {
         confirm_new: ''
       },
       bank:{
-        name: '',
-        number: '',
-        code: ''
+        bank_name: '',
+        account_number: '',
+        bank_code: ''
       },
       banks:[],
 
@@ -129,6 +130,7 @@ export default {
   },
 
   computed: {
+  
     user(){return this.$store.getters["auth/user"] },
     btn(tab){
       if (this.tab == tab) return '#05202f; background-color: rgba(5, 32, 47, 0.1)'
@@ -151,7 +153,40 @@ export default {
       const req = await this.$axios.get(process.env.Api + '/api/get-banks')
       const res = req.data
       this.banks = res.data;
+      console.log(res);
     },
+
+    async accountDetail(){
+
+      
+      let account_number = this.bank.account_number
+      let bank_code = this.bank.bank_code
+      this.bank.bank_name = bank_name['0'].name
+
+      if(!account_number || account_number.length !=10){
+        return
+      }
+      if(!bank_code || bank_code.length !=3){
+        return
+      }
+      let bank_name=this.banks.filter((value)=>{
+        return  value.code == this.bank.bank_code
+      });
+
+      this.loading = true
+      const req = await this.$axios.post(process.env.Api + '/api/user-bank', this.bank)
+        const res = req.data
+      if(res.status = success){
+        this.loading= false
+        this.$q.notify({message: 'Account details where saved Successfully', color: 'green'})
+
+      }
+
+      else{
+        this.loading = false
+        this.$q.notify({message: 'Error! Account details not save ', color: 'red'})
+}
+    }
   },
 }
 </script>

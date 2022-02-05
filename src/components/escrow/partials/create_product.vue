@@ -218,10 +218,10 @@ export default {
       this.$axios.defaults.headers.common["Authorization"] = token;
       try{
         console.log(process.env.Api );
-        const req = await this.$axios.post('http://localhost:8000/api/product', this.form)
+        const req = await this.$axios.post(process.env.Api + '/api/product', this.form)
         const res = req.data
         console.log(req.data);
-        console.log('ihfeirufre');
+     
 
         if (res.status == 'success') {
           this.open = false

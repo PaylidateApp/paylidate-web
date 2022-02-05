@@ -10,8 +10,8 @@
       </div>
       <div class="col-8" align="right">
         
-            <label class=" float-right">holyphilzy@gmail.com</label> <br>
-            <label class=" float-right">Pay <strong>NGN {{payment_details.amount}}</strong> </label>
+             <br>
+            <label class=" float-right">Pay <strong>{{this.$q.localStorage.getItem('PaymentDetails').currency}} {{this.$q.localStorage.getItem('PaymentDetails').amount}}</strong> </label>
        
        
       </div>
@@ -19,13 +19,13 @@
 
       <q-separator />
     <q-card-section>
-      <div class=" text-h6 text-blue-grey-8">{{payment_details.title}}</div>
+      <div class=" text-h6 text-blue-grey-8">{{this.$q.localStorage.getItem('PaymentDetails').title}}</div>
     </q-card-section>
     <q-card-section class="q-gutter-y-none">
 
 
       <div v-if="error" class="text-negative">{{error}}</div>      
-        <q-input dense square outlined maxlength="19" :value="formatCardNumber" @keyup="updateCardNo"  stack-label placeholder="0000 0000 0000 0000" label="CARD NUMBER">
+        <q-input dense square outlined maxlength="19" required :value="formatCardNumber" @keyup="updateCardNo"  stack-label placeholder="0000 0000 0000 0000" label="CARD NUMBER">
         <template v-slot:append>
           <q-icon name="payment" />
         </template>
@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import VueCardFormat from 'vue-credit-card-validation';
+
 export default {
 
     data(){
@@ -124,7 +124,7 @@ export default {
               },
       
       payment_details(){
-        return this.$store.getters["card/PaymentDetails"]
+        return this.$q.localStorage.getItem('PaymentDetails')
       },
       open(){
         return this.$store.getters["card/PaymentModel"]
@@ -136,6 +136,7 @@ export default {
     },
 
     methods:{
+
       
       updateCardNo(e){
         this.form.cardno = e.target.value.replace(/ /g,'');          
@@ -170,6 +171,7 @@ export default {
           this.form.pin = null
           this.form.expiryyear = null
           this.form.expirymonth = null
+          this.CardExpireDate = null
           this.close_otp_model();
 
       },
@@ -184,42 +186,74 @@ export default {
       },
 
       close(){
-        this.reset();
-        this.loading = false;
-        this.opt = false;
+        this.reset();    
+       this.error = '';
+
         this.$store.commit('card/PaymentModel', false);
 
       },
 
       async makePayment() {
-        
+                
         this.form.expirymonth = this.CardExpireDate.substring(0, 2);
         this.form.expiryyear = this.CardExpireDate.substring(2);
         this.form.amount = this.payment_details.amount;
         this.form.currency = this.payment_details.currency;
         this.form.redirect_url = this.payment_details.redirect_url;
-        this.loading = true;
+        
 
+        if(this.form.cardno.length != 16){
+          this.error ='Invalid card number, digits must be 16'
+          return
+        }
+        if(/^\d+$/.test(this.form.cardno) == false){
+          this.error ='Your card number can only take numbers 0-9'
+          return
+        }
 
+        if(this.form.cvv.length != 3){
+          this.error ='Invalid CVV, digits must be 3'
+          return
+        }
+        if(/^\d+$/.test(this.form.cvv) == false){
+          this.error ='CVV can only take numbers 0-9'
+          return
+        }
+
+        if(this.CardExpireDate.length != 4){
+          this.error ='Invalid date'
+          return
+        }
+        if(/^\d+$/.test(this.CardExpireDate) == false){
+          this.error ='Invalid date'
+          return
+        }
+
+    this.loading = true;
 
     try {
-      
-        const req = await this.$axios.post('http://127.0.0.1:8000/api/pay-with-card', this.form)
+      this.error = '';
+        const req = await this.$axios.post(process.env.Api + '/api/pay-with-card', this.form)
         const res = req.data
         
+        console.log(res)       
         
 
-        if(res.status == "success" && res.data.authurl != 'N/A'){
-           this.reset();
-           window.location.href = res.data.authurl;
-          
-        }
+          if(res.status == 'success' && res.data.authurl != 'N/A'){
+             this.reset();
+             window.location.href = res.data.authurl;
+           return
+          }
         
-        if(res.status == "success"){
+        if(res.status == "success" && res.data.hasOwnProperty('flwRef')){
           
           this.$q.localStorage.set('flwRef', res.data.flwRef);
           this.otp_model = true;   
+          return
         }
+
+        this.reset();
+        this.$q.notify({message: 'Transation Fail', color: 'red'})
         
        /*  if (this.$store.getters["card/PaymentDetails"].hasOwnProperty('redirect_url')){
           this.$q.localStorage.set('payment_info', this.payment_details);
@@ -232,8 +266,7 @@ export default {
         //this.$q.notify({message: 'Transaction Successfull', color: 'green'})
 
         
-    } catch (err) {
-        this.loading = false;
+    } catch (err) {      
         this.$store.commit('card/PaymentModel', false);
         this.reset();
         this.$q.notify({message: 'Transation Fail', color: 'red'})
@@ -245,7 +278,7 @@ export default {
         this.otp_loading = true
         let validation_info = {flwRef: this.$q.localStorage.getItem('flwRef'), otp: this.otp}
 
-        const req = await this.$axios.post('http://127.0.0.1:8000/api/validate-payment',validation_info)
+        const req = await this.$axios.post(process.env.Api + '/api/validate-payment',validation_info)
         const res = req.data;
     
         if(res.status == 'success'){
@@ -262,26 +295,24 @@ export default {
 
       async verifyPayment(txRef){
 
-        const req = await this.$axios.post('http://127.0.0.1:8000/api/verify-payment', {txRef})
+        const req = await this.$axios.post(process.env.Api + '/api/verify-payment', {txRef})
         const res = req.data;
   
         
         if(res.status == 'success' && res.data.currency == this.form.currency && res.data.amount == this.form.amount){
           // execute what you want to happen if verification is ok
-          if (this.$store.getters["card/PaymentDetails"].hasOwnProperty('redirect_url')){
-          this.$q.localStorage.set('payment_info', this.payment_details);
+          
+          
           this.close_otp_model();
           this.$store.commit('card/PaymentModel', false);
-          this.reset();          
-          window.location.href = this.$store.getters["card/PaymentDetails"].redirect_url;
+          this.reset();  
+          let title = this.$q.localStorage.getItem('PaymentDetails').title
+          this.$emit('data', {res, title})
         }
         else{
-          this.otp_model = false;
-          this.loading = false;
-          this.$store.commit('card/PaymentModel', false);
-          this.$q.notify({message: 'Transation Fail', color: 'red'})
-        }
-          
+          this.close_otp_model();
+          this.$q.notify({message: 'Verification Failed', color: 'red'})
+          this.$q.localStorage.removeItem("PaymentDetails");
         }
 
         }

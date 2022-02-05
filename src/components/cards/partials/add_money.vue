@@ -21,18 +21,19 @@
     </q-card>
     </q-dialog>
 
-   <MakePayment />
+   <ChargeCard @data="fundCard"/>
+  
 
   </div>
 </template>
 
 <script>
-import MakePayment from './make_payment'
+import ChargeCard from './charge_card'
 
 export default {
 
     components:{
-    MakePayment
+    ChargeCard
   },
     data(){
       return {
@@ -85,20 +86,58 @@ export default {
         this.error=""
       },
       async makePayment() {
+        this.$q.localStorage.set('createCard', false);
         const amount = this.form.amount
         if (!amount || amount < 200) {
           this.error = 'Amount cannot be less than 200'
           return
         }
+
+      /* const virtual_card_id = this.form.virtual_card_id
+        if (!virtual_card_id || virtual_card_id < 200) {
+          this.error = 'Please select a virtual card'
+          return
+        }
+         */
+        this.form.redirect_url += this.form.virtual_card_id;         
         
-        this.form.redirect_url += this.form.virtual_card_id;          
-        this.$store.commit('card/PaymentDetails', this.form);
+        this.$q.localStorage.set('PaymentDetails', this.form);
         this.$store.commit('card/PaymentModel', true);
         this.open = false;
-        this.error="";
+        this.error="";       
         
+      },
+
+      async fundCard(value){
+      
+        this.$q.loading.show({
+          message: 'Hold on, Card funding in progress',
+        spinnerColor: 'secondary'
+          
+        })
+      
+          try{
+
+        const req = await this.$axios.post(process.env.Api + '/api/fund', this.form);
+        const res = req.data
+
+         if(res.status == 'success'){
+          this.$q.loading.hide()          
+          this.$q.notify({message: 'Card funding was successful', color: 'green'})                   
+         
+        }
+        else{
+          this.$q.loading.hide()
+          this.$q.notify({message: 'Card funding Failed', color: 'red'})
+
+
+        }
+      }catch(e){
+        this.$q.loading.hide()
+          this.$q.notify({message: 'Card funding Failed', color: 'red'})
+      }
         
-        
+
       }
     }
 }

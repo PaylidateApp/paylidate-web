@@ -33,28 +33,84 @@ export default {
       }
     },
 
+    mounted() {
+    this.verifyPayment();
+  },
+
     methods:{
-      makePayment() {
-      this.$q.localStorage.set('paylidate-add-amount', this.form.amount)
-      FlutterwaveCheckout({
-        public_key: process.env.Flutterwave_public_key,
-        tx_ref: 'paylidate ' + Math.floor(Math.random() * 1000000),
-        amount: this.form.amount,
-        currency: "NGN",
-        country: "NG",
-        payment_options: "card,ussd",
-        redirect_url: "/add-money",
-        customer: {
-          email: 'syflex360@gmail.com',
-          phone_number: '07067822618',
-          name: 'Simon Moses',
+          async verifyPayment(){
+        this.$q.loading.show({
+          message: 'Hold on, While payment is been verified',
+          spinnerColor: 'secondary'
+          
+        })
+        
+        let response = JSON.parse(this.$route.query.response)
+
+        let currency = this.$q.localStorage.getItem('PaymentDetails').currency;
+        let amount = this.$q.localStorage.getItem('PaymentDetails').amount;
+
+        if(response.status == 'successful' && response.currency == currency && response.amount == amount){
+        let txRef = response.txRef
+    
+ 
+        const req = await this.$axios.post(process.env.Api + '/api/verify-payment', {txRef})
+        const res = req.data;
+        
+        
+        if(res.status == 'success'){
+          // execute what you want to happen if verification is ok          
+         
+          this.fundCard (res.data.currency, res.data.amount);
+        }
+        else{
+          this.$router.push({ name: "escrow"})
+          this.$q.loading.hide()
+          this.$q.notify({message: 'Verification Failed', color: 'red'})
+
+
+        }
+
+        }
+        else{
+          this.$router.push({ name: "escrow"})
+            this.$q.loading.hide()
+          this.$q.notify({message: 'Verification Failed', color: 'red'})
+
+        }
+
         },
-        customizations: {
-          title: "Paylidate",
-          description: "Payment for items details",
-          // logo: "https://content.screencast.com/users/DanielAdegoke/folders/Default/media/f1a10ebf-f854-476f-bd5d-88e8c6cac998/Palidate%20Logo-19.png",
-        },
-      });
+        async fundCard (currency, amount) {
+       this.$q.loading.show({
+          message: 'Hold on, Card funding in progress',
+        spinnerColor: 'secondary'
+          
+        })
+
+       try{
+      let virtual_card_id = this.$q.localStorage.getItem('PaymentDetails').virtual_card_id;
+          const req = await this.$axios.post(process.env.Api + '/api/fund', {virtual_card_id, currency, amount});
+      const res = req.data
+        this.$q.localStorage.removeItem("PaymentDetails");
+
+        if(res.status == 'success') { 
+          this.$q.loading.hide()
+          this.$q.notify({message: 'Money has been added to your virtual card', color: 'green'})
+        }
+        else{
+          this.$router.push({ name: "escrow"})
+          this.$q.loading.hide()
+          this.$q.notify({message: 'Error while trying to fund Card', color: 'red'})
+        }
+
+        }catch(err){
+          this.$q.localStorage.removeItem("PaymentDetails");
+          this.$q.loading.hide()
+          this.$q.notify({message: 'Error while trying to fund Card', color: 'red'})
+           this.$router.push({ name: "escrow"})
+          
+        }
+     
     },
     }
 }
