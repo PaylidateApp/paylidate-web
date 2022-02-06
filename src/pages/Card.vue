@@ -4,7 +4,7 @@
     <!-- <ActivateCard v-if="$route.name == 'activate-card'"/> -->
     <CardPaid v-if="$route.name == 'virtual-card-payment'"/>
     <FundCard v-else-if="$route.name == 'fund-card'"/>
-    <Cards v-else/>
+    <Cards v-else/> <!-- Add money and create card header -->
   </q-page>
 </template>
 

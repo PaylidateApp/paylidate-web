@@ -1,30 +1,7 @@
 <template>
   <q-page padding>
     <div>
-      <q-card>
-        <q-card-section>
-            <!-- <div class="text-h6">Alert</div> -->
-        </q-card-section>
-        <q-card-section v-if="this.$route.query.status == 'successful'">
-              <div class="text-center">
-                <q-icon name="check_circle" color="primary" size="xl"/>
-              </div>
-              <div class="text-positive text-center">
-                Payment Successful
-              </div>
-        </q-card-section>
-         <q-card-section v-else>
-              <div class="text-center">
-                <q-icon name="error" color="negative" size="xl"/>
-              </div>
-              <div class="text-negative text-center">
-                Un-Successful Payment
-              </div>
-        </q-card-section>
-        <q-card-actions align="right">
-        <q-btn flat label="OK" color="primary" @click="goBack()" />
-        </q-card-actions>
-      </q-card>
+
     </div>
   </q-page>
 </template>
@@ -46,28 +23,90 @@ export default {
   },
 
   mounted() {
-    this.createProduct();
+    this.verifyPayment();
   },
 
   methods:{
-    async createProduct(){
-       if (this.$route.query.status == 'successful') {
-         try{
-            const req = await this.$axios.post(process.env.Api + '/api/card', {
-              amount: this.$q.localStorage.getItem('amount'),
-              currency: this.$q.localStorage.getItem('currency'),
-            })
-            const res = req.data
-          }catch(err){
+    async verifyPayment(){
+        this.$q.loading.show({
+          message: 'Hold on, While payment is been verified',
+          spinnerColor: 'secondary'
+          
+        })
+        
+        let response = JSON.parse(this.$route.query.response)
+   
 
-          }
-       }
+        let currency = this.$q.localStorage.getItem('PaymentDetails').currency;
+        let amount = this.$q.localStorage.getItem('PaymentDetails').amount;
 
+        if(response.status == 'successful' && response.currency == currency && response.amount == amount){
+        let txRef = response.txRef
+        
+        this.$q.localStorage.removeItem("PaymentDetails");
+ 
+        const req = await this.$axios.post(process.env.Api + '/api/verify-payment', {txRef})
+        const res = req.data;
+        
+        
+        if(res.status == 'success'){
+          // execute what you want to happen if verification is ok          
+         
+          this.createCard (res.data.currency, res.data.amount);
+        }
+        else{
+          this.$q.localStorage.removeItem("PaymentDetails");
+          this.$router.push({ name: "escrow"})
+          this.$q.loading.hide()
+          this.$q.notify({message: 'Verification Failed', color: 'red'})
+
+
+        }
+
+        }
+        else{
+          this.$q.localStorage.removeItem("PaymentDetails");
+          this.$router.push({ name: "escrow"})
+            this.$q.loading.hide()
+          this.$q.notify({message: 'Verification Failed', color: 'red'})
+
+        }
+
+        },
+
+        async createCard (currency, amount) {
+       this.$q.loading.show({
+          message: 'Hold on, Card creation in progress',
+        spinnerColor: 'secondary'
+          
+        })
+
+       try{
+      const req = await this.$axios.post(process.env.Api + '/api/card', {
+        amount: amount,
+          currency: currency,
+          default: 1
+      })
+        const res = req.data
+        if(res.status == 'success') { 
+          this.$q.loading.hide()
+          this.$q.notify({message: 'Card Created successfully', color: 'green'})
+        }
+        else{
+          this.$router.push({ name: "escrow"})
+          this.$q.loading.hide()
+          this.$q.notify({message: 'Card Creation Failed', color: 'red'})
+        }
+
+        }catch(err){
+          this.$q.loading.hide()
+          this.$q.notify({message: 'Card Creation Failed', color: 'red'})
+           this.$router.push({ name: "escrow"})
+          
+        }
+     
     },
 
-    goBack(){
-      this.$router.push({ name: "escrow"})
-    }
   }
 }
 </script>

@@ -26,7 +26,8 @@ module.exports = configure(function (/* ctx */) {
       'composition-api',
       'i18n',
       'axios',
-      'addressbar-color',
+      'addressbar-color',      
+      'credit-card-validation',
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

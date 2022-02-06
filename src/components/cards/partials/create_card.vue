@@ -11,26 +11,31 @@
     <q-card-section class="q-gutter-sm">
       <div v-if="error" class="text-negative">{{error}}</div>
       <q-select square outlined v-model="form.currency" :options="options" label="Currency" dense />
-      <q-input square outlined v-model="form.amount" label="Amount" dense />
+      <q-input square outlined readonly v-model="form.amount" label="Amount" dense />
       <div v-if="form.currency === 'USD'">
         <!-- Convertion Rate: {{ rate }} NGN to 1 USD -->
       </div>
     </q-card-section>
 
     <q-card-actions align="right">
-      <q-btn color="primary" label="Create Card"  @click="createCard()" />
+      <q-btn color="primary" label="Create Card"  @click="chargeCard()" />
       <!-- <q-btn color="secondary" label="Cancel" @click="getRate()" /> -->
       <q-btn flat label="cancel" color="primary" v-close-popup />
     </q-card-actions>
     </q-card>
     </q-dialog>
-
+   <ChargeCard v-if="this.$q.localStorage.getItem('PaymentDetails')" @data="createCard"/>
   </div>
 </template>
 
 <script>
+import ChargeCard from 'components/cards/partials/charge_card'
+
 export default {
   props:['cards'],
+      components:{
+    ChargeCard
+  },
     data(){
       return {
         open: false,
@@ -38,12 +43,18 @@ export default {
         form:{
           currency: 'NGN',
           amount: 250,
-          redirect_url: `${window.location.href}/payment`
+          redirect_url: `${window.location.href}/payment`, 
+          title:"Create Card",        
         },
         options: [
         'USD','NGN'
       ],
       rate: 0,
+
+      loadingInfo:{
+        message: 'Hold on, Card creation in progress',
+        spinnerColor: 'secondary'
+      }
       }
   },
 
@@ -58,7 +69,10 @@ export default {
   },
 
   methods:{
-    async createCard(){
+   
+    async chargeCard(){
+        this.$q.localStorage.set('createCard', true);
+      
       try{
         const currency = this.form.currency
         const amount = this.form.amount
@@ -74,12 +88,14 @@ export default {
         }
 
 
-        this.$q.localStorage.set('currency', this.form.currency)
-        this.$q.localStorage.set('amount', this.form.amount)
+        //this.$q.localStorage.set('currency', this.form.currency)
+        //this.$q.localStorage.set('amount', this.form.amount)
+        this.$q.localStorage.set('PaymentDetails', this.form);
+        this.$store.commit('card/PaymentModel', true);
+        this.open = false;
+        this.error="";
 
-        const req = await this.$axios.post(process.env.Api + '/api/payment/link', this.form)
-        const res = req.data
-        window.location.href = res.data.link;
+
 
         // const req = await this.$axios.post(process.env.Api + '/api/card', this.form)
         // const res = req.data
@@ -89,6 +105,34 @@ export default {
 
       }
 
+    },
+
+     async createCard (value) {
+       
+       this.$q.loading.show(this.loadingInfo)
+       
+       try{
+      const req = await this.$axios.post(process.env.Api + '/api/card', {
+        amount: this.form.amount,
+          currency: this.form.currency,
+          default: 1
+      })
+        const res = req.data
+        if(res.status == 'success') { 
+          this.$q.loading.hide()
+          this.$q.notify({message: 'Card Created successfully', color: 'green'})
+        }
+        else{
+          this.$q.loading.hide()
+          this.$q.notify({message: 'Card Creation Failed', color: 'red'})
+        }
+
+        }catch(err){
+          this.$q.loading.hide()
+          this.$q.notify({message: 'Card Creation Failed', color: 'red'})
+          
+        }
+     
     },
 
     async getRate(){

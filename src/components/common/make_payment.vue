@@ -64,13 +64,20 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+   <ChargeCard @data="paymentStatus"/>
   </div>
 </template>
 
 <script>
 // import router from 'src/router';
+import ChargeCard from 'components/cards/partials/charge_card'
+
+
 export default {
   props:['amount','slug','product','url'],
+    components:{
+      ChargeCard    
+  },
     data(){
       return {
         confirm: false,
@@ -81,7 +88,9 @@ export default {
           amount: this.amount,
           slug: this.slug,
           currency: 'NGN',
-          redirect_url: this.url
+          title:'Payment for ' + this.slug,
+          redirect_url: `${window.location.href}/payment.${this.slug}`
+          
         },
          error: ''
       }
@@ -99,15 +108,50 @@ export default {
       async makePayment() {
         this.loading = true;
 
-        const req = await this.$axios.post(process.env.Api + '/api/payment/link', this.form)
-        const res = req.data
-        window.location.href = res.data.link;
+        this.$q.localStorage.set('PaymentDetails', this.form);
+        this.$store.commit('card/PaymentModel', true);
+        this.loading = false;
+
+
+        // const req = await this.$axios.post(process.env.Api + '/api/payment/link', this.form)
+        // const res = req.data
+        // window.location.href = res.data.link;
 
         // const req = await this.$axios.post(process.env.Api + '/api/make-payment', this.form)
         // const res = req.data
         // this.open = false;
-        this.loading = false;
       },
+
+      async paymentStatus(){
+
+        
+        try{
+        const req = await this.$axios.get(`${process.env.Api}/api/product/paid/${this.slug}`)          
+          const res = req.data
+
+           this.$q.loading.show({
+          message: 'Hold on, Processing Payment',
+        spinnerColor: 'secondary'
+          
+        })
+          if(res.status == 'success'){
+           this.$q.loading.hide()
+          this.$q.notify({message: 'Payment Successful ', color: 'red'})
+          returngreen
+          }
+
+          this.$q.loading.hide()
+          this.$q.notify({message: 'Processing ', color: 'red'})
+
+
+        }catch(err){
+
+        }
+
+        
+      },
+
+
        async get_rate() {
         const req = await this.$axios.post(process.env.Api + '/api/get-rate')
         const res = req.data
