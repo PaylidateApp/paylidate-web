@@ -76,6 +76,7 @@
             <q-card-section class="q-gutter-sm">
               <q-select dense square v-model="bank.bank_code" :options="banks" option-value="code"
                 option-label="name" emit-value map-options outlined label="Bank Name" />
+              <q-input dense square v-model="bank.account_name" outlined label="Account Name" />
               <q-input dense square type="number" v-model="bank.account_number" outlined label="Account Number" />
               <q-btn color="primary" @click="accountDetail()" :loading="loading" no-caps label="Save Account Details" />
             </q-card-section>
@@ -115,6 +116,7 @@ export default {
       bank:{
         bank_name: '',
         account_number: '',
+        account_name: '',
         bank_code: ''
       },
       banks:[],
@@ -159,7 +161,11 @@ export default {
     async accountDetail(){
 
       let account_number = this.bank.account_number
+      let account_name = this.bank.account_name
       let bank_code = this.bank.bank_code
+      if(!account_name || account_name.length <3){
+        return
+      }
       if(!account_number || account_number.length !=10){
         return
       }
