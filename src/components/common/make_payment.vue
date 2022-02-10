@@ -3,7 +3,7 @@
 
     <q-btn color="secondary" size="xs" label="Make Payment" @click="open = true" />
     <q-dialog v-model="open">
-      <q-card style="min-width:700px">
+      <q-card :style="$q.screen.gt.sm ? 'min-width: 600px' : 'min-width: 300px'">
         <q-card-section>
           <div class="text-h6">{{ open && confirm ? 'Please Confirm': 'Make Payment' }}</div>
         </q-card-section>
