@@ -21,19 +21,19 @@
     </q-card>
     </q-dialog>
 
-   <ChargeCard @data="fundCard"/>
+ 
   
 
   </div>
 </template>
 
 <script>
-import ChargeCard from './charge_card'
+import chargeCard from '../../../payment/makePayment';
 
 export default {
 
     components:{
-    ChargeCard
+    
   },
     data(){
       return {
@@ -86,6 +86,7 @@ export default {
         this.error=""
       },
       async makePayment() {
+        chargeCard.makePayment(1000)
         this.$q.localStorage.set('createCard', false);
         const amount = this.form.amount
         if (!amount || amount < 200) {
@@ -99,6 +100,9 @@ export default {
           return
         }
          */
+
+        chargeCard.makePayment(this.form.amount,  this.form.currency,);
+        return
         this.form.redirect_url += this.form.virtual_card_id;         
         
         this.$q.localStorage.set('PaymentDetails', this.form);
