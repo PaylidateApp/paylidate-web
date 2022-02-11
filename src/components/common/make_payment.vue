@@ -17,6 +17,11 @@
         </q-card-section>
 
         <q-card-section class="column flex-center full-width" v-if="confirm">
+         
+          <div class="q-py-xs text-center">
+                      <div>Noted: {{charges}} </div>
+          </div>
+
           <div class="q-py-xs text-center">
             <div class="text-caption text-weight-light">Amount</div>
             <div class="text-bold text-h5">NGN {{ product.price }}</div>
@@ -86,10 +91,9 @@ export default {
         rate: 0,
         form:{
           amount: this.amount,
+          total_amount: null,
           slug: this.slug,
           currency: 'NGN',
-          title:'Payment for ' + this.slug,
-          redirect_url: `${window.location.href}/payment.${this.slug}`
           
         },
          error: ''
@@ -98,6 +102,21 @@ export default {
 
      computed: {
       cards(){return this.$store.getters["card/cards"] },
+      charges(){
+      let charge = (3/100 * this.form.amount).toFixed(2)
+        if(charge < 100){
+          this.form.total_amount = this.form.amount + 100
+          return "Your Transaction fee is NGN 100"
+        }
+        else if( charge > 2060){
+          this.form.total_amount = this.form.amount + 2060;
+          return "Your Transaction fee is NGN 2060"
+        }
+        else {
+          this.form.total_amount = this.form.amount + charge
+          return "Your Transaction fee is NGN " + charge
+        }
+    }
     },
 
     mounted() {
@@ -108,8 +127,59 @@ export default {
       async makePayment() {
         this.loading = true;
 
-        this.$q.localStorage.set('PaymentDetails', this.form);
-        this.$store.commit('card/PaymentModel', true);
+          this.$q.localStorage.set('amount', this.form.total_amount);
+          this.$q.localStorage.set('currency', this.form.currency);
+          this.$q.localStorage.set('slug', this.form.slug);
+
+          FlutterwaveCheckout({
+          public_key: process.env.Flutterwave_public_key,
+      
+          tx_ref:'PD' + this.user.id + (new Date()).getTime(),
+          amount: this.form.total_amount,
+          currency: this.form.currency,
+          country: "",
+          payment_options: "",
+          redirect_url: `${window.location.href}/product-payment`,
+                   meta: {
+            consumer_id: this.user.id,
+            consumer_mac: "",
+          },
+          customer: {
+            email: this.user.email,
+            phone_number: this.user.phone,
+            name: this.user.name,
+          },
+      callback: function (data) {
+        if(data.status == 'successful'){
+        this.paymentStatus();
+       
+        this.open = false;
+        this.error=""; 
+        this.loading = false;
+
+        }
+        else{
+          this.open = false;
+        this.error="";
+        this.loading = false;
+
+          this.$q.notify({message: 'Transaction Error ', color: 'red'})
+        }
+      },
+      onclose: function() {
+        
+        this.error=""; 
+      },
+      customizations: {
+        title: "Payment for " + this.slug,
+        description: "Paid for " + this.slug,
+        logo: "https://content.screencast.com/users/DanielAdegoke/folders/Default/media/f1a10ebf-f854-476f-bd5d-88e8c6cac998/Palidate%20Logo-19.png",
+      },
+    });
+
+        this.open = false;
+
+
         this.loading = false;
 
 
@@ -136,12 +206,12 @@ export default {
         })
           if(res.status == 'success'){
            this.$q.loading.hide()
-          this.$q.notify({message: 'Payment Successful ', color: 'red'})
-          returngreen
+          this.$q.notify({message: 'Payment Successful ', color: 'green'})
+          return
           }
 
           this.$q.loading.hide()
-          this.$q.notify({message: 'Processing ', color: 'red'})
+          this.$q.notify({message: 'Transaction Error ', color: 'red'})
 
 
         }catch(err){

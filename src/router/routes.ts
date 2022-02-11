@@ -27,7 +27,8 @@ const routes: RouteConfig[] = [
       { path: 'virtual-card/fund-card/:card_id', name: 'fund-card', component: () => import('pages/Card.vue'), props: true },
       { path: 'activate-card', name: 'activate-card', component: () => import('pages/Card.vue'), props: true, meta: { requiresAuth: true } },
       { path: 'settings', name: 'settings', component: () => import('pages/Settings.vue'), meta: { requiresAuth: true } },
-      { path: 'products', name: 'products', component: () => import('pages/EscrowProduct.vue'), meta: { requiresAuth: true } },
+      { path: 'virtual-card/product-payment', name: 'pay-product', component: () => import('pages/product_payment.vue'), meta: { requiresAuth: true } },
+      
 
         // { path: 'security', name: 'security', component: () => import('pages/Index.vue') },
         // { path: 'initAccount', name: 'initAccount',component: () => import('pages/Auth.vue') },

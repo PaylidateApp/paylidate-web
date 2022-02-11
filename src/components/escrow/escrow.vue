@@ -73,11 +73,11 @@ add payment remitance date automatically on all transaction <br> -->
               {{ props.row.carbs }}
             </q-badge>
           </q-td>
-          <q-td key="type" :props="props">
-            <q-badge v-if="props.row.type === 'buy'" color="primary">
+          <q-td key="transaction_type" :props="props">
+            <q-badge v-if="props.row.transaction_type === 'buy'" color="primary">
               {{ props.row.user_id === user.id ? 'buy' : 'sell' }}
             </q-badge>
-            <q-badge v-if="props.row.type === 'sell'" color="primary">
+            <q-badge v-if="props.row.transaction_type === 'sell'" color="primary">
               {{ props.row.user_id === user.id ? 'sell' : 'buy' }}
             </q-badge>
           </q-td>
@@ -155,11 +155,11 @@ export default {
           sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
         { name: 'quantity', label: 'Quantity', field: 'quantity', sortable: true,  align: 'left'  },
         { name: 'price', label: 'Price', field: 'price', sortable: true,  align: 'left'  },
-        { name: 'type', label: 'Type', field: 'type', sortable: true,  align: 'left'  },
+        { name: 'transaction_type', label: 'Transaction Type', field: 'transaction_type', sortable: true,  align: 'left'  },
         // { name: 'confirmed', label: 'Confirmation', field: 'confirmed', align: 'left', sortable: true },
         // { name: 'payment_status', label: 'Payment', field: 'payment_status',align: 'left', sortable: true },
         { name: 'view', label: 'View', field: '', align: 'left', sortable: true },
-        { name: 'action', label: 'Status', field: '',  align: 'left'  },
+        { name: 'action', label: 'Status', field: '',  align: 'left' },
         { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'left', sortable: true,  align: 'left'  },
 
       ],
@@ -192,16 +192,16 @@ export default {
         const sort_ammounts = this.contents.filter(function(item) {
 
             if (item.payment_status) {
-              if (item.type === 'buy' && item.user_id != user_id && type === 'received') {
+              if (item.transaction_type === 'buy' && item.user_id != user_id && type === 'received') {
                 return item
               }
-              if (item.type === 'buy' && item.user_id === user_id && type === 'made') {
+              if (item.transaction_type === 'buy' && item.user_id === user_id && type === 'made') {
                 return item
               }
-              if (item.type === 'sell' && item.user_id === user_id && type === 'received') {
+              if (item.transaction_type === 'sell' && item.user_id === user_id && type === 'received') {
                 return item
               }
-              if (item.type === 'sell' && item.user_id != user_id && type === 'made') {
+              if (item.transaction_type === 'sell' && item.user_id != user_id && type === 'made') {
                 return item
               }
             }

@@ -8,6 +8,10 @@
         <div class="text-h6">Create Card</div>
       </q-card-section>
 
+      <q-card-section>
+          <div>Noted: {{charges}} </div>
+      </q-card-section>
+
     <q-card-section class="q-gutter-sm">
       <div v-if="error" class="text-negative">{{error}}</div>
       <q-select square outlined v-model="form.currency" :options="options" label="Currency" dense />
@@ -18,7 +22,7 @@
     </q-card-section>
 
     <q-card-actions align="right">
-      <q-btn color="primary" label="Create Card"  @click="chargeCard()" />
+      <q-btn color="primary" label="Create Card"  @click="makePayment()" />
       <!-- <q-btn color="secondary" label="Cancel" @click="getRate()" /> -->
       <q-btn flat label="cancel" color="primary" v-close-popup />
     </q-card-actions>
@@ -43,8 +47,7 @@ export default {
         form:{
           currency: 'NGN',
           amount: 250,
-          redirect_url: `${window.location.href}/payment`, 
-          title:"Create Card",        
+          total_amount: null
         },
         options: [
         'USD','NGN'
@@ -67,13 +70,33 @@ export default {
   mounted() {
     this.getRate();
   },
+  computed: {
+    user(){return this.$store.getters["auth/user"] },
+    charges(){
+      let charge = (3/100 * this.form.amount).toFixed(2)
+        if(charge < 100){
+          this.form.total_amount = this.form.amount + 100
+          return "Your Transaction fee is NGN 100"
+        }
+        else if( charge > 2060){
+          this.form.total_amount = this.form.amount + 2060;
+          return "Your Transaction fee is NGN 2060"
+        }
+        else {
+          this.form.total_amount = this.form.amount + charge
+          return "Your Transaction fee is NGN " + charge
+        }
+    }
+    
+  },
 
   methods:{
    
-    async chargeCard(){
-        this.$q.localStorage.set('createCard', true);
+    async makePayment(){
+        
       
       try{
+        
         const currency = this.form.currency
         const amount = this.form.amount
         if (!amount) {
@@ -86,21 +109,65 @@ export default {
           this.error = 'Amount cannot be less than 200'
           return
         }
+        
+        
+          this.$q.localStorage.set('amount', this.form.total_amount);
+          this.$q.localStorage.set('currency', this.form.currency);
+          
 
 
-        //this.$q.localStorage.set('currency', this.form.currency)
-        //this.$q.localStorage.set('amount', this.form.amount)
-        this.$q.localStorage.set('PaymentDetails', this.form);
-        this.$store.commit('card/PaymentModel', true);
+          FlutterwaveCheckout({
+          public_key: process.env.Flutterwave_public_key,
+      
+          tx_ref:'PD' + this.user.id + (new Date()).getTime(),
+          amount: this.form.total_amount,
+          currency: this.form.currency,
+          country: "",
+          payment_options: " ",
+          redirect_url:  `${window.location.href}/payment`,
+                   meta: {
+            consumer_id: this.user.id,
+            consumer_mac: "",
+          },
+          customer: {
+            email: this.user.email,
+            phone_number: this.user.phone,
+            name: this.user.name,
+          },
+      callback: function (data) {
+        if(data.status == 'successful'){
+          this.$q.loading.show(this.loadingInfo)
+          return
+        this.createCard();
+       
+        this.open = false;
+       
+        this.error=""; 
+        }
+        else{
+          this.open = false;
+        this.loading = false;
+        this.error="";
+          this.$q.notify({message: 'Transaction Error ', color: 'red'})
+        }
+      },
+      onclose: function() {
+        
+        this.error=""; 
+      },
+      customizations: {
+        title: "Create Card",
+        description: "Creating a Virtual Card",
+        logo: "https://content.screencast.com/users/DanielAdegoke/folders/Default/media/f1a10ebf-f854-476f-bd5d-88e8c6cac998/Palidate%20Logo-19.png",
+      },
+    });
+
         this.open = false;
         this.error="";
 
+           
 
 
-        // const req = await this.$axios.post(process.env.Api + '/api/card', this.form)
-        // const res = req.data
-        // this.$q.notify({message: 'Card Created Successfully', color: 'green'})
-        // this.open = false
       }catch(err){
 
       }

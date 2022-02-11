@@ -191,12 +191,12 @@ export default {
         else{
 
            this.loading = false;
-          this.$q.notify({message: 'A rooro occured while saving account details', color: 'red'})                   
+          this.$q.notify({message: 'An error occured while saving account details', color: 'red'})                   
 
         }
         }catch(e){
          this.loading = false;
-          this.$q.notify({message: 'A rooro occured while saving account details', color: 'red'})                   
+          this.$q.notify({message: 'An error occured while saving account details', color: 'red'})                   
       }
     }
   },

@@ -1,10 +1,10 @@
 export default {
     
-    makePayment(title = "Make Payment", amount, description ="", currency="NGN", country = "") {
-          
+    makePayment(title = "Make Payment", description ="", amount, currency="NGN", country = "") {
+        const d = new Date();
         FlutterwaveCheckout({
-          public_key: "FLWPUBK_TEST-SANDBOXDEMOKEY-X",
-          tx_ref: "RX1",
+          public_key: "FLWPUBK_TEST-94c2964fdf6f5f2bf770319733fa7a9d-X",
+          tx_ref: d,
           amount: amount,
           currency: currency,
           country: country,
@@ -19,11 +19,10 @@ export default {
             name: "Flutterwave Developers",
           },
           callback: function (data) {
-            console.log(data);
+              //console.log(data);
+            return "dfdh";
           },
-          onclose: function() {
-            alert("sdfjsdo");
-          },
+ 
           customizations: {
             title: title,
             description: description,
