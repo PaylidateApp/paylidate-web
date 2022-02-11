@@ -9,7 +9,7 @@
       </q-card-section>
 
       <q-card-section>
-          <div>Noted: {{charges}} </div>
+          <div>Noted: Your Transaction fee is NGN 100 and NGN 150 will be added to your card </div>
       </q-card-section>
 
     <q-card-section class="q-gutter-sm">
@@ -28,18 +28,14 @@
     </q-card-actions>
     </q-card>
     </q-dialog>
-   <ChargeCard v-if="this.$q.localStorage.getItem('PaymentDetails')" @data="createCard"/>
   </div>
 </template>
 
 <script>
-import ChargeCard from 'components/cards/partials/charge_card'
 
 export default {
   props:['cards'],
-      components:{
-    ChargeCard
-  },
+
     data(){
       return {
         open: false,
@@ -47,7 +43,6 @@ export default {
         form:{
           currency: 'NGN',
           amount: 250,
-          total_amount: null
         },
         options: [
         'USD','NGN'
@@ -72,21 +67,6 @@ export default {
   },
   computed: {
     user(){return this.$store.getters["auth/user"] },
-    charges(){
-      let charge = (3/100 * this.form.amount).toFixed(2)
-        if(charge < 100){
-          this.form.total_amount = this.form.amount + 100
-          return "Your Transaction fee is NGN 100"
-        }
-        else if( charge > 2060){
-          this.form.total_amount = this.form.amount + 2060;
-          return "Your Transaction fee is NGN 2060"
-        }
-        else {
-          this.form.total_amount = this.form.amount + charge
-          return "Your Transaction fee is NGN " + charge
-        }
-    }
     
   },
 
@@ -111,7 +91,7 @@ export default {
         }
         
         
-          this.$q.localStorage.set('amount', this.form.total_amount);
+          this.$q.localStorage.set('amount', this.form.amount);
           this.$q.localStorage.set('currency', this.form.currency);
           
 
@@ -120,7 +100,7 @@ export default {
           public_key: process.env.Flutterwave_public_key,
       
           tx_ref:'PD' + this.user.id + (new Date()).getTime(),
-          amount: this.form.total_amount,
+          amount: this.form.amount,
           currency: this.form.currency,
           country: "",
           payment_options: " ",
