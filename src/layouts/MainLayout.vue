@@ -175,7 +175,14 @@ export default {
           is_active: false,
           is_authenticated: true
         },
-        
+        {
+          title: 'Product',
+          caption: '',
+          icon: 'production_quantity_limits',
+          link: '',
+          is_active: false,
+          is_authenticated: true
+        },
         {
           title: 'Settings',
           caption: '',
