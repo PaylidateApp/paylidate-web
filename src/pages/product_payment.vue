@@ -40,10 +40,11 @@ export default {
 
         let currency = this.$q.localStorage.getItem('currency');
         let amount = this.$q.localStorage.getItem('amount');
+        let slug = this.$q.localStorage.getItem('slug');
         
         
 
-        if(this.form.status == 'successful' && currency && amount){
+        if(this.form.status == 'successful' && currency && amount && slug){
         let txRef = this.form.tx_ref
         
         this.$q.localStorage.remove("amount");
@@ -56,7 +57,7 @@ export default {
         if(res.status == 'success'){
           // execute what you want to happen if verification is ok          
          
-          this.createCard (res.data.currency, res.data.amount);
+          this.paymentStatus (slug);
         }
         else{
           this.$q.localStorage.remove("PaymentDetails");
@@ -78,40 +79,38 @@ export default {
 
         },
 
-        async createCard (currency, amount) {
-       this.$q.loading.show({
-          message: 'Hold on, Card creation in progress',
+      async paymentStatus(slug){
+
+        
+        try{
+        const req = await this.$axios.get(`${process.env.Api}/api/product/paid/${slug}`)          
+          const res = req.data
+        this.$q.localStorage.remove("slug");
+
+
+           this.$q.loading.show({
+          message: 'Hold on, Processing Payment',
         spinnerColor: 'secondary'
           
         })
-
-       try{
-      const req = await this.$axios.post(process.env.Api + '/api/card', {
-        amount: amount,
-          currency: currency,
-          default: 1
-      })
-        const res = req.data
-        if(res.status == 'success') { 
-          this.$q.loading.hide()
-          this.$router.push({ name: "escrow"})
-          this.$q.notify({message: 'Card Created successfully', color: 'green'})
+          if(res.status == 'success'){
+           this.$q.loading.hide()
+           this.$router.push({ name: "escrow"})
+          this.$q.notify({message: 'Payment Successful ', color: 'green'})
           return
-        }
-        else{
-          this.$router.push({ name: "escrow"})
+          }
+
           this.$q.loading.hide()
-          this.$q.notify({message: 'Card Creation Failed', color: 'red'})
-        }
+          this.$q.notify({message: 'Transaction Error ', color: 'red'})
+
 
         }catch(err){
-          this.$q.loading.hide()
-          this.$q.notify({message: 'Card Creation Failed', color: 'red'})
-           this.$router.push({ name: "escrow"})
-          
+
         }
-     
-    },
+
+        
+      },
+
 
   }
 }

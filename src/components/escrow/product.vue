@@ -35,7 +35,7 @@
           <!-- {{ product.image !== 'default_product.png' ? product.image : base_image }} -->
           <img :src="product.image !== 'default_product.png' ? product.image : base_image">
           <q-card-section>
-            <div class="text-bold">Transaction Type: {{product.type}}</div>
+            <div class="text-bold">Transaction Type: {{product.transaction_type}}</div>
             <div class="text-bold">Quantity: {{product.quantity}}</div>
             <div class="text-bold">Price: {{formatAsNaira(product.price)}}</div>
             <div class="text-bold">Product Number: {{product.product_number}}</div>
@@ -136,7 +136,7 @@
           </div>
 
 <!-- payment_status -->
-          <div v-if="!product.payment_status && product.type === 'buy'  &&  product.user.id === user.id || product.type === 'sell'  &&  product.user.id !== user.id">
+          <div v-if="!product.payment_status && product.transaction_type === 'buy'  &&  product.user.id === user.id || product.transaction_type === 'sell'  &&  product.user.id !== user.id">
               <Payment :amount="product.price" :slug="product.slug" :product="product" :url="payment_url"/>
           </div>
       </q-card-section>

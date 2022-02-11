@@ -8,6 +8,11 @@
     <q-card-section>
       <div class="text-h6">Add Money</div>
     </q-card-section>
+
+    <q-card-section>
+      <div> Note: Transaction Cahrges also applies</div>
+    </q-card-section>
+
     <q-card-section class="q-gutter-sm">
       <div v-if="error" class="text-negative">{{error}}</div>
       <q-select square outlined v-model="form.virtual_card_id" :options="options"  emit-value
@@ -21,19 +26,19 @@
     </q-card>
     </q-dialog>
 
-   <ChargeCard @data="fundCard"/>
+ 
   
 
   </div>
 </template>
 
 <script>
-import ChargeCard from './charge_card'
+
 
 export default {
 
     components:{
-    ChargeCard
+    
   },
     data(){
       return {
@@ -44,14 +49,17 @@ export default {
           virtual_card_id: '',
           currency: 'NGN',
           amount: 0,
-          redirect_url: `${window.location.href}/fund-card/`,
-          title:"Add Money to Card",
+         
         },
          error: '',
-        //  options:[]
+         options:[]
       }
     },
+
+    
     computed: {
+      user(){return this.$store.getters["auth/user"] },
+
       options(){
         return this.$store.getters["card/cards"].map(card => {
           return {
@@ -63,52 +71,110 @@ export default {
       
     },
    mounted(){
-      // this.getCards();
+       this.getCards();
     },
     methods:{
-      // getCards(){
-      //   let cards = this.$store.getters["card/cards"]
-      //   console.table(cards);
-      //   cards =  cards.map(card => {
-      //     return {
-      //       'value': card.card_id,
-      //       'label': card.data.name_on_card,
-      //     }
-      //   })
-      //   this.options = cards
-      // },
+      getCards(){
+        let cards = this.$store.getters["card/cards"]
+        console.table(cards);
+        cards =  cards.map(card => {
+          return {
+            'value': card.card_id,
+            'label': card.data.name_on_card,
+          }
+        })
+        this.options = cards
+      },
       close_dialog(){
         this.form.virtual_card_id = ''
         this.form.currency = 'NGN'
         this.form.amount = null
-        this.form.redirect_url = `${window.location.href}/fund-card/`
         this.open = false;
         this.error=""
       },
       async makePayment() {
-        this.$q.localStorage.set('createCard', false);
+        
         const amount = this.form.amount
         if (!amount || amount < 200) {
           this.error = 'Amount cannot be less than 200'
           return
         }
 
-      /* const virtual_card_id = this.form.virtual_card_id
-        if (!virtual_card_id || virtual_card_id < 200) {
+     const virtual_card_id = this.form.virtual_card_id
+        if (!virtual_card_id) {
           this.error = 'Please select a virtual card'
           return
         }
-         */
-        this.form.redirect_url += this.form.virtual_card_id;         
         
-        this.$q.localStorage.set('PaymentDetails', this.form);
-        this.$store.commit('card/PaymentModel', true);
+
+      let charge = (3/100 * this.form.amount).toFixed(2)
+        if(charge < 100){
+          this.form.amount = this.form.amount + 100
+          
+        }
+        else if( charge > 2060){
+          this.form.amount = this.form.amount + 2060;
+          
+        }
+        else {
+          this.form.amount = this.form.amount + charge
+       
+        }
+          this.$q.localStorage.set('amount', this.form.amount);
+          this.$q.localStorage.set('currency', this.form.currency);
+          this.$q.localStorage.set('virtual_card_id', this.form.virtual_card_id);
+          
+    
+          FlutterwaveCheckout({
+          public_key: process.env.Flutterwave_public_key,
+         tx_ref:'PD' + this.user.id + (new Date()).getTime(),
+          amount: this.form.amount,
+          currency: this.form.currency,
+          country: "",
+           redirect_url: `${window.location.href}/fund-card/${this.form.virtual_card_id}`,
+          
+          payment_options: " ",
+                   meta: {
+            consumer_id: this.user.id,
+            consumer_mac: "",
+          },
+          customer: {
+            email: this.user.email,
+            phone_number: this.user.phone,
+            name: this.user.name,
+          },
+      callback: function (data) {
+        if(data.status == 'successful'){
+        this.fundCard();
+       
+        this.open = false;
+        this.loading = false;
+        this.error=""; 
+        }
+        else{
+          this.open = false;
+        this.loading = false;
+        this.error=""; 
+          this.$q.notify({message: 'Transaction Error ', color: 'red'})
+        }
+      },
+      onclose: function() {
+        
+        this.error=""; 
+      },
+      customizations: {
+        title: "Add money to card",
+        description: "Crediting virtual card",
+        logo: "https://content.screencast.com/users/DanielAdegoke/folders/Default/media/f1a10ebf-f854-476f-bd5d-88e8c6cac998/Palidate%20Logo-19.png",
+      },
+    });
+      
         this.open = false;
         this.error="";       
         
       },
 
-      async fundCard(value){
+      async fundCard(){
       
         this.$q.loading.show({
           message: 'Hold on, Card funding in progress',

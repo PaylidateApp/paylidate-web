@@ -1,6 +1,6 @@
 <template>
   <div id="targetPage" ref="targetPage">
-    <q-btn unelevated no-caps color="secondary" label="Create Product" @click="open = true" :style="{width: '150px'}"/>
+    <q-btn unelevated no-caps color="secondary" label="Create" @click="open = true" :style="{width: '150px'}"/>
     <q-dialog v-model="open">
       <q-card class="" style="min-width: 300px">
 
