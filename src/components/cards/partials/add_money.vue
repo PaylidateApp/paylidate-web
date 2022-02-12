@@ -74,8 +74,10 @@ export default {
        this.getCards();
     },
     methods:{
-      getCards(){
-        let cards = this.$store.getters["card/cards"]
+      async getCards(){
+        const req = await this.$axios.get(process.env.Api + '/api/card')
+       
+        const cards = req.data.data;
         console.table(cards);
         console.log(cards);
 
