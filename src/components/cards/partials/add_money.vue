@@ -79,11 +79,11 @@ export default {
        
         let cards = req.data.data;
         
-        console.log("first call");
-        console.log(cards);
+       // console.log("first call");
+        //console.log(cards);
 
         cards =  cards.map(card => {
-        console.log(card);
+        //console.log(card);
 
           return {
             'value': card.card_id,
@@ -91,8 +91,8 @@ export default {
           }
         })
         this.options = cards
-        console.log('last call')
-        console.log(this.options)
+        //console.log('last call')
+        //console.log(this.options)
       },
       close_dialog(){
         this.form.virtual_card_id = ''
