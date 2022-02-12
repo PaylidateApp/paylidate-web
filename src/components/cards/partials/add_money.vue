@@ -16,7 +16,7 @@
     <q-card-section class="q-gutter-sm">
       <div v-if="error" class="text-negative">{{error}}</div>
       <q-select square outlined v-model="form.virtual_card_id" :options="options"  emit-value
-        map-options label="Cards" dense />
+        map-options option-value="value" option-label="label" dense />
       <q-input dense square outlined v-model="form.amount" type="number" label="Amount" prefix="NGN" />
     </q-card-section>
     <q-card-actions align="right">
@@ -84,6 +84,7 @@ export default {
           }
         })
         this.options = cards
+        console.log(this.options)
       },
       close_dialog(){
         this.form.virtual_card_id = ''
@@ -108,16 +109,17 @@ export default {
         
 
       let charge = (3/100 * this.form.amount).toFixed(2)
+      let original_amount = parseInt(this.form.amount);
         if(charge < 100){
-          this.form.amount = this.form.amount + 100
+          this.form.amount = original_amount + 100
           
         }
         else if( charge > 2060){
-          this.form.amount = this.form.amount + 2060;
+          this.form.amount = original_amount + 2060;
           
         }
         else {
-          this.form.amount = this.form.amount + charge
+          this.form.amount = original_amount + parseInt(charge);
        
         }
           this.$q.localStorage.set('amount', this.form.amount);
