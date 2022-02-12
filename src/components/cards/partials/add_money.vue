@@ -10,7 +10,7 @@
     </q-card-section>
 
     <q-card-section>
-      <div> Note: Transaction Cahrges also applies</div>
+      <div> Note: Transaction Charges also applies</div>
     </q-card-section>
 
     <q-card-section class="q-gutter-sm">

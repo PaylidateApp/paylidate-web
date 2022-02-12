@@ -9,7 +9,7 @@
       </q-card-section>
 
       <q-card-section>
-          <div>Noted: Your Transaction fee is NGN 100 and NGN 150 will be added to your card </div>
+          <div>{{charges_fee}} </div>
       </q-card-section>
 
     <q-card-section class="q-gutter-sm">
@@ -67,8 +67,21 @@ export default {
   },
   computed: {
     user(){return this.$store.getters["auth/user"] },
+
+    charges_fee(){
+    if(this.form.currency == "NGN"){
+      return 'Note: Your Transaction fee is NGN 100 and NGN 150 will be added to your card '
+    }
+    else{
+      
+      return 'Note: Your Transaction fee is USD 1 and USD 2 will be added to your card '
     
+    }
+    
+  }
   },
+
+  
 
   methods:{
    
