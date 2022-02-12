@@ -16,7 +16,7 @@
     <q-card-section class="q-gutter-sm">
       <div v-if="error" class="text-negative">{{error}}</div>
       <q-select square outlined v-model="form.virtual_card_id" :options="options"  emit-value
-        map-options option-value="value" option-label="label" dense />
+        map-options label="Cards" dense />
       <q-input dense square outlined v-model="form.amount" type="number" label="Amount" prefix="NGN" />
     </q-card-section>
     <q-card-actions align="right">
@@ -77,6 +77,8 @@ export default {
       getCards(){
         let cards = this.$store.getters["card/cards"]
         console.table(cards);
+        console.log(cards);
+
         cards =  cards.map(card => {
           return {
             'value': card.card_id,
@@ -84,6 +86,7 @@ export default {
           }
         })
         this.options = cards
+        console.log('after call')
         console.log(this.options)
       },
       close_dialog(){
