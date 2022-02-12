@@ -77,18 +77,21 @@ export default {
       async getCards(){
         const req = await this.$axios.get(process.env.Api + '/api/card')
        
-        const cards = req.data.data;
-        console.table(cards);
+        let cards = req.data.data;
+        
+        console.log("first call");
         console.log(cards);
 
         cards =  cards.map(card => {
+        console.log(card);
+
           return {
             'value': card.card_id,
             'label': card.data.name_on_card,
           }
         })
         this.options = cards
-        console.log('after call')
+        console.log('last call')
         console.log(this.options)
       },
       close_dialog(){
