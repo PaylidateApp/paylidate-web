@@ -56,6 +56,7 @@
               </div>
               <q-space />
               <div class="text-center">
+                 <q-badge rounded color="grey-5" @click="copy_link" text-color="black" :label="copyLink" /><br/>
                 Product Link <a :href="url">{{url}}</a>
               </div>
         </q-card-section>
@@ -104,6 +105,7 @@ export default {
         delivery_period: ''
       },
       url: '',
+      copyUrl: 'Copy link',
     }
   },
 
@@ -143,7 +145,11 @@ export default {
         },
       });
     },
-
+    copy_link(){
+      navigator.clipboard.writeText(this.url)
+      this.copyUrl== 'Copied'
+      setTimeout(function(){this.copyUrl== 'Copy link'}, 4000);
+    },
     addFiles(files) {
       const maxAllowedSize = 2 * 1024 * 1024;
 
@@ -221,7 +227,7 @@ export default {
         console.log(process.env.Api );
         const req = await this.$axios.post(process.env.Api + '/api/product', this.form)
         const res = req.data
-        console.log(req.data);
+        //console.log(req.data);
      
 
         if (res.status == 'success') {
@@ -282,6 +288,7 @@ export default {
   },
 
   computed: {
+    copyLink(){ return this.copyUrl},
     rightInput(){ return this.$q.screen.gt.sm ? "col-md-6 q-pr-xs" : "col-sm-12 q-pb-xs"},
     leftInput(){ return this.$q.screen.gt.sm ? "col-md-6 q-pl-xs" : "col-sm-12 q-pt-xs"}
   }
