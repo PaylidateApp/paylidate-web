@@ -75,11 +75,13 @@
 
 <script>
 // import router from 'src/router';
+import ChargeCard from 'components/cards/partials/charge_card'
+
 
 export default {
   props:['amount','slug','product','url'],
     components:{
-         
+      ChargeCard    
   },
     data(){
       return {
