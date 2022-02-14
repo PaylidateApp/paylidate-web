@@ -19,7 +19,7 @@
         <q-card-section class="column flex-center full-width" v-if="confirm">
          
           <div class="q-py-xs text-center">
-                      <div>Noted: {{charges}} </div>
+                      <div>Note: {{charges}} </div>
           </div>
 
           <div class="q-py-xs text-center">
@@ -65,23 +65,21 @@
         <q-card-actions align="right">
           <q-btn unelevated no-caps color="primary" label="Make Payment" v-if="!confirm" :loading="loading" @click="confirm = true; open = true" />
           <q-btn unelevated no-caps color="primary" label="Make Payment" v-if="confirm" :loading="loading" @click="makePayment()" />
-          <q-btn flat label="Cancel" no-caps color="negative" @click="confirm = false; open = false" />
+          <q-btn flat label="Cancel" no-caps color="negative" @click="confirm = false; open = false; loading = false;" />
         </q-card-actions>
       </q-card>
     </q-dialog>
-   <ChargeCard @data="paymentStatus"/>
+
   </div>
 </template>
 
 <script>
 // import router from 'src/router';
-import ChargeCard from 'components/cards/partials/charge_card'
-
 
 export default {
   props:['amount','slug','product','url'],
     components:{
-      ChargeCard    
+         
   },
     data(){
       return {
