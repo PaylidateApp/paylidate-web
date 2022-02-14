@@ -16,6 +16,7 @@
             color="primary"
             class=""
             icon="more_vert"
+            @click="copy_link"
           >
 
             <q-menu anchor="bottom right" self="center right">
@@ -24,6 +25,7 @@
               </q-item>
               <DDelete :content="content.id" /> -->
             </q-menu>
+            
           </q-btn>
       </q-card-section>
       <q-card-section class="column">
@@ -214,6 +216,10 @@ export default {
   },
 
   methods:{
+    copy_link(){
+      navigator.clipboard.writeText(this.url)
+      
+    },
     async getProduct(){
       const req = await this.$axios.get(process.env.Api + '/api/product/'+ this.slug)
       const res = req.data
