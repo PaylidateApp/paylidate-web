@@ -122,8 +122,8 @@ export default {
           this.form.amount = original_amount + 100
           
         }
-        else if( charge > 2060){
-          this.form.amount = original_amount + 2060;
+        else if( charge > 2500){
+          this.form.amount = original_amount + 2500;
           
         }
         else {

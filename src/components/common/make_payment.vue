@@ -99,19 +99,23 @@ export default {
     },
 
      computed: {
+    user(){return this.$store.getters["auth/user"] },
+
       cards(){return this.$store.getters["card/cards"] },
       charges(){
       let charge = (3/100 * this.form.amount).toFixed(2)
+      let original_amount = parseInt(this.form.amount);
+
         if(charge < 100){
-          this.form.total_amount = this.form.amount + 100
+          this.form.total_amount = original_amount + 100
           return "Your Transaction fee is NGN 100"
         }
-        else if( charge > 2060){
-          this.form.total_amount = this.form.amount + 2060;
-          return "Your Transaction fee is NGN 2060"
+        else if( charge > 2500){
+          this.form.total_amount = original_amount + 2060;
+          return "Your Transaction fee is NGN 2500"
         }
         else {
-          this.form.total_amount = this.form.amount + charge
+          this.form.total_amount = original_amount + parseInt(charge);
           return "Your Transaction fee is NGN " + charge
         }
     }
