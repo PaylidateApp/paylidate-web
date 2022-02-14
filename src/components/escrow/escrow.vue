@@ -117,10 +117,10 @@ add payment remitance date automatically on all transaction <br> -->
             <!-- TODO paid unpaid in-dispute complete -->
            <q-td key="payment_status" :props="props">
             <q-badge v-if="props.row.payment_status" color="steal">
-               {{ 'Paid' }}
+               Paid 
             </q-badge>
             <q-badge v-else color="negative">
-               {{ 'Un-Paid' }}
+               Un-Paid
             </q-badge>
           </q-td>
 
@@ -155,12 +155,12 @@ export default {
           sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
         { name: 'quantity', label: 'Quantity', field: 'quantity', sortable: true,  align: 'left'  },
         { name: 'price', label: 'Price', field: 'price', sortable: true,  align: 'left'  },
-        { name: 'transaction_type', label: 'Transaction Type', field: 'transaction_type', sortable: true,  align: 'left'  },
+        { name: 'transaction_type', label: 'Transaction Type', field: 'transaction_type', sortable: true,  align: 'center'  },
         // { name: 'confirmed', label: 'Confirmation', field: 'confirmed', align: 'left', sortable: true },
         // { name: 'payment_status', label: 'Payment', field: 'payment_status',align: 'left', sortable: true },
-        { name: 'view', label: 'View', field: '', align: 'left', sortable: true },
-        { name: 'action', label: 'Status', field: '',  align: 'left' },
-        { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'left', sortable: true,  align: 'left'  },
+        { name: 'view', label: 'View', field: '', align: 'center', sortable: true },
+        { name: 'payment_status', label: 'Status', field: 'payment_status',  align: 'left', sortable: true },
+        { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'center', sortable: true, },
 
       ],
       contents:[],

@@ -19,12 +19,9 @@
             @click="copy_link"
           >
 
-            <q-menu anchor="bottom right" self="center right">
-              <!-- <q-item clickable @click="editProduct">
-                <q-item-section>Edit Product</q-item-section>
-              </q-item>
-              <DDelete :content="content.id" /> -->
-            </q-menu>
+           <q-tooltip>
+          {{copyL}}
+        </q-tooltip>
             
           </q-btn>
       </q-card-section>
@@ -195,6 +192,7 @@ export default {
 
   data() {
     return {
+      copyLink:'Copy product link',
       slug: this.$route.params.slug,
       product: null,
       text: '',
@@ -211,13 +209,16 @@ export default {
   },
 
   computed:{
+    copyL(){return this.copyLink},
      user(){return this.$store.getters["auth/user"] },
      ModelStyle(){ return this.$q.screen.gt.sm ? "min-width: 500px" : "min-width: 300px"},
   },
 
   methods:{
     copy_link(){
-      navigator.clipboard.writeText(this.url)
+      navigator.clipboard.writeText(window.location)
+      this.copyLink = 'copied!';
+       setTimeout(() => this.copyLink = 'Copy product link', 2000);
       
     },
     async getProduct(){

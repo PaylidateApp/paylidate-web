@@ -56,7 +56,11 @@
               </div>
               <q-space />
               <div class="text-center">
-                 <q-badge rounded color="grey-5" @click="copy_link" text-color="black" :label="copyLink" /><br/>
+                 <q-badge rounded color="grey-5" @click="copy_link" text-color="black" label="copy Link">
+                   <q-tooltip>
+                    {{copyL}}
+                  </q-tooltip>
+                 </q-badge><br/>
                 Product Link <a :href="url">{{url}}</a>
               </div>
         </q-card-section>
@@ -105,7 +109,7 @@ export default {
         delivery_period: ''
       },
       url: '',
-      copyUrl: 'Copy link',
+      copyLink:'Copy link',
     }
   },
 
@@ -145,10 +149,11 @@ export default {
         },
       });
     },
-    copy_link(){
+      copy_link(){
       navigator.clipboard.writeText(this.url)
-      this.copyUrl== 'Copied'
-      setTimeout(function(){this.copyUrl== 'Copy link'}, 4000);
+      this.copyLink = 'copied!';
+       setTimeout(() => this.copyLink = 'Copy Link', 2000);
+      
     },
     addFiles(files) {
       const maxAllowedSize = 2 * 1024 * 1024;
@@ -288,7 +293,7 @@ export default {
   },
 
   computed: {
-    copyLink(){ return this.copyUrl},
+    copyL(){return this.copyLink},
     rightInput(){ return this.$q.screen.gt.sm ? "col-md-6 q-pr-xs" : "col-sm-12 q-pb-xs"},
     leftInput(){ return this.$q.screen.gt.sm ? "col-md-6 q-pl-xs" : "col-sm-12 q-pt-xs"}
   }
