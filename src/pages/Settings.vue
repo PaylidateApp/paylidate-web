@@ -78,7 +78,8 @@
                 option-label="name" emit-value map-options outlined label="Bank Name" />
               <q-input dense square v-model="bank.account_name" outlined label="Account Name" />
               <q-input dense square type="number" v-model="bank.account_number" outlined label="Account Number" />
-              <q-btn color="primary" @click="accountDetail()" :loading="loading" no-caps label="Save Account Details" />
+              <q-btn v-if="update" color="primary" disable @click="accountDetail()" :loading="loading" no-caps label="update Account Details" />
+              <q-btn v-if="!update" color="primary" @click="accountDetail()" :loading="loading" no-caps label="Save Account Details" />
             </q-card-section>
           </q-tab-panel>
 
@@ -101,6 +102,7 @@ export default {
     return {
       loading : false,
       tab: 'profile',
+      update:false,
       splitterModel: 20,
       dBtn:'',
       password:{
@@ -134,6 +136,7 @@ export default {
   computed: {
   
     user(){return this.$store.getters["auth/user"] },
+    user_bank_acc(){return this.bank},
     btn(tab){
       if (this.tab == tab) return '#05202f; background-color: rgba(5, 32, 47, 0.1)'
       else return 'white'
@@ -142,6 +145,7 @@ export default {
 
   mounted(){
     this.getBanks()
+    this.getUserBankDetails()
   },
 
   methods: {
@@ -152,10 +156,32 @@ export default {
     },
 
     async getBanks(){
+   
       const req = await this.$axios.get(process.env.Api + '/api/get-banks')
       const res = req.data
       this.banks = res.data;
       console.log(res);
+    },
+
+      async getUserBankDetails(){
+
+      const req = await this.$axios.get(process.env.Api + '/api/user-bank/'+ this.user.id)
+      const res = req.data.data 
+
+      this.banks.bank_name = res.bank_name,
+        this.banks.account_number= res.account_number,
+        this.banks.account_name= res.account_name,
+        this.banks.bank_code= res.bank_code
+
+        if(res){
+         this.update = true
+        }
+        else{
+          this.update = false
+
+        }
+     
+    
     },
 
     async accountDetail(){
@@ -184,6 +210,8 @@ export default {
         const res = req.data
         console.log(res)
         if(res){
+    this.getUserBankDetails()
+
           this.loading = false;
           this.$q.notify({message: 'Account details save successfully', color: 'green'})                   
 
