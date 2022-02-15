@@ -160,18 +160,18 @@ export default {
       const req = await this.$axios.get(process.env.Api + '/api/get-banks')
       const res = req.data
       this.banks = res.data;
-      console.log(res);
+     
     },
 
       async getUserBankDetails(){
 
       const req = await this.$axios.get(process.env.Api + '/api/user-bank/'+ this.user.id)
-      const res = req.data.data 
-
-      this.banks.bank_name = res.bank_name,
-        this.banks.account_number= res.account_number,
-        this.banks.account_name= res.account_name,
-        this.banks.bank_code= res.bank_code
+      const res = req.data
+        
+        const bank_details = res.data
+        this.bank = bank_details
+        
+       
 
         if(res){
          this.update = true
@@ -208,7 +208,7 @@ export default {
     try{
       const req = await this.$axios.post(process.env.Api + '/api/user-bank', this.bank)
         const res = req.data
-        console.log(res)
+        
         if(res){
     this.getUserBankDetails()
 
