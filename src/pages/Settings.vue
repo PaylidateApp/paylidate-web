@@ -208,7 +208,7 @@ export default {
       let bank_name=this.banks.filter((value)=>{
         return  value.code == this.bank.bank_code
       });
-      //this.bank.bank_name = bank_name['0'].name
+      this.bank.bank_name = bank_name['0'].name
 
       this.loading = true;
 
