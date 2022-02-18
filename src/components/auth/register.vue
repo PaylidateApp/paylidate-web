@@ -55,7 +55,7 @@ export default {
         this.error = false
         this.loading = true
         this.$q.loading.show(this.loadingInfo)
-       this.$axios.post('http://127.0.0.1:8000/api/signup', this.form)
+       this.$axios.post(process.env.Api + '/api/signup', this.form)
         .then(response => {
           this.$q.notify({message: 'Paylidate Account Created', color: 'green', position: 'top', type: 'success' })
           this.loading = false
