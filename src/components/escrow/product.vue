@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <q-page class="flex justify-center">
 
     <!-- {{product}} -->
-
+    <div>
+    
     <q-card v-if="product" class="my-card" bordered flat style="max-width: 500px">
       <!-- <q-img :src="'/product.svg'" spinner-color="white"
       /> -->
@@ -142,6 +143,9 @@
 
     </q-card>
 
+
+    </div>
+
     <q-dialog v-model="onLogin" persistent>
       <q-card class="my-card" :style="ModelStyle">
 
@@ -169,9 +173,7 @@
     <!-- <Signup />  -->
 
     </q-dialog>
-
-
-  </div>
+  </q-page>
 </template>
 
 <script>
