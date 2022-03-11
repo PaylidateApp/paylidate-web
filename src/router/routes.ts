@@ -24,10 +24,13 @@ const routes: RouteConfig[] = [
       { path: 'transaction', name: 'transaction', component: () => import('pages/Transaction.vue'), meta: { requiresAuth: true } },
       { path: 'virtual-card', name: 'virtual-card', component: () => import('pages/Card.vue'), meta: { requiresAuth: true } },
       { path: 'virtual-card/payment', name: 'virtual-card-payment', component: () => import('pages/Card.vue'), meta: { requiresAuth: true } },
-      { path: 'virtual-card/fund-card/:card_id', name: 'fund-card', component: () => import('pages/Card.vue'), props: true },
+      { path: 'virtual-card/create', name: 'create-card', component: () => import('pages/Card.vue'), meta: { requiresAuth: true } },
+      { path: 'virtual-card/fund-card/:card_id', name: 'fund-card', component: () => import('pages/Card.vue'), props: true, meta: { requiresAuth: true } },
+      { path: 'virtual-card/fund-card-status', name: 'fund-card-status', component: () => import('pages/Card.vue'), props: true, meta: { requiresAuth: true }},
       { path: 'activate-card', name: 'activate-card', component: () => import('pages/Card.vue'), props: true, meta: { requiresAuth: true } },
       { path: 'settings', name: 'settings', component: () => import('pages/Settings.vue'), meta: { requiresAuth: true } },
-      { path: 'virtual-card/product-payment', name: 'pay-product', component: () => import('pages/product_payment.vue'), meta: { requiresAuth: true } },
+      { path: '/product-payment', name: 'product-status', component: () => import('pages/product_status.vue'), meta: { requiresAuth: true } },
+      { path: '/escrow/product/:slug/product-payment', name: 'pay-product', component: () => import('pages/product_payment.vue'), meta: { requiresAuth: true } },
       
 
         // { path: 'security', name: 'security', component: () => import('pages/Index.vue') },

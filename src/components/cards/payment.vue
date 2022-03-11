@@ -14,11 +14,9 @@ export default {
     return {
       form:{
         status: this.$route.query.status,
-        transaction_id: this.$route.query.transaction_id,
-        tx_ref: this.$route.query.tx_ref,
-        slug: this.$route.params.slug,
+
       },
-      slug: this.$route.params.slug,
+      
     }
   },
 
@@ -40,37 +38,23 @@ export default {
 
         let currency = this.$q.localStorage.getItem('currency');
         let amount = this.$q.localStorage.getItem('amount');
+        let verify = this.$q.localStorage.getItem('verify');
         
         
 
-        if(this.form.status == 'successful' && currency && amount){
-        let txRef = this.form.tx_ref
-        
-        this.$q.localStorage.remove("amount");
-        this.$q.localStorage.remove("currency");
- 
-        const req = await this.$axios.post(process.env.Api + '/api/verify-payment', {txRef})
-        const res = req.data;
+        if(this.form.status == 'successful' && currency && amount && verify){
         
         
-        if(res.status == 'success'){
-          // execute what you want to happen if verification is ok          
-         
-          this.createCard (res.data.currency, res.data.amount);
-        }
-        else{
-          this.$q.localStorage.remove("PaymentDetails");
-          this.$router.push({ name: "escrow"})
+          this.$q.localStorage.remove("verify");
+          this.$store.commit('card/payment',{currency:currency, amount:amount})
+          
+          this.$router.push("/virtual-card/create")
           this.$q.loading.hide()
-          this.$q.notify({message: 'Verification Failed', color: 'red'})
-
-
-        }
-
+  
         }
         else{
-          this.$q.localStorage.remove("PaymentDetails");
-          this.$router.push({ name: "escrow"})
+          this.$q.localStorage.remove("verify");
+          this.$router.push("/virtual-card")
             this.$q.loading.hide()
           this.$q.notify({message: 'Verification Failed', color: 'red'})
 
@@ -78,40 +62,7 @@ export default {
 
         },
 
-        async createCard (currency, amount) {
-       this.$q.loading.show({
-          message: 'Hold on, Card creation in progress',
-        spinnerColor: 'secondary'
-          
-        })
-
-       try{
-      const req = await this.$axios.post(process.env.Api + '/api/card', {
-        amount: amount,
-          currency: currency,
-          default: 1
-      })
-        const res = req.data
-        if(res.status == 'success') { 
-          this.$q.loading.hide()
-          this.$router.push({ name: "escrow"})
-          this.$q.notify({message: 'Card Created successfully', color: 'green'})
-          return
-        }
-        else{
-          this.$router.push({ name: "escrow"})
-          this.$q.loading.hide()
-          this.$q.notify({message: 'Card Creation Failed', color: 'red'})
-        }
-
-        }catch(err){
-          this.$q.loading.hide()
-          this.$q.notify({message: 'Card Creation Failed', color: 'red'})
-           this.$router.push({ name: "escrow"})
-          
-        }
-     
-    },
+       
 
   }
 }
