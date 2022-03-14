@@ -42,7 +42,7 @@ export default {
         
         
 
-        if(this.form.status == 'successful' && currency && amount && verify){
+        if((this.form.status == 'successful' || this.form.status == 'completed' ) && currency && amount && verify){
         
         
           this.$q.localStorage.remove("verify");
@@ -53,11 +53,13 @@ export default {
   
         }
         else{
+          this.$q.localStorage.remove("currency");
+          this.$q.localStorage.remove("amount");
           this.$q.localStorage.remove("verify");
           this.$router.push("/virtual-card")
-            this.$q.loading.hide()
+          this.$q.loading.hide()
           this.$q.notify({message: 'Verification Failed', color: 'red'})
-
+          return;
         }
 
         },

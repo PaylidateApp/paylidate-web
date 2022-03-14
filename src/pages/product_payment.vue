@@ -42,7 +42,7 @@ export default {
         
         
 
-        if(this.form.status == 'successful' && currency && amount && slug){
+        if((this.form.status == 'successful' || this.form.status == 'completed' ) && currency && amount && slug){
     
         
         this.$q.localStorage.remove("amount");
@@ -61,7 +61,7 @@ export default {
         else{
           this.$q.localStorage.remove("amount");
           this.$q.localStorage.remove("currency");
-          this.$q.localStorage.remove("PaymentDetails");
+          this.$q.localStorage.remove("slug");
           this.$router.push({ name: "escrow"})
           this.$q.loading.hide()
           this.$q.notify({message: 'Verification Failed', color: 'red'})
@@ -71,6 +71,14 @@ export default {
         },
 
       
+
+
+
+
+//  const req = await this.$axios.post(process.env.Api + '/api/verify-payment', {txRef})
+//         const res = req.data;
+        
+//         if(res.status != 'success'){}
 
 
   }

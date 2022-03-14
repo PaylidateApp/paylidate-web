@@ -36,7 +36,7 @@ export default {
         
         
 
-        if(this.form.status == 'successful' && currency && amount && virtual_card_id && verify){             
+        if((this.form.status == 'successful' || this.form.status == 'completed' ) && currency && amount && virtual_card_id && verify){             
     
         this.$q.localStorage.remove("verify");
         this.$store.commit('card/payment',{currency:currency, amount:amount, virtual_card_id:virtual_card_id })
@@ -46,12 +46,15 @@ export default {
 
         }
         else{
-
+          
+          this.$q.localStorage.remove("currency");
+          this.$q.localStorage.remove("virtual_card_id");
+          this.$q.localStorage.remove("amount");
           this.$q.localStorage.remove("verify");
-            this.$q.loading.hide()
-          this.$router.push({ name: "fund-card-status"})
+          this.$router.push("/virtual-card")
+          this.$q.loading.hide()
           this.$q.notify({message: 'Verification Failed', color: 'red'})
-
+          return;
         }
 
         },
