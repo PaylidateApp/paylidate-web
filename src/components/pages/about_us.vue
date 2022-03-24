@@ -8,7 +8,7 @@
          Paylidate is a product of Lotusfort Technologies, a company with the goal of creating solutions 
          to everyday problems using Technology. Our mission for developing Paylidate is to stand as a 
          secure third party payment platform which ensures security for businesses and their customers 
-         to make and receive payments upfront without the fear of being swindled.  <br/>
+         to make and receive payments upfront without the fear of being swindled.  <br/>  <br/>
          The Paylidate team is passionate about the growth of your business and the trust of your customers.
          We want to help businesses to become more profitable by maximizing engagements and reducing the 
          question of trust between two parties to the barest minimum. 
@@ -26,14 +26,16 @@
           thousand opportunities for vendors to sell their products. This is hindered by alot of bad online 
           trade experiences. <br/><br/>
           Some of these experiences include: <br/>
-          1. (Payment before delivery) Paying an online vendor for a product and never getting the product 
-          delivered to you <br/> 
-          2. Paying and then getting a substandard product <br/>
-          3. Getting your money back after a failed or wrong delivery <br/>
-          4. (Cash on delivery) A vendor expecting to be paid at the point of delivering a product but 
+          <ol>
+            <li>(Payment before delivery) Paying an online vendor for a product and never getting the product 
+          delivered to you</li><br/>
+            <li>Paying and then getting a substandard product</li> <br/>
+            <li>Getting your money back after a failed or wrong delivery</li><br/>
+            <li>(Cash on delivery) A vendor expecting to be paid at the point of delivering a product but 
           not finding the buyer because they don't have the money, so all the logistics expenses are 
-          wasted. etc. <br/><br/>
-
+          wasted. etc.</li>
+          </ol>
+          
          <span class="text-bold">Lawrence Attah</span> <br/>
          Paylidate
          </div>
