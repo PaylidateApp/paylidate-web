@@ -51,7 +51,7 @@
             Keep your <span class="text-weight-bolder text-secondary">money within</span> your <span class="text-weight-bold text-secondary">reach</span> even <span class="text-weight-bold text-secondary">after</span> making <span class="text-weight-bold text-secondary">payment</span>
           </div>
           <div class="text-h6 q-py-lg text-weight-medium Montserrat" style="max-width:400px">
-           Providing  escrow services for guaranteed sefe transations
+           Providing  escrow services for guaranteed safe transations
            </div>
           <div class="text-weight-light q-gutter-sm q-py-sm" style="max-width:600px">
             <q-btn color="primary" no-caps class="q-pa-xs Montserrat" icon="play_arrow" label="Play Demo" />
@@ -78,7 +78,7 @@
       <div style="max-width:1200px" class="q-py-xl full-width text-center">
         <div class="text-center text-h6 flex justify-center text-weight-light">
           <div  style="max-width:700px">
-            Escrow is the use <span class="text-secondary">Paylidate</span> to hold your funds before they are transferred from one party to another.
+            Escrow is the use of <span class="text-secondary">Paylidate</span> to hold your funds before they are transferred from one party to another.
           </div>
         </div>
         <div class="row full-width q-py-xl Montserrat">
