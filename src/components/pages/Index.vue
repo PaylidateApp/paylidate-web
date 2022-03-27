@@ -51,7 +51,7 @@
             Keep your <span class="text-weight-bolder text-secondary">money within</span> your <span class="text-weight-bold text-secondary">reach</span> even <span class="text-weight-bold text-secondary">after</span> making <span class="text-weight-bold text-secondary">payment</span>
           </div>
           <div class="text-h6 q-py-lg text-weight-medium Montserrat" style="max-width:400px">
-           Providing  escrow services for guaranteed safe transations
+           Providing  escrow services for guaranteed safe transactions
            </div>
           <div class="text-weight-light q-gutter-sm q-py-sm" style="max-width:600px">
             <q-btn color="primary" no-caps class="q-pa-xs Montserrat" icon="play_arrow" label="Play Demo" />
@@ -386,7 +386,7 @@
           <q-separator/>
 
           <div class="text-justify text-grey-7 text-subtitle2" v-if="FAQs.Q4">
-         paylidate charges  3% for each transaction, (NB: For transation below NGN 3,334 their is a fix charges of N100, and for transation above NGN 83,334 their is a fix charges of N2500)
+         Paylidate charges  3% for each transaction, (NB: For transaction below NGN 3,334 their is a fix charges of N100, and for transaction above NGN 83,334 their is a fix charges of N2500)
           </div>
 
           
@@ -408,7 +408,7 @@
           <q-separator/>
 
           <div class="text-justify text-grey-7 text-subtitle2" v-if="FAQs.Q6">
-          if a delivery fails to reach you (the buyer) or you (the buyer ) gets a different product from what you ordered, you will have to initiate a dispute to start the process of getting your money back
+          If a delivery fails to reach you (the buyer) or you (the buyer ) gets a different product from what you ordered, you will have to initiate a dispute to start the process of getting your money back
           </div>
 
 
