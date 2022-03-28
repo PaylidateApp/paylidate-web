@@ -175,7 +175,7 @@
       <div class="row">
         <div class="col-12 col-sm-7 flex justify-center">
         <div class="text-secondary  lt-sm q-pb-xl text-h4">About Us</div>
-          <img src="../../statics/CEO.png" spinner-color="white" style="width: 90%; height: 90%; " />
+          <img src="../../statics/about_us.png" spinner-color="white" style="width: 90%; height: 90%; " />
         </div> 
         <div class="col-12 col-sm-5 flex text-justify">
          <div class="text-secondary  gt-xs text-h4">About Us</div>
@@ -188,8 +188,6 @@
          We want to help businesses to become more profitable by maximizing engagements and reducing the 
          question of trust between two parties to the barest minimum. 
          <br/><br/>
-         <span class="text-bold">Lawrence Attah</span> <br/>
-         Paylidate <br/>
             <q-btn color="secondary" no-caps class="q-pa-xs Montserrat" label="Learn More About Palidate" :to="{name: 'about'}" />
 
          </div>

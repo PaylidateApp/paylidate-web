@@ -30,14 +30,12 @@
             <li>(Payment before delivery) Paying an online vendor for a product and never getting the product 
           delivered to you</li><br/>
             <li>Paying and then getting a substandard product</li> <br/>
-            <li>Getting your money back after a failed or wrong delivery</li><br/>
+            <li>Getting your money back after a failed or wrong delivery</li>
             <li>(Cash on delivery) A vendor expecting to be paid at the point of delivering a product but 
           not finding the buyer because they don't have the money, so all the logistics expenses are 
           wasted. etc.</li>
           </ol>
           
-         <span class="text-bold">Lawrence Attah</span> <br/>
-         Paylidate
          </div>
           
         
