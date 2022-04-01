@@ -17,6 +17,7 @@ const routes: RouteConfig[] = [
       { path: 'account', name: 'account',component: () => import('pages/Auth.vue'), meta: { requiresAuth: true } },
       { path: 'escrow', name: 'escrow', component: () => import('pages/Escrow.vue'), meta: { requiresAuth: true } },
       { path: 'escrow/product/:slug', name: 'product', component: () => import('pages/Escrow.vue')},
+      { path: 'escrow/dispute/:id', name: 'dispute', component: () => import('pages/Escrow.vue')},
       { path: 'escrow/product/:slug/payment', name: 'payment', component: () => import('pages/Escrow.vue')},
       { path: 'payment', name: 'payment', component: () => import('pages/Payment.vue'), props: true },
       { path: ':link/fund', name: 'fund', component: () => import('pages/Payment.vue'), props: true },

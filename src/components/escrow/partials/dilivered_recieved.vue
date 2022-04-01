@@ -38,12 +38,36 @@ export default {
     async updateProduct(id,status){
       try{
         this.loading = true
-        const req = await this.$axios.get(process.env.Api + `/api/product/status/${id}?status=${status}`)
-        const res = req.data
-        this.product = res.data
-        this.loading = false
+        if(status == 'delivered'){
+          //console.log(status);
+
+          this.$axios.get(`${process.env.Api}/api/product/status/delivered/${id}`)
+          const res = req.data
+          this.product = res.data
+          this.open = false
+          this.loading = false
+          this.$router.push({ name: "escrow"});
+          this.$q.notify({message: 'Successful', color: 'green', position: 'top', type: 'positive' })
+
+          return;
+        }
+        if(status == 'received'){
+
+          this.$axios.get(`${process.env.Api}/api/product/status/recieved/${id}`)
+          const res = req.data
+          this.product = res.data
+          this.open = false
+          this.loading = false
+          this.$router.push({ name: "escrow"});
+          this.$q.notify({message: 'Successful', color: 'green', position: 'top', type: 'positive' })
+
+          return;
+        }
       }catch(err){
+        this.open = false
         this.loading = false
+          this.$q.notify({message: 'Error', color: 'orange', position: 'top', type: 'positive' })
+
       }
     },
     formatAsNaira(number) {

@@ -92,28 +92,74 @@
             </div>
 
           <div >
-              Delivery Status: <q-badge color="orange" :label="deliveryStatus(product.delivery_status)" /> <br />
+              Delivery Status: <q-badge :color="product.delivery_status == 3 ? 'positive' : 'orange'"  :label="deliveryStatus(product.delivery_status)" /> <br />
               Product Status: <q-badge color="orange" :label="product.payment_status ? 'Paid' : 'Unpaid'" />  <br />
-              Delivery Period: <q-badge color="orange" :label="product.delivery_period" /> days
+              Delivery Period: <q-badge color="orange" :label="product.delivery_period" /> days <br />
+              Dispute: <q-badge v-if="product.dispute === 0" color="orange" label="NO" />
+                        <q-badge v-else-if="product.dispute === 1" color="negative" label="YES" />
+                        <q-badge v-else color="positive" label="Dispute Resolved" />
+
               <!-- <br /> <div v-if="product.payment">Please deliver in time to avoid cancelation</div> -->
           </div>
 
           </div>
+          <div v-if="product.delivery_status != 3 && user.is_admin" class="row flex q-gutter-x-sm">
+          
+          <div>
+              <q-btn size="sm" color="warning" :label="dispute_state" @click="dispute(product.id)" />
+          </div>
 
-          <!-- <div v-if="Object.keys(user).length && product.payment">
+          <div v-if="Object.keys(user).length && (product.payment || product.payment_status === 1)"> 
+            <DiliveredRecieved :data="product" :status="'delivered'"/>
+
+            <DiliveredRecieved :data="product" :status="'received'"/>
+            
+          </div>
+
+          
+          <div>
+          <div>
+          <q-btn v-if="product.delivery_status != 3" @click="canceledDelivery(product.id)" color="negative" size="sm" no-caps label="Cancel Order" />
+          
+          </div>
+          </div>
+
+          </div>
+          
+          <div v-if="product.delivery_status != 3 && !user.is_admin" class="row flex q-gutter-x-sm">
+          
+          <div>
+          <Disput />
+          </div>
+
+          <div v-if="Object.keys(user).length && (product.payment || product.payment_status === 1)"> 
             <DiliveredRecieved
-            v-if="product.type === 'buy'
+            v-if="(product.transaction_type === 'buy'
               &&  product.user.id === user.id
-              &&  product.status === 1
-              ||  product.type === 'sell'
+              &&  product.payment_status === 1)
+              ||  (product.transaction_type === 'sell'
               &&  product.user.id === user.id
-              &&  product.status === 1"
+              &&  product.payment_status === 1)"
 
             :data="product" :status="'delivered'"/>
 
-            <DiliveredRecieved v-else :data="product" :status="'received'"/>
-          </div> -->
+            <DiliveredRecieved v-else  :data="product" :status="'received'"/>
+            
+          
+            
+          </div>
 
+          
+          <div v-if="product.secondary_user || product.user.id === user.id">
+          <div  v-if="(product.transaction_type === 'sell'
+              &&  product.user.id === user.id) || (product.transaction_type === 'buy'
+              &&  product.user.id != user.id && product.secondary_user.id == product.secondary_user_id)">
+          <q-btn v-if="product.delivery_status != 3" @click="canceledDelivery(product.id)" color="negative" size="sm" no-caps label="Cancel Order" />
+          
+          </div>
+          </div>
+
+          </div>
         </div>
       </q-card-section>
 
@@ -137,7 +183,8 @@
 
 <!-- payment_status -->
           <div v-if="!product.payment_status && product.transaction_type === 'buy'  &&  product.user.id === user.id || product.transaction_type === 'sell'  &&  product.user.id !== user.id">
-              <Payment :amount="product.price" :slug="product.slug" :product="product" :url="payment_url"/>
+              <Payment v-if="product.secondary_user" :amount="product.price" :slug="product.slug" :product="product" :url="payment_url"/>
+              <div v-else>Transaction must be accepted before payment can be done</div>
           </div>
       </q-card-section>
 
@@ -168,8 +215,6 @@
         </q-form>
       </q-card>
 
-
-
     <!-- <Signup />  -->
 
     </q-dialog>
@@ -180,6 +225,7 @@
 import AcceptTransaction from "./partials/accept_trans";
 import Payment from 'components/common/make_payment';
 import DiliveredRecieved from "./partials/dilivered_recieved"
+import Disput from './partials/disput.vue'
 import Signup from "components/auth/register"
 import Login from "components/auth/login"
 export default {
@@ -189,11 +235,13 @@ export default {
     Payment,
     DiliveredRecieved,
     Signup,
-    Login
+    Login,
+    Disput,
   },
 
   data() {
     return {
+      dispute_status: null,
       copyLink:'Copy product link',
       slug: this.$route.params.slug,
       product: null,
@@ -211,6 +259,15 @@ export default {
   },
 
   computed:{
+    dispute_state(){
+      if(this.product.dispute === 0){
+        return "Open Dispute";
+      }
+      else{
+        return "Resolve Dispute";
+      }
+      
+    },
     copyL(){return this.copyLink},
      user(){return this.$store.getters["auth/user"] },
      ModelStyle(){ return this.$q.screen.gt.sm ? "min-width: 500px" : "min-width: 300px"},
@@ -223,9 +280,46 @@ export default {
        setTimeout(() => this.copyLink = 'Copy product link', 2000);
       
     },
+
+
+    async dispute(id){
+        try{
+        
+        if(this.product.dispute === 0){          
+
+          this.$q.loading.show('Hold on, openning dispute', 'secondary');
+          this.$axios.get(`${process.env.Api}/api/product/open-dispute/${id}`)
+          const res = req.data
+          this.product = res.data 
+          this.$q.loading.hide()         
+          this.$q.notify({message: 'Successful', color: 'green', position: 'top', type: 'positive'})
+
+          return;
+        }
+        if(this.product.dispute === 1){
+
+          this.$q.loading.show('Hold on, resolving dispute', 'secondary')
+         this.$axios.get(`${process.env.Api}/api/product/resolve-dispute/${id}`)
+          const res = req.data
+          this.product = res.data          
+          this.$q.loading.hide()         
+          this.$q.notify({message: 'Successful', color: 'green', position: 'top', type: 'positive'})
+
+          return;
+        }
+      }catch(err){
+       
+        this.loading = false
+          this.$q.notify({message: 'Error', color: 'orange', position: 'top', type: 'positive' })
+
+      }
+    },
+
+
     async getProduct(){
       const req = await this.$axios.get(process.env.Api + '/api/product/'+ this.slug)
       const res = req.data
+
       this.product = res.data
     },
     formatAsNaira(number) {
@@ -250,7 +344,7 @@ export default {
         spinnerColor: 'secondary'
       })
       try {
-        const response = await this.$axios.post('https://paylidate.herokuapp.com/api/login', this.form)
+        const response = await this.$axios.post(process.env.Api + '/api/login', this.form)
 
         this.$store.commit('auth/login', 'Bearer '+response.data.access_token)
         this.$store.commit('auth/user', response.data.data)
@@ -270,11 +364,11 @@ export default {
           this.signup = true
         } else if (error.request) {
           // The request was made but no response was received
-          console.log(error.request);
+          //console.log(error.request);
           this.$q.notify({message: 'Logged Into Paylidate, Failed', color: 'orange', position: 'top', type: 'warning' })
         } else {
           // Something happened in setting up the request that triggered an Error
-          console.log('Error', error.message);
+          //console.log('Error', error.message);
           this.$q.notify({message: 'Logged Into Paylidate, Failed', color: 'orange', position: 'top', type: 'warning' })
         }
 
@@ -287,7 +381,7 @@ export default {
         spinnerColor: 'secondary'
       })
       try {
-        const response = await this.$axios.post('https://paylidate.herokuapp.com/api/signup', this.form)
+        const response = await this.$axios.post(process.env.Api + '/api/signup', this.form)
 
         this.$store.commit('auth/login', 'Bearer '+response.data.access_token)
         this.$store.commit('auth/user', response.data.data)
@@ -315,7 +409,25 @@ export default {
       } else if(status === 3) {
         return 'Recieved'
       }
-    }
+    },
+
+    orderDelivered(data){
+        this.$axios.get(`${process.env.Api}/api/product/status/delivered/${data}`)
+        this.getProduct();
+      },
+
+    orderRecieved(data){
+        this.$axios.get(`${process.env.Api}/api/product/status/recieved/${data}`)
+        this.getProduct();
+      },
+
+    canceledDelivery(data){
+        this.$axios.get(`${process.env.Api}/api/product/status/canceled/${data}`)
+        this.getProduct();
+      }
+
+
+    
   },
 
   mounted(){
