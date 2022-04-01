@@ -103,26 +103,29 @@
           </div>
 
           </div>
-          <div v-if="product.delivery_status != 3 && user.is_admin" class="row flex q-gutter-x-sm">
+          <div v-if="product.delivery_status != 3 && user.is_admin" class="row flex q-gutter-sm">
           
-          <div>
-              <q-btn size="sm" color="warning" :label="dispute_state" @click="dispute(product.id)" />
-          </div>
-
-          <div v-if="Object.keys(user).length && (product.payment || product.payment_status === 1)"> 
-            <DiliveredRecieved :data="product" :status="'delivered'"/>
-
-            <DiliveredRecieved :data="product" :status="'received'"/>
-            
-          </div>
-
-          
-          <div>
+                    <div>
           <div>
           <q-btn v-if="product.delivery_status != 3" @click="canceledDelivery(product.id)" color="negative" size="sm" no-caps label="Cancel Order" />
           
           </div>
           </div>
+
+          <div>
+              <q-btn size="sm" color="warning" :label="dispute_state" @click="dispute(product.id)" />
+          </div>
+
+          <div v-if="product.secondary_user">
+            <div class="flex row q-gutter-sm" v-if="Object.keys(user).length && (product.payment || product.payment_status === 1)"> 
+              <DiliveredRecieved :data="product" :status="'delivered'"/>
+
+              <DiliveredRecieved :data="product" :status="'received'"/>
+              
+            </div>
+          </div>
+          
+
 
           </div>
           
@@ -132,6 +135,7 @@
           <Disput />
           </div>
 
+            <div v-if="product.secondary_user">
           <div v-if="Object.keys(user).length && (product.payment || product.payment_status === 1)"> 
             <DiliveredRecieved
             v-if="(product.transaction_type === 'buy'
@@ -148,6 +152,8 @@
           
             
           </div>
+
+            </div>
 
           
           <div v-if="product.secondary_user || product.user.id === user.id">
