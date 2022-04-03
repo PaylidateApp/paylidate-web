@@ -107,7 +107,7 @@
           
                     <div>
           <div>
-          <q-btn v-if="product.delivery_status != 3" @click="canceledDelivery(product.id)" color="negative" size="sm" no-caps label="Cancel Order" />
+          <q-btn v-if="product.delivery_status != 3 && product.delivery_status != 4" @click="canceledDelivery(product.id)" color="negative" size="sm" no-caps label="Cancel Order" />
           
           </div>
           </div>
@@ -118,10 +118,13 @@
 
           <div v-if="product.secondary_user">
             <div class="flex row q-gutter-sm" v-if="Object.keys(user).length && (product.payment || product.payment_status === 1)"> 
-              <DiliveredRecieved :data="product" :status="'delivered'"/>
-
-              <DiliveredRecieved :data="product" :status="'received'"/>
+              <span v-if="product.delivery_status != 4">
               
+                <DiliveredRecieved :data="product" :status="'delivered'"/>
+
+                <DiliveredRecieved :data="product" :status="'received'"/>
+                
+              </span>
             </div>
           </div>
           
@@ -129,7 +132,7 @@
 
           </div>
           
-          <div v-if="product.delivery_status != 3 && !user.is_admin" class="row flex q-gutter-x-sm">
+          <div v-if="product.delivery_status != 3 && product.delivery_status != 4 && !user.is_admin" class="row flex q-gutter-x-sm">
           
           <div>
           <Disput />
@@ -269,6 +272,9 @@ export default {
       if(this.product.dispute === 0){
         return "Open Dispute";
       }
+      else if(this.product.dispute === 2){
+        return "Open Dispute";
+      }
       else{
         return "Resolve Dispute";
       }
@@ -291,14 +297,14 @@ export default {
     async dispute(id){
         try{
         
-        if(this.product.dispute === 0){          
+        if(this.product.dispute === 0 || this.product.dispute === 2){          
 
           this.$q.loading.show('Hold on, openning dispute', 'secondary');
           this.$axios.get(`${process.env.Api}/api/product/open-dispute/${id}`)
-          const res = req.data
-          this.product = res.data 
+           this.product.dispute = 1
           this.$q.loading.hide()         
           this.$q.notify({message: 'Successful', color: 'green', position: 'top', type: 'positive'})
+          
 
           return;
         }
@@ -306,17 +312,20 @@ export default {
 
           this.$q.loading.show('Hold on, resolving dispute', 'secondary')
          this.$axios.get(`${process.env.Api}/api/product/resolve-dispute/${id}`)
-          const res = req.data
-          this.product = res.data          
+          
+          this.product.dispute = 2                 
           this.$q.loading.hide()         
           this.$q.notify({message: 'Successful', color: 'green', position: 'top', type: 'positive'})
-
+          
           return;
+          
         }
       }catch(err){
        
         this.loading = false
-          this.$q.notify({message: 'Error', color: 'orange', position: 'top', type: 'positive' })
+        this.$q.loading.hide()
+        
+        this.$q.notify({message: 'Error', color: 'orange', position: 'top', type: 'warning' })
 
       }
     },
@@ -325,7 +334,7 @@ export default {
     async getProduct(){
       const req = await this.$axios.get(process.env.Api + '/api/product/'+ this.slug)
       const res = req.data
-
+      console.log(res);
       this.product = res.data
     },
     formatAsNaira(number) {
@@ -341,6 +350,9 @@ export default {
         return 'Delivered'
       } else if(status === 3) {
         return 'Recieved'
+      }
+       else if(status === 4) {
+        return 'Canceled'
       }
     },
 
@@ -414,6 +426,9 @@ export default {
         return 'Delivered'
       } else if(status === 3) {
         return 'Recieved'
+      }
+       else if(status === 4) {
+        return 'Canceled'
       }
     },
 

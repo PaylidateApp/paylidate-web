@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <q-btn size="sm" color="primary" :label="status === 'delivered' ? 'Product Delivered' : 'Product Received'" @click="open = true" />
+    <q-btn size="sm" color="primary" :label="status === 'delivered' ? 'Product Delivered' : 'Validate'" @click="open = true" />
 
     <q-dialog v-model="open">
     <q-card>
@@ -15,7 +15,7 @@
         <div class="text-bold">Description: {{product.description}}</div>
     </q-card-section>
     <q-card-actions align="right">
-      <q-btn size="sm" color="primary" :label="status === 'delivered' ? 'Product Delivered' : 'Product Received'" @click="updateProduct(product.id,status)" :loading="loading" />
+      <q-btn size="sm" color="primary" :label="status === 'delivered' ? 'Product Delivered' : 'Validate'" @click="updateProduct(product.id,status)" :loading="loading" />
       <q-btn flat size="sm" label="Cancel" color="negative" v-close-popup />
     </q-card-actions>
     </q-card>
