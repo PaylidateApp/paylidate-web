@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh Lpr lFf">
-    <q-header class="" style="background-color: rgba(255,255,255, 0.5)">
+    <q-header class="" style="background-color:white">
       <q-toolbar>
 
         <q-toolbar-title>
@@ -16,13 +16,16 @@
           <Profile v-if="user &&  Object.keys(user).length " :user="user"/>
         </div>
 
-        <div v-else class="q-gutter-xs">
-          <q-btn color="black" flat no-caps label="About Us" :to="{name: 'about'}" v-if="$q.screen.gt.xs" />
-          <q-btn color="black" flat no-caps label="FAQ" :to="{name: 'faq'}" v-if="$q.screen.gt.xs" />
-          <q-btn color="black" flat no-caps label="Escrow" :to="{name: 'escrow-help'}" v-if="$q.screen.gt.xs" />
-
+        <div v-else class="q-gutter-y-xs">
+          <q-btn color="black" href="#escrow" flat no-caps label="Escrow"  v-if="$q.screen.gt.xs" />
+          <q-btn color="black" href="#virtual_card" flat no-caps label="Virtual Cards" v-if="$q.screen.gt.xs" />
+          <q-btn color="black" href="#about" flat no-caps label="About Us" v-if="$q.screen.gt.xs" />
+          <q-btn color="black" href="#team" flat no-caps tag="a" label="Team" v-if="$q.screen.gt.xs" />
+          <q-btn color="black" href="#faq" flat no-caps label="FAQ" v-if="$q.screen.gt.xs" />
+          <span class="q-gutter-x-xs">
           <q-btn color="secondary" size="sm" no-caps label="Signup" :to="{name: 'register'}" />
           <q-btn color="black" size="sm" no-caps label="Login" :to="{name: 'login'}" />
+          </span>
         </div>
 
         <q-btn color="secondary" flat dense round v-if="$q.screen.lt.sm" icon="menu" aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
@@ -107,15 +110,39 @@ export default {
       name: '',
       mail: {
         title: 'App Support',
-        link: 'mailto:hello@paylidate.com?subject=Paylidate%20Customer%20Support',
+        link: 'mailto:paylidatesupport@lotusfort.com?subject=Paylidate%20Customer%20Support',
       },
 
       dashboardMenu:[
         {
+          title: 'Escrow',
+          caption: '',
+          icon: 'verified_user',
+          link: '#escrow',
+          is_active: true,
+          is_authenticated: false
+        },
+        {
+          title: 'Virtual Cards',
+          caption: '',
+          icon: 'credit_card',
+          link: '#virtual_card',
+          is_active: true,
+          is_authenticated: false
+        },
+        {
           title: 'About Us',
           caption: '',
           icon: 'class',
-          link: 'about',
+          link: '#about',
+          is_active: true,
+          is_authenticated: false
+        },
+        {
+          title: 'Team',
+          caption: '',
+          icon: 'group',
+          link: '#team',
           is_active: true,
           is_authenticated: false
         },
@@ -123,18 +150,11 @@ export default {
           title: 'FAQ',
           caption: '',
           icon: 'quiz',
-          link: 'faq',
+          link: '#faq',
           is_active: true,
           is_authenticated: false
         },
-        {
-          title: 'Escrow',
-          caption: '',
-          icon: 'verified_user',
-          link: 'escrow-help',
-          is_active: true,
-          is_authenticated: false
-        },
+        
         {
           title: 'Register',
           caption: '',

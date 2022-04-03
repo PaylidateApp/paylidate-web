@@ -133,7 +133,7 @@ export default {
           this.$q.localStorage.set('amount', this.form.amount);
           this.$q.localStorage.set('currency', this.form.currency);
           this.$q.localStorage.set('virtual_card_id', this.form.virtual_card_id);
-          
+          this.$q.localStorage.set('verify', 'verify');          
     
           FlutterwaveCheckout({
           public_key: process.env.Flutterwave_public_key,

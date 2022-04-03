@@ -106,6 +106,7 @@ export default {
         
           this.$q.localStorage.set('amount', this.form.amount);
           this.$q.localStorage.set('currency', this.form.currency);
+          this.$q.localStorage.set('verify', 'verify');
           
 
 

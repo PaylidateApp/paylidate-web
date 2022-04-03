@@ -14,11 +14,9 @@ export default {
     return {
       form:{
         status: this.$route.query.status,
-        transaction_id: this.$route.query.transaction_id,
-        tx_ref: this.$route.query.tx_ref,
-        slug: this.$route.params.slug,
+       
       },
-      slug: this.$route.params.slug,
+      
     }
   },
 
@@ -40,76 +38,47 @@ export default {
 
         let currency = this.$q.localStorage.getItem('currency');
         let amount = this.$q.localStorage.getItem('amount');
-        let slug = this.$q.localStorage.getItem('slug');
+        const slug = this.$q.localStorage.getItem('slug');
         
         
 
-        if(this.form.status == 'successful' && currency && amount && slug){
-        let txRef = this.form.tx_ref
+        if((this.form.status == 'successful' || this.form.status == 'completed' ) && currency && amount && slug){
+    
         
         this.$q.localStorage.remove("amount");
         this.$q.localStorage.remove("currency");
+        this.$q.localStorage.remove("PaymentDetails");
+        
+        this.$store.commit('card/payment',{slug:slug})
+
+          this.$router.push("/product-payment")
+          this.$q.loading.hide()
+
  
-        const req = await this.$axios.post(process.env.Api + '/api/verify-payment', {txRef})
-        const res = req.data;
-        
-        
-        if(res.status == 'success'){
-          // execute what you want to happen if verification is ok          
-         
-          this.paymentStatus (slug);
+
+
         }
         else{
-          this.$q.localStorage.remove("PaymentDetails");
+          this.$q.localStorage.remove("amount");
+          this.$q.localStorage.remove("currency");
+          this.$q.localStorage.remove("slug");
           this.$router.push({ name: "escrow"})
           this.$q.loading.hide()
-          this.$q.notify({message: 'Verification Failed', color: 'red'})
-
-
-        }
-
-        }
-        else{
-          this.$q.localStorage.remove("PaymentDetails");
-          this.$router.push({ name: "escrow"})
-            this.$q.loading.hide()
           this.$q.notify({message: 'Verification Failed', color: 'red'})
 
         }
 
         },
 
-      async paymentStatus(slug){
+      
 
+
+
+
+//  const req = await this.$axios.post(process.env.Api + '/api/verify-payment', {txRef})
+//         const res = req.data;
         
-        try{
-        const req = await this.$axios.get(`${process.env.Api}/api/product/paid/${slug}`)          
-          const res = req.data
-        this.$q.localStorage.remove("slug");
-
-
-           this.$q.loading.show({
-          message: 'Hold on, Processing Payment',
-        spinnerColor: 'secondary'
-          
-        })
-          if(res.status == 'success'){
-           this.$q.loading.hide()
-           this.$router.push({ name: "escrow"})
-          this.$q.notify({message: 'Payment Successful ', color: 'green'})
-          return
-          }
-
-          this.$q.loading.hide()
-          this.$q.notify({message: 'Transaction Error ', color: 'red'})
-
-
-        }catch(err){
-
-        }
-
-        
-      },
+//         if(res.status != 'success'){}
 
 
   }
