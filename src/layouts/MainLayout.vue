@@ -220,6 +220,15 @@ export default {
           is_active: false,
           is_authenticated: true
         },
+
+        {
+          title: 'Trade Points',
+          caption: '',
+          icon: 'savings',
+          link: 'wallet',
+          is_active: false,
+          is_authenticated: true
+        },
         
         {
           title: 'Settings',

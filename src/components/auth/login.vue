@@ -80,7 +80,7 @@ export default {
         this.$q.loading.hide()
         this.$q.notify({message: 'Login successful', color: 'green'})
         this.$store.dispatch("card/cards");
-        this.$router.push('transactions');
+        this.$router.push({ name: "transactions"})
       })
       .catch(error=>{
         this.loading = false
