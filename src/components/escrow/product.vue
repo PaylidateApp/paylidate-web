@@ -1,6 +1,11 @@
 <template>
   <q-page class="flex justify-center">
 
+
+    
+    
+    
+
     <!-- {{product}} -->
     <div>
     
@@ -16,7 +21,7 @@
             flat
             color="primary"
             class=""
-            icon="more_vert"
+            icon="content_copy"
             @click="copy_link"
           >
 
@@ -26,6 +31,7 @@
             
           </q-btn>
       </q-card-section>
+
       <q-card-section class="column">
         <div>
           Product Details
@@ -35,192 +41,93 @@
           <!-- {{ product.image !== 'default_product.png' ? product.image : base_image }} -->
           <img :src="product.image !== 'default_product.png' ? product.image : base_image">
           <q-card-section>
-            <div class="text-bold">Transaction Type: {{product.transaction_type}}</div>
-            <div class="text-bold">Quantity: {{product.quantity}}</div>
-            <div class="text-bold">Price: {{formatAsNaira(product.price)}}</div>
             <div class="text-bold">Product Number: {{product.product_number}}</div>
+            <div class="text-bold">Product Name: {{product.name}}</div>
+            <div class="text-bold">Transaction Type: {{product.transaction_type}}</div>
+            <div class="text-bold">Type: {{product.type}}</div>
+            <div class="text-bold">Available Quantity: {{product.quantity}}</div>
+            <div class="text-bold">Product Status: 
+            <span v-if="product.product_status == true">Enable</span>
+            <span v-else>Disable</span>
+            </div>
+            <div class="text-bold">Price per Product: {{formatAsNaira(product.price)}}</div>
             <div class="text-bold">Description: {{product.description ? product.description : "No Description"}}</div>
-            <div class="text-bold">Delivery Period: {{product.delivery_period}}</div>
           </q-card-section>
         </q-card>
       </q-card-section>
 
-      <q-card-section class="column">
-        <div>
-          Parties Details
-        </div>
-        <q-separator class="q-mb-sm" />
-        <q-card class="my-card" flat bordered>
-          <q-card-section horizontal>
-            <q-card-section>
-              <div class="text-bold">Initiator</div>
-              <div>Email: {{product.user.email}}</div>
-              <div>Name: {{ product.user.name }}</div>
-            </q-card-section>
-
-            <q-separator vertical />
-
-            <q-card-section>
-              <div class="text-bold">Reciever</div>
-              <div>Name: {{ product.secondary_user ? product.secondary_user.name : 'Not Available' }}</div>
-              <div>Email: {{product.secondary_user ? product.secondary_user.email : 'Not Available' }}</div>
-            </q-card-section>
-          </q-card-section>
-        </q-card>
-      </q-card-section>
+      
 
       <q-card-section class="column">
-        <div>
-          Order Status
+        <div v-if="product.user_id == user.id">
+          <q-btn color="primary" size="md" class="q-mx-sm" label="Edit Product" @click="editTransaction()" />
+          <q-btn v-if="product.transaction.length > 0" color="red" size="md" label="Delete Product" @click="deleteProduct()" />          
         </div>
-        <q-separator class="q-mb-sm" />
-        <div class="q-gutter-sm">
-          <div v-if="Object.keys(user).length">
-            <div v-if="product.secondary_user">
-              <div v-if="product.user.id !== user.id">
-                 Transaction Status: <q-badge  color="positive" text-color="black" label="You Accept This Transaction" />
-                  <!-- <span v-if="!product.payment_status">Please proceed to payment</span> -->
-              </div>
-              <div v-else>
-                 Transaction Status: <q-badge color="positive" text-color="black" label="Transaction Accepted" />
-              </div>
-            </div>
 
-            <div v-else>
-               Transaction Status: <q-badge v-if="product.user.id === user.id" color="negative" text-color="white" label="Transaction Wating to be accepted" />
-              <AcceptTransaction v-else :data="product" :slug="slug"/>
-            </div>
-
-          <div >
-              Delivery Status: <q-badge :color="product.delivery_status == 3 ? 'positive' : 'orange'"  :label="deliveryStatus(product.delivery_status)" /> <br />
-              Product Status: <q-badge color="orange" :label="product.payment_status ? 'Paid' : 'Unpaid'" />  <br />
-              Delivery Period: <q-badge color="orange" :label="product.delivery_period" /> days <br />
-              Dispute: <q-badge v-if="product.dispute === 0" color="orange" label="NO" />
-                        <q-badge v-else-if="product.dispute === 1" color="negative" label="YES" />
-                        <q-badge v-else color="positive" label="Dispute Resolved" />
-
-              <!-- <br /> <div v-if="product.payment">Please deliver in time to avoid cancelation</div> -->
-          </div>
-
-          </div>
-          <div v-if="product.delivery_status != 3 && user.is_admin" class="row flex q-gutter-sm">
+        <div v-if="product.user_id != user.id">
+        <span  v-if="product.product_status == true || product.quantity > 0">
+          <q-btn v-if="Object.keys(user).length"  color="secondary" size="md" class="q-mx-sm" label="Buy Product" @click="accept_modal = true" />
+          <q-btn v-else  color="secondary" size="md" class="q-mx-sm" label="Buy Product" @click="onLogin = true" />
+        </span>
+        <span  v-else>
+         <q-badge  color="red" text-color="white" label="Sorry!!! This product is currently not available" />
           
-                    <div>
-          <div>
-          <q-btn v-if="product.delivery_status != 3 && product.delivery_status != 4" @click="canceledDelivery(product.id)" color="negative" size="sm" no-caps label="Cancel Order" />
-          
-          </div>
-          </div>
-
-          <div>
-              <q-btn size="sm" color="warning" :label="dispute_state" @click="dispute(product.id)" />
-          </div>
-
-          <div v-if="product.secondary_user">
-            <div class="flex row q-gutter-sm" v-if="Object.keys(user).length && (product.payment || product.payment_status === 1)"> 
-              <span v-if="product.delivery_status != 4">
-              
-                <DiliveredRecieved :data="product" :status="'delivered'"/>
-
-                <DiliveredRecieved :data="product" :status="'received'"/>
-                
-              </span>
-            </div>
-          </div>
-          
-
-
-          </div>
-          
-          <div v-if="product.delivery_status != 3 && product.delivery_status != 4 && !user.is_admin" class="row flex q-gutter-x-sm">
-          
-          <div>
-          <Disput />
-          </div>
-
-            <div v-if="product.secondary_user">
-          <div v-if="Object.keys(user).length && (product.payment || product.payment_status === 1)"> 
-            <DiliveredRecieved
-            v-if="(product.transaction_type === 'buy'
-              &&  product.user.id === user.id
-              &&  product.payment_status === 1)
-              ||  (product.transaction_type === 'sell'
-              &&  product.user.id === user.id
-              &&  product.payment_status === 1)"
-
-            :data="product" :status="'delivered'"/>
-
-            <DiliveredRecieved v-else  :data="product" :status="'received'"/>
-            
-          
-            
-          </div>
-
-            </div>
-
-          
-          <div v-if="product.secondary_user || product.user.id === user.id">
-          <div  v-if="(product.transaction_type === 'sell'
-              &&  product.user.id === user.id) || (product.transaction_type === 'buy'
-              &&  product.user.id != user.id && product.secondary_user.id == product.secondary_user_id)">
-          <q-btn v-if="product.delivery_status != 3" @click="canceledDelivery(product.id)" color="negative" size="sm" no-caps label="Cancel Order" />
-          
-          </div>
-          </div>
-
-          </div>
+        </span>
         </div>
+        
       </q-card-section>
 
-      <q-card-section class="column">
-
-        <div>
-          Payment Details
-        </div>
-
-        <q-separator class="q-mb-sm" />
-           <div>
-              Status: <q-badge color="orange" :label="product.payment_status ? 'Paid' : 'Unpaid'" />
-           </div>
-
-          <div v-if="product.payment">
-            <div class="self-center full-width no-outline">Transaction ID:      {{ product.payment.transaction_id }}</div>
-            <div class="self-center full-width no-outline">Payment Ref:         {{ product.payment.payment_ref }}</div>
-            <div class="self-center full-width no-outline">Transaction Ref:     {{ product.payment.transaction_ref }}</div>
-            <div class="self-center full-width no-outline">Transaction Status:  {{ product.payment.status }}</div>
-          </div>
-
-<!-- payment_status -->
-          <div v-if="!product.payment_status && product.transaction_type === 'buy'  &&  product.user.id === user.id || product.transaction_type === 'sell'  &&  product.user.id !== user.id">
-              <Payment v-if="product.secondary_user" :amount="product.price" :slug="product.slug" :product="product" :url="payment_url"/>
-              <div v-else>Transaction must be accepted before payment can be done</div>
-          </div>
-      </q-card-section>
+      
 
     </q-card>
 
 
     </div>
 
+    <q-dialog v-model="accept_modal" persistent>
+      <q-card class="my-card" :style="ModelStyle">
+
+        <q-form class="q-gutter-md" >
+          <q-card-section class="q-py-sm">            
+            <div class="text-caption">ACCEPT PRODUCT</div>
+          </q-card-section>
+          <q-card-section class="q-gutter-sm">
+        
+            <q-input outlined dense v-model="form.quantity" :rules="schema.quantity" type="number" label="Product Quantity*"/>
+            <q-input type="textarea" outlined dense v-model="form.description" label="Transaction Discription" />
+          
+          </q-card-section>
+          
+          <q-card-actions align="center">
+           <q-btn color="primary" size="md" :loading="loading" class="q-mx-sm" label="Accept" @click="buyProduct()" />
+          <q-btn color="red" size="md" label="Cancel" @click="accept_modal = false" /> 
+          </q-card-actions>
+        </q-form>
+      </q-card>
+
+    <!-- <Signup />  -->
+
+    </q-dialog>
+
+
+
     <q-dialog v-model="onLogin" persistent>
       <q-card class="my-card" :style="ModelStyle">
 
-        <q-form @submit="signup && onLogin ? register() : login() " class="q-gutter-md" >
+        <q-form @submit="login() " class="q-gutter-md" >
           <q-card-section class="q-py-sm">
-            <div class="text-h6">{{ signup ? `SignUp Please` :`Your Email Please` }}</div>
+            <div class="text-h6">Login</div>
             <div class="text-caption">To complete your Transaction</div>
           </q-card-section>
           <q-card-section class="q-gutter-sm">
-            <q-input v-if="signup" outlined dense v-model="form.name" label="Your Full Name" />
-            <q-input v-if="signup" outlined dense v-model="form.phone" label="Enter Phone Number" maxlength="11" inputmode="numeric" pattern="[0-9]*" oninput="value=value.replace(/[^\d]/g,'')" />
-            <q-input outlined dense v-model="form.email" label="Enter E-mail" inputmode="email" />
+             <q-input outlined dense v-model="form.email" label="Enter E-mail" inputmode="email" />
             <q-input outlined dense type="password" v-model="form.password" label="Create Your Password" />
-            <q-input v-if="signup" outlined dense type="password" v-model="form.password_confirmation" label="Confirm Password" />
           </q-card-section>
-          <q-card-actions vertical align="right">
+          <q-card-actions align="right">
             <q-btn flat type="submit" label="Login" />
-            <q-btn dense flat v-if="signup" @click="signup = false" class="text-weight-normal text-caption" no-caps label="I have an account" />
+          <q-btn flat text-color="red" size="md" label="Cancel" @click="onLogin = false" /> 
           </q-card-actions>
+          
         </q-form>
       </q-card>
 
@@ -237,6 +144,8 @@ import DiliveredRecieved from "./partials/dilivered_recieved"
 import Disput from './partials/disput.vue'
 import Signup from "components/auth/register"
 import Login from "components/auth/login"
+import buySchema from '../../validation/buy'
+
 export default {
   // name: 'PageName',
   components:{
@@ -244,7 +153,7 @@ export default {
     Payment,
     DiliveredRecieved,
     Signup,
-    Login,
+    Login,    
     Disput,
   },
 
@@ -255,19 +164,24 @@ export default {
       slug: this.$route.params.slug,
       product: null,
       text: '',
-      base_image: 'https://res.cloudinary.com/godfadatun/image/upload/v1626034472/undraw_factory_dy0a_cqfjei.svg',
-      loading: false,
-      signup:false,
       onLogin:false,
+      schema: buySchema,
+      base_image: 'https://res.cloudinary.com/godfadatun/image/upload/v1626034472/undraw_factory_dy0a_cqfjei.svg',
+      loading: false,      
+      accept_modal:false,
       form:{
-        email: '',
-        password: '',
+       quantity: '',
+       description: '',
+       product_id: null
+
       },
       payment_url: `${window.location.href}/payment`
     }
   },
 
   computed:{
+
+
     dispute_state(){
       if(this.product.dispute === 0){
         return "Open Dispute";
@@ -293,8 +207,47 @@ export default {
       
     },
 
+    async buyProduct(){
 
-    async dispute(id){
+          if(this.form.quantity > this.product.price)
+          this.$q.notify({message: 'You can not request more than the available quantity', color: 'red'})
+          return
+          try{
+            this.$q.loading.show({
+              message: 'Hold on, Request processing',
+              spinnerColor: 'secondary'
+              
+            })
+          const req = await this.$axios.post(process.env.Api + '/api/transaction', this.form)
+          const res = req.data
+          
+          this. getProduct()
+          this.$q.loading.hide()
+          this.$q.notify({message: 'Request seccessfully', color: 'green'})
+          this.$router.push({ name: "transaction"})
+          
+          }
+          catch(error){
+            
+            console.log(error.response.data.message);
+            this.$q.loading.hide()
+          this.$q.notify({message: 'Error while trying create transaction', color: 'red'})
+          }
+        },
+
+    editTransaction(){
+
+    },
+
+    deleteProduct(){
+
+    },
+    acceptProcduct(){
+
+    },
+
+
+    async editProduct(id){
         try{
         
         if(this.product.dispute === 0 || this.product.dispute === 2){          
@@ -332,11 +285,22 @@ export default {
 
 
     async getProduct(){
+
+        this.$q.loading.show({
+          message: 'Hold on, fetching product',
+          spinnerColor: 'secondary'
+          
+        })
       const req = await this.$axios.get(process.env.Api + '/api/product/'+ this.slug)
       const res = req.data
-      console.log(res);
+      // console.log(res);
       this.product = res.data
+      this.form.product_id = res.data.id
+         this.$q.loading.hide();
+
     },
+
+
     formatAsNaira(number) {
       return new Intl.NumberFormat('en-EN', { style: 'currency', currency: 'NGN' }).format(number)
     },
@@ -382,11 +346,11 @@ export default {
           this.signup = true
         } else if (error.request) {
           // The request was made but no response was received
-          //console.log(error.request);
+          //// console.log(error.request);
           this.$q.notify({message: 'Logged Into Paylidate, Failed', color: 'orange', position: 'top', type: 'warning' })
         } else {
           // Something happened in setting up the request that triggered an Error
-          //console.log('Error', error.message);
+          //// console.log('Error', error.message);
           this.$q.notify({message: 'Logged Into Paylidate, Failed', color: 'orange', position: 'top', type: 'warning' })
         }
 
@@ -452,8 +416,9 @@ export default {
   },
 
   mounted(){
-    if(!this.$q.localStorage.getItem('paylidate_token')) this.onLogin = true
-    else this.getProduct()
+    this.getProduct()
+    // if(!this.$q.localStorage.getItem('paylidate_token')) this.onLogin = true
+    // else this.getProduct()
   }
 }
 </script>

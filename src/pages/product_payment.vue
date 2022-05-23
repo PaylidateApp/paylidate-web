@@ -14,7 +14,9 @@ export default {
     return {
       form:{
         status: this.$route.query.status,
-       
+        payment_ref: this.$route.query.tx_ref,
+        payment_id: this.$route.query.transaction_id,
+        transaction_id: this.$route.params.t_id,       
       },
       
     }
@@ -25,48 +27,44 @@ export default {
   },
 
   methods:{
+    
     async verifyPayment(){
       
+       try{
         this.$q.loading.show({
           message: 'Hold on, While payment is been verified',
           spinnerColor: 'secondary'
           
         })
         
-        //let response = JSON.parse(this.$route.query.response)
-   
+          const req = await this.$axios.post(process.env.Api + '/api/make-payment', this.form)
+         const res = req.data;    
+            
+        
+        if(res.status == 'success'){
 
-        let currency = this.$q.localStorage.getItem('currency');
-        let amount = this.$q.localStorage.getItem('amount');
-        const slug = this.$q.localStorage.getItem('slug');
-        
-        
-
-        if((this.form.status == 'successful' || this.form.status == 'completed' ) && currency && amount && slug){
-    
-        
-        this.$q.localStorage.remove("amount");
-        this.$q.localStorage.remove("currency");
-        this.$q.localStorage.remove("PaymentDetails");
-        
-        this.$store.commit('card/payment',{slug:slug})
-
-          this.$router.push("/product-payment")
+          this.$router.push({ name: "transactions"})
           this.$q.loading.hide()
-
- 
-
+          this.$q.notify({message: 'Verification successful', color: 'green'})
 
         }
-        else{
-          this.$q.localStorage.remove("amount");
-          this.$q.localStorage.remove("currency");
-          this.$q.localStorage.remove("slug");
-          this.$router.push({ name: "escrow"})
+        else{    
+        
+           
+          this.$router.push({ name: "transactions"})
           this.$q.loading.hide()
           this.$q.notify({message: 'Verification Failed', color: 'red'})
 
+
         }
+
+       }
+
+       catch(error){
+        this.$q.notify({message: 'Verification Failed', color: 'red'})
+
+       }
+        
 
         },
 

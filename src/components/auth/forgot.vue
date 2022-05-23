@@ -14,7 +14,7 @@
             <div class="text-caption text-center">{{error}}</div>
           </q-card-section>
         </q-card>
-        
+
       </q-card-section>
       <q-card-section class="q-gutter-sm">
         <q-input outlined dense v-model="form.email" label="Enter E-mail" type="email" />
@@ -52,14 +52,14 @@ export default {
         this.loading = true
         try {
           const response = await this.$axios.post(`${process.env.Api}/api/password/create`, this.form)
-          console.log(response)
+          // console.log(response)
           this.loading = false
           this.$q.notify({message: 'We have e-mailed your password reset link', color: 'green'})
         }
         catch (error) {
         this.loading = false
-          
-          this.error = "Error:: Please ensure your email is correct"
+          // console.log(error)
+          this.error = "Error:: Ensure your email is correct"
         }
       }else {
         this.error = "Enter your Email"

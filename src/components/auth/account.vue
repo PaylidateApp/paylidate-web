@@ -78,7 +78,7 @@ export default {
   //     this.error = false
   //     this.$axios.post('https://branchless.world/branposdev01/user/updateUser', this.form)
   //     .then(response => {
-  //       console.log('response: ', response.data)
+  //       // console.log('response: ', response.data)
   //       this.loading = false
   //       this.$q.notify({message: 'Account Opening Completed', color: 'green'})
   //       this.$router.push({name: 'initAccount'})
@@ -93,11 +93,11 @@ export default {
   //       this.loading = false
   //       this.$q.notify({message: error.response, color: 'orange'})
   //     } else if (error.request) {
-  //       console.log(error.request);
+  //       // console.log(error.request);
   //       this.loading = false
   //       this.$q.notify({message: error.request, color: 'orange'})
   //     } else {
-  //       console.log('Error', error.message);
+  //       // console.log('Error', error.message);
   //       this.loading = false
   //       this.$q.notify({message: error.message, color: 'orange'})
   //     }
@@ -105,11 +105,11 @@ export default {
 
   //   eligibilityFnc(){
   //     let thedate = this.form.date_of_birth.split("/");
-  //     console.log('thedate', thedate);
+  //     // console.log('thedate', thedate);
   //     var today = new Date();
   //     if (today.getFullYear() > thedate[0]) {
   //       let yeardiff = today.getFullYear() - thedate[0]
-  //       console.log('yeardiff', yeardiff)
+  //       // console.log('yeardiff', yeardiff)
   //       if(yeardiff > 19){
   //         this.acctUpdate()
   //       }
