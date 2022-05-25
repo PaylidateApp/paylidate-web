@@ -49,7 +49,8 @@
             <div class="text-bold">Type: {{transaction.product.type}}</div>
             <div class="text-bold">Total Quantity: {{transaction.quantity}}</div>
             
-            <div class="text-bold">Total Price: {{formatAsNaira(transaction.amount)}}</div>
+            <div class="text-bold" v-if="transaction.amount < 0" >Total Price: {{formatAsNaira(transaction.product.price * transaction.quantity)}}</div>
+            <div class="text-bold" v-else>Total Price: {{formatAsNaira(transaction.amount)}}</div>
             <div class="text-bold">Description: {{transaction.description ? transaction.description : "No Description"}}</div>
           </q-card-section>
         </q-card>
@@ -104,8 +105,8 @@
           <q-btn class="q-mx-sm" v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="secondary" label="Confirm Transaction" :loading="loading" @click="confirm = true" />
           <q-btn v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="primary" label="Cancel Transaction" :loading="loading" @click="cancelTransaction()" />
           
-          <q-btn class="q-mx-sm" v-if="transaction.product.transaction_type == 'sell' && user.id == transaction.secondary_user_id" unelevated no-caps color="secondary" label="Confirm Transaction" :loading="loading" @click="confirm = true" />
-          <q-btn v-if="transaction.product.transaction_type == 'sell' && user.id == transaction.secondary_user_id" unelevated no-caps color="primary" label="Cancel Transaction" :loading="loading" @click="cancelTransaction()" />
+          <q-btn class="q-mx-sm" v-if="transaction.product.transaction_type == 'sell' && user.id == transactionuser_id" unelevated no-caps color="secondary" label="Confirm Transaction" :loading="loading" @click="confirm = true" />
+          <q-btn v-if="transaction.product.transaction_type == 'sell' && user.id == transaction.user_id" unelevated no-caps color="primary" label="Cancel Transaction" :loading="loading" @click="cancelTransaction()" />
 
           <q-dialog v-model="confirm">
       <q-card style="min-width:300px">
@@ -133,14 +134,14 @@
               <div> <q-badge  color="orange" text-color="white" label="Transaction accepted, awaiting payment" /></div>  
               
               <Payment v-if="transaction.product.user_id == user.id && transaction.product.transaction_type == 'buy'" :transaction="transaction" />
-              <Payment v-if="transaction.secondary_user_id == user.id && transaction.product.transaction_type == 'sell'" :transaction="transaction" />
+              <Payment v-if="transaction.user_id == user.id && transaction.product.transaction_type == 'sell'" :transaction="transaction" />
         </div>
         <div v-else-if="transaction.accept_transaction == false">
               <div> <q-badge  color="negetive" text-color="white" label="Transaction not Accepted" /></div>  
         </div>
         <div v-else>
           <div> <q-badge  color="orange" text-color="white" label="Transaction awaiting acceptance" /></div>  
-          <span v-if="user.id == transaction.secondary_user_id">
+          <span v-if="user.id == transaction.user_id">
           
             <q-btn unelevated no-caps class="q-ma-sm" color="primary" label="Accept" :loading="loading" @click="acceptTransaction()" />
             <q-btn unelevated no-caps color="red" label="Decline" :loading="loading" @click="declineTransaction()" />

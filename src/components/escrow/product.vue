@@ -94,7 +94,7 @@
           <q-card-section class="q-gutter-sm">
         
             <q-input outlined dense v-model="form.quantity" :rules="schema.quantity" type="number" label="Product Quantity*"/>
-            <q-input type="textarea" outlined dense v-model="form.description" label="Transaction Discription" />
+            <q-input type="textarea" outlined dense v-model="form.description" label="Transaction Description" />
           
           </q-card-section>
           
@@ -209,9 +209,12 @@ export default {
 
     async buyProduct(){
 
-          if(this.form.quantity > this.product.price)
+          if(this.form.quantity > this.product.quantity)
+          {
           this.$q.notify({message: 'You can not request more than the available quantity', color: 'red'})
           return
+          }
+          else{
           try{
             this.$q.loading.show({
               message: 'Hold on, Request processing',
@@ -224,7 +227,7 @@ export default {
           this. getProduct()
           this.$q.loading.hide()
           this.$q.notify({message: 'Request seccessfully', color: 'green'})
-          this.$router.push({ name: "transaction"})
+          this.$router.push({ name: "transactions"})
           
           }
           catch(error){
@@ -232,6 +235,7 @@ export default {
             console.log(error.response.data.message);
             this.$q.loading.hide()
           this.$q.notify({message: 'Error while trying create transaction', color: 'red'})
+          }
           }
         },
 

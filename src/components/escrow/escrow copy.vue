@@ -81,40 +81,10 @@ add payment remitance date automatically on all transaction <br> -->
               {{ props.row.user_id === user.id ? 'sell' : 'buy' }}
             </q-badge>
           </q-td>
-          <!-- <q-td key="confirmed" :props="props">
-            <q-badge :color="props.row.secondary_user_id ? 'steal' : 'negative'">
-              {{ props.row.secondary_user_id ? 'Confirmed' : 'Un-confirmed' }}
-            </q-badge>
-          </q-td> -->
-          <!-- <q-td key="payment_status" :props="props">
-            <q-badge v-if="props.row.payment_status" color="steal">
-               {{ 'Paid' }}
-            </q-badge>
-            <q-badge v-else-if="props.row.type === 'sell' && !props.row.payment" color="negative">
-               {{ 'Un-Paid' }}
-            </q-badge>
-            <Payment v-else :amount="props.row.price" :slug="props.row.slug" :product="props.row" :url="payment_url+props.row.slug+'/payment'"/>
-          </q-td> -->
+          
            <q-td key="view" :props="props" class="column">
             <q-btn :to="{name: 'product', params: {slug: props.row.slug}}" label="View Order" flat size="sm" no-caps />
-            <!-- <q-btn @click="canceledDelivery(props.row.id)" color="negative" size="xs" no-caps label="Cancel Order" /> -->
           </q-td>
-
-          <!-- <q-td key="action" :props="props" class=""
-            v-if="props.row.type === 'sell' && props.row.user_id == user.id || props.row.type === 'buy' && props.row.user_id != user.id" >
-            <q-btn v-if="props.row.delivery_status == 0" @click="startDelivery(props.row.id)" color="warning" size="xs" no-caps label="Start Delivery" />
-            <q-btn v-if="props.row.delivery_status == 1" @click="orderDelivered(props.row.id)" color="negative" size="xs" no-caps label="Order Completed" />
-            <Disput v-if="props.row.delivery_status == 1" />
-          </q-td>
-          <q-td key="action" :props="props" class=""
-            v-if="props.row.type === 'buy' && props.row.user_id == user.id || props.row.type === 'sell' && props.row.user_id != user.id">
-            <span v-if="props.row.delivery_status == 0" class="text-bold">Awaiting Delivery</span>
-            <q-btn v-if="props.row.delivery_status == 1" @click="orderRecieved(props.row.id)" color="warning" size="xs" no-caps label="Recieved Delivery" />
-            <Disput  />
-          </q-td> -->
-
-
-            <!-- TODO paid unpaid in-dispute complete -->
            <q-td key="payment_status" :props="props">
             <q-badge v-if="props.row.payment_status" color="steal">
                Paid 

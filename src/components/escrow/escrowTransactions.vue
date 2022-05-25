@@ -70,9 +70,14 @@ add payment remitance date automatically on all transaction <br> -->
             <span class="text-bold">{{ props.row.quantity }}</span>
           </q-td>
           <q-td key="amount" :props="props">
-            <q-badge color="negative">
-              {{ currency(props.row.product.price) }}
+
+          <q-badge v-if="props.row.amount > 0"  color="negative">
+              {{ currency(props.row.amount) }}
             </q-badge>
+            <q-badge v-else color="negative">
+              {{ currency(props.row.product.price * props.row.quantity) }}
+            </q-badge>
+            
           </q-td>
           
           <q-td key="transaction_type" :props="props">
@@ -195,7 +200,8 @@ export default {
   },
 
   methods: {
-      async getProduct(){
+    async getProduct(){
+        console.log('contents');
          this.$q.loading.show({
           message: 'Hold on, fetching transaction records',
           spinnerColor: 'secondary'
@@ -203,9 +209,10 @@ export default {
         })
         const req = await this.$axios.get(process.env.Api + '/api/transaction')
         const res = req.data
-        this.contents = res.data;
+          
+        this.contents = res.data.reverse();
          this.$q.loading.hide();
-         // console.log(res);
+
       },
 
        copy_link(T_ref){
