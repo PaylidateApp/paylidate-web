@@ -54,7 +54,7 @@
            Providing  escrow services for guaranteed safe transactions
            </div>
           <div class="text-weight-light q-gutter-sm q-py-sm" style="max-width:600px">
-            <q-btn color="primary" no-caps class="q-pa-xs Montserrat" icon="play_arrow" label="Play Demo" />
+            <q-btn color="primary" no-caps class="q-pa-xs Montserrat" icon="play_arrow" label="Play Demo" @click="play = true" />
             <q-btn color="secondary" no-caps class="q-pa-xs Montserrat" label="Start Using Paylidate" :to="{name: 'register'}" />
 
           </div>
@@ -163,8 +163,26 @@
         <div class="col-12 col-sm-5 self-center q-pl-lg"  :class="$q.screen.gt.sm?'':' flex justify-center text-center'">
          <div class="text-secondary  gt-xs text-h4">Get Virtual Cards</div>
          <div class="text-h6 q-py-lg text-weight-light">Just like your regular Cards, you can pay your online shopping with your <span class="text-secondary">Pay Card</span></div>
-          <q-btn color="primary" no-caps class="q-pa-xs Montserrat" icon="play_arrow" label="Play Demo" />
+          <q-btn color="primary" no-caps class="q-pa-xs Montserrat" icon="play_arrow" label="Play Demo" @click="play = true" />
         
+
+<q-dialog v-model="play">
+      <q-card style="min-width:300px">
+        <q-card-section>
+          <div class="text-h4"></div>
+          </q-card-section>
+          
+        <q-card-section>
+          <div class="text-h4 text-secondary">COMING SOON</div>
+          </q-card-section>
+          
+          <q-card-actions align="right">
+            <q-btn flat label="cancel" color="green-3" text-color="red" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
+
         </div>
       </div>
       </div>
@@ -790,6 +808,7 @@ export default {
   },
   data() {
     return {
+      play: false,
       slide: 1,
       autoplay: true,
       FAQs:{

@@ -80,22 +80,22 @@ export default {
         this.$q.loading.hide()
         this.$q.notify({message: 'Login successful', color: 'green'})
         this.$store.dispatch("card/cards");
-        this.$router.push('escrow');
+        this.$router.push({ name: "transactions"})
       })
       .catch(error=>{
         this.loading = false
         this.$q.loading.hide()
-        this.errorHandling(error)
-        // if (error.response) {
-        //   this.loading = false
-        //   this.$q.notify({message: error.response.data.message, color: 'orange'})
-        // } else if (error.request) {
-        //   this.$q.notify({message: 'Error: please try again', color: 'orange'})
-        //   this.loading = false
-        // } else {
-        //   this.$q.notify({message: 'Error: please try again', color: 'orange'})
-        //   this.loading = false
-        // }
+        //this.errorHandling(error)
+        if (error.response) {
+          this.loading = false
+          this.$q.notify({message: error.response.data.message,  type: 'warning', icon: 'error', position: 'top'})
+        } else if (error.request) {
+          this.$q.notify({message: 'Error: please try again', type: 'warning', icon: 'error', position: 'top'})
+          this.loading = false
+        } else {
+          this.$q.notify({message: 'Error: please try again', type: 'warning', icon: 'error', position: 'top'})
+          this.loading = false
+        }
       })
     },
   },

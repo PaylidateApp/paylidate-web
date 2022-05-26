@@ -71,7 +71,7 @@ export default {
           this.loading = false
           this.$q.loading.hide()
           if(error.response){
-            this.$q.notify({message: error.response.data.status , color: 'red'})
+            this.$q.notify({message: error.response.data.message , color: 'red'})
           } else if (error.request) {
             this.loading = false
             this.$q.notify({message: error.request, color: 'orange'})

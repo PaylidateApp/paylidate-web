@@ -1,34 +1,10 @@
 <template>
-  <div>
+  
 
-      <div class="row q-gutter-sm">
+    <q-page class="window-height window-width row justify-center items-center">
+    <div class="text-h3 text-weight-bolder text-secondary">COMING SOON</div>
+  </q-page>
 
-         <div>
-            Just like your regular cards, you can pay for your online shopping with your Pay Card.
-         </div>
-
-          <q-space />
-
-          <AddMoney />
-          <!-- <Transfer /> -->
-          <CreateCard :cards="cards"/>
-      </div>
-      <q-separator class="q-my-sm" />
-
-      <!-- <div class="row q-gutter-md q-my-lg">
-         <CreateCard /> <Transfer />
-      </div> -->
-
-      <div class="row">
-        <Card v-for="(card, index) in cards" :key="index" :card="card" v-on:click.native="clickedCard(card)"/>
-      </div>
-
-      <CardDetails v-if="card" :card="card"/>
-      <!-- <NoData v-else :text="'Getting Your Cards'" /> -->
-
-
-
-  </div>
 </template>
 
 <script>
