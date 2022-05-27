@@ -5,7 +5,7 @@
       <q-card class="" style="min-width: 300px">
 
         <q-card-section class="q-gutter-xs col-md-6 col-sm-12 col-xs-12">
-          <div class="text-h6">Create Escrowed Product</div>
+          <div class="text-h6">Create Product</div>
           <q-form @submit="createProduct()" class="q-gutter-md" autocomplete="off" >        
             
                 <q-input accept="image/*" ref="uploader" :class="`q-mb-md overflow-hidden ${ rightInput }`" outlined stack-label label="Image" @input="addFiles" multiple type="file" bg-color="white"/>
@@ -13,7 +13,7 @@
             <q-select square outlined v-model="form.type" :options="type_option" label=" Type" />
             <q-select square outlined v-model="form.transaction_type" :options="transaction_type_option" label="Transaction Type" />
             <q-input outlined dense v-model="form.name" :rules="schema.name" label="Product/Service Name*" />
-            <q-input outlined dense v-model="form.price" :rules="schema.price" label="Price*" prefix="NGN"/>
+            <q-input outlined dense v-model="form.price" :rules="schema.price" label="Price per Product*" prefix="NGN"/>
             <q-input outlined dense v-model.number="form.quantity" :rules="schema.quantity" type="number" label="Quantity*"/>
             <q-input type="textarea" outlined dense v-model="form.description" label="Product Discription" />
 

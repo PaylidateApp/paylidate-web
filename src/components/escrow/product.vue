@@ -47,8 +47,8 @@
             <div class="text-bold">Type: {{product.type}}</div>
             <div class="text-bold">Available Quantity: {{product.quantity}}</div>
             <div class="text-bold">Product Status: 
-            <span v-if="product.product_status == true">Enable</span>
-            <span v-else>Disable</span>
+            <span v-if="product.product_status == true">Enabled</span>
+            <span v-else>Disabled</span>
             </div>
             <div class="text-bold">Price per Product: {{formatAsNaira(product.price)}}</div>
             <div class="text-bold">Description: {{product.description ? product.description : "No Description"}}</div>

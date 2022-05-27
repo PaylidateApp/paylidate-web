@@ -98,10 +98,10 @@ add payment remitance date automatically on all transaction <br> -->
             <!-- TODO paid unpaid in-dispute complete -->
            <q-td key="product_status" :props="props">
             <q-badge v-if="props.row.product_status" color="positive">
-               Enable
+               Enabled
             </q-badge>
             <q-badge v-else color="negative">
-               Disable
+               Disabled
             </q-badge>
           </q-td>
 
