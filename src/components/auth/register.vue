@@ -65,13 +65,13 @@ export default {
           this.$store.commit('auth/login', 'Bearer '+response.data.access_token)
           this.$store.commit('auth/user', response.data.data)
           this.$store.commit('auth/account', response.data.account)
-          this.$router.push('escrow');
+          this.$router.push({ name: "transactions"})
         })
         .catch(error=>{
           this.loading = false
           this.$q.loading.hide()
           if(error.response){
-            this.$q.notify({message: error.response.data.message , color: 'red'})
+            this.$q.notify({message: 'Email or Phone Number already exist' , color: 'red'})
           } else if (error.request) {
             this.loading = false
             this.$q.notify({message: error.request, color: 'orange'})
