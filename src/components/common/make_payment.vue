@@ -32,7 +32,7 @@
 
           <div class="q-py-xs text-center">
             <div class="text-caption text-weight-light">Amount</div>
-            <div class="text-bold text-h5">NGN {{ transaction.amount }}</div>
+            <div class="text-bold text-h5">NGN {{ form.amount }}</div>
           </div>
 
           <div class="row flex-center full-width q-px-">
@@ -93,7 +93,7 @@ export default {
         rate: 0,
         form:{
           T_id: this.transaction.id,
-          amount: this.transaction.amount,
+          amount: this.transaction.product.price * this.transaction.quantity,
           total_amount: null,
           T_ref: this.transaction.transaction_ref,
           currency: 'NGN',

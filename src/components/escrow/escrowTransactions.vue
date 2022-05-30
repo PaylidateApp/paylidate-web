@@ -191,7 +191,7 @@ export default {
   },
 
   mounted() {
-    this.getProduct();
+    this.getTransactions();
   },
 
   computed:{
@@ -200,19 +200,25 @@ export default {
   },
 
   methods: {
-    async getProduct(){
+    async getTransactions(){
         console.log('contents');
          this.$q.loading.show({
           message: 'Hold on, fetching transaction records',
           spinnerColor: 'secondary'
           
         })
+        try{
         const req = await this.$axios.get(process.env.Api + '/api/transaction')
         const res = req.data
           
         this.contents = res.data.reverse();
          this.$q.loading.hide();
-
+        }catch(err){
+         this.$q.loading.hide();
+        }
+        finally{
+            this.$q.loading.hide();
+        }
       },
 
        copy_link(T_ref){
@@ -254,22 +260,22 @@ export default {
 
       startDelivery(data){
         this.$axios.get(`${process.env.Api}/api/product/status/delivery/${data}`)
-        this.getProduct();
+        this.getTransactions();
       },
 
       orderDelivered(data){
         this.$axios.get(`${process.env.Api}/api/product/status/delivered/${data}`)
-        this.getProduct();
+        this.getTransactions();
       },
 
       orderRecieved(data){
         this.$axios.get(`${process.env.Api}/api/product/status/recieved/${data}`)
-        this.getProduct();
+        this.getTransactions();
       },
 
       canceledDelivery(data){
         this.$axios.get(`${process.env.Api}/api/product/status/canceled/${data}`)
-        this.getProduct();
+        this.getTransactions();
       }
   }
 }

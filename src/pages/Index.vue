@@ -1,9 +1,9 @@
 <template>
   <q-page class="column justify-center dBd" :style="$q.screen.gt.sm?'margin-top:-50px':'margin-top:0px'">
     <Main />
-    <q-page-sticky position="bottom-right" :offset="[18, 18]" class="gt-sm">
+    <!-- <q-page-sticky position="bottom-right" :offset="[18, 18]" class="gt-sm">
       <q-btn fab icon="ion-chatbubbles" color="primary" type="a"  :href="'mailto:hello@paylidate.com?subject=Paylidate%20Customer%20Support'" target="__blank" />
-    </q-page-sticky>
+    </q-page-sticky> -->
 </q-page>
 
 </template>

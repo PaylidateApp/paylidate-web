@@ -49,7 +49,7 @@
             <div class="text-bold">Type: {{transaction.product.type}}</div>
             <div class="text-bold">Total Quantity: {{transaction.quantity}}</div>
             
-            <div class="text-bold" v-if="transaction.amount < 0" >Total Price: {{formatAsNaira(transaction.product.price * transaction.quantity)}}</div>
+            <div class="text-bold" v-if="transaction.amount <= 1" >Total Price: {{formatAsNaira(transaction.product.price * transaction.quantity)}}</div>
             <div class="text-bold" v-else>Total Price: {{formatAsNaira(transaction.amount)}}</div>
             <div class="text-bold">Description: {{transaction.description ? transaction.description : "No Description"}}</div>
           </q-card-section>
@@ -102,10 +102,11 @@
       
         <div v-else-if="transaction.payment != null && transaction.payment.verified && transaction.status == 0 && transaction.accept_transaction == true">
            <div> <q-badge  color="green" text-color="white" label="Payment completed. Waiting for transaction to be confirmed and approved" /></div>  
-          <q-btn class="q-mx-sm" v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="secondary" label="Confirm Transaction" :loading="loading" @click="confirm = true" />
-          <q-btn v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="primary" label="Cancel Transaction" :loading="loading" @click="cancelTransaction()" />
           
-          <q-btn class="q-mx-sm" v-if="transaction.product.transaction_type == 'sell' && user.id == transactionuser_id" unelevated no-caps color="secondary" label="Confirm Transaction" :loading="loading" @click="confirm = true" />
+          <q-btn class="q-mx-sm" v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="secondary" label="Confirm Transaction" :loading="loading" @click="confirm = true" />
+          <q-btn v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="primary" label="Confirm Transaction" :loading="loading" @click="cancelTransaction()" />
+          
+          <q-btn class="q-mx-sm" v-if="transaction.product.transaction_type == 'sell' && user.id == transaction.user_id" unelevated no-caps color="secondary" label="Confirm Transaction" :loading="loading" @click="confirm = true" />
           <q-btn v-if="transaction.product.transaction_type == 'sell' && user.id == transaction.user_id" unelevated no-caps color="primary" label="Cancel Transaction" :loading="loading" @click="cancelTransaction()" />
 
           <q-dialog v-model="confirm">
@@ -114,15 +115,15 @@
           <div class="text-h6">Confirm Transaction</div>
           </q-card-section>
           <q-card-section>
-          Are you sure you want to Logout?
+          Are you sure you want to Confirm Transaction?
           </q-card-section>
           <q-card-section>
-          Note that once you click one the confirm button, you agree that you have received the product or service and 
-          all disputes are settle and seller can withraw the money. Paylidate will not be held responsible after that. 
+          Note that once you click on the confirm button, you are confirming that you have received the product or service and 
+          all disputes are settle and seller can withdraw the money. Paylidate will not be held responsible after that. 
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn flat label="Cancel" color="red-3" text-color="green" @click="confirm = false" />
-            <q-btn flat label="Confirm" color="green-3" text-color="red" @click="confirmTransaction()" />
+            <q-btn flat label="Cancel" color="red-3" text-color="red" @click="confirm = false" />
+            <q-btn flat label="Confirm" color="green-3" text-color="green" @click="confirmTransaction()" />
         </q-card-actions>
       </q-card>
     </q-dialog>
