@@ -229,6 +229,7 @@ export default {
     // },
 
     async createProduct(data = false){
+      try{
       if(!this.form.seller_email && this.form.transaction_type == 'buy'){
         this.$q.notify({
           message: 'The seller email field can not be empty', 
@@ -236,9 +237,7 @@ export default {
           color: 'red', 
           textColor:'white'
         })
-        this.$router.push({ name: "products"})
-
-        
+        this.$router.push({ name: "products"})        
       }
       else{
         if(this.form.seller_email != this.user.email){
@@ -249,12 +248,12 @@ export default {
         if(this.files) await this.uploadProductImage();
         
         this.$axios.defaults.headers.common["Authorization"] = token;
-        try{
+
           //// console.log(process.env.Api );
           const req = await this.$axios.post(process.env.Api + '/api/product', this.form)
           const res = req.data
           //// console.log(req.data);
-            // console.log(res);
+             //console.log(res);
             
       
 
@@ -270,20 +269,7 @@ export default {
           }
           this.loading = false
           this.$q.loading.hide();
-        }catch(err){
-          // console.log(err.data);
-          this.loading = false
-          this.$q.notify({
-            message: 'Product creation failed, kindly try again', 
-            position:'top' , 
-            color: 'orange', 
-            textColor:'white'
-          })
-          this.$q.loading.hide();
-        }finally {
-          this.loading = false
-          this.$q.loading.hide();
-        }
+
         }
         else{
             this.$q.notify({
@@ -295,6 +281,20 @@ export default {
 
         }
       }
+       }catch(error){
+          //console.log(error.response.data.message)
+         this.$q.loading.hide();
+          this.loading = false
+        this.$q.notify({message: 'Error:: Dispute not open', color: 'red', position: 'top', type: 'negetive' })
+
+
+        }
+        finally{
+        
+        this.$q.loading.hide();
+        this.loading = false
+
+        }
 
     },
 

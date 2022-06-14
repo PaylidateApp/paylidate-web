@@ -60,7 +60,13 @@ add payment remitance date automatically on all transaction <br> -->
           <q-td key="transaction_ref" :props="props">
 
           <q-btn class="text-blue" :to="{name: 'transaction', params: {T_ref: props.row.transaction_ref}}" flat size="md" no-caps>
-            {{ props.row.transaction_ref }}
+            {{ props.row.transaction_ref }} 
+           
+           </q-btn>
+           <br>
+           <q-btn class="text-blue" :to="{name: 'transaction', params: {T_ref: props.row.transaction_ref}}" flat size="md" no-caps>
+             
+           click to view transition
            </q-btn>
           </q-td>
           <q-td key="name" :props="props">
@@ -167,7 +173,6 @@ export default {
   components:{
     eExport, buy, sell, Payment, CreateProduct, Disput
   },
-
   data () {
     return {
       columns: [
@@ -182,26 +187,23 @@ export default {
         { name: 'link', label: 'Transaction link', field: '', align: 'center', sortable: true },
         { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'center', sortable: true, },
         { name: 'transaction_status', label: 'Status', field: 'transaction',  align: 'left', sortable: true },
-
       ],
       contents:[],
       payment_url: `${window.location.href}/product/`,
       copyLink:'Copy link',
     }
   },
-
   mounted() {
     this.getTransactions();
   },
-
   computed:{
      copyL(){return this.copyLink},
     user(){return this.$store.getters["auth/user"] },
-  },
 
+  },
   methods: {
     async getTransactions(){
-        console.log('contents');
+        //console.log('contents');
          this.$q.loading.show({
           message: 'Hold on, fetching transaction records',
           spinnerColor: 'secondary'
@@ -211,7 +213,9 @@ export default {
         const req = await this.$axios.get(process.env.Api + '/api/transaction')
         const res = req.data
           
-        this.contents = res.data.reverse();
+        this.contents = res.data;
+        //console.log(this.contents)
+        
          this.$q.loading.hide();
         }catch(err){
          this.$q.loading.hide();
@@ -220,17 +224,14 @@ export default {
             this.$q.loading.hide();
         }
       },
-
        copy_link(T_ref){
       navigator.clipboard.writeText(window.location.origin+'/escrow-transaction/'+T_ref)
       this.copyLink = 'copied!';
        setTimeout(() => this.copyLink = 'Copy Link', 2000);
        },
-
       currency(amount){
         return (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'NGN' }).format(amount));
       },
-
       sum_ammount(type,user_id){
       if(this.contents){
         const sort_ammounts = this.contents.filter(function(item) {
@@ -244,7 +245,6 @@ export default {
               }
               
             }
-
           })
         let sum = sort_ammounts.reduce((accumulator, current) => Number(accumulator) + Number(current.product.price), 0);
         return sum;
@@ -252,27 +252,22 @@ export default {
         return 0;
       }
     },
-
       formatDate(dateString){
           const options = { year: "numeric", month: "long", day: "numeric" }
           return new Date(dateString).toLocaleDateString(undefined, options)
       },
-
       startDelivery(data){
         this.$axios.get(`${process.env.Api}/api/product/status/delivery/${data}`)
         this.getTransactions();
       },
-
       orderDelivered(data){
         this.$axios.get(`${process.env.Api}/api/product/status/delivered/${data}`)
         this.getTransactions();
       },
-
       orderRecieved(data){
         this.$axios.get(`${process.env.Api}/api/product/status/recieved/${data}`)
         this.getTransactions();
       },
-
       canceledDelivery(data){
         this.$axios.get(`${process.env.Api}/api/product/status/canceled/${data}`)
         this.getTransactions();

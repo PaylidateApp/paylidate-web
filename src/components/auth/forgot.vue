@@ -58,7 +58,7 @@ export default {
         }
         catch (error) {
         this.loading = false
-          // console.log(error)
+          //console.log(error.response.data.message)
           this.error = "Error:: Ensure your email is correct"
         }
       }else {

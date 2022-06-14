@@ -16,6 +16,7 @@ const routes: RouteConfig[] = [
       // { path: 'home', name: 'home', component: () => import('pages/Dashboard.vue'), meta: { requiresAuth: true } },
       { path: 'account', name: 'account',component: () => import('pages/Auth.vue'), meta: { requiresAuth: true } },
       { path: 'products', name: 'products', component: () => import('pages/Escrow.vue'), meta: { requiresAuth: true } },
+      { path: 'transaction-disputes/:transaction_id', name: 'disputes', component: () => import('pages/Escrow.vue'), meta: { requiresAuth: true } },
       { path: 'escrow-transactions', name: 'transactions', component: () => import('pages/Escrow.vue'), meta: { requiresAuth: true } },
       { path: 'escrow-transaction/:T_ref', name: 'transaction', component: () => import('pages/Escrow.vue')},
       { path: 'product/:slug', name: 'product', component: () => import('pages/Escrow.vue')},

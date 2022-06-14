@@ -65,9 +65,11 @@
         </div>
 
         <div v-if="product.user_id != user.id">
-        <span  v-if="product.product_status == true || product.quantity > 0">
-          <q-btn v-if="Object.keys(user).length"  color="secondary" size="md" class="q-mx-sm" label="Buy Product" @click="accept_modal = true" />
-          <q-btn v-else  color="secondary" size="md" class="q-mx-sm" label="Buy Product" @click="onLogin = true" />
+        <span  v-if="product.product_status == true && product.quantity > 0 ">
+          <span v-if="product.transaction_type == 'sell'">
+            <q-btn v-if="Object.keys(user).length"  color="secondary" size="md" class="q-mx-sm" label="Buy Product" @click="accept_modal = true" />
+            <q-btn v-else  color="secondary" size="md" class="q-mx-sm" label="Buy Product" @click="onLogin = true" />
+          </span>
         </span>
         <span  v-else>
          <q-badge  color="red" text-color="white" label="Sorry!!! This product is currently not available" />
@@ -208,7 +210,13 @@ export default {
     },
 
     async buyProduct(){
+          let quantity =this.form.quantity
+          if(!quantity)
+          {
+          this.$q.notify({message: 'Product quantity can not be empty', color: 'red'})
 
+            return
+          }
           if(this.form.quantity > this.product.quantity)
           {
           this.$q.notify({message: 'You can not request more than the available quantity', color: 'red'})
@@ -223,7 +231,7 @@ export default {
             })
           const req = await this.$axios.post(process.env.Api + '/api/transaction', this.form)
           const res = req.data
-          
+          console.log(res);
           this. getProduct()
           this.$q.loading.hide()
           this.$q.notify({message: 'Request seccessfully', color: 'green'})
@@ -236,6 +244,9 @@ export default {
             this.$q.loading.hide()
           this.$q.notify({message: 'Error while trying create transaction', color: 'red'})
           }
+          finally{
+            this.$q.loading.hide();
+        }
           }
         },
 

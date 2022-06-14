@@ -24,19 +24,19 @@ add disbut messaging <br>
 add status badge <br>
 add payment remitance date automatically on all transaction <br> -->
 
-<!-- {{ contents[0] }} -->
+<!-- {{ content[0] }} -->
 
 </div>
 
     <q-table
       title="Products/Services"
-      :data="contents"
+      :data="content"
       :columns="columns"
       row-key="name"
       square
     >
       <template v-slot:top-right>
-        <eExport :array="contents" :columns="columns" />
+        <eExport :array="content" :columns="columns" />
         <!-- <q-btn unelevated color="primary" icon-right="archive" label="Download Table" no-caps @click="exportTable" /> -->
       </template>
 
@@ -159,7 +159,7 @@ export default {
         { name: 'view', label: 'View', field: '', align: 'center', sortable: true },
 
       ],
-      contents:[],
+      content:[],
       payment_url: `${window.location.href}/product/`,
       url: '',
       copyLink:'Copy link',
@@ -176,7 +176,9 @@ export default {
   },
 
   methods: {
+    
       async getProduct(){
+        try{
         this.$q.loading.show({
           message: 'Hold on, fetching product',
           spinnerColor: 'secondary'
@@ -185,11 +187,17 @@ export default {
         const req = await this.$axios.get(process.env.Api + '/api/product')
         const res = req.data
         
-        this.contents = res.data.reverse();
+        this.content = res.data;
+        //console.log(res.data);
          this.$q.loading.hide();
-
-      },
-      
+        }
+        catch(err){
+          this.$q.loading.hide();
+          }
+          finally{
+              this.$q.loading.hide();
+          }
+      },      
 
       currency(amount){
         return (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'NGN' }).format(amount));
@@ -203,8 +211,8 @@ export default {
     },
 
       sum_ammount(type,user_id){
-      if(this.contents){
-        const sort_ammounts = this.contents.filter(function(item) {
+      if(this.content){
+        const sort_ammounts = this.content.filter(function(item) {
 
             if (item.payment_status) {
               if (item.transaction_type === 'buy' && item.user_id != user_id && type === 'received') {

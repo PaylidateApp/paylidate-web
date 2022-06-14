@@ -74,10 +74,10 @@
           <q-tab-panel name="account">
             <div class="text-h4 q-mb-md">Account Details</div>
             <q-card-section class="q-gutter-sm">
-              <q-select dense square v-model="bank.bank_code" :options="banks" option-value="code"
+              <q-select dense square :rules="schema.bank_code" v-model="bank.bank_code" :options="banks" option-value="code"
                 option-label="name" emit-value map-options outlined label="Bank Name" />
-              <q-input dense square v-model="bank.account_name" outlined label="Account Name" />
-              <q-input dense square type="number" v-model="bank.account_number" outlined label="Account Number" />
+              <q-input dense square :value="bank.account_number" @keyup="verify_account"  :rules="schema.acc_num" type="number" outlined label="Account Number" />
+              <q-input dense square v-model="bank.account_name" outlined disable label="Account Name" />
               <q-btn v-if="update" color="primary" @click="updateUserBankDetails()" :loading="loading" no-caps label="update Account Details" />
               <q-btn v-if="!update" color="primary" @click="accountDetail()" :loading="loading" no-caps label="Save Account Details" />
             </q-card-section>
@@ -96,10 +96,15 @@
 </template>
 
 <script>
+import disputeSchema from '../validation/bank'
+
 export default {
   // name: 'PageName',
   data(){
     return {
+
+      schema: disputeSchema,
+
       loading : false,
       tab: 'profile',
       update:false,
@@ -155,6 +160,51 @@ export default {
       else return 'white'
     },
 
+    async verify_account(event){
+      this.bank.account_number = event.target.value;
+      try{
+      if(event.target.value.length != 10){
+          return
+      }
+
+      if(event.target.value == 10 && this.bank.bank_code == ''){
+          this.$q.notify({message: 'Select bank' , color: 'red'})  
+          this.bank.account_number = '' 
+          return         
+
+      }
+
+         this.$q.loading.show({
+          message: 'Hold on, verifying your account number',
+          spinnerColor: 'secondary'
+          
+        }) 
+      const req = await this.$axios.post(process.env.Api + '/api/verify-account', this.bank)
+        const res = req.data
+      this.$q.loading.hide();
+      if(res.data == null)
+      {
+        this.bank.account_name = ''
+        this.$q.notify({message: 'Invalid account number', color: 'red'}) 
+        return                  
+      }
+        this.bank.account_name = res.data.account_name
+        
+        
+        
+        }catch(e){
+        this.bank.account_name = ''
+         this.loading = false;
+          this.$q.notify({message: 'Error while verifying your account number', color: 'red'})                   
+      }
+      finally{
+         this.$q.loading.hide();
+
+      }
+
+      
+
+    },
     async getBanks(){
    
       const req = await this.$axios.get(process.env.Api + '/api/get-banks')
