@@ -127,7 +127,7 @@ export default {
     },
 
     mounted() {
-      this.get_rate()
+      //this.get_rate()
     },
 
     methods:{

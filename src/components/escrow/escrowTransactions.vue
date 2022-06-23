@@ -238,6 +238,7 @@ export default {
             
             if (item.payment && item.payment.verified) {
               if (item.payment.user_id != user_id && type === 'received') {
+                item.product.price =item.amount
                 return item
               }
               if (item.payment.user_id == user_id && type === 'made') {

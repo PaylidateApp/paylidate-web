@@ -318,11 +318,13 @@ export default {
 
       this.bank.bank_name = bank_name['0'].name
     try{
+    
       const req = await this.$axios.post(process.env.Api + '/api/user-bank', this.bank)
+      
         const res = req.data
         
         if(res){
-    this.getUserBankDetails()
+      this.getUserBankDetails()
 
           this.loading = false;
           this.$q.notify({message: 'Account details save successfully', color: 'green'})                   
@@ -330,11 +332,13 @@ export default {
         }
         else{
 
-           this.loading = false;
+          this.loading = false;
           this.$q.notify({message: 'An error occured while saving account details', color: 'red'})                   
 
         }
-        }catch(e){
+        }catch(error){
+        console.log(error.response.data.message);
+
          this.loading = false;
           this.$q.notify({message: 'An error occured while saving account details', color: 'red'})                   
       }

@@ -1,5 +1,21 @@
 <template>
   <div>
+      <q-dialog v-model="disputeModal">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Dispute Detail</div>
+        </q-card-section>
+        <q-card-section>
+
+            <div> {{dispute}} </div>
+
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat size="md" label="Cancel" color="negative" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
     <q-table
       title="Transactions"
       :data="contents"
@@ -20,7 +36,9 @@
           
           </q-td>
           <q-td key="dispute" :props="props">
-            {{ props.row.dispute }}
+
+            <q-btn label="View" @click="viewDispute( props.row.dispute)"  class="bg-secondary" color="white" flat size="sm" no-caps />
+
           </q-td>
 
           <q-td key="user_email" :props="props">
@@ -42,7 +60,8 @@
           </q-td>
 
           <q-td key="solve_dispute" :props="props">
-            <q-btn :to="{name: 'product', params: {slug: props.row.id}}" label="Confirm" class="bg-secondary" color="white" flat size="sm" no-caps />
+            <q-btn v-if="props.row.user_id == user.id" label="Confirm"  class="bg-secondary" color="white" flat size="sm" no-caps />
+            <q-btn v-else disable label="Confirm"  class="bg-secondary" color="white" flat size="sm" no-caps />
 
           </q-td>
 
@@ -64,6 +83,8 @@ export default {
   },
   data () {
     return {
+      disputeModal: false,
+      dispute: null,
       title: null,
       T_id: this.$route.params.transaction_id,
       columns: [
@@ -73,7 +94,7 @@ export default {
         { name: 'user_email', label: 'Dispute Opened by', field: 'user', sortable: true,  align: 'left'  },
         { name: 'dispute_solved', label: 'Dispute Status', field: 'dispute_solved', sortable: true,  align: 'left'  },
         { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'center', sortable: true, },
-        { name: 'solve_dispute', label: 'Confirm in dipute solved', field: '',  align: 'left', sortable: true },
+        { name: 'solve_dispute', label: 'Confirm to resolve dispute', field: '',  align: 'left', sortable: true },
       ],
       contents:[],     
     }
@@ -94,19 +115,26 @@ export default {
           
         })
         try{
-        const req = await this.$axios.get(process.env.Api + '/api/transaction-disputes/1')
-        
+        const req = await this.$axios.get(process.env.Api + '/api/transaction-disputes/'+ this.T_id)
+       
         this.contents = req.data.data;
         this.$q.loading.hide();
 
         }catch(error){
-        console.log(error.response.data.message);
+        //console.log(error.response.data.message);
 
          this.$q.loading.hide();
         }
         finally{
             this.$q.loading.hide();
         }
+      },
+
+      viewDispute(dispute){
+
+        this.dispute = dispute
+        this.disputeModal = true
+
       },
 
             formatDate(dateString){

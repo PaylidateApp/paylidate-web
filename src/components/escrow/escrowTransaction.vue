@@ -11,7 +11,7 @@
         <q-card-section>
           <div class="text-h6">Request for withdrawal</div>
         </q-card-section>
-        <span v-if="transaction.bank">
+        <span v-if="request_withdrawal.bank_id != ''">
         <q-card-section>
           <div class="text-bold text-red">
               Ensure that your bank account details are correct before you request for withdrawal. You can change your bank account details from the setting tab
@@ -45,7 +45,7 @@
 
         </span>
         <q-card-actions align="right">
-          <q-btn v-if="transaction.bank" flat size="md" label="Request Withdrawal" @click="requestWithdrawal()" color="positive" />
+          <q-btn v-if="request_withdrawal.bank_id != ''" flat size="md" label="Request Withdrawal" @click="requestWithdrawal()" color="positive" />
           <q-btn flat size="md" label="Cancel" color="negative" v-close-popup />
         </q-card-actions>
       </q-card>
@@ -112,9 +112,14 @@
               
         </span>
         <span v-else>
-        <div  v-if="transaction.user_id == user.id || transaction.product.user_id">
-          <div> <q-badge  color="primary" text-color="white" label="Open a dipute if you have any issue" /></div>  
-          <Disput :transaction="transaction" />        
+        <div>
+          <div v-if="transaction.user_id == user.id || transaction.product.user_id"> 
+              <q-badge  color="primary" text-color="white" label="Open a dipute if you have any issue" />
+          </div>  
+          <div class="flex justify-between">
+          <Disput :transaction="transaction" v-if="transaction.user_id == user.id || transaction.product.user_id" />   
+          <q-btn :to="{name: 'disputes', params: {transaction_id: transaction.id}}" size="sm" color="secondary" label="View Disputes"/> 
+          </div>    
         </div>        
         </span>
         
@@ -185,12 +190,18 @@
               <div> <q-badge  color="green" text-color="white" label="Transaction completed" /></div> 
               
               <span v-if="transaction.withdrawal_request">
-              <div v-if="transaction.payment.withdrawn == false">
-                <q-badge  color="orange" text-color="white" label="Your have requested for a withdrawal, expect your money into your bank account soon" />
-              </div>       
-              <div v-if="transaction.payment.withdrawn == true">
-                <q-badge  color="orange" text-color="white" label="Money has been withdrawn to you bank account" />
-              </div>       
+              <span v-if="(transaction.product.user_id == user.id && transaction.product.transaction_type == 'sell') || (transaction.user_id == user.id && transaction.product.transaction_type == 'buy')">
+              
+                <div class="text-orange text-bold" v-if="transaction.payment.withdrawn == false">
+                  Your have requested for a withdrawal, expect your money into your bank account soon
+                </div>
+                <div class="text-orange text-bold" v-else>
+                
+                </div>        
+                <div v-if="transaction.payment.withdrawn == true">
+                  <q-badge  color="orange" text-color="white" label="Money has been transfered to your bank account" />
+                </div>       
+              </span>
               </span>
 
               <span v-else>
@@ -322,10 +333,10 @@ export default {
       loading: false,
       signup:false,
       onLogin:false,
-       request_withdrawal:{        
+        request_withdrawal:{        
         transaction_id: '',
         payment_id: '',
-        user_bank_id: '',
+        bank_id: '',
         narration: '',
         debit_currency: '',
 
@@ -374,7 +385,7 @@ export default {
       const req = await this.$axios.post(process.env.Api + '/api/transaction/cancel/'+ this.transaction.id)
       const res = req.data
       
-      this. getTransaction()
+      this.getTransaction()
       this.$q.loading.hide()
       this.$q.notify({message: 'Transaction cancelled', color: 'green'})
       
@@ -397,7 +408,7 @@ export default {
       const req = await this.$axios.post(process.env.Api + '/api/transaction/confirm/'+ this.transaction.id)
       const res = req.data
       
-      this. getTransaction()
+      this.getTransaction()
       this.$q.loading.hide()
       this.$q.notify({message: 'Transaction confirm seccessfully', color: 'green'})
       
@@ -420,7 +431,7 @@ export default {
       const req = await this.$axios.post(process.env.Api + '/api/transaction/accept/'+ this.transaction.id)
       const res = req.data
       
-      this. getTransaction()
+      this.getTransaction()
       this.$q.loading.hide()
       this.$q.notify({message: 'Transaction accepted seccessfully', color: 'green'})
       
@@ -445,7 +456,7 @@ export default {
       const req = await this.$axios.post(process.env.Api + '/api/transaction/decline/'+ this.transaction.id)
       const res = req.data
       
-      this. getTransaction()
+      this.getTransaction()
       this.$q.loading.hide()
       this.$q.notify({message: 'Transaction decline seccessfully', color: 'green'})
       
@@ -501,28 +512,28 @@ export default {
           spinnerColor: 'secondary'
           
         })
-        console.log(this.request_withdrawal);
+        //console.log(this.request_withdrawal);
+      this.withdraw = false
         
       const req = await this.$axios.post(process.env.Api + '/api/request-withdrawal', this.request_withdrawal)
+      
       const res = req.data
+      //console.log(res.data)
       
-      //console.log(res);
       this.transaction = res.data
-      
+      this.getTransaction();
          this.$q.loading.hide();
-        this.$q.notify({message: 'Withdrawal request has been sent succefully', color: 'green', position: 'top' })
-
-
-      
+        this.$q.notify({message: 'Withdrawal request has been sent succefully', color: 'green', position: 'top' })      
       }
       catch(error){
+        //console.log(error.response.data.message);
          this.$q.loading.hide();
         this.$q.notify({message: 'Error:: withdrawal request error', color: 'red', position: 'top' })
 
         // // console.log(second);
-        // console.log(error.response.data.message);
       }
       finally{
+        
         this.$q.loading.hide();
       }
 
@@ -540,22 +551,31 @@ export default {
       const res = req.data
       
       //console.log(res);
+      if(!res.data){
+        this.$q.notify({message: 'record not found', color: 'red', position: 'top' })
+
+      }
+
       this.transaction = res.data
 
-      this.request_withdrawal.transaction_id = res.data.id
-        this.request_withdrawal.payment_id = res.data.payment.id
-        this.request_withdrawal.user_bank_id = res.data.bank.id
-        this.request_withdrawal.narration = 'Payment for '+res.data.product.name
-        this.request_withdrawal.debit_currency = res.data.payment.currency
+        //console.log(res.data)
+      
+        let bank = res.data.bank
+      if(bank){
+        this.request_withdrawal.transaction_id= res.data.id
+        this.request_withdrawal.payment_id= res.data.payment.id
+        this.request_withdrawal.bank_id= res.data.bank.id
+        this.request_withdrawal.narration='Payment for ' + res.data.product.name
+        this.request_withdrawal.debit_currency= 'NGN'
+      }
+       // console.log(this.request_withdrawal)
       
          this.$q.loading.hide();
-
       
       }
       catch(error){
          this.$q.loading.hide();
-        this.$q.notify({message: 'Record not fetch', color: 'red', position: 'top' })
-
+        
         // // console.log(second);
         // // console.log(error.response.data.message);
       }
@@ -642,39 +662,7 @@ export default {
         this.$q.notify({message: 'Account Creation Failed', color: 'orange', position: 'top', type: 'warning' })
 
       }
-    },
-
-    deliveryStatus(status){
-      if (status === 0) {
-        return 'Awaiting Fulfillment'
-      } else if(status === 1) {
-        return 'In Transit'
-      } else if(status === 2) {
-        return 'Delivered'
-      } else if(status === 3) {
-        return 'Recieved'
-      }
-       else if(status === 4) {
-        return 'Canceled'
-      }
-    },
-
-    orderDelivered(data){
-        this.$axios.get(`${process.env.Api}/api/transaction/status/delivered/${data}`)
-        this.getTransaction();
-      },
-
-    orderRecieved(data){
-        this.$axios.get(`${process.env.Api}/api/transaction/status/recieved/${data}`)
-        this.getTransaction();
-      },
-
-    canceledDelivery(data){
-        this.$axios.get(`${process.env.Api}/api/transaction/status/canceled/${data}`)
-        this.getTransaction();
-      }
-
-
+    },    
     
   },
 
@@ -684,4 +672,5 @@ export default {
     //else this.getTransaction()this.getTransaction()
   }
 }
+
 </script>

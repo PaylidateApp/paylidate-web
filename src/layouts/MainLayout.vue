@@ -312,7 +312,7 @@ export default {
         || myroute == 'view' || myroute == 'checkout' || myroute == 'success'
         || myroute == 'details' || myroute == 'integration' || myroute == 'finish'
         || myroute == 'platform' || myroute == 'install' || myroute == 'bank' || myroute == 'product'
-        || myroute == 'transaction'
+        || myroute == 'transaction' || myroute == 'disputes'
         ){
         return false
       }else{
