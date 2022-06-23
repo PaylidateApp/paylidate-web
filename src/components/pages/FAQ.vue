@@ -42,7 +42,7 @@ export default {
         },
         {
           title:'How much does paylidate charge per transaction? ',
-          content:'paylidate charges  2% + #100 for each transaction, (NB: Our charges never goes beyond N2000)'
+          content:'Paylidate charges 3% for each transaction, (NB: For transaction below NGN 3,334 their is a fix charges of N100, and for transaction above NGN 83,334 their is a fix charges of N2500)'
         },
         {
           title:'How long do I wait to make a withdrawal after a payment is validated?(for sellers)',

@@ -73,54 +73,24 @@ add payment remitance date automatically on all transaction <br> -->
               {{ props.row.carbs }}
             </q-badge>
           </q-td>
-          <q-td key="type" :props="props">
-            <q-badge v-if="props.row.type === 'buy'" color="primary">
+          <q-td key="transaction_type" :props="props">
+            <q-badge v-if="props.row.transaction_type === 'buy'" color="primary">
               {{ props.row.user_id === user.id ? 'buy' : 'sell' }}
             </q-badge>
-            <q-badge v-if="props.row.type === 'sell'" color="primary">
+            <q-badge v-if="props.row.transaction_type === 'sell'" color="primary">
               {{ props.row.user_id === user.id ? 'sell' : 'buy' }}
             </q-badge>
           </q-td>
-          <!-- <q-td key="confirmed" :props="props">
-            <q-badge :color="props.row.secondary_user_id ? 'steal' : 'negative'">
-              {{ props.row.secondary_user_id ? 'Confirmed' : 'Un-confirmed' }}
-            </q-badge>
-          </q-td> -->
-          <!-- <q-td key="payment_status" :props="props">
-            <q-badge v-if="props.row.payment_status" color="steal">
-               {{ 'Paid' }}
-            </q-badge>
-            <q-badge v-else-if="props.row.type === 'sell' && !props.row.payment" color="negative">
-               {{ 'Un-Paid' }}
-            </q-badge>
-            <Payment v-else :amount="props.row.price" :slug="props.row.slug" :product="props.row" :url="payment_url+props.row.slug+'/payment'"/>
-          </q-td> -->
+          
            <q-td key="view" :props="props" class="column">
             <q-btn :to="{name: 'product', params: {slug: props.row.slug}}" label="View Order" flat size="sm" no-caps />
-            <!-- <q-btn @click="canceledDelivery(props.row.id)" color="negative" size="xs" no-caps label="Cancel Order" /> -->
           </q-td>
-
-          <!-- <q-td key="action" :props="props" class=""
-            v-if="props.row.type === 'sell' && props.row.user_id == user.id || props.row.type === 'buy' && props.row.user_id != user.id" >
-            <q-btn v-if="props.row.delivery_status == 0" @click="startDelivery(props.row.id)" color="warning" size="xs" no-caps label="Start Delivery" />
-            <q-btn v-if="props.row.delivery_status == 1" @click="orderDelivered(props.row.id)" color="negative" size="xs" no-caps label="Order Completed" />
-            <Disput v-if="props.row.delivery_status == 1" />
-          </q-td>
-          <q-td key="action" :props="props" class=""
-            v-if="props.row.type === 'buy' && props.row.user_id == user.id || props.row.type === 'sell' && props.row.user_id != user.id">
-            <span v-if="props.row.delivery_status == 0" class="text-bold">Awaiting Delivery</span>
-            <q-btn v-if="props.row.delivery_status == 1" @click="orderRecieved(props.row.id)" color="warning" size="xs" no-caps label="Recieved Delivery" />
-            <Disput  />
-          </q-td> -->
-
-
-            <!-- TODO paid unpaid in-dispute complete -->
            <q-td key="payment_status" :props="props">
             <q-badge v-if="props.row.payment_status" color="steal">
-               {{ 'Paid' }}
+               Paid 
             </q-badge>
             <q-badge v-else color="negative">
-               {{ 'Un-Paid' }}
+               Un-Paid
             </q-badge>
           </q-td>
 
@@ -155,12 +125,12 @@ export default {
           sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
         { name: 'quantity', label: 'Quantity', field: 'quantity', sortable: true,  align: 'left'  },
         { name: 'price', label: 'Price', field: 'price', sortable: true,  align: 'left'  },
-        { name: 'type', label: 'Type', field: 'type', sortable: true,  align: 'left'  },
+        { name: 'transaction_type', label: 'Transaction Type', field: 'transaction_type', sortable: true,  align: 'center'  },
         // { name: 'confirmed', label: 'Confirmation', field: 'confirmed', align: 'left', sortable: true },
         // { name: 'payment_status', label: 'Payment', field: 'payment_status',align: 'left', sortable: true },
-        { name: 'view', label: 'View', field: '', align: 'left', sortable: true },
-        { name: 'action', label: 'Status', field: '',  align: 'left'  },
-        { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'left', sortable: true,  align: 'left'  },
+        { name: 'view', label: 'View', field: '', align: 'center', sortable: true },
+        { name: 'payment_status', label: 'Status', field: 'payment_status',  align: 'left', sortable: true },
+        { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'center', sortable: true, },
 
       ],
       contents:[],
@@ -192,16 +162,16 @@ export default {
         const sort_ammounts = this.contents.filter(function(item) {
 
             if (item.payment_status) {
-              if (item.type === 'buy' && item.user_id != user_id && type === 'received') {
+              if (item.transaction_type === 'buy' && item.user_id != user_id && type === 'received') {
                 return item
               }
-              if (item.type === 'buy' && item.user_id === user_id && type === 'made') {
+              if (item.transaction_type === 'buy' && item.user_id === user_id && type === 'made') {
                 return item
               }
-              if (item.type === 'sell' && item.user_id === user_id && type === 'received') {
+              if (item.transaction_type === 'sell' && item.user_id === user_id && type === 'received') {
                 return item
               }
-              if (item.type === 'sell' && item.user_id != user_id && type === 'made') {
+              if (item.transaction_type === 'sell' && item.user_id != user_id && type === 'made') {
                 return item
               }
             }

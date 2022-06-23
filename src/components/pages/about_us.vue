@@ -1,20 +1,45 @@
 <template>
-  <div class="">
+  <div class=" q-px-sm q-px-sm-xl">
     <q-card class="" flat>
       <q-card-section horizontal>
-        <img class="col-7" src="https://res.cloudinary.com/godfadatun/image/upload/v1619664344/undraw_team_spirit_hrr4_olqtai.svg">
-        <q-card flat class="flex flex-center">          
-          <q-card-section class="column ">
-            <div class="title text-h5 q-py-md text-uppercase text-weight-bolder">
-              About Us
-            </div>
-            {{content}}
-            <div class="column q-py-md">
-              <div class="text-h6">{{dname}}</div>
-              <div class="text-bold">{{company}}</div>
-            </div>
-          </q-card-section>
-        </q-card>
+        <div class="flex text-justify q-px-sm-xl">
+         <div class="text-secondary text-bold text-h4">About Us</div>
+         <div class="text-h6 q-py-xm q-py-sm-none q-px-sm-md text-weight-light" style="font-family: 'Montserrat', sans-serif;" :style="$q.screen.gt.sm?'':'line-height:normal'">
+         Paylidate is a product of Lotusfort Technologies, a company with the goal of creating solutions 
+         to everyday problems using Technology. Our mission for developing Paylidate is to stand as a 
+         secure third party payment platform which ensures security for businesses and their customers 
+         to make and receive payments upfront without the fear of being swindled.  <br/>  <br/>
+         The Paylidate team is passionate about the growth of your business and the trust of your customers.
+         We want to help businesses to become more profitable by maximizing engagements and reducing the 
+         question of trust between two parties to the barest minimum. 
+         <br/><br/>
+         <div :class="$q.screen.gt.sm?'':'q-mb-sm'">
+         <span class="text-bold"  >Taking a Stand for business growth without barriers</span> <br/>
+         </div>
+
+          Noting the explosion of e-commerce through the use of social media and online shops on various 
+          platforms in amarket place environment that consists of millions of users with a desire to either 
+          buy or sell something. Technology has played an important role in developing the environment for 
+          these market places. However, the few challenges experienced pose a great threat to a sustainable 
+          e-commerce culture especially in this part of the world. <br/><br/>
+          Social media and Classified ads hold a 
+          thousand opportunities for vendors to sell their products. This is hindered by alot of bad online 
+          trade experiences. <br/><br/>
+          Some of these experiences include: <br/>
+          <ol>
+            <li>(Payment before delivery) Paying an online vendor for a product and never getting the product 
+          delivered to you</li><br/>
+            <li>Paying and then getting a substandard product</li> <br/>
+            <li>Getting your money back after a failed or wrong delivery</li>
+            <li>(Cash on delivery) A vendor expecting to be paid at the point of delivering a product but 
+          not finding the buyer because they don't have the money, so all the logistics expenses are 
+          wasted. etc.</li>
+          </ol>
+          
+         </div>
+          
+        
+        </div>
       </q-card-section>
       
     </q-card>

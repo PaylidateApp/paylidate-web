@@ -74,11 +74,12 @@
           <q-tab-panel name="account">
             <div class="text-h4 q-mb-md">Account Details</div>
             <q-card-section class="q-gutter-sm">
-              <q-select dense square v-model="bank.bank_code" :options="banks" option-value="code"
+              <q-select dense square :rules="schema.bank_code" v-model="bank.bank_code" :options="banks" option-value="code"
                 option-label="name" emit-value map-options outlined label="Bank Name" />
-              <q-input dense square v-model="bank.account_name" outlined label="Account Name" />
-              <q-input dense square type="number" v-model="bank.account_number" outlined label="Account Number" />
-              <q-btn color="primary" @click="accountDetail()" :loading="loading" no-caps label="Save Account Details" />
+              <q-input dense square :value="bank.account_number" @keyup="verify_account"  :rules="schema.acc_num" type="number" outlined label="Account Number" />
+              <q-input dense square v-model="bank.account_name" outlined disable label="Account Name" />
+              <q-btn v-if="update" color="primary" @click="updateUserBankDetails()" :loading="loading" no-caps label="update Account Details" />
+              <q-btn v-if="!update" color="primary" @click="accountDetail()" :loading="loading" no-caps label="Save Account Details" />
             </q-card-section>
           </q-tab-panel>
 
@@ -95,12 +96,18 @@
 </template>
 
 <script>
+import disputeSchema from '../validation/bank'
+
 export default {
   // name: 'PageName',
   data(){
     return {
+
+      schema: disputeSchema,
+
       loading : false,
       tab: 'profile',
+      update:false,
       splitterModel: 20,
       dBtn:'',
       password:{
@@ -134,6 +141,7 @@ export default {
   computed: {
   
     user(){return this.$store.getters["auth/user"] },
+    user_bank_acc(){return this.bank},
     btn(tab){
       if (this.tab == tab) return '#05202f; background-color: rgba(5, 32, 47, 0.1)'
       else return 'white'
@@ -142,6 +150,7 @@ export default {
 
   mounted(){
     this.getBanks()
+    this.getUserBankDetails()
   },
 
   methods: {
@@ -151,11 +160,136 @@ export default {
       else return 'white'
     },
 
+    async verify_account(event){
+      this.bank.account_number = event.target.value;
+      try{
+      if(event.target.value.length != 10){
+          return
+      }
+
+      if(event.target.value == 10 && this.bank.bank_code == ''){
+          this.$q.notify({message: 'Select bank' , color: 'red'})  
+          this.bank.account_number = '' 
+          return         
+
+      }
+
+         this.$q.loading.show({
+          message: 'Hold on, verifying your account number',
+          spinnerColor: 'secondary'
+          
+        }) 
+      const req = await this.$axios.post(process.env.Api + '/api/verify-account', this.bank)
+        const res = req.data
+      this.$q.loading.hide();
+      if(res.data == null)
+      {
+        this.bank.account_name = ''
+        this.$q.notify({message: 'Invalid account number', color: 'red'}) 
+        return                  
+      }
+        this.bank.account_name = res.data.account_name
+        
+        
+        
+        }catch(e){
+        this.bank.account_name = ''
+         this.loading = false;
+          this.$q.notify({message: 'Error while verifying your account number', color: 'red'})                   
+      }
+      finally{
+         this.$q.loading.hide();
+
+      }
+
+      
+
+    },
     async getBanks(){
+   
       const req = await this.$axios.get(process.env.Api + '/api/get-banks')
       const res = req.data
       this.banks = res.data;
-      console.log(res);
+     
+    },
+
+      async getUserBankDetails(){
+
+      const req = await this.$axios.get(process.env.Api + '/api/user-bank/'+ this.user.id)
+      const res = req.data
+        
+        const bank_details = res.data
+        this.bank = bank_details
+        
+       
+
+        if(res){
+         this.update = true
+        }
+        else{
+          this.update = false
+
+        }
+     
+    
+    },
+
+          
+      async updateUserBankDetails(){
+
+      this.update = true      
+
+      let account_number = this.bank.account_number
+      let account_name = this.bank.account_name
+      let bank_code = this.bank.bank_code
+      if(!account_name || account_name.length <3){
+          this.$q.notify({message: 'Invalid account name' , color: 'red'})                 
+
+        return
+      }
+      if(!account_number || account_number.length !=10){
+          this.$q.notify({message: 'Invalid account number' , color: 'red'})                 
+
+        return
+      }
+      if(!bank_code || bank_code.length !=3){
+        return
+      }
+      let bank_name=this.banks.filter((value)=>{
+        return  value.code == this.bank.bank_code
+      });
+      this.bank.bank_name = bank_name['0'].name
+
+      this.loading = true;
+
+
+
+        try{
+          
+      const req = await this.$axios.put(process.env.Api + '/api/user-bank/'+ this.user.id, this.bank)
+      const res = req.data
+        
+        console.log(res);
+        
+        
+       
+
+        if(res.status == 'success'){
+         this.loading = false;  
+
+          this.$q.notify({message: 'Account details updated', color: 'green'})  
+        }
+        else{
+         this.loading = false;  
+          this.$q.notify({message: 'An error occured while updating account details', color: 'red'})                   
+
+        }
+        }catch(e){
+         this.loading = false;                   
+          this.$q.notify({message: 'Error! Ensure new account number is different from old' , color: 'red'})                   
+      }
+     
+    
     },
 
     async accountDetail(){
@@ -164,9 +298,13 @@ export default {
       let account_name = this.bank.account_name
       let bank_code = this.bank.bank_code
       if(!account_name || account_name.length <3){
+          this.$q.notify({message: 'Invalid account name' , color: 'red'})                 
+
         return
       }
       if(!account_number || account_number.length !=10){
+          this.$q.notify({message: 'Invalid account number' , color: 'red'})                 
+
         return
       }
       if(!bank_code || bank_code.length !=3){
@@ -180,23 +318,29 @@ export default {
 
       this.bank.bank_name = bank_name['0'].name
     try{
+    
       const req = await this.$axios.post(process.env.Api + '/api/user-bank', this.bank)
+      
         const res = req.data
-        console.log(res)
+        
         if(res){
+      this.getUserBankDetails()
+
           this.loading = false;
           this.$q.notify({message: 'Account details save successfully', color: 'green'})                   
 
         }
         else{
 
-           this.loading = false;
-          this.$q.notify({message: 'A rooro occured while saving account details', color: 'red'})                   
+          this.loading = false;
+          this.$q.notify({message: 'An error occured while saving account details', color: 'red'})                   
 
         }
-        }catch(e){
+        }catch(error){
+        console.log(error.response.data.message);
+
          this.loading = false;
-          this.$q.notify({message: 'A rooro occured while saving account details', color: 'red'})                   
+          this.$q.notify({message: 'An error occured while saving account details', color: 'red'})                   
       }
     }
   },

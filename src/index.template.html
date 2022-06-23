@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= productName %></title>
+
+<head>
+    <title>
+        <%= productName %>
+    </title>
 
     <meta charset="utf-8">
     <meta name="description" content="<%= productDescription %>">
@@ -15,10 +18,38 @@
     <link rel="icon" type="image/png" sizes="16x16" href="./statics/icons/favicon-16x16.png">
     <link rel="icon" type="image/ico" href="./statics/icons/favicon.ico">
 
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Mukta:wght@200&display=swap" rel="stylesheet">
+
     <script src="https://checkout.flutterwave.com/v3.js"></script>
-  </head>
-  <body>
+</head>
+
+<body style="scroll-behavior: smooth;">
     <!-- DO NOT touch the following DIV -->
     <div id="q-app"></div>
-  </body>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {},
+            Tawk_LoadStart = new Date();
+        (function() {
+            var s1 = document.createElement("script"),
+                s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/6290956db0d10b6f3e744f5a/1g42cfdv1';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+</body>
+
 </html>
+
+<Style>
+    html {
+        scroll-behavior: smooth;
+    }
+</Style>

@@ -1,11 +1,13 @@
 <template>
   <div>
+  <span v-if="login">
+  
     <q-card flat class="q-pa-sm bg-transparent">
       <div class="text-h5">
         Welcome, {{ user.name }}
 
         <!-- <ActivateCard v-if="!account || !Object.keys(account).length" /> -->
-        <AddMoney />
+        
       </div>
       <!-- <div class="text-bold text-h6 text-grey q-pt-sm">
         {{account ? account.bank_name : ""}}
@@ -14,28 +16,39 @@
         {{account ? account.account_number : ""}}
       </div> -->
     </q-card>
-    <div class="row">
+    <span v-if="user.is_admin == true">
+    <WithdrawalRequests />
+    </span>
+    <span v-else>
+      <div class="text-h5">
+          You are not authorized
+      </div>
+    </span>
+    <!-- <div class="row">
 
-      <div class="col-md-4 col-sm-12 col-xs-12 q-pa-xs">
+      <div class="col-md-6 col-sm-12 col-xs-12 q-pa-xs">
         <div class="column q-gutter-sm">
-          <!-- <WalletCard v-if="account" :account="account" :card="cards[0].data" /> -->
-          <WalletCard :account="account" :card="cards[0].data" />
-
-          <!-- <WalletCard /> -->
-          <!-- <TxMonth :content="account" /> -->
+          <WalletCard />
+          
         </div>
       </div>
 
-      <!-- <div class="col-md-8 col-sm-12 col-xs-12 q-pa-xs">
-        <AllTx v-if="account" :content="account" />
-      </div> -->
+       <div class="col-md-6 col-sm-12 col-xs-12 q-pa-xs">
+        <AllTx />
+      </div>
 
-    </div>
+    </div> -->
+    </span>
+    <span v-else>
+      <div class="text-h5">
+          You are not logged in
+      </div>
+    </span>
   </div>
 </template>
 
 <script>
-import WalletCard from './partials/wallet_card'
+import WithdrawalRequests from './partials/withdrawal_requests'
 import AllTx from './partials/all_tx'
 import TxMonth from './partials/tx_month'
 import ActivateCard from 'components/cards/partials/activate_card'
@@ -43,7 +56,7 @@ import AddMoney from 'components/cards/partials/add_money'
 export default {
   // name: 'ComponentName',
   components:{
-    WalletCard,
+    WithdrawalRequests,
     AllTx,
     TxMonth,
     ActivateCard,
@@ -52,6 +65,7 @@ export default {
 
   data () {
     return {
+        login: false,
 
     }
   },
@@ -63,7 +77,15 @@ export default {
   },
 
   mounted() {
-    this.getProduct();
+   // this.getProduct();
+
+      if(!this.$q.localStorage.getItem('paylidate_token')) {
+        this.login = false
+        }
+    else {
+        this.login = true
+      
+    }
   },
 
   methods: {

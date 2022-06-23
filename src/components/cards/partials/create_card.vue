@@ -8,6 +8,10 @@
         <div class="text-h6">Create Card</div>
       </q-card-section>
 
+      <q-card-section>
+          <div>{{charges_fee}} </div>
+      </q-card-section>
+
     <q-card-section class="q-gutter-sm">
       <div v-if="error" class="text-negative">{{error}}</div>
       <q-select square outlined v-model="form.currency" :options="options" label="Currency" dense />
@@ -18,24 +22,20 @@
     </q-card-section>
 
     <q-card-actions align="right">
-      <q-btn color="primary" label="Create Card"  @click="chargeCard()" />
+      <q-btn color="primary" label="Create Card"  @click="makePayment()" />
       <!-- <q-btn color="secondary" label="Cancel" @click="getRate()" /> -->
       <q-btn flat label="cancel" color="primary" v-close-popup />
     </q-card-actions>
     </q-card>
     </q-dialog>
-   <ChargeCard v-if="this.$q.localStorage.getItem('PaymentDetails')" @data="createCard"/>
   </div>
 </template>
 
 <script>
-import ChargeCard from 'components/cards/partials/charge_card'
 
 export default {
   props:['cards'],
-      components:{
-    ChargeCard
-  },
+
     data(){
       return {
         open: false,
@@ -43,8 +43,6 @@ export default {
         form:{
           currency: 'NGN',
           amount: 250,
-          redirect_url: `${window.location.href}/payment`, 
-          title:"Create Card",        
         },
         options: [
         'USD','NGN'
@@ -67,13 +65,31 @@ export default {
   mounted() {
     this.getRate();
   },
+  computed: {
+    user(){return this.$store.getters["auth/user"] },
+
+    charges_fee(){
+    if(this.form.currency == "NGN"){
+      return 'Note: Your Transaction fee is NGN 100 and NGN 150 will be added to your card '
+    }
+    else{
+      
+      return 'Note: Your Transaction fee is USD 1 and USD 2 will be added to your card '
+    
+    }
+    
+  }
+  },
+
+  
 
   methods:{
    
-    async chargeCard(){
-        this.$q.localStorage.set('createCard', true);
+    async makePayment(){
+        
       
       try{
+        
         const currency = this.form.currency
         const amount = this.form.amount
         if (!amount) {
@@ -86,21 +102,45 @@ export default {
           this.error = 'Amount cannot be less than 200'
           return
         }
+        
+        
+          this.$q.localStorage.set('amount', this.form.amount);
+          this.$q.localStorage.set('currency', this.form.currency);
+          this.$q.localStorage.set('verify', 'verify');
+          
 
 
-        //this.$q.localStorage.set('currency', this.form.currency)
-        //this.$q.localStorage.set('amount', this.form.amount)
-        this.$q.localStorage.set('PaymentDetails', this.form);
-        this.$store.commit('card/PaymentModel', true);
+          FlutterwaveCheckout({
+    public_key: process.env.Flutterwave_public_key,
+      
+    tx_ref:'PD' + this.user.id + (new Date()).getTime(),
+    amount: this.form.amount,
+    currency: this.form.currency,
+    payment_options: "",
+    redirect_url: `${window.location.href}/payment`,
+    meta: {
+      consumer_id: this.user.id,
+      consumer_mac: "",
+    },
+    customer: {
+      email: this.user.email,
+      phone_number: this.user.phone,
+            name: this.user.name,
+    },
+    customizations: {
+       title: "Create Card",
+        description: "Creating a Virtual Card",
+      logo: "https://res.cloudinary.com/philzy/image/upload/v1646896866/paylidate-logo_2_lanfvz.png",
+    },
+  });
+
+
         this.open = false;
         this.error="";
 
+           
 
 
-        // const req = await this.$axios.post(process.env.Api + '/api/card', this.form)
-        // const res = req.data
-        // this.$q.notify({message: 'Card Created Successfully', color: 'green'})
-        // this.open = false
       }catch(err){
 
       }

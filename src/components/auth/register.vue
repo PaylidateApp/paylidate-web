@@ -55,7 +55,7 @@ export default {
         this.error = false
         this.loading = true
         this.$q.loading.show(this.loadingInfo)
-       this.$axios.post('http://127.0.0.1:8000/api/signup', this.form)
+       this.$axios.post(process.env.Api + '/api/signup', this.form)
         .then(response => {
           this.$q.notify({message: 'Paylidate Account Created', color: 'green', position: 'top', type: 'success' })
           this.loading = false
@@ -65,13 +65,13 @@ export default {
           this.$store.commit('auth/login', 'Bearer '+response.data.access_token)
           this.$store.commit('auth/user', response.data.data)
           this.$store.commit('auth/account', response.data.account)
-          this.$router.push('escrow');
+          this.$router.push({ name: "transactions"})
         })
         .catch(error=>{
           this.loading = false
           this.$q.loading.hide()
           if(error.response){
-            this.$q.notify({message: error.response.data.status , color: 'red'})
+            this.$q.notify({message: 'Email or Phone Number already exist' , color: 'red'})
           } else if (error.request) {
             this.loading = false
             this.$q.notify({message: error.request, color: 'orange'})

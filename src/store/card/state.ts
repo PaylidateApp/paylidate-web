@@ -2,8 +2,9 @@ export interface CardStateInterface {
   prop: boolean;
   cards: Array<Object>;
   card: Object;
-  PaymentDetails:Object,
-  PaymentModel: boolean;
+  payment: Object;
+
+  
 
 }
 
@@ -11,8 +12,10 @@ const state: CardStateInterface = {
   prop: false,
   cards: [],
   card: {},
-  PaymentModel: false,
-  PaymentDetails: {},
+  payment: {},
+
+  
+ 
 };
 
 export default state;

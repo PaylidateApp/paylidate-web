@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh Lpr lFf">
-    <q-header class="" style="background-color: rgba(255,255,255, 0.5)">
+    <q-header class="" style="background-color:white">
       <q-toolbar>
 
         <q-toolbar-title>
@@ -11,18 +11,23 @@
 
         <div v-if="isLoggedIn" class="row">
            <!-- <ActivateCard v-if="!account || !Object.keys(account).length " /> -->
+          <q-btn color="black" @click="userMode(true)" flat no-caps label="Admin Mode" v-if="false" />
+          <q-btn color="black" @click="userMode(false)" flat no-caps label="User Mode" v-if="false" />
           <q-btn color="black" flat no-caps label="Escrow" :to="{name: 'escrow'}" v-if="$q.screen.gt.xs" />
           <!-- <Notifications class="q-mx-sm"/> -->
           <Profile v-if="user &&  Object.keys(user).length " :user="user"/>
         </div>
 
-        <div v-else class="q-gutter-xs">
-          <q-btn color="black" flat no-caps label="About Us" :to="{name: 'about'}" v-if="$q.screen.gt.xs" />
-          <q-btn color="black" flat no-caps label="FAQ" :to="{name: 'faq'}" v-if="$q.screen.gt.xs" />
-          <q-btn color="black" flat no-caps label="Escrow" :to="{name: 'escrow-help'}" v-if="$q.screen.gt.xs" />
-
+        <div v-else class="q-gutter-y-xs">
+          <q-btn color="black" href="#escrow" flat no-caps label="Escrow"  v-if="$q.screen.gt.xs" />
+          <q-btn color="black" href="#virtual_card" flat no-caps label="Virtual Cards" v-if="$q.screen.gt.xs" />
+          <q-btn color="black" href="#about" flat no-caps label="About Us" v-if="$q.screen.gt.xs" />
+          <q-btn color="black" href="#team" flat no-caps tag="a" label="Team" v-if="$q.screen.gt.xs" />
+          <q-btn color="black" href="#faq" flat no-caps label="FAQ" v-if="$q.screen.gt.xs" />
+          <span class="q-gutter-x-xs">
           <q-btn color="secondary" size="sm" no-caps label="Signup" :to="{name: 'register'}" />
           <q-btn color="black" size="sm" no-caps label="Login" :to="{name: 'login'}" />
+          </span>
         </div>
 
         <q-btn color="secondary" flat dense round v-if="$q.screen.lt.sm" icon="menu" aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
@@ -42,13 +47,17 @@
           header
           class="text-secondary text-bold"
         >
-        </q-item-label>
+        </q-item-label> 
+        
+        
         <EssentialLink
           v-for="(link, index) in dashboardMenu"
           :key="index"
           v-bind="link"
           v-if="linkStatus(link.is_authenticated)"
         />
+
+        
         <LogOut v-if="isLoggedIn" :variant="'large'" class="fixed-bottom" />
       </q-list>
     </q-drawer>
@@ -69,12 +78,22 @@
         >
         <!-- Welcome  {{user.name}} -->
         </q-item-label>
+        <template v-if="adminMode">
+        <EssentialLink
+          v-for="(link, index) in adminDashboardMenu"
+          :key="index"
+          v-bind="link"
+          v-if="linkStatus(link.is_authenticated)"
+        />
+        </template>
+         <template v-else>
         <EssentialLink
           v-for="(link, index) in dashboardMenu"
           :key="index"
           v-bind="link"
           v-if="linkStatus(link.is_authenticated)"
         />
+        </template>
         <LogOut v-if="isLoggedIn" :variant="'large'" class="fixed-bottom" />
       </q-list>
     </q-drawer>
@@ -103,19 +122,44 @@ export default {
 
   data () {
     return {
+      
       leftDrawerOpen: false,
       name: '',
       mail: {
         title: 'App Support',
-        link: 'mailto:hello@paylidate.com?subject=Paylidate%20Customer%20Support',
+        link: 'mailto:paylidatesupport@lotusfort.com?subject=Paylidate%20Customer%20Support',
       },
 
       dashboardMenu:[
         {
+          title: 'Escrow',
+          caption: '',
+          icon: 'verified_user',
+          link: '#escrow',
+          is_active: true,
+          is_authenticated: false
+        },
+        {
+          title: 'Virtual Cards',
+          caption: '',
+          icon: 'credit_card',
+          link: '#virtual_card',
+          is_active: true,
+          is_authenticated: false
+        },
+        {
           title: 'About Us',
           caption: '',
           icon: 'class',
-          link: 'about',
+          link: '#about',
+          is_active: true,
+          is_authenticated: false
+        },
+        {
+          title: 'Team',
+          caption: '',
+          icon: 'group',
+          link: '#team',
           is_active: true,
           is_authenticated: false
         },
@@ -123,18 +167,11 @@ export default {
           title: 'FAQ',
           caption: '',
           icon: 'quiz',
-          link: 'faq',
+          link: '#faq',
           is_active: true,
           is_authenticated: false
         },
-        {
-          title: 'Escrow',
-          caption: '',
-          icon: 'verified_user',
-          link: 'escrow-help',
-          is_active: true,
-          is_authenticated: false
-        },
+        
         {
           title: 'Register',
           caption: '',
@@ -155,8 +192,16 @@ export default {
           title: 'Escrow Service',
           caption: '',
           icon: 'verified_user',
-          link: 'escrow',
+          link: 'escrow-transactions',
           is_active: true,
+          is_authenticated: true
+        },
+        {
+          title: 'Products',
+          caption: '',
+          icon: 'production_quantity_limits',
+          link: 'products',
+          is_active: false,
           is_authenticated: true
         },
         // {
@@ -168,21 +213,23 @@ export default {
         //   is_authenticated: true
         // },
         {
-          title: 'Virtual Card',
+          title: 'Wallet',
           caption: '',
-          icon: 'payment',
-          link: 'virtual-card',
+          icon: 'account_balance_wallet',
+          link: 'wallet',
           is_active: false,
           is_authenticated: true
         },
+
         {
-          title: 'Product',
+          title: 'Trade Points',
           caption: '',
-          icon: 'production_quantity_limits',
-          link: 'products',
+          icon: 'savings',
+          link: 'wallet',
           is_active: false,
           is_authenticated: true
         },
+        
         {
           title: 'Settings',
           caption: '',
@@ -205,11 +252,56 @@ export default {
         //   link: 'gift-card',
         //   is_active: false
         // },
+      ],
+
+      adminDashboardMenu:[
+        {
+          title: 'Dashboard',
+          caption: '',
+          icon: 'verified_user',
+          link: '#escrow',
+          is_active: true,
+          is_authenticated: true
+        },
+        {
+          title: 'Users',
+          caption: '',
+          icon: 'group',
+          link: '#virtual_card',
+          is_active: true,
+          is_authenticated: true
+        },
+        {
+          title: 'Transaction',
+          caption: '',
+          icon: 'class',
+          link: '#about',
+          is_active: true,
+          is_authenticated: true
+        },
+        {
+          title: 'Disputes',
+          caption: '',
+          icon: 'group',
+          link: '#team',
+          is_active: true,
+          is_authenticated: true
+        },
+        {
+          title: 'Support Tickets',
+          caption: '',
+          icon: 'quiz',
+          link: '#faq',
+          is_active: true,
+          is_authenticated: true
+        },
+
       ]
     }
   },
 
   computed: {
+    adminMode(){return this.$q.localStorage.getItem('user_mode')},
     user(){return this.$store.getters["auth/user"] },
     isLoggedIn(){ return this.$store.state.auth.token},
     account(){ return this.$store.getters["auth/account"] },
@@ -220,6 +312,7 @@ export default {
         || myroute == 'view' || myroute == 'checkout' || myroute == 'success'
         || myroute == 'details' || myroute == 'integration' || myroute == 'finish'
         || myroute == 'platform' || myroute == 'install' || myroute == 'bank' || myroute == 'product'
+        || myroute == 'transaction' || myroute == 'disputes'
         ){
         return false
       }else{
@@ -230,6 +323,7 @@ export default {
   },
 
   methods: {
+    
     linkStatus(status){
       if (status && this.$store.state.auth.token) {
         return true
@@ -239,6 +333,10 @@ export default {
         return true
       }
       return false
+    },
+
+    userMode(mode){
+      this.$q.localStorage.set('user_mode', mode); 
     }
   },
 

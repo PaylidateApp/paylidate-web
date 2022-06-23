@@ -53,7 +53,7 @@ export default {
   },
 
   mounted() {
-    // this.find();
+    this.find();
   },
 
   methods: {
@@ -77,13 +77,17 @@ export default {
           const response = await this.$axios.post(`${process.env.Api}/api/password/reset`, this.form)
           this.loading = false
           this.$q.notify({message: 'Password reset successful', color: 'green'})
-          this.$router.push('login');
+         
+          this.$router.push({ name: 'login' })
         }
         catch (error) {
+          // console.log(error.response)
           this.error = true
+          this.loading = false
         }
       }else {
         this.error = true
+        this.loading = false
       }
     },
 

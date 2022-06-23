@@ -1,44 +1,57 @@
 <template>
   <div>
 
-    <q-btn color="secondary" size="xs" label="Make Payment" @click="open = true" />
+    <q-btn color="secondary" size="sm" label="Make Payment" @click="open = true" />
     <q-dialog v-model="open">
-      <q-card :style="$q.screen.gt.sm ? 'min-width: 600px' : 'min-width: 300px'">
+
+      <q-card v-if="transaction.quantity > transaction.product.quantity" :style="$q.screen.gt.sm ? 'min-width: 600px' : 'min-width: 300px'">
         <q-card-section>
-          <div class="text-h6">{{ open && confirm ? 'Please Confirm': 'Make Payment' }}</div>
-        </q-card-section>
-        <q-card-section v-if="open && !confirm">
-          <div v-if="error" class="text-negative">{{error}}</div>
-          <q-input dense square outlined v-model="form.amount" label="Amount" disable prefix="NGN"/>
-          <!-- <div class="text-caption q-pt-md">
-              <div class="text-bold"> <span> - </span>Wallet Balance: {{ cards[0].data.amount }}</div>
-              <div> <span class="text-bold"> - </span>USD Rate: {{ '1 at NGN' + rate }}</div>
-          </div> -->
+        <div class="q-pa-md text-h6">
+          This transaction can not continue because the quantity of product available in less than your request. <br/>
+          This can be as a result of you not completing the transaction early.
+        </div>
         </q-card-section>
 
-        <q-card-section class="column flex-center full-width" v-if="confirm">
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" no-caps color="negative" @click="open = false; loading = false;" />
+        </q-card-actions>
+        
+      </q-card>
+
+      <q-card v-else :style="$q.screen.gt.sm ? 'min-width: 600px' : 'min-width: 300px'">
+        <q-card-section>
+          <div class="text-h6">Please Confirm</div>
+        </q-card-section>
+
+
+        <q-card-section class="column flex-center full-width">
+         
+          <div class="q-py-xs text-center">
+                      <div>Note: {{charges}} </div>
+          </div>
+
           <div class="q-py-xs text-center">
             <div class="text-caption text-weight-light">Amount</div>
-            <div class="text-bold text-h5">NGN {{ product.price }}</div>
+            <div class="text-bold text-h5">NGN {{ form.amount }}</div>
           </div>
 
           <div class="row flex-center full-width q-px-">
             <div class="column">
               <div class="q-py-xs text-right">
                 <div class="text-caption text-weight-light">Product Name</div>
-                <div class="text-bold text-h6">{{ product.name }}</div>
+                <div class="text-bold text-h6">{{ transaction.product.name }}</div>
               </div>
 
               <div class="q-py-xs text-right">
                 <div class="text-caption text-weight-light">Payment Type</div>
-                <div class="text-bold ">{{ product.type }}</div>
+                <div class="text-bold ">{{ transaction.product.type }}</div>
               </div>
             </div>
 
             <div class="column">
               <div class="q-py-xs q-px-lg text-left">
                 <div class="text-caption text-weight-light">Quantity</div>
-                <div class="text-bold text-h6">{{ product.quantity }}</div>
+                <div class="text-bold text-h6">{{ transaction.quantity }}</div>
               </div>
 
               <!-- <div class="q-py-xs q-px-lg text-left">
@@ -52,44 +65,38 @@
               </div>
             </div>
           </div>
-
-          <div class="q-py-xs text-center">
-            <div class="text-bold text-caption ">{{ product.created_at }}</div>
-          </div>
+          
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn unelevated no-caps color="primary" label="Make Payment" v-if="!confirm" :loading="loading" @click="confirm = true; open = true" />
-          <q-btn unelevated no-caps color="primary" label="Make Payment" v-if="confirm" :loading="loading" @click="makePayment()" />
-          <q-btn flat label="Cancel" no-caps color="negative" @click="confirm = false; open = false" />
+          <q-btn unelevated no-caps color="primary" label="Make Payment" v-if="open" :loading="loading" @click="makePayment()" />
+          <q-btn flat label="Cancel" no-caps color="negative" @click="open = false; loading = false;" />
         </q-card-actions>
       </q-card>
     </q-dialog>
-   <ChargeCard @data="paymentStatus"/>
+
   </div>
 </template>
 
 <script>
 // import router from 'src/router';
-import ChargeCard from 'components/cards/partials/charge_card'
-
 
 export default {
-  props:['amount','slug','product','url'],
+  props:['transaction'],
     components:{
-      ChargeCard    
+         
   },
     data(){
       return {
-        confirm: false,
+        
         open: false,
         loading: false,
         rate: 0,
         form:{
-          amount: this.amount,
-          slug: this.slug,
+          T_id: this.transaction.id,
+          amount: this.transaction.product.price * this.transaction.quantity,
+          total_amount: null,
+          T_ref: this.transaction.transaction_ref,
           currency: 'NGN',
-          title:'Payment for ' + this.slug,
-          redirect_url: `${window.location.href}/payment.${this.slug}`
           
         },
          error: ''
@@ -97,19 +104,74 @@ export default {
     },
 
      computed: {
+    user(){return this.$store.getters["auth/user"] },
+
       cards(){return this.$store.getters["card/cards"] },
+      charges(){
+      let charge = (3/100 * this.form.amount).toFixed(2)
+      let original_amount = parseInt(this.form.amount);
+
+        if(charge < 100){
+          this.form.total_amount = original_amount + 100
+          return "Your Transaction fee is NGN 100"
+        }
+        else if( charge > 2500){
+          this.form.total_amount = original_amount + 2060;
+          return "Your Transaction fee is NGN 2500"
+        }
+        else {
+          this.form.total_amount = original_amount + parseInt(charge);
+          return "Your Transaction fee is NGN " + charge
+        }
+    }
     },
 
     mounted() {
-      this.get_rate()
+      //this.get_rate()
     },
 
     methods:{
       async makePayment() {
         this.loading = true;
 
-        this.$q.localStorage.set('PaymentDetails', this.form);
-        this.$store.commit('card/PaymentModel', true);
+          //this.$q.localStorage.set('transaction_id', this.form.T_id);
+          //this.$q.localStorage.set('description', this.form.T_ref);
+
+          FlutterwaveCheckout({
+          public_key: process.env.Flutterwave_public_key,
+      
+          tx_ref:'PD' + this.user.id + (new Date()).getTime(),
+          amount: this.form.total_amount,
+          currency: this.form.currency,
+          country: "",
+          payment_options: "",
+          redirect_url: `${window.location.href}/${this.transaction.id}/payment`,
+                   meta: {
+            consumer_id: this.user.id,
+            consumer_mac: "",
+          },
+          customer: {
+            email: this.user.email,
+            phone_number: this.user.phone,
+            name: this.user.name,
+          },
+      
+      onclose: function() {
+        
+        this.error=""; 
+      },
+      customizations: {
+        title: "Payment for " + this.transaction.product.name,
+        description: "Paid for " + this.transaction.product.name,
+        logo: "https://res.cloudinary.com/philzy/image/upload/v1646896866/paylidate-logo_2_lanfvz.png",
+
+
+        },
+    });
+
+        this.open = false;
+
+
         this.loading = false;
 
 
@@ -126,7 +188,7 @@ export default {
 
         
         try{
-        const req = await this.$axios.get(`${process.env.Api}/api/product/paid/${this.slug}`)          
+        const req = await this.$axios.get(`${process.env.Api}/api/product/paid/${this.T_ref}`)          
           const res = req.data
 
            this.$q.loading.show({
@@ -136,12 +198,12 @@ export default {
         })
           if(res.status == 'success'){
            this.$q.loading.hide()
-          this.$q.notify({message: 'Payment Successful ', color: 'red'})
-          returngreen
+          this.$q.notify({message: 'Payment Successful ', color: 'green'})
+          return
           }
 
           this.$q.loading.hide()
-          this.$q.notify({message: 'Processing ', color: 'red'})
+          this.$q.notify({message: 'Transaction Error ', color: 'red'})
 
 
         }catch(err){

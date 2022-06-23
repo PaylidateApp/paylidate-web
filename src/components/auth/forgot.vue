@@ -8,11 +8,13 @@
         </div>
       </div>
       <q-card-section>
+        
         <q-card v-if="error" class="bg-red text-white row">
           <q-card-section class="">
-            <div class="text-caption text-center">Enter your Email</div>
+            <div class="text-caption text-center">{{error}}</div>
           </q-card-section>
         </q-card>
+
       </q-card-section>
       <q-card-section class="q-gutter-sm">
         <q-input outlined dense v-model="form.email" label="Enter E-mail" type="email" />
@@ -34,7 +36,7 @@ export default {
   data () {
     return {
       loading: false,
-      error: false,
+      error: null,
       resender: '',
       timer: 60,
       form:{
@@ -46,18 +48,22 @@ export default {
   methods: {
     async forgot(){
       if(this.form.email){
-        this.error = false
+        this.error = null
         this.loading = true
         try {
           const response = await this.$axios.post(`${process.env.Api}/api/password/create`, this.form)
+          // console.log(response)
           this.loading = false
           this.$q.notify({message: 'We have e-mailed your password reset link', color: 'green'})
         }
         catch (error) {
-          this.error = true
+        this.loading = false
+          //console.log(error.response.data.message)
+          this.error = "Error:: Ensure your email is correct"
         }
       }else {
-        this.error = true
+        this.error = "Enter your Email"
+        this.loading = false
       }
     },
 
