@@ -99,17 +99,19 @@
             
             <div class="text-bold" v-if="transaction.amount <= 1" >Total Price: {{formatAsNaira(transaction.product.price * transaction.quantity)}}</div>
             <div class="text-bold" v-else>Total Price: {{formatAsNaira(transaction.amount)}}</div>
-            <div class="text-bold" >Transaction Dispute: {{transaction.dispute ? 'There is dispute' : 'No dispute'}}</div>
+            <div class="text-bold" >Transaction Dispute: {{transaction.dispute ? 'Dispute Opened' : 'No dispute'}}</div>
             <div class="text-bold">Description: {{transaction.description ? transaction.description : "No Description"}}</div>
           </q-card-section>
         </q-card>
       </q-card-section>
 
 
-      <q-card-section v-if="Object.keys(user).length" class="column">
+      <q-card-section v-if="Object.keys(user).length && (transaction.user_id == user.id || transaction.product.user_id == user.id)" class="column">
 
         <span v-if="transaction.payment != null && transaction.payment.verified == true && transaction.status == 1 && transaction.accept_transaction == true">
               
+          <q-btn :to="{name: 'disputes', params: {transaction_id: transaction.id}}" size="sm" color="secondary" label="View Disputes"/> 
+
         </span>
         <span v-else>
         <div>
