@@ -210,7 +210,7 @@ export default {
       const req = await this.$axios.get('https://paylidate.herokuapp.com/api/get-banks')
       const res = req.data
       //this.banks = res.data;
-      console.log(res.data.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)))
+      //console.log(res.data.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)))
       this.banks = res.data.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
 
      
