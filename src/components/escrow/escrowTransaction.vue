@@ -82,7 +82,7 @@
         <q-separator class="q-mb-sm" />
         <q-card flat bordered>
           <!-- {{ transaction.image !== 'default_transaction.png' ? transaction.image : base_image }} -->
-          <img :src="transaction.product.image !== 'default_transaction.png' ? transaction.product.image : base_image">
+          <img style="width: 427px"  :src="transaction.product.image !== 'default_transaction.png' ? transaction.product.image : base_image">
           <q-card-section>
             <div class="text-bold">Product Number: {{transaction.product.product_number}}</div>
            
@@ -220,7 +220,7 @@
            <div> <q-badge  color="green" text-color="white" label="Payment completed. Waiting for transaction to be confirmed and approved" /></div>  
           
           <q-btn class="q-mx-sm" v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="secondary" label="Confirm Transaction" :loading="loading" @click="confirm = true" />
-          <q-btn v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="primary" label="Confirm Transaction" :loading="loading" @click="cancelTransaction()" />
+          <q-btn v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="primary" label="Cancel Transaction" :loading="loading" @click="cancelTransaction()" />
           
           <q-btn class="q-mx-sm" v-if="transaction.product.transaction_type == 'sell' && user.id == transaction.user_id" unelevated no-caps color="secondary" label="Confirm Transaction" :loading="loading" @click="confirm = true" />
           <q-btn v-if="transaction.product.transaction_type == 'sell' && user.id == transaction.user_id" unelevated no-caps color="primary" label="Cancel Transaction" :loading="loading" @click="cancelTransaction()" />
@@ -520,8 +520,7 @@ export default {
       const req = await this.$axios.post(process.env.Api + '/api/request-withdrawal', this.request_withdrawal)
       
       const res = req.data
-      //console.log(res.data)
-      
+            
       this.transaction = res.data
       this.getTransaction();
          this.$q.loading.hide();
@@ -616,6 +615,7 @@ export default {
         this.$store.commit('auth/login', 'Bearer '+response.data.access_token)
         this.$store.commit('auth/user', response.data.data)
         this.$q.localStorage.set('paylidate_token', 'Bearer '+response.data.access_token)
+        this.$q.localStorage.set('user_id', response.data.data.id)
         this.$axios.defaults.headers.common["Authorization"] = 'Bearer '+ response.data.access_token;
 
         this.getTransaction()

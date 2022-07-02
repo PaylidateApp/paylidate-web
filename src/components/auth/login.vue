@@ -79,6 +79,8 @@ export default {
         this.loading = false
         this.$q.loading.hide()
         this.$q.notify({message: 'Login successful', color: 'green'})
+        this.$q.localStorage.set('user_id', response.data.data.id)
+
         this.$store.dispatch("card/cards");
         this.$router.push({ name: "transactions"})
       })

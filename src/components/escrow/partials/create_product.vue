@@ -137,25 +137,6 @@ export default {
       this.$q.localStorage.set('paylidate-product-payment-type', 'new')
       this.$q.localStorage.set('paylidate-product-slug', '')
 
-      FlutterwaveCheckout({
-        public_key: process.env.Flutterwave_public_key,
-        tx_ref: 'paylidate ' + Math.floor(Math.random() * 1000000),
-        amount: this.form.price,
-        currency: "NGN",
-        country: "NG",
-        payment_options: "card,ussd",
-        redirect_url: "/payment",
-        customer: {
-          email: 'syflex360@gmail.com',
-          phone_number: '07067822618',
-          name: 'Simon Moses',
-        },
-        customizations: {
-          title: "Paylidate",
-          description: "Payment for items details",
-          // logo: "https://content.screencast.com/users/DanielAdegoke/folders/Default/media/f1a10ebf-f854-476f-bd5d-88e8c6cac998/Palidate%20Logo-19.png",
-        },
-      });
     },
       copy_link(){
       navigator.clipboard.writeText(this.url)
@@ -282,10 +263,10 @@ export default {
         }
       }
        }catch(error){
-          //console.log(error.response.data.message)
+          console.log(error.response.data.message)
          this.$q.loading.hide();
           this.loading = false
-        this.$q.notify({message: 'Error:: Dispute not open', color: 'red', position: 'top', type: 'negetive' })
+        this.$q.notify({message: 'Error while creating product', color: 'red', position: 'top', type: 'negetive' })
 
 
         }
