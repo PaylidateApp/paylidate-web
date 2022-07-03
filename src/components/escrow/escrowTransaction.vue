@@ -514,12 +514,13 @@ export default {
           spinnerColor: 'secondary'
           
         })
-        //console.log(this.request_withdrawal);
-      this.withdraw = false
+      //this.withdraw = false
         
       const req = await this.$axios.post(process.env.Api + '/api/request-withdrawal', this.request_withdrawal)
       
       const res = req.data
+        console.log(res);
+        return
             
       this.transaction = res.data
       this.getTransaction();

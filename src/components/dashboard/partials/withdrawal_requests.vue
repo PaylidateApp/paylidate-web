@@ -122,6 +122,7 @@ components:{
       const req = await this.$axios.get(process.env.Api + '/api/withdraw-requests')
       
       const res = req.data
+      console.log(res.data);
       this.contents = res.data
       
          this.$q.loading.hide();
