@@ -39,8 +39,10 @@ export default {
         
           const req = await this.$axios.post(process.env.Api + '/api/make-payment', this.form)
          const res = req.data;    
+
+         console.log(res)
             
-        
+         
         if(res.status == 'success'){
 
           this.$router.push({ name: "transactions"})
@@ -60,7 +62,9 @@ export default {
 
        }
 
-       catch(error){
+       catch (error) {
+         console.log(error.response.data.message);
+
         this.$q.notify({message: 'Verification Failed', color: 'red'})
 
        }

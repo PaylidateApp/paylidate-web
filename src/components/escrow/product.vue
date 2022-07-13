@@ -1,87 +1,135 @@
 <template>
   <q-page class="flex justify-center">
-
-
-    
-    
-    
-
     <!-- {{product}} -->
     <div>
-    
-    <q-card v-if="product" class="my-card" bordered flat style="max-width: 500px">
-      <!-- <q-img :src="'/product.svg'" spinner-color="white"
-      /> -->
-      <q-card-section class="row">
-      <div class="text-bold text-h6 text-uppercase">{{product.name}}</div>
-      <q-space />
-        <q-btn
-            size="12px"
-            round
-            flat
-            color="primary"
-            class=""
-            icon="content_copy"
-            @click="copy_link"
-          >
 
-           <q-tooltip>
-          {{copyL}}
-        </q-tooltip>
-            
-          </q-btn>
-      </q-card-section>
 
-      <q-card-section class="column">
-        <div>
-          Product Details
-        </div>
-        <q-separator class="q-mb-sm" />
-        <q-card flat bordered>
-          <!-- {{ product.image !== 'default_product.png' ? product.image : base_image }} -->
-          <img style="width: 427px"  :src="product.image !== 'default_product.png' ? product.image : base_image">
+      <!-- start of referral link modal -->
+      <q-dialog v-model="referral_modal">
+        <q-card>
           <q-card-section>
-            <div class="text-bold">Product Number: {{product.product_number}}</div>
-            <div class="text-bold">Product Name: {{product.name}}</div>
-            <div class="text-bold">Transaction Type: {{product.transaction_type}}</div>
-            <div class="text-bold">Type: {{product.type}}</div>
-            <div class="text-bold">Available Quantity: {{product.quantity}}</div>
-            <div class="text-bold">Product Status: 
-            <span v-if="product.product_status == true">Enabled</span>
-            <span v-else>Disabled</span>
-            </div>
-            <div class="text-bold">Price per Product: {{formatAsNaira(product.price)}}</div>
-            <div class="text-bold">Description: {{product.description ? product.description : "No Description"}}</div>
+            <!-- <div class="text-h6">Alert</div> -->
           </q-card-section>
+          <q-card-section>
+            <div class="text-center">
+              <q-icon name="check_circle" color="primary" size="xl" />
+            </div>
+            <div class="text-positive text-center">
+              Product Referral Link
+            </div>
+            <q-space />
+
+            <div class="text-center">
+              <q-btn size="12px" round flat color="primary" class="" icon="content_copy" @click="copy_link('refLink')">
+
+                <q-tooltip>
+                  {{copyL}}
+                </q-tooltip>
+
+              </q-btn><br />
+              Your referral link for this product is <a :href="refer_link">{{ refer_link }}</a>
+            </div>
+            <div>
+              Note that you will get a referral bonus of {{ formatAsNaira(product.referral_amount)}} for
+              each product when
+              your referral linK is use to buy a product
+            </div>
+          </q-card-section>
+          <q-card-actions align="right">
+            <q-btn flat label="OK" color="primary" v-close-popup />
+          </q-card-actions>
         </q-card>
-      </q-card-section>
+      </q-dialog>
+      <!-- end of referral link modal -->
 
-      
 
-      <q-card-section class="column">
-        <div v-if="product.user_id == user.id">
-          <q-btn color="primary" size="md" class="q-mx-sm" label="Edit Product" @click="editTransaction()" />
-          <q-btn v-if="product.transaction.length > 0" color="red" size="md" label="Delete Product" @click="deleteProduct()" />          
-        </div>
 
-        <div v-if="product.user_id != user.id">
-        <span  v-if="product.product_status == true && product.quantity > 0 ">
-          <span v-if="product.transaction_type == 'sell'">
-            <q-btn v-if="Object.keys(user).length"  color="secondary" size="md" class="q-mx-sm" label="Buy Product" @click="accept_modal = true" />
-            <q-btn v-else  color="secondary" size="md" class="q-mx-sm" label="Buy Product" @click="onLogin = true" />
-          </span>
-        </span>
-        <span  v-else>
-         <q-badge  color="red" text-color="white" label="Sorry!!! This product is currently not available" />
-          
-        </span>
-        </div>
-        
-      </q-card-section>
+      <q-card v-if="product" class="my-card" bordered flat style="max-width: 500px">
+        <!-- <q-img :src="'/product.svg'" spinner-color="white"
+      /> -->
+        <q-card-section class="row">
+          <div class="text-bold text-h6 text-uppercase">{{product.name}}</div>
+          <q-space />
+          <q-btn size="12px" round flat color="primary" class="" icon="content_copy" @click="copy_link">
 
-      
+            <q-tooltip>
+              {{copyL}}
+            </q-tooltip>
 
-    </q-card>
+          </q-btn>
+        </q-card-section>
+
+        <q-card-section class="column">
+          <div>
+            Product Details
+          </div>
+          <q-separator class="q-mb-sm" />
+          <q-card flat bordered>
+            <!-- {{ product.image !== 'default_product.png' ? product.image : base_image }} -->
+            <img style="width: 427px" :src="product.image !== 'default_product.png' ? product.image : base_image">
+            <q-card-section>
+              <div class="text-bold">Product Number: {{product.product_number}}</div>
+              <div class="text-bold">Product Name: {{product.name}}</div>
+              <div class="text-bold">Transaction Type: {{product.transaction_type}}</div>
+              <div class="text-bold">Type: {{product.type}}</div>
+              <div class="text-bold">Available Quantity: {{product.quantity}}</div>
+              <div class="text-bold">Product Status:
+                <span v-if="product.product_status == true">Enabled</span>
+                <span v-else>Disabled</span>
+              </div>
+              <div class="text-bold">Price per Product: {{formatAsNaira(product.price)}}</div>
+              <div class="text-bold">Description: {{product.description ? product.description : "No Description"}}</div>
+            </q-card-section>
+
+            <q-card-section v-if="product.referral_amount > 0">
+              <div v-if="product.user_id != user.id">
+                <span v-if="product.product_status == true && product.quantity > 0 ">
+                  <span v-if="!form.referral_token">
+                    <span v-if="product.transaction_type == 'sell'">
+                      <q-btn v-if="Object.keys(user).length" color="secondary" no-caps size="sm" class="q-mx-sm"
+                        label="Referral Link" @click="referral_modal = true" />
+                      <q-btn v-else color="secondary" size="sm" no-caps class="q-mx-sm" label="Referral Link"
+                        @click=" onLogin=true" />
+                    </span>
+                  </span>
+                </span>
+                <span v-else>
+                  <q-badge color="red" text-color="white" label="Sorry!!! This product is currently not available" />
+
+                </span>
+              </div>
+            </q-card-section>
+          </q-card>
+        </q-card-section>
+
+
+
+        <q-card-section class="column">
+          <div v-if="product.user_id == user.id">
+            <q-btn color="primary" size="md" class="q-mx-sm" label="Edit Product" @click="editTransaction()" />
+            <q-btn v-if="product.transaction.length > 0" color="red" size="md" label="Delete Product"
+              @click="deleteProduct()" />
+          </div>
+
+          <div v-if="product.user_id != user.id">
+            <span v-if="product.product_status == true && product.quantity > 0 ">
+              <span v-if="product.transaction_type == 'sell'">
+                <q-btn v-if="Object.keys(user).length" color="secondary" size="md" class="q-mx-sm" label="Buy Product"
+                  @click="accept_modal = true" />
+                <q-btn v-else color="secondary" size="md" class="q-mx-sm" label="Buy Product" @click="onLogin = true" />
+              </span>
+            </span>
+            <span v-else>
+              <q-badge color="red" text-color="white" label="Sorry!!! This product is currently not available" />
+
+            </span>
+          </div>
+
+        </q-card-section>
+
+
+
+      </q-card>
 
 
     </div>
@@ -89,25 +137,26 @@
     <q-dialog v-model="accept_modal" persistent>
       <q-card class="my-card" :style="ModelStyle">
 
-        <q-form class="q-gutter-md" >
-          <q-card-section class="q-py-sm">            
+        <q-form class="q-gutter-md">
+          <q-card-section class="q-py-sm">
             <div class="text-caption">ACCEPT PRODUCT</div>
           </q-card-section>
           <q-card-section class="q-gutter-sm">
-        
-            <q-input outlined dense v-model="form.quantity" :rules="schema.quantity" type="number" label="Product Quantity*"/>
+
+            <q-input outlined dense v-model="form.quantity" :rules="schema.quantity" type="number"
+              label="Product Quantity*" />
             <q-input type="textarea" outlined dense v-model="form.description" label="Transaction Description" />
-          
+
           </q-card-section>
-          
+
           <q-card-actions align="center">
-           <q-btn color="primary" size="md" :loading="loading" class="q-mx-sm" label="Accept" @click="buyProduct()" />
-          <q-btn color="red" size="md" label="Cancel" @click="accept_modal = false" /> 
+            <q-btn color="primary" size="md" :loading="loading" class="q-mx-sm" label="Accept" @click="buyProduct()" />
+            <q-btn color="red" size="md" label="Cancel" @click="accept_modal = false" />
           </q-card-actions>
         </q-form>
       </q-card>
 
-    <!-- <Signup />  -->
+      <!-- <Signup />  -->
 
     </q-dialog>
 
@@ -116,24 +165,24 @@
     <q-dialog v-model="onLogin" persistent>
       <q-card class="my-card" :style="ModelStyle">
 
-        <q-form @submit="login() " class="q-gutter-md" >
+        <q-form @submit="login() " class="q-gutter-md">
           <q-card-section class="q-py-sm">
             <div class="text-h6">Login</div>
             <div class="text-caption">To complete your Transaction</div>
           </q-card-section>
           <q-card-section class="q-gutter-sm">
-             <q-input outlined dense v-model="form.email" label="Enter E-mail" inputmode="email" />
+            <q-input outlined dense v-model="form.email" label="Enter E-mail" inputmode="email" />
             <q-input outlined dense type="password" v-model="form.password" label="Create Your Password" />
           </q-card-section>
           <q-card-actions align="right">
             <q-btn flat type="submit" label="Login" />
-          <q-btn flat text-color="red" size="md" label="Cancel" @click="onLogin = false" /> 
+            <q-btn flat text-color="red" size="md" label="Cancel" @click="onLogin = false" />
           </q-card-actions>
-          
+
         </q-form>
       </q-card>
 
-    <!-- <Signup />  -->
+      <!-- <Signup />  -->
 
     </q-dialog>
   </q-page>
@@ -161,6 +210,8 @@ export default {
 
   data() {
     return {
+      ref_link: null,
+      referral_modal: false,
       dispute_status: null,
       copyLink:'Copy product link',
       slug: this.$route.params.slug,
@@ -174,7 +225,8 @@ export default {
       form:{
        quantity: '',
        description: '',
-       product_id: null
+        product_id: null,
+        referral_token: this.$route.params.referral_token,
 
       },
       payment_url: `${window.location.href}/payment`
@@ -196,21 +248,31 @@ export default {
       }
       
     },
-    copyL(){return this.copyLink},
+    copyL() { return this.copyLink },
+    refer_link() { return window.location + "/" + this.$store.getters["auth/user"].referral_token },
      user(){return this.$store.getters["auth/user"] },
      ModelStyle(){ return this.$q.screen.gt.sm ? "min-width: 500px" : "min-width: 300px"},
   },
 
   methods:{
-    copy_link(){
-      navigator.clipboard.writeText(window.location)
+    copy_link(refLink = null) {
+      let link = window.location
+      if (refLink) {
+        link = window.location + "/" + this.user.referral_token
+      }
+      navigator.clipboard.writeText(link)
       this.copyLink = 'copied!';
        setTimeout(() => this.copyLink = 'Copy product link', 2000);
       
     },
 
     async buyProduct(){
-          let quantity =this.form.quantity
+      let quantity = this.form.quantity
+      if (this.form.referral_token == this.user.referral_token) {
+        this.$q.notify({ message: 'You can not use your referral link to buy this product', color: 'red' })
+
+        return
+      }
           if(!quantity)
           {
           this.$q.notify({message: 'Product quantity can not be empty', color: 'red'})
@@ -230,8 +292,9 @@ export default {
               
             })
           const req = await this.$axios.post(process.env.Api + '/api/transaction', this.form)
+            //console.log(req);
+          
           const res = req.data
-          console.log(res);
           this. getProduct()
           this.$q.loading.hide()
           this.$q.notify({message: 'Request seccessfully', color: 'green'})
@@ -434,6 +497,7 @@ export default {
 
   mounted(){
     this.getProduct()
+    this.ref_link = window.location.href + "/" +  this.user.referral_token
     // if(!this.$q.localStorage.getItem('paylidate_token')) this.onLogin = true
     // else this.getProduct()
   }

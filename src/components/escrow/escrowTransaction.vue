@@ -14,13 +14,13 @@
         <span v-if="request_withdrawal.bank_id != ''">
         <q-card-section>
           <div class="text-bold text-red">
-              Ensure that your bank account details are correct before you request for withdrawal. You can change your bank account details from the setting tab
+              Ensure that your bank account details are correct before you request for withdrawal. You can change your bank account details from the settings tab
         </div>
         </q-card-section>
         
         <q-card-section>
           <div class="text-bold">
-              Your money will be send into your account within 2 hours once your request is successfull
+              Your money will be sent into your account within 2 hours once your request is successfull
         </div>
         </q-card-section>
         
@@ -96,9 +96,14 @@
 
             <div class="text-bold">Type: {{transaction.product.type}}</div>
             <div class="text-bold">Total Quantity: {{transaction.quantity}}</div>
-            
+
             <div class="text-bold" v-if="transaction.amount <= 1" >Total Price: {{formatAsNaira(transaction.product.price * transaction.quantity)}}</div>
+            <div class="text-bold" v-else-if="transaction.referer_id" >Total Price: {{formatAsNaira(parseFloat(transaction.amount) + parseFloat(transaction.referral.amount))}}</div>
             <div class="text-bold" v-else>Total Price: {{formatAsNaira(transaction.amount)}}</div>
+
+            <div class="text-bold" v-if="transaction.referer_id">Referral Bonus: {{formatAsNaira(parseFloat(transaction.referral.amount))}}</div>
+
+
             <div class="text-bold" >Transaction Dispute: {{transaction.dispute ? 'Dispute Opened' : 'No dispute'}}</div>
             <div class="text-bold">Description: {{transaction.description ? transaction.description : "No Description"}}</div>
           </q-card-section>
@@ -517,15 +522,11 @@ export default {
       //this.withdraw = false
         
       const req = await this.$axios.post(process.env.Api + '/api/request-withdrawal', this.request_withdrawal)
-      
-      const res = req.data
-        console.log(res);
-        return
-            
+                  
       this.transaction = res.data
       this.getTransaction();
          this.$q.loading.hide();
-        this.$q.notify({message: 'Withdrawal request has been sent succefully', color: 'green', position: 'top' })      
+        this.$q.notify({message: 'Withdrawal request has been sent successfully', color: 'green', position: 'top' })      
       }
       catch(error){
         //console.log(error.response.data.message);
@@ -552,11 +553,12 @@ export default {
       const req = await this.$axios.get(process.env.Api + '/api/transaction/'+ this.T_ref)
       const res = req.data
       
-      //console.log(res);
+     
       if(!res.data){
         this.$q.notify({message: 'record not found', color: 'red', position: 'top' })
 
-      }
+        }
+      
 
       this.transaction = res.data
 

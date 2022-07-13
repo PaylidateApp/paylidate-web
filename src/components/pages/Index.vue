@@ -389,9 +389,9 @@
 
           
           <div class="flex justify-between text-grey-8 q-pt-lg">  
-          <div style="max-width:350px" :style="$q.screen.lt.sm?'max-width:300px':''" class="text-left">What happens if i don't receive what is other for?</div> 
+          <div style="max-width:350px" :style="$q.screen.lt.sm?'max-width:300px':''" class="text-left">What happens if i don't receive what i ordered for?</div> 
           <q-icon name="arrow_drop_down" size="2rem" @click="FAQs.Q6 = !FAQs.Q6"/> 
-          </div>  
+          </div>
           <q-separator/>
 
           <div class="text-justify text-grey-7 text-subtitle2" v-if="FAQs.Q6">

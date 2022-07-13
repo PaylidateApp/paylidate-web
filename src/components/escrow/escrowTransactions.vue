@@ -9,7 +9,7 @@
           <!-- <sell />
           <buy /> -->
 
-          
+
         </div>
       </q-card-section>
     </q-card>
@@ -19,7 +19,7 @@
           <div class="text-h5 text-bold">{{currency(sum_ammount('received',user.id))}}</div>
           <div style="font-size: 10px">PAYMENTS RECEIVED</div>
         </div>
-        <q-separator spaced  vertical dark />
+        <q-separator spaced vertical dark />
         <div class="text-secondary text-center text-uppercase">
           <div class="text-h5 text-bold">{{currency(sum_ammount('made',user.id))}}</div>
           <div style="font-size: 10px">PAYMENTS MADE</div>
@@ -27,47 +27,37 @@
       </q-card-section>
     </q-card>
 
-<div>
+    <div>
 
-<!--
+      <!--
 ###TODO <br>
 add confirm or reject request <br>
 add disbut messaging <br>
 add status badge <br>
 add payment remitance date automatically on all transaction <br> -->
 
-<!-- {{ contents[0] }} -->
+      <!-- {{ contents[0] }} -->
 
-</div>
+    </div>
 
-    <q-table
-      title="Transactions"
-      :data="contents"
-      :columns="columns"
-      row-key="name"
-      square
-    >
+    <q-table title="Transactions" :data="contents" :columns="columns" row-key="name" square>
       <template v-slot:top-right>
         <eExport :array="contents" :columns="columns" />
         <!-- <q-btn unelevated color="primary" icon-right="archive" label="Download Table" no-caps @click="exportTable" /> -->
       </template>
 
-       <template v-slot:body="props">
+      <template v-slot:body="props">
         <q-tr :props="props">
           <!-- <q-td key="name" :props="props">
             <img :src="props.row.image" style="width: 50px" />
           </q-td> -->
           <q-td key="transaction_ref" :props="props">
 
-          <q-btn class="text-blue" :to="{name: 'transaction', params: {T_ref: props.row.transaction_ref}}" flat size="md" no-caps>
-            {{ props.row.transaction_ref }} 
-           
-           </q-btn>
-           <br>
-           <q-btn class="text-blue" :to="{name: 'transaction', params: {T_ref: props.row.transaction_ref}}" flat size="md" no-caps>
-             
-           click to view transition
-           </q-btn>
+            <q-btn class="text-blue" :to="{name: 'transaction', params: {T_ref: props.row.transaction_ref}}" flat
+              size="md" no-caps>
+
+              Click to view Transaction
+            </q-btn>
           </q-td>
           <q-td key="name" :props="props">
             {{ props.row.product.name }}
@@ -77,15 +67,19 @@ add payment remitance date automatically on all transaction <br> -->
           </q-td>
           <q-td key="amount" :props="props">
 
-          <q-badge v-if="props.row.amount > 0"  color="negative">
-              {{ currency(props.row.amount) }}
-            </q-badge>
-            <q-badge v-else color="negative">
+            <q-badge v-if="props.row.amount < 1" color="negative">
               {{ currency(props.row.product.price * props.row.quantity) }}
             </q-badge>
+            <q-badge v-else-if="props.row.referer_id" color="negative">
+              {{ currency(parseFloat(props.row.amount) + parseFloat(props.row.referral.amount)) }}
+            </q-badge>
+            <q-badge v-else color="negative">
+              {{ currency(props.row.amount) }}
+            </q-badge>
             
+
           </q-td>
-          
+
           <q-td key="transaction_type" :props="props">
             <q-badge v-if="props.row.product.transaction_type === 'buy'" color="primary">
               {{ props.row.product.user_id === user.id ? 'buy' : 'sell' }}
@@ -94,7 +88,8 @@ add payment remitance date automatically on all transaction <br> -->
               {{ props.row.product.user_id === user.id ? 'sell' : 'buy' }}
             </q-badge>
           </q-td>
-          <!-- <q-td key="confirmed" :props="props">
+
+          <!--<q-td key="confirmed" :props="props">
             <q-badge :color="props.row.secondary_user_id ? 'steal' : 'negative'">
               {{ props.row.secondary_user_id ? 'Confirmed' : 'Un-confirmed' }}
             </q-badge>
@@ -107,14 +102,15 @@ add payment remitance date automatically on all transaction <br> -->
                {{ 'Un-Paid' }}
             </q-badge>
             <Payment v-else :amount="props.row.price" :T_ref="props.row.T_ref" :product="props.row" :url="payment_url+props.row.T_ref+'/payment'"/>
-          </q-td> -->
-           <q-td key="link" :props="props">
-            <q-btn label="Copy Link" @click="copy_link(props.row.transaction_ref)" flat size="sm" no-caps class="bg-grey" >
+          </q-td> 
+          <q-td key="link" :props="props">
+            <q-btn label="Copy Link" @click="copy_link(props.row.transaction_ref)" flat size="sm" no-caps
+              class="bg-grey">
               <q-tooltip>
-                    {{copyL}}
-                  </q-tooltip>
+                {{copyL}}
+              </q-tooltip>
             </q-btn>
-          </q-td>
+          </q-td>-->
 
           <!-- <q-td key="action" :props="props" class=""
             v-if="props.row.type === 'sell' && props.row.user_id == user.id || props.row.type === 'buy' && props.row.user_id != user.id" >
@@ -130,27 +126,27 @@ add payment remitance date automatically on all transaction <br> -->
           </q-td> -->
 
 
-            <!-- TODO paid unpaid in-dispute complete -->
-           
-           <q-td key="created_at" :props="props">
+          <!-- TODO paid unpaid in-dispute complete -->
+
+          <q-td key="created_at" :props="props">
             {{ formatDate(props.row.created_at) }}
           </q-td>
 
           <q-td key="transaction_status" :props="props">
             <q-badge v-if="props.row.accept_transaction == null" color="steal">
-               Awaiting acceptance
+              Awaiting acceptance
             </q-badge>
             <q-badge v-else-if="props.row.accept_transaction == false" color="negetive">
-               Not Accepted
-            </q-badge>            
+              Not Accepted
+            </q-badge>
             <q-badge v-else-if="props.row.status == 0" color="secondary">
-               Transaction accepted but Pending
+              Transaction accepted but Pending
             </q-badge>
             <q-badge v-else-if="props.row.status == 1" color="positive">
-               Transaction completed
+              Transaction completed
             </q-badge>
             <q-badge v-else color="negative">
-               Transaction cancel               
+              Transaction cancel
             </q-badge>
           </q-td>
 
@@ -184,7 +180,7 @@ export default {
         { name: 'transaction_type', label: 'Transaction Type', field: 'transaction_type', sortable: true,  align: 'center'  },
         // { name: 'confirmed', label: 'Confirmation', field: 'confirmed', align: 'left', sortable: true },
         // { name: 'payment_status', label: 'Payment', field: 'payment_status',align: 'left', sortable: true },
-        { name: 'link', label: 'Transaction link', field: '', align: 'center', sortable: true },
+        //{ name: 'link', label: 'Transaction link', field: '', align: 'center', sortable: true },
         { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'center', sortable: true, },
         { name: 'transaction_status', label: 'Status', field: 'transaction',  align: 'left', sortable: true },
       ],
@@ -238,7 +234,7 @@ export default {
             
             if (item.payment && item.payment.verified) {
               if (item.payment.user_id != user_id && type === 'received') {
-                item.product.price =item.amount
+                item.product.price =item.referer_id ? (parseFloat(item.amount) + parseFloat(item.referral.amount)): item.amount
                 return item
               }
               if (item.payment.user_id == user_id && type === 'made') {
