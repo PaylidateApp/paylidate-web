@@ -5,6 +5,53 @@
     <!-- {{transaction}} -->
     <div>
     
+    <!--start request for withdrawal section -->
+      <q-dialog v-model="withdraw">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Request for withdrawal</div>
+        </q-card-section>
+        <span v-if="request_withdrawal.bank_id != ''">
+        <q-card-section>
+          <div class="text-bold text-red">
+              Ensure that your bank account details are correct before you request for withdrawal. You can change your bank account details from the settings tab
+        </div>
+        </q-card-section>
+        
+        <q-card-section>
+          <div class="text-bold">
+              Your money will be sent into your account within 2 hours once your request is successfull
+        </div>
+        </q-card-section>
+        
+        <q-card-section>
+           
+
+            <div>Acount Number: {{transaction.bank.account_number}}</div>
+
+            <div>Account Name: {{transaction.bank.account_name}}</div>
+
+            <div>Bank: {{transaction.bank.bank_name}}</div>
+            <div>Amount to Withdraw: {{transaction.amount}}</div>
+
+        </q-card-section>
+        </span>
+        <span v-else>
+        <q-card-section>
+          <div class="text-bold text-red">
+              You can not request for withdrwal while you are yet to add your account details. You can add your bank account details from the settings tab
+        </div>
+        </q-card-section>
+
+        </span>
+        <q-card-actions align="right">
+          <q-btn v-if="request_withdrawal.bank_id != ''" flat size="md" label="Request Withdrawal" @click="requestWithdrawal()" color="positive" />
+          <q-btn flat size="md" label="Cancel" color="negative" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- end of request for withdrawal section -->
+
     <q-card v-if="transaction" class="my-card" bordered flat style="max-width: 500px">
       <!-- <q-img :src="'/transaction.svg'" spinner-color="white"
       /> -->
@@ -27,14 +74,15 @@
             
           </q-btn>
       </q-card-section>
+      
       <q-card-section class="column">
         <div>
-          transaction Details
+          Transaction Details
         </div>
         <q-separator class="q-mb-sm" />
         <q-card flat bordered>
           <!-- {{ transaction.image !== 'default_transaction.png' ? transaction.image : base_image }} -->
-          <img :src="transaction.product.image !== 'default_transaction.png' ? transaction.product.image : base_image">
+          <img style="width: 427px"  :src="transaction.product.image !== 'default_transaction.png' ? transaction.product.image : base_image">
           <q-card-section>
             <div class="text-bold">Product Number: {{transaction.product.product_number}}</div>
            
@@ -48,16 +96,46 @@
 
             <div class="text-bold">Type: {{transaction.product.type}}</div>
             <div class="text-bold">Total Quantity: {{transaction.quantity}}</div>
-            
+
             <div class="text-bold" v-if="transaction.amount <= 1" >Total Price: {{formatAsNaira(transaction.product.price * transaction.quantity)}}</div>
+            <div class="text-bold" v-else-if="transaction.referer_id" >Total Price: {{formatAsNaira(parseFloat(transaction.amount) + parseFloat(transaction.referral.amount))}}</div>
             <div class="text-bold" v-else>Total Price: {{formatAsNaira(transaction.amount)}}</div>
+
+            <div class="text-bold" v-if="transaction.referer_id">Referral Bonus: {{formatAsNaira(parseFloat(transaction.referral.amount))}}</div>
+
+
+            <div class="text-bold" >Transaction Dispute: {{transaction.dispute ? 'Dispute Opened' : 'No dispute'}}</div>
             <div class="text-bold">Description: {{transaction.description ? transaction.description : "No Description"}}</div>
           </q-card-section>
         </q-card>
       </q-card-section>
 
 
- <q-card-section class="column">
+      <q-card-section v-if="Object.keys(user).length && (transaction.user_id == user.id || transaction.product.user_id == user.id)" class="column">
+
+        <span v-if="transaction.payment != null && transaction.payment.verified == true && transaction.status == 1 && transaction.accept_transaction == true">
+              
+          <q-btn :to="{name: 'disputes', params: {transaction_id: transaction.id}}" size="sm" color="secondary" label="View Disputes"/> 
+
+        </span>
+        <span v-else>
+        <div>
+          <div v-if="transaction.user_id == user.id || transaction.product.user_id"> 
+              <q-badge  color="primary" text-color="white" label="Open a dipute if you have any issue" />
+          </div>  
+          <div class="flex justify-between">
+          <Disput :transaction="transaction" v-if="transaction.user_id == user.id || transaction.product.user_id" />   
+          <q-btn :to="{name: 'disputes', params: {transaction_id: transaction.id}}" size="sm" color="secondary" label="View Disputes"/> 
+          </div>    
+        </div>        
+        </span>
+        
+
+      </q-card-section>
+
+
+
+      <q-card-section class="column">
         <div>
           Parties Details
         </div>
@@ -87,7 +165,28 @@
         </q-card>
       </q-card-section>
 
-    <q-card-section class="column">
+      <q-card-section v-if="user && transaction.payment" class="column">
+        <span v-if="transaction.user_id == user.id || transaction.product.user_id">
+          <div>
+          Payment Details
+        </div>
+        <q-separator class="q-mb-sm" />
+        <q-card flat bordered>
+          <q-card-section>
+            <div><span class="text-bold">Payment id: </span> {{transaction.payment.payment_id}}</div>
+            <div><span class="text-bold">Payment ref: </span> {{transaction.payment.payment_ref}}</div>
+            <div><span class="text-bold">Payment Gateway: </span> {{transaction.payment.payment_method}}</div>
+            <div><span class="text-bold">Payment Verified: </span> {{transaction.payment.verified ? 'Yes' : 'No'}}</div>
+            <div><span class="text-bold">Payment Date: </span> {{ Date(transaction.payment.created_at)}}</div>
+            <div><span class="text-bold">Payment Description: </span> {{transaction.payment.description ? transaction.payment.description : "No Description"}}</div>
+           
+          </q-card-section>
+        </q-card>
+        </span>
+      </q-card-section>
+
+
+      <q-card-section class="column">
 
       <div v-if="transaction.status == 2 && transaction.accept_transaction == true">
               <div> <q-badge  color="red" text-color="white" label="Transaction has been canceled" /></div>
@@ -95,8 +194,30 @@
         </div>
         
         <div v-else-if="transaction.payment != null && transaction.payment.verified == true && transaction.status == 1 && transaction.accept_transaction == true">
-              <div> <q-badge  color="green" text-color="white" label="Transaction completed" /></div>  
-          <q-btn v-if="false" unelevated no-caps color="secondary" label="Make Withdrawal" :loading="loading" @click="makeWithdrawal()" />
+              <div> <q-badge  color="green" text-color="white" label="Transaction completed" /></div> 
+              
+              <span v-if="transaction.withdrawal_request">
+              <span v-if="(transaction.product.user_id == user.id && transaction.product.transaction_type == 'sell') || (transaction.user_id == user.id && transaction.product.transaction_type == 'buy')">
+              
+                <div class="text-orange text-bold" v-if="transaction.payment.withdrawn == false">
+                  Your have requested for a withdrawal, expect your money into your bank account soon
+                </div>
+                <div class="text-orange text-bold" v-else>
+                
+                </div>        
+                <div v-if="transaction.payment.withdrawn == true">
+                  <q-badge  color="orange" text-color="white" label="Money has been transfered to your bank account" />
+                </div>       
+              </span>
+              </span>
+
+              <span v-else>
+              <span v-if="transaction.payment.withdrawn == false">
+                <q-btn  v-if="transaction.product.user_id == user.id && transaction.product.transaction_type == 'sell'" unelevated no-caps color="secondary" label="Make Withdrawal" :loading="loading" @click="withdraw = true" />
+                <q-btn   v-if="transaction.user_id == user.id && transaction.product.transaction_type == 'buy'" unelevated no-caps color="secondary" label="Make Withdrawal" :loading="loading" @click="withdraw = true" />
+              </span>
+
+              </span>
 
         </div>
       
@@ -104,7 +225,7 @@
            <div> <q-badge  color="green" text-color="white" label="Payment completed. Waiting for transaction to be confirmed and approved" /></div>  
           
           <q-btn class="q-mx-sm" v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="secondary" label="Confirm Transaction" :loading="loading" @click="confirm = true" />
-          <q-btn v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="primary" label="Confirm Transaction" :loading="loading" @click="cancelTransaction()" />
+          <q-btn v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="primary" label="Cancel Transaction" :loading="loading" @click="cancelTransaction()" />
           
           <q-btn class="q-mx-sm" v-if="transaction.product.transaction_type == 'sell' && user.id == transaction.user_id" unelevated no-caps color="secondary" label="Confirm Transaction" :loading="loading" @click="confirm = true" />
           <q-btn v-if="transaction.product.transaction_type == 'sell' && user.id == transaction.user_id" unelevated no-caps color="primary" label="Cancel Transaction" :loading="loading" @click="cancelTransaction()" />
@@ -152,135 +273,7 @@
 
       </q-card-section>
 
-<!--       <q-card-section class="column">
-        <div>
-          Order Status
-        </div>
-        <q-separator class="q-mb-sm" />
-        <div class="q-gutter-sm">
-          <div v-if="Object.keys(user).length">
-            <div v-if="product.secondary_user">
-              <div v-if="product.user.id !== user.id">
-                 Transaction Status: <q-badge  color="positive" text-color="black" label="You Accept This Transaction" />
-                 
-              </div>
-              <div v-else>
-                 Transaction Status: <q-badge color="positive" text-color="black" label="Transaction Accepted" />
-              </div>
-            </div>
 
-            <div v-else>
-               Transaction Status: <q-badge v-if="product.user.id === user.id" color="negative" text-color="white" label="Transaction Wating to be accepted" />
-              <AcceptTransaction v-else :data="product" :slug="slug"/>
-            </div>
-
-            <div >
-                Delivery Status: <q-badge :color="product.delivery_status == 3 ? 'positive' : 'orange'"  :label="deliveryStatus(product.delivery_status)" /> <br />
-                Product Status: <q-badge color="orange" :label="product.payment_status ? 'Paid' : 'Unpaid'" />  <br />
-                Delivery Period: <q-badge color="orange" :label="product.delivery_period" /> days <br />
-                Dispute: <q-badge v-if="product.dispute === 0" color="orange" label="NO" />
-                          <q-badge v-else-if="product.dispute === 1" color="negative" label="YES" />
-                          <q-badge v-else color="positive" label="Dispute Resolved" />
-
-                
-            </div> 
-
-          </div>
-
-          
-          <div v-if="product.delivery_status != 3 && user.is_admin" class="row flex q-gutter-sm">
-          
-          <div>
-          <div>
-          <q-btn v-if="product.delivery_status != 3 && product.delivery_status != 4" @click="canceledDelivery(product.id)" color="negative" size="sm" no-caps label="Cancel Order" />
-          
-          </div>
-          </div>
-
-          <div>
-              <q-btn size="sm" color="warning" :label="dispute_state" @click="dispute(product.id)" />
-          </div>
-
-          <div v-if="product.secondary_user">
-            <div class="flex row q-gutter-sm" v-if="Object.keys(user).length && (product.payment || product.payment_status === 1)"> 
-              <span v-if="product.delivery_status != 4">
-              
-                <DiliveredRecieved :data="product" :status="'delivered'"/>
-
-                <DiliveredRecieved :data="product" :status="'received'"/>
-                
-              </span>
-            </div>
-          </div>
-          
-
-
-          </div>
-          
-          <div v-if="product.delivery_status != 3 && product.delivery_status != 4 && !user.is_admin" class="row flex q-gutter-x-sm">
-          
-          <div>
-          <Disput />
-          </div>
-
-            <div v-if="product.secondary_user">
-          <div v-if="Object.keys(user).length && (product.payment || product.payment_status === 1)"> 
-            <DiliveredRecieved
-            v-if="(product.transaction_type === 'buy'
-              &&  product.user.id === user.id
-              &&  product.payment_status === 1)
-              ||  (product.transaction_type === 'sell'
-              &&  product.user.id === user.id
-              &&  product.payment_status === 1)"
-
-            :data="product" :status="'delivered'"/>
-
-            <DiliveredRecieved v-else  :data="product" :status="'received'"/>
-            
-          
-            
-          </div>
-
-            </div>
-
-          
-          <div v-if="product.secondary_user || product.user.id === user.id">
-          <div  v-if="(product.transaction_type === 'sell'
-              &&  product.user.id === user.id) || (product.transaction_type === 'buy'
-              &&  product.user.id != user.id && product.secondary_user.id == product.secondary_user_id)">
-          <q-btn v-if="product.delivery_status != 3" @click="canceledDelivery(product.id)" color="negative" size="sm" no-caps label="Cancel Order" />
-          
-          </div>
-          </div>
-
-          </div>
-        </div>
-      </q-card-section> -->
-
-      <!-- <q-card-section class="column">
-
-        <div>
-          Payment Details
-        </div>
-
-        <q-separator class="q-mb-sm" />
-           <div>
-              Status: <q-badge color="orange" :label="product.payment_status ? 'Paid' : 'Unpaid'" />
-           </div>
-
-          <div v-if="product.payment">
-            <div class="self-center full-width no-outline">Transaction ID:      {{ product.payment.transaction_id }}</div>
-            <div class="self-center full-width no-outline">Payment Ref:         {{ product.payment.payment_ref }}</div>
-            <div class="self-center full-width no-outline">Transaction Ref:     {{ product.payment.transaction_ref }}</div>
-            <div class="self-center full-width no-outline">Transaction Status:  {{ product.payment.status }}</div>
-          </div>
-
-          <div v-if="!product.payment_status && product.transaction_type === 'buy'  &&  product.user.id === user.id || product.transaction_type === 'sell'  &&  product.user.id !== user.id">
-              <Payment v-if="product.secondary_user" :amount="product.price" :slug="product.slug" :product="product" :url="payment_url"/>
-              <div v-else>Transaction must be accepted before payment can be done</div>
-          </div>
-      </q-card-section>
- -->
     </q-card>
 
 
@@ -336,6 +329,7 @@ export default {
 
   data() {
     return {
+      withdraw: false,
       dispute_status: null,
       copyLink:'Copy transaction link',
       T_ref: this.$route.params.T_ref,
@@ -346,6 +340,14 @@ export default {
       loading: false,
       signup:false,
       onLogin:false,
+        request_withdrawal:{        
+        transaction_id: '',
+        payment_id: '',
+        bank_id: '',
+        narration: '',
+        debit_currency: '',
+
+      }, 
       form:{
         email: '',
         password: '',
@@ -390,7 +392,7 @@ export default {
       const req = await this.$axios.post(process.env.Api + '/api/transaction/cancel/'+ this.transaction.id)
       const res = req.data
       
-      this. getTransaction()
+      this.getTransaction()
       this.$q.loading.hide()
       this.$q.notify({message: 'Transaction cancelled', color: 'green'})
       
@@ -413,7 +415,7 @@ export default {
       const req = await this.$axios.post(process.env.Api + '/api/transaction/confirm/'+ this.transaction.id)
       const res = req.data
       
-      this. getTransaction()
+      this.getTransaction()
       this.$q.loading.hide()
       this.$q.notify({message: 'Transaction confirm seccessfully', color: 'green'})
       
@@ -436,7 +438,7 @@ export default {
       const req = await this.$axios.post(process.env.Api + '/api/transaction/accept/'+ this.transaction.id)
       const res = req.data
       
-      this. getTransaction()
+      this.getTransaction()
       this.$q.loading.hide()
       this.$q.notify({message: 'Transaction accepted seccessfully', color: 'green'})
       
@@ -461,7 +463,7 @@ export default {
       const req = await this.$axios.post(process.env.Api + '/api/transaction/decline/'+ this.transaction.id)
       const res = req.data
       
-      this. getTransaction()
+      this.getTransaction()
       this.$q.loading.hide()
       this.$q.notify({message: 'Transaction decline seccessfully', color: 'green'})
       
@@ -484,9 +486,7 @@ export default {
           this.$axios.get(`${process.env.Api}/api/transaction/open-dispute/${id}`)
            this.transaction.dispute = 1
           this.$q.loading.hide()         
-          this.$q.notify({message: 'Successful', color: 'green', position: 'top', type: 'positive'})
-          
-
+          this.$q.notify({message: 'Successful', color: 'green', position: 'top', type: 'positive'})       
           return;
         }
         if(this.transaction.dispute === 1){
@@ -512,6 +512,36 @@ export default {
     },
 
 
+    async requestWithdrawal(){
+      try{ 
+        this.$q.loading.show({
+          message: 'Hold on, sending withdrawal request',
+          spinnerColor: 'secondary'
+          
+        })
+      //this.withdraw = false
+        
+      const req = await this.$axios.post(process.env.Api + '/api/request-withdrawal', this.request_withdrawal)
+                  
+      this.transaction = res.data
+      this.getTransaction();
+         this.$q.loading.hide();
+        this.$q.notify({message: 'Withdrawal request has been sent successfully', color: 'green', position: 'top' })      
+      }
+      catch(error){
+        //console.log(error.response.data.message);
+         this.$q.loading.hide();
+        this.$q.notify({message: 'Error:: withdrawal request error', color: 'red', position: 'top' })
+
+        // // console.log(second);
+      }
+      finally{
+        
+        this.$q.loading.hide();
+      }
+
+    },
+
     async getTransaction(){
       try{ 
         this.$q.loading.show({
@@ -523,19 +553,39 @@ export default {
       const req = await this.$axios.get(process.env.Api + '/api/transaction/'+ this.T_ref)
       const res = req.data
       
-      // // console.log(res);
+     
+      if(!res.data){
+        this.$q.notify({message: 'record not found', color: 'red', position: 'top' })
+
+        }
+      
+
       this.transaction = res.data
+
+        //console.log(res.data)
+      
+        let bank = res.data.bank
+      if(bank){
+        this.request_withdrawal.transaction_id= res.data.id
+        this.request_withdrawal.payment_id= res.data.payment.id
+        this.request_withdrawal.bank_id= res.data.bank.id
+        this.request_withdrawal.narration='Payment for ' + res.data.product.name
+        this.request_withdrawal.debit_currency= 'NGN'
+      }
+       // console.log(this.request_withdrawal)
       
          this.$q.loading.hide();
-
       
       }
       catch(error){
          this.$q.loading.hide();
-        this.$q.notify({message: 'Record not fetch', color: 'red', position: 'top' })
-
+        
         // // console.log(second);
         // // console.log(error.response.data.message);
+      }
+      finally{
+         this.$q.loading.hide();
+
       }
     },
     formatAsNaira(number) {
@@ -568,6 +618,7 @@ export default {
         this.$store.commit('auth/login', 'Bearer '+response.data.access_token)
         this.$store.commit('auth/user', response.data.data)
         this.$q.localStorage.set('paylidate_token', 'Bearer '+response.data.access_token)
+        this.$q.localStorage.set('user_id', response.data.data.id)
         this.$axios.defaults.headers.common["Authorization"] = 'Bearer '+ response.data.access_token;
 
         this.getTransaction()
@@ -616,39 +667,7 @@ export default {
         this.$q.notify({message: 'Account Creation Failed', color: 'orange', position: 'top', type: 'warning' })
 
       }
-    },
-
-    deliveryStatus(status){
-      if (status === 0) {
-        return 'Awaiting Fulfillment'
-      } else if(status === 1) {
-        return 'In Transit'
-      } else if(status === 2) {
-        return 'Delivered'
-      } else if(status === 3) {
-        return 'Recieved'
-      }
-       else if(status === 4) {
-        return 'Canceled'
-      }
-    },
-
-    orderDelivered(data){
-        this.$axios.get(`${process.env.Api}/api/transaction/status/delivered/${data}`)
-        this.getTransaction();
-      },
-
-    orderRecieved(data){
-        this.$axios.get(`${process.env.Api}/api/transaction/status/recieved/${data}`)
-        this.getTransaction();
-      },
-
-    canceledDelivery(data){
-        this.$axios.get(`${process.env.Api}/api/transaction/status/canceled/${data}`)
-        this.getTransaction();
-      }
-
-
+    },    
     
   },
 
@@ -658,4 +677,5 @@ export default {
     //else this.getTransaction()this.getTransaction()
   }
 }
+
 </script>

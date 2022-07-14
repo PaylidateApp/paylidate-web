@@ -54,6 +54,7 @@ export default {
     async logout(){
       await this.$axios.get(process.env.Api + '/api/logout')
       this.$store.commit('auth/logout')
+      localStorage.removeItem("user_id");
       this.$router.push({name: 'index'})
     }
   },

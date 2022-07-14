@@ -30,26 +30,24 @@
                       <div>Note: {{charges}} </div>
           </div>
 
-          <div class="q-py-xs text-center">
+          <div class="q-py-sm text-center">
             <div class="text-caption text-weight-light">Amount</div>
             <div class="text-bold text-h5">NGN {{ form.amount }}</div>
           </div>
 
-          <div class="row flex-center full-width q-px-">
-            <div class="column">
-              <div class="q-py-xs text-right">
+              <div class="q-py-sm text-centert">
                 <div class="text-caption text-weight-light">Product Name</div>
                 <div class="text-bold text-h6">{{ transaction.product.name }}</div>
               </div>
 
-              <div class="q-py-xs text-right">
+              <div class="q-py-sm text-center">
                 <div class="text-caption text-weight-light">Payment Type</div>
                 <div class="text-bold ">{{ transaction.product.type }}</div>
               </div>
-            </div>
+            
 
-            <div class="column">
-              <div class="q-py-xs q-px-lg text-left">
+            
+              <div class="q-py-sm text-center">
                 <div class="text-caption text-weight-light">Quantity</div>
                 <div class="text-bold text-h6">{{ transaction.quantity }}</div>
               </div>
@@ -59,13 +57,12 @@
                 <div class="text-bold">{{ '200000-sdsd-sdsd' }}</div>
               </div> -->
 
-              <div class="q-py-xs q-px-lg text-left">
+              <div class="q-py-sm text-center">
                 <div class="text-caption text-weight-light">Payment Status</div>
-                <div class="text-bold ">{{ 'pending' }}</div>
+                <div class="text-bold ">pending</div>
               </div>
-            </div>
-          </div>
-          
+            
+
         </q-card-section>
         <q-card-actions align="right">
           <q-btn unelevated no-caps color="primary" label="Make Payment" v-if="open" :loading="loading" @click="makePayment()" />
@@ -127,7 +124,7 @@ export default {
     },
 
     mounted() {
-      this.get_rate()
+      //this.get_rate()
     },
 
     methods:{

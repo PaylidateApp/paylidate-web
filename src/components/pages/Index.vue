@@ -1,38 +1,5 @@
 <template>
   <q-page :class="$q.screen.gt.sm?'text-primary row q-pt-md':'text-primary row'" class="" style="scroll-behavior: smooth; font-family:'Mukta', sans-serif;">
-     <!--<div class="col-sm-12 col-xs-12 column flex-center lt-md">
-      <img src="../../statics/paylidate-mobile.png" spinner-color="white" style="max-height: 100vh; max-width: 80vw" />
-    </div>
-    <div class="col-md-6 col-sm-12 col-xs-12 column justify-center q-pa-lg q-gutter-md">
-      <div :class="$q.screen.gt.sm?'text-h2 theFont':'text-h4 theFont'">
-      Pay with Paylidate
-    </div>
-    <div class=" text-bold">
-      Keep your money within your reach even after making payment
-    </div>
-
-    <div class="text-caption">
-      The customer pays with <strong>Paylidate</strong> <br>
-      The seller delivers on agreement <br>
-      Customer confirms delivery and money is paid into sellers account
-    </div>
-
-     <q-btn :style="$q.screen.gt.sm?'max-width:50%':''" unelevated color="secondary" no-caps label="Start using Paylidate" :to="{name: 'register'}" />
-    </div>
-    <div class="col-md-6 column flex-center gt-sm">
-      <img src="../../statics/paylidate-mobile.png" spinner-color="white" style="max-height: 100vh; max-width: 60vw" />
-    </div>
-
-    <div class="fixed-bottom-left q-pa-lg gt-sm">
-      <div class="row">
-        <q-btn round flat icon="ion-logo-twitter" type="a" :href="'https://twitter.com/paylidate'" target="_blank" />
-        <q-btn round flat icon="fab fa-facebook-f" type="a" :href="'https://web.facebook.com/paylidate'" target="__blank" />
-        <q-btn round flat icon="ion-logo-linkedin" type="a" :href="'https://www.linkedin.com/company/ourpasskey'" target="_blank" /> 
-        <q-btn round flat icon="fab fa-instagram" type="a" :href="'https://www.instagram.com/paylidate/?hl=en'" target="_blank" class="q-mr-xs"/>
-      </div>
-      <div class="text-caption text-bold" style=""><a class="text-primary" href="tel:+2348066984101" style="text-decorations:none">+2348066984101</a></div>
-      <div class="text-caption">© 2020 lotusfort technologies. All Rights Reserved</div>
-    </div> -->
 
     <div class="q-pa-sm q-pa-sm-xl q-mt-lg full-width flex justify-center" >
     <div style="max-width:1200px" class="">
@@ -173,7 +140,11 @@
           </q-card-section>
           
         <q-card-section>
-          <div class="text-h4 text-secondary">COMING SOON</div>
+          <div>
+            <iframe width="420" height="345" src="https://www.youtube.com/embed/ST_M4hUOV-s?controls=0">
+</iframe>
+          </div>
+         
           </q-card-section>
           
           <q-card-actions align="right">
@@ -402,7 +373,7 @@
           <q-separator/>
 
           <div class="text-justify text-grey-7 text-subtitle2" v-if="FAQs.Q4">
-         Paylidate charges  3% for each transaction, (NB: For transaction below NGN 3,334 their is a fix charges of N100, and for transaction above NGN 83,334 their is a fix charges of N2500)
+         Paylidate charges  3% for each transaction, (NB: For transaction below NGN 3,334 there is a fix charges of N100, and for transaction above NGN 83,334 their is a fix charges of N2500)
           </div>
 
           
@@ -418,9 +389,9 @@
 
           
           <div class="flex justify-between text-grey-8 q-pt-lg">  
-          <div style="max-width:350px" :style="$q.screen.lt.sm?'max-width:300px':''" class="text-left">What happens if i don't receive what is other for?</div> 
+          <div style="max-width:350px" :style="$q.screen.lt.sm?'max-width:300px':''" class="text-left">What happens if i don't receive what i ordered for?</div> 
           <q-icon name="arrow_drop_down" size="2rem" @click="FAQs.Q6 = !FAQs.Q6"/> 
-          </div>  
+          </div>
           <q-separator/>
 
           <div class="text-justify text-grey-7 text-subtitle2" v-if="FAQs.Q6">
@@ -522,152 +493,6 @@
 
 
 
-          
-          
-<!--           <q-carousel-slide :name="1" v-if="$q.screen.gt.xs && $q.screen.lt.lg" class="column no-wrap">
-            <div class="row fit justify-start items-center  q-col-gutter no-wrap">
-            <q-card class="my-card q-mx-xs" square flat style="max-width: 300px">
-            <img src="../../statics/testimony/ogdesigns.png" style="max-width:50%;">
-
-            <q-card-section class="text-left" style="max-height:300px">
-              <div class="">
-            <img src="../../statics/comment/comment1.png" style="">
-              </div>
-             <p class="text-primary" style="line-height:normal">
-              
-              I have built websites for several clients all over Nigeria and sometimes, it's hard to get the final payment tranche but with Paylidate, I can comfortably see the total payment before I begin to work and I receive the final payment without any stress. I believe Paylidate is doing the escrow payments thing just right.
-              </p>
-              <div class="text-h6 text-bold text-secondary">OG Designs</div>
-              
-              
-              
-            </q-card-section>
-            
-            </q-card>
-
-              <q-card class="my-card q-mx-xs" square flat style="max-width: 300px">
-            <img src="../../statics/testimony/XclusiveMall.png" style="max-width:60%;">
-
-            <q-card-section class="text-left" style="max-height:300px">
-              <div class="">
-            <img src="../../statics/comment/comment1.png" style="">
-              </div>
-               <p class="text-primary" style="line-height:normal">
-                
-                Xclusive mall
-                For my business, "Payment validates order" is how I get to know customers that are really committed to buying after showing interest. Sometimes, customers prefer to pay on delivery but that can be disastrous if they don't pay as promised or cancel the delivery due to inability to pay. With Paylidate, it's easier to get all my payment first because of the 100% customer protection and money-back guarantee provided by them. So yeah, Paylidate is the way to go!!!
-
-              </p>
-              <div class="text-h6 text-bold text-secondary">Xclusive mall</div>              
-              
-              
-            </q-card-section>            
-              </q-card>
-
-            </div>           
-            
-          </q-carousel-slide>
-          
-          <q-carousel-slide :name="2" v-if="$q.screen.gt.xs && $q.screen.lt.lg" class="column  no-wrap">
-            
-            <div class="row fit justify-start items-center gt-sm q-col-gutter no-wrap">
-             
-              <q-card class="my-card q-mx-md" square flat style="max-width: 300px">
-            <img src="../../statics/testimony/unishop.png" style="max-width:100%; max-height: 200px; object-fit:cover">
-
-            <q-card-section class="text-left" style="max-height:360px">
-              <div class="">
-            <img src="../../statics/comment/comment1.png" style="">
-              </div>
-              <p class="text-primary" style="line-height:normal">              
-                
-                Online marketplaces are very helpful to buy and sell items that are not easily found everywhere. Buyers and sellers always need to meet to complete transactions. With paylidate, no one needs to leave their rooms, they can make payment, get their product delivered to them and confirm the payment once it's what they ordered. It's a simple and effective way to reduce the risks in a marketplace where everyone is a stranger.
-
-              </p>
-              <div class="text-h6 text-secondary text-bold">Unishop</div>
-              
-              
-            </q-card-section>
-
-            
-              </q-card>
-
-            </div>
-          </q-carousel-slide>
-          
-         
-          <q-carousel-slide :name="1" class="column no-wrap" v-if="$q.screen.lt.sm">
-            
-            <div class="row fit justify-start items-center lt-sm q-col-gutter no-wrap">
-              <q-card class="my-card" square flat style="max-width: 300px">
-            <img src="../../statics/testimony/ogdesigns.png" style="max-width:50%;">
-
-            <q-card-section class="text-left" style="max-height:300px">
-              <div class="">
-            <img src="../../statics/comment/comment1.png" style="">
-              </div>
-              <p class="text-primary" style="line-height:normal">
-              
-              I have built websites for several clients all over Nigeria and sometimes, it's hard to get the final payment tranche but with Paylidate, I can comfortably see the total payment before I begin to work and I receive the final payment without any stress. I believe Paylidate is doing the escrow payments thing just right.
-              </p>
-              <div class="text-h6 text-bold text-secondary">OG Designs</div>
-              
-              
-            </q-card-section>
-
-            
-              </q-card> 
-            </div>
-          </q-carousel-slide>
-          
-          <q-carousel-slide :name="2" class="column no-wrap" v-if="$q.screen.lt.sm">
-            
-            <div class="row fit justify-start items-center lt-sm q-col-gutter no-wrap">
-              <q-card class="my-card" square flat style="max-width: 300px">
-            <img src="../../statics/testimony/XclusiveMall.png" style="max-width:60%;">
-
-            <q-card-section class="text-left" style="max-height:370px">
-              <div class="">
-            <img src="../../statics/comment/comment1.png" style="">
-              </div>
-              <p class="text-primary" style="line-height:normal">
-                
-                Xclusive mall
-                For my business, "Payment validates order" is how I get to know customers that are really committed to buying after showing interest. Sometimes, customers prefer to pay on delivery but that can be disastrous if they don't pay as promised or cancel the delivery due to inability to pay. With Paylidate, it's easier to get all my payment first because of the 100% customer protection and money-back guarantee provided by them. So yeah, Paylidate is the way to go!!!
-
-              </p>
-              <div class="text-h6 text-bold text-secondary">Xclusive mall</div>              
-              
-            </q-card-section>            
-              </q-card>
-            </div>
-          </q-carousel-slide>
-          
-          <q-carousel-slide :name="3" v-if="$q.screen.lt.sm" class="column no-wrap">
-            
-            <div class="row fit justify-start items-center lt-sm q-col-gutter no-wrap">
-              <q-card class="my-card" square flat style="max-width: 300px">
-            <img src="../../statics/testimony/unishop.png" style="max-width:100%; max-height: 200px; object-fit:cover">
-
-            <q-card-section class="text-left" style="max-height:360px">
-              <div class="">
-            <img src="../../statics/comment/comment1.png" style="">
-              </div>
-              <p class="text-primary" style="line-height:normal">              
-                
-                Online marketplaces are very helpful to buy and sell items that are not easily found everywhere. Buyers and sellers always need to meet to complete transactions. With paylidate, no one needs to leave their rooms, they can make payment, get their product delivered to them and confirm the payment once it's what they ordered. It's a simple and effective way to reduce the risks in a marketplace where everyone is a stranger.
-
-              </p>
-              <div class="text-h6 text-secondary text-bold">Unishop</div>
-              
-            </q-card-section>
-
-            
-              </q-card> 
-            </div>
-
-          </q-carousel-slide> -->
-          
         </q-carousel>
         </div>
         

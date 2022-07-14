@@ -1,57 +1,80 @@
 <template>
   <div>
-    <q-card flat class="q-pa-sm bg-transparent">
-      <div class="text-h5">
-        Welcome, {{ user.name }}
+    <span v-if="login">
 
-        <!-- <ActivateCard v-if="!account || !Object.keys(account).length" /> -->
-        <AddMoney />
-      </div>
-      <!-- <div class="text-bold text-h6 text-grey q-pt-sm">
+      <q-card flat class="q-pa-sm bg-transparent">
+        <div class="text-h5">
+          Welcome, {{ user.name }}
+
+          <!-- <ActivateCard v-if="!account || !Object.keys(account).length" /> -->
+
+        </div>
+        <!-- <div class="text-bold text-h6 text-grey q-pt-sm">
         {{account ? account.bank_name : ""}}
       </div>
       <div class="text-bold text-h4 text-grey q-pb-sm">
         {{account ? account.account_number : ""}}
       </div> -->
-    </q-card>
-    <div class="row">
+      </q-card>
+      <span v-if="user.is_admin == true">
+        <span v-if="$route.name == 'withdrawal_requests'">
+          <q-btn v-if="withdrawal_type == 'transaction'" @click="withdrawal_type = 'referral'" color="secondary"
+            size="md" no-caps label="Switch to transaction" />
+          <q-btn v-if="withdrawal_type == 'referral'" @click="withdrawal_type = 'transaction'" color="secondary"
+            size="md" no-caps label="Switch to referral" />
 
-      <div class="col-md-4 col-sm-12 col-xs-12 q-pa-xs">
+          <WithdrawalRequests v-if="withdrawal_type == 'transaction'" />
+          <ReferralWithdrawalRequests v-if="withdrawal_type == 'referral'" />
+        </span>
+      </span>
+      <span v-else>
+        <div class="text-h5">
+          You are not authorized
+        </div>
+      </span>
+      <!-- <div class="row">
+
+      <div class="col-md-6 col-sm-12 col-xs-12 q-pa-xs">
         <div class="column q-gutter-sm">
-          <!-- <WalletCard v-if="account" :account="account" :card="cards[0].data" /> -->
-          <WalletCard :account="account" :card="cards[0].data" />
-
-          <!-- <WalletCard /> -->
-          <!-- <TxMonth :content="account" /> -->
+          <WalletCard />
+          
         </div>
       </div>
 
-      <!-- <div class="col-md-8 col-sm-12 col-xs-12 q-pa-xs">
-        <AllTx v-if="account" :content="account" />
-      </div> -->
+       <div class="col-md-6 col-sm-12 col-xs-12 q-pa-xs">
+        <AllTx />
+      </div>
 
-    </div>
+    </div> -->
+    </span>
+    <span v-else>
+      <div class="text-h5">
+        You are not logged in
+      </div>
+    </span>
   </div>
 </template>
 
 <script>
-import WalletCard from './partials/wallet_card'
+import WithdrawalRequests from './partials/withdrawal_requests'
 import AllTx from './partials/all_tx'
 import TxMonth from './partials/tx_month'
-import ActivateCard from 'components/cards/partials/activate_card'
+import ReferralWithdrawalRequests from './partials/referral_withdrawal_requests'
 import AddMoney from 'components/cards/partials/add_money'
 export default {
   // name: 'ComponentName',
   components:{
-    WalletCard,
+    WithdrawalRequests,
     AllTx,
     TxMonth,
-    ActivateCard,
+    ReferralWithdrawalRequests,
     AddMoney
   },
 
   data () {
     return {
+      withdrawal_type: 'transaction',
+        login: false,
 
     }
   },
@@ -63,7 +86,15 @@ export default {
   },
 
   mounted() {
-    this.getProduct();
+   // this.getProduct();
+
+      if(!this.$q.localStorage.getItem('paylidate_token')) {
+        this.login = false
+        }
+    else {
+        this.login = true
+      
+    }
   },
 
   methods: {

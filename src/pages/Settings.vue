@@ -74,12 +74,12 @@
           <q-tab-panel name="account">
             <div class="text-h4 q-mb-md">Account Details</div>
             <q-card-section class="q-gutter-sm">
-              <q-select dense square v-model="bank.bank_code" :options="banks" option-value="code"
-                option-label="name" emit-value map-options outlined label="Bank Name" />
-              <q-input dense square v-model="bank.account_name" outlined label="Account Name" />
-              <q-input dense square type="number" v-model="bank.account_number" outlined label="Account Number" />
+              <q-select dense square :rules="schema.bank_code" v-model="bank.bank_code" :options="banks" option-value="code"
+                option-label="name" @input="bank.account_number = ''" emit-value map-options outlined label="Bank Name" />
+              <q-input dense square :value="bank.account_number" @keyup="verify_account"  :rules="schema.acc_num" type="number" outlined label="Account Number" />
+              <q-input dense square v-model="bank.account_name" outlined disable label="Account Name" />
               <q-btn v-if="update" color="primary" @click="updateUserBankDetails()" :loading="loading" no-caps label="update Account Details" />
-              <q-btn v-if="!update" color="primary" @click="accountDetail()" :loading="loading" no-caps label="Save Account Details" />
+              <q-btn v-if="!update" color="primary" @click="saveAccountDetail()" :loading="loading" no-caps label="Save Account Details" />
             </q-card-section>
           </q-tab-panel>
 
@@ -96,10 +96,15 @@
 </template>
 
 <script>
+import disputeSchema from '../validation/bank'
+
 export default {
   // name: 'PageName',
   data(){
     return {
+
+      schema: disputeSchema,
+
       loading : false,
       tab: 'profile',
       update:false,
@@ -155,19 +160,69 @@ export default {
       else return 'white'
     },
 
+    async verify_account(event){
+      this.bank.account_number = event.target.value;
+      try{
+      if(event.target.value.length != 10){
+          return
+      }
+
+      if(event.target.value == 10 && this.bank.bank_code == ''){
+          this.$q.notify({message: 'Select bank' , color: 'red'})  
+          this.bank.account_number = '' 
+          return         
+
+      }
+
+         this.$q.loading.show({
+          message: 'Hold on, verifying your account number',
+          spinnerColor: 'secondary'
+          
+        }) 
+      const req = await this.$axios.post('https://paylidate.herokuapp.com/api/verify-account', this.bank)
+        const res = req.data
+      this.$q.loading.hide();
+      if(res.data == null)
+      {
+        this.bank.account_name = ''
+        this.$q.notify({message: 'Invalid account number', color: 'red'}) 
+        return                  
+      }
+        this.bank.account_name = res.data.account_name
+        
+        
+        
+        }catch(e){
+        this.bank.account_name = ''
+         this.loading = false;
+          this.$q.notify({message: 'Error while verifying your account number', color: 'red'})                   
+      }
+      finally{
+         this.$q.loading.hide();
+
+      }
+
+      
+
+    },
     async getBanks(){
    
-      const req = await this.$axios.get(process.env.Api + '/api/get-banks')
+      const req = await this.$axios.get('https://paylidate.herokuapp.com/api/get-banks')
       const res = req.data
-      this.banks = res.data;
+      //this.banks = res.data;
+      //console.log(res.data.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)))
+      this.banks = res.data.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+
      
     },
 
       async getUserBankDetails(){
 
-      const req = await this.$axios.get(process.env.Api + '/api/user-bank/'+ this.user.id)
+      try{
+          let user_id = this.user.id ? this.user.id : this.$q.localStorage.getItem('user_id')
+
+      const req = await this.$axios.get(process.env.Api + '/api/user-bank/'+ user_id)
       const res = req.data
-        
         const bank_details = res.data
         this.bank = bank_details
         
@@ -180,29 +235,38 @@ export default {
           this.update = false
 
         }
+      }
+
+      catch(e){
+         
+         }
      
     
     },
 
           
       async updateUserBankDetails(){
+        
 
       this.update = true      
 
       let account_number = this.bank.account_number
       let account_name = this.bank.account_name
       let bank_code = this.bank.bank_code
+
       if(!account_name || account_name.length <3){
-          this.$q.notify({message: 'Invalid account name' , color: 'red'})                 
+        this.$q.notify({message: 'Invalid account name' , color: 'red'})                 
 
         return
       }
       if(!account_number || account_number.length !=10){
-          this.$q.notify({message: 'Invalid account number' , color: 'red'})                 
+        this.$q.notify({message: 'Invalid account number' , color: 'red'})                 
 
         return
       }
-      if(!bank_code || bank_code.length !=3){
+      if(!bank_code || bank_code.length < 3){
+        console.log(this.bank)
+        console.log('fvevf')
         return
       }
       let bank_name=this.banks.filter((value)=>{
@@ -212,17 +276,14 @@ export default {
 
       this.loading = true;
 
-
+//console.log(this.bank)
 
         try{
+
+          let user_id = this.user.id ? this.user.id : this.$q.localStorage.getItem('user_id')
           
-      const req = await this.$axios.put(process.env.Api + '/api/user-bank/'+ this.user.id, this.bank)
+      const req = await this.$axios.put(process.env.Api + '/api/user-bank/'+ user_id, this.bank)
       const res = req.data
-        
-        console.log(res);
-        
-        
-       
 
         if(res.status == 'success'){
          this.loading = false;  
@@ -234,7 +295,9 @@ export default {
           this.$q.notify({message: 'An error occured while updating account details', color: 'red'})                   
 
         }
-        }catch(e){
+        }catch(error){
+        //console.log(error.response.data.message);
+
          this.loading = false;                   
           this.$q.notify({message: 'Error! Ensure new account number is different from old' , color: 'red'})                   
       }
@@ -242,7 +305,7 @@ export default {
     
     },
 
-    async accountDetail(){
+    async saveAccountDetail(){
 
       let account_number = this.bank.account_number
       let account_name = this.bank.account_name
@@ -257,7 +320,7 @@ export default {
 
         return
       }
-      if(!bank_code || bank_code.length !=3){
+      if(!bank_code || bank_code.length < 3){
         return
       }
       let bank_name=this.banks.filter((value)=>{
@@ -267,12 +330,15 @@ export default {
       this.loading = true;
 
       this.bank.bank_name = bank_name['0'].name
+      console.log(this.bank);
     try{
+    
       const req = await this.$axios.post(process.env.Api + '/api/user-bank', this.bank)
+      
         const res = req.data
         
         if(res){
-    this.getUserBankDetails()
+      this.getUserBankDetails()
 
           this.loading = false;
           this.$q.notify({message: 'Account details save successfully', color: 'green'})                   
@@ -280,11 +346,13 @@ export default {
         }
         else{
 
-           this.loading = false;
+          this.loading = false;
           this.$q.notify({message: 'An error occured while saving account details', color: 'red'})                   
 
         }
-        }catch(e){
+        }catch(error){
+        console.log(error.response.data.message);
+
          this.loading = false;
           this.$q.notify({message: 'An error occured while saving account details', color: 'red'})                   
       }
