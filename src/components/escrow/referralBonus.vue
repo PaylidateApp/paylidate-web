@@ -79,7 +79,7 @@
       </q-card-section>
     </q-card>
     <div class="text-red text-center" v-if="sum_amount('pendding')">
-    A withdrawal of <b>{{ currency(sum_amount('pendding'))}} </b>in pendding, you will get your money into your bank account soon.
+    A withdrawal of <b>{{ currency(sum_amount('pendding'))}}</b>in pendding, you will get your money into your bank account soon.
     </div>
 
     <q-table title="Referral Commission" :data="contents" :columns="columns" row-key="name" square>
