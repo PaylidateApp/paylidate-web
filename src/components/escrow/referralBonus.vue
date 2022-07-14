@@ -27,7 +27,7 @@
             <div>Account Name: {{bank.account_name}}</div>
 
             <div>Bank: {{bank.bank_name}}</div>
-            <div>Amount to Withdraw: {{ currency(sum_ammount('withdraw')) }}</div>
+            <div>Amount to Withdraw: {{ currency(sum_amount('withdraw')) }}</div>
 
           </q-card-section>
         </span>
@@ -42,7 +42,7 @@
         </span>
         <q-card-actions align="right">
           <q-btn v-if="bank != ''" flat size="md" label="Request Withdrawal"
-            @click="withdrawBonus(sum_ammount('withdraw'))" color="positive" />
+            @click="withdrawBonus(sum_amount('withdraw'))" color="positive" />
           <q-btn flat size="md" label="Cancel" color="negative" v-close-popup />
         </q-card-actions>
       </q-card>
@@ -63,22 +63,24 @@
     <q-card flat square class="bg-primary">
       <q-card-section class="row flex-center no-padding q-gutter-sm">
         <div class="text-secondary text-center text-uppercase">
-          <div class="text-h6 text-bold">{{currency(sum_ammount())}}</div>
+          <div class="text-h6 text-bold">{{currency(sum_amount())}}</div>
           <div style="font-size: 10px">TOTAL BONUS EARNED</div>
         </div>
         <q-separator spaced vertical dark />
         <div class="text-secondary text-center text-uppercase">
-          <div class="text-h6 text-bold">{{ currency(sum_ammount('withdrawn'))}}</div>
+          <div class="text-h6 text-bold">{{ currency(sum_amount('withdrawn'))}}</div>
           <div style="font-size: 10px">BONUS WITHDRAWN </div>
         </div>
         <q-separator spaced vertical dark />
         <div class="text-secondary text-center text-uppercase">
-          <div class="text-h6 text-bold">{{ currency(sum_ammount('withdraw'))}}</div>
+          <div class="text-h6 text-bold">{{ currency(sum_amount('withdraw'))}}</div>
           <div style="font-size: 10px">BONUS DUE FOR WITHDRAWAL </div>
         </div>
       </q-card-section>
     </q-card>
-
+    <div class="text-red text-center" v-if="sum_amount('pendding')">
+    A withdrawal of <b>{{ currency(sum_amount('pendding'))}} </b>in pendding, you will get your money into your bank account soon.
+    </div>
 
     <q-table title="Referral Commission" :data="contents" :columns="columns" row-key="name" square>
       <template v-slot:top-right>
@@ -210,7 +212,7 @@ export default {
       currency(amount){
         return (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'NGN' }).format(amount));
       },
-      sum_ammount(type = null){
+      sum_amount(type = null){
       if(this.contents){
         const sort_amounts = this.contents.filter(function(item) {
             
@@ -227,6 +229,9 @@ export default {
                 return item
               }
               
+              if (item.withdrawal_status == true && item.transfer_status == false && type == 'pendding') {
+                return item
+              }
             }
           })
         let sum = sort_amounts.reduce((accumulator, current) => Number(accumulator) + Number(current.amount), 0);
