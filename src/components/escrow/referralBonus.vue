@@ -35,7 +35,7 @@
           <q-card-section>
             <div class="text-bold text-red">
               You can not request for withdrwal while you are yet to add your account details. You can add your bank
-              account details from the setting tab
+              account details from the settings tab
             </div>
           </q-card-section>
 
