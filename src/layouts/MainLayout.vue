@@ -51,7 +51,7 @@
     </q-drawer>
 
     <!-- v-if="isLoggedIn && $q.screen.gt.xs" -->
-    <q-drawer v-if="(isLoggedIn && $q.screen.gt.xs && theauth) || (isLoggedIn && $q.screen.lt.xl && theauth)"
+    <q-drawer v-if="isLoggedIn && $q.screen.gt.xs && theauth"
       v-model="leftDrawerOpen" behavior="desktop" bordered show-if-above :width="200">
       <q-list>
         <q-item-label header class="text-secondary text-bold">
