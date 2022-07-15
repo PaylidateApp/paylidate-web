@@ -32,7 +32,7 @@
             <div>
               Note that you will get a referral bonus of {{ formatAsNaira(product.referral_amount)}} for
               each product when
-              your referral linK is use to buy a product
+              your referral linK is used to buy a product
             </div>
           </q-card-section>
           <q-card-actions align="right">
