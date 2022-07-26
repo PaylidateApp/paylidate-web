@@ -19,9 +19,9 @@
       <span v-if="user.is_admin == true">
         <span v-if="$route.name == 'withdrawal_requests'">
           <q-btn v-if="withdrawal_type == 'transaction'" @click="withdrawal_type = 'referral'" color="secondary"
-            size="md" no-caps label="Switch to transaction" />
-          <q-btn v-if="withdrawal_type == 'referral'" @click="withdrawal_type = 'transaction'" color="secondary"
             size="md" no-caps label="Switch to referral" />
+          <q-btn v-if="withdrawal_type == 'referral'" @click="withdrawal_type = 'transaction'" color="secondary"
+            size="md" no-caps label="Switch to transaction" />
 
           <WithdrawalRequests v-if="withdrawal_type == 'transaction'" />
           <ReferralWithdrawalRequests v-if="withdrawal_type == 'referral'" />
