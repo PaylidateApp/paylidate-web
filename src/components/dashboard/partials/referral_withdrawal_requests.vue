@@ -2,7 +2,7 @@
   <div>
 
     <q-table
-      title="Withdrawal Requests"
+      title="Referral Bonus"
       :data="contents"
       :columns="columns"
       row-key="name"
@@ -15,13 +15,7 @@
 
        <template v-slot:body="props">
         <q-tr :props="props">
-          <!-- <q-td key="name" :props="props">
-            <img :src="props.row.image" style="width: 50px" />
-          </q-td> -->
-          <q-td key="transaction_ref" :props="props">
-          {{ props.row.transaction.transaction_ref }}
-          </q-td>
-          
+                    
           <q-td key="account_number" :props="props">
             {{ props.row.bank.account_number }}
           </q-td>
@@ -30,7 +24,7 @@
           </q-td>
           
           <q-td key="amount" :props="props">
-            {{ currency(props.row.transaction.amount) }}          
+            {{ currency(props.row.amount) }}          
           </q-td>
           
           <q-td key="narration" :props="props">
@@ -86,15 +80,10 @@ components:{
 
             columns: [
         // { name: 'src', field: 'src' },
-        { name: 'transaction_ref', label: 'Transaction ref', field: 'transaction', align: 'left' , sortable: true,},
         { name: 'account_number', label: 'Account Number', field: 'account_number', align: 'left' , sortable: true, },
         { name: 'bank', label: 'Bank Name', field: 'bank_name', sortable: true,  align: 'left'  },
-        { name: 'amount', label: 'Withdrwal Amount', field: 'transaction', sortable: true,  align: 'left'  },
-<<<<<<< HEAD
-        { name: 'narration', label: 'Narration', field: 'arration', align:'center', sortable: true },
-=======
+        { name: 'amount', label: 'Withdrwal Amount', field: 'amount', sortable: true,  align: 'left'  },
         { name: 'narration', label: 'Narration', field: 'narration', align:'center', sortable: true },
->>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
         { name: 'status', label: 'Withdrawal Status', field: 'status', sortable: true,  align: 'center'  },
         { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'center', sortable: true, },
         { name: 'auto_confirm', label: 'Confirm Automatically', field: '',  align: 'left', sortable: true },
@@ -117,15 +106,15 @@ components:{
 
                 try{ 
         this.$q.loading.show({
-          message: 'Hold on, fetching withdrawal request',
+          message: 'Hold on, fetching request',
           spinnerColor: 'secondary'
           
         })
-        //console.log(this.request_withdrawal);
               
-      const req = await this.$axios.get(process.env.Api + '/api/withdraw-requests')
+      const req = await this.$axios.get(process.env.Api + '/api/referral-withdraw-requests')
       
       const res = req.data
+      //console.log(res);
       this.contents = res.data
       
          this.$q.loading.hide();
@@ -133,9 +122,9 @@ components:{
       catch(error){
         //console.log(error.response.data.message);
          this.$q.loading.hide();
-        this.$q.notify({message: 'Error:: withdrawal not successfull', color: 'red', position: 'top' })
+        this.$q.notify({message: 'Error while fetching withdrawal requests', color: 'red', position: 'top' })
 
-        // // console.log(second);
+        //console.log(second);
       }
       finally{
         
@@ -152,11 +141,12 @@ components:{
           spinnerColor: 'secondary'
           
         })
+   
         
       let transfer = this.contents.find(x => x.id == id);
 
       if(transfer.status == true){
-        this.$q.notify({message: 'Warning:: Withdrawal has been made on this transaction', type: 'warning', icon: 'error', position: 'top'})
+        this.$q.notify({message: 'Warning:: Withdrawal has been made on this bonus', type: 'warning', icon: 'error', position: 'top'})
       return
       }
       
@@ -167,15 +157,14 @@ components:{
         amount: transfer.transaction.amount,
         narration: transfer.narration,
         currency: 'NGN', 
-        reference: transfer.transaction.transaction_ref, 
         debit_currency: transfer.debit_currency,
         id: id,
-        payment_id: transfer.payment_id
+        
 
       }
           
               
-      const req = await this.$axios.post(process.env.Api + '/api/transfer_to_bank', transferDetails)
+      const req = await this.$axios.post(process.env.Api + '/api/transfer-referral-bonus-to-bank', transferDetails)
       //console.log(req);
       const res = req.data
         this.$q.notify({message: 'Transfer successfull', color: 'positive', position: 'top' })

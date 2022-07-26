@@ -37,7 +37,11 @@
           </q-card-section>
           
           <q-card-section class="q-gutter-sm">
+<<<<<<< HEAD
             <p class="">Please ensure that you explain your issue very well</p>
+=======
+            <p class="">Please ensure you explain this issue in detail. (The other party will get a notification about this dispute and will be able to respond)</p>
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
             <q-input outlined dense v-model="form.subject" :rules="schema.subject" label="Dispute Subject*"/>
             <q-input type="textarea" outlined dense v-model="form.description" :rules="schema.description" label="Describe Your Issue*" />
           

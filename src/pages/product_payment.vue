@@ -39,8 +39,15 @@ export default {
         
           const req = await this.$axios.post(process.env.Api + '/api/make-payment', this.form)
          const res = req.data;    
+<<<<<<< HEAD
             
         
+=======
+
+         console.log(res)
+            
+         
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
         if(res.status == 'success'){
 
           this.$router.push({ name: "transactions"})
@@ -60,7 +67,13 @@ export default {
 
        }
 
+<<<<<<< HEAD
        catch(error){
+=======
+       catch (error) {
+         console.log(error.response.data.message);
+
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
         this.$q.notify({message: 'Verification Failed', color: 'red'})
 
        }

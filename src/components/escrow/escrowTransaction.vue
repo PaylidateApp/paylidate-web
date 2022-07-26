@@ -14,13 +14,21 @@
         <span v-if="request_withdrawal.bank_id != ''">
         <q-card-section>
           <div class="text-bold text-red">
+<<<<<<< HEAD
               Ensure that your bank account details are correct before you request for withdrawal. You can change your bank account details from the setting tab
+=======
+              Ensure that your bank account details are correct before you request for withdrawal. You can change your bank account details from the settings tab
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
         </div>
         </q-card-section>
         
         <q-card-section>
           <div class="text-bold">
+<<<<<<< HEAD
               Your money will be send into your account within 2 hours once your request is successfull
+=======
+              Your money will be sent into your account within 2 hours once your request is successfull
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
         </div>
         </q-card-section>
         
@@ -39,7 +47,11 @@
         <span v-else>
         <q-card-section>
           <div class="text-bold text-red">
+<<<<<<< HEAD
               You can not request for withdrwal while you are yet to add your account details. You can add your bank account details from the setting tab
+=======
+              You can not request for withdrwal while you are yet to add your account details. You can add your bank account details from the settings tab
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
         </div>
         </q-card-section>
 
@@ -82,7 +94,11 @@
         <q-separator class="q-mb-sm" />
         <q-card flat bordered>
           <!-- {{ transaction.image !== 'default_transaction.png' ? transaction.image : base_image }} -->
+<<<<<<< HEAD
           <img :src="transaction.product.image !== 'default_transaction.png' ? transaction.product.image : base_image">
+=======
+          <img style="width: 427px"  :src="transaction.product.image !== 'default_transaction.png' ? transaction.product.image : base_image">
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
           <q-card-section>
             <div class="text-bold">Product Number: {{transaction.product.product_number}}</div>
            
@@ -96,20 +112,41 @@
 
             <div class="text-bold">Type: {{transaction.product.type}}</div>
             <div class="text-bold">Total Quantity: {{transaction.quantity}}</div>
+<<<<<<< HEAD
             
             <div class="text-bold" v-if="transaction.amount <= 1" >Total Price: {{formatAsNaira(transaction.product.price * transaction.quantity)}}</div>
             <div class="text-bold" v-else>Total Price: {{formatAsNaira(transaction.amount)}}</div>
             <div class="text-bold" >Transaction Dispute: {{transaction.dispute ? 'There is dispute' : 'No dispute'}}</div>
+=======
+
+            <div class="text-bold" v-if="transaction.amount <= 1" >Total Price: {{formatAsNaira(transaction.product.price * transaction.quantity)}}</div>
+            <div class="text-bold" v-else-if="transaction.referer_id" >Total Price: {{formatAsNaira(parseFloat(transaction.amount) + parseFloat(transaction.referral.amount))}}</div>
+            <div class="text-bold" v-else>Total Price: {{formatAsNaira(transaction.amount)}}</div>
+
+            <div class="text-bold" v-if="transaction.referer_id">Referral Bonus: {{formatAsNaira(parseFloat(transaction.referral.amount))}}</div>
+
+
+            <div class="text-bold" >Transaction Dispute: {{transaction.dispute ? 'Dispute Opened' : 'No dispute'}}</div>
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
             <div class="text-bold">Description: {{transaction.description ? transaction.description : "No Description"}}</div>
           </q-card-section>
         </q-card>
       </q-card-section>
 
 
+<<<<<<< HEAD
       <q-card-section v-if="Object.keys(user).length" class="column">
 
         <span v-if="transaction.payment != null && transaction.payment.verified == true && transaction.status == 1 && transaction.accept_transaction == true">
               
+=======
+      <q-card-section v-if="Object.keys(user).length && (transaction.user_id == user.id || transaction.product.user_id == user.id)" class="column">
+
+        <span v-if="transaction.payment != null && transaction.payment.verified == true && transaction.status == 1 && transaction.accept_transaction == true">
+              
+          <q-btn :to="{name: 'disputes', params: {transaction_id: transaction.id}}" size="sm" color="secondary" label="View Disputes"/> 
+
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
         </span>
         <span v-else>
         <div>
@@ -218,7 +255,11 @@
            <div> <q-badge  color="green" text-color="white" label="Payment completed. Waiting for transaction to be confirmed and approved" /></div>  
           
           <q-btn class="q-mx-sm" v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="secondary" label="Confirm Transaction" :loading="loading" @click="confirm = true" />
+<<<<<<< HEAD
           <q-btn v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="primary" label="Confirm Transaction" :loading="loading" @click="cancelTransaction()" />
+=======
+          <q-btn v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="primary" label="Cancel Transaction" :loading="loading" @click="cancelTransaction()" />
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
           
           <q-btn class="q-mx-sm" v-if="transaction.product.transaction_type == 'sell' && user.id == transaction.user_id" unelevated no-caps color="secondary" label="Confirm Transaction" :loading="loading" @click="confirm = true" />
           <q-btn v-if="transaction.product.transaction_type == 'sell' && user.id == transaction.user_id" unelevated no-caps color="primary" label="Cancel Transaction" :loading="loading" @click="cancelTransaction()" />
@@ -512,6 +553,7 @@ export default {
           spinnerColor: 'secondary'
           
         })
+<<<<<<< HEAD
         //console.log(this.request_withdrawal);
       this.withdraw = false
         
@@ -524,6 +566,16 @@ export default {
       this.getTransaction();
          this.$q.loading.hide();
         this.$q.notify({message: 'Withdrawal request has been sent succefully', color: 'green', position: 'top' })      
+=======
+      //this.withdraw = false
+        
+      const req = await this.$axios.post(process.env.Api + '/api/request-withdrawal', this.request_withdrawal)
+                  
+      this.transaction = res.data
+      this.getTransaction();
+         this.$q.loading.hide();
+        this.$q.notify({message: 'Withdrawal request has been sent successfully', color: 'green', position: 'top' })      
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
       }
       catch(error){
         //console.log(error.response.data.message);
@@ -550,11 +602,20 @@ export default {
       const req = await this.$axios.get(process.env.Api + '/api/transaction/'+ this.T_ref)
       const res = req.data
       
+<<<<<<< HEAD
       //console.log(res);
       if(!res.data){
         this.$q.notify({message: 'record not found', color: 'red', position: 'top' })
 
       }
+=======
+     
+      if(!res.data){
+        this.$q.notify({message: 'record not found', color: 'red', position: 'top' })
+
+        }
+      
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
 
       this.transaction = res.data
 
@@ -614,6 +675,10 @@ export default {
         this.$store.commit('auth/login', 'Bearer '+response.data.access_token)
         this.$store.commit('auth/user', response.data.data)
         this.$q.localStorage.set('paylidate_token', 'Bearer '+response.data.access_token)
+<<<<<<< HEAD
+=======
+        this.$q.localStorage.set('user_id', response.data.data.id)
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
         this.$axios.defaults.headers.common["Authorization"] = 'Bearer '+ response.data.access_token;
 
         this.getTransaction()

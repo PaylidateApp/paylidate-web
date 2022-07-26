@@ -13,13 +13,24 @@ const routes: RouteConfig[] = [
       { path: 'register', name: 'register',component: () => import('pages/Auth.vue')},
       { path: 'forgot', name: 'forgot',component: () => import('pages/Auth.vue') },
       { path: 'reset-password/:token', name: 'reset-password', component: () => import('pages/Auth.vue') },
+<<<<<<< HEAD
        { path: 'admin', name: 'admin', component: () => import('pages/Dashboard.vue'), meta: { requiresAuth: true } },
+=======
+      { path: 'withdrawal-requests', name: 'withdrawal_requests', component: () => import('pages/Dashboard.vue'), meta: { requiresAuth: true } },
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
       { path: 'account', name: 'account',component: () => import('pages/Auth.vue'), meta: { requiresAuth: true } },
       { path: 'products', name: 'products', component: () => import('pages/Escrow.vue'), meta: { requiresAuth: true } },
       { path: 'transaction-disputes/:transaction_id', name: 'disputes', component: () => import('pages/Escrow.vue'), meta: { requiresAuth: true } },
       { path: 'escrow-transactions', name: 'transactions', component: () => import('pages/Escrow.vue'), meta: { requiresAuth: true } },
+<<<<<<< HEAD
       { path: 'escrow-transaction/:T_ref', name: 'transaction', component: () => import('pages/Escrow.vue')},
       { path: 'product/:slug', name: 'product', component: () => import('pages/Escrow.vue')},
+=======
+      { path: 'Referral', name: 'referral', component: () => import('pages/Escrow.vue'), meta: { requiresAuth: true } },
+      { path: 'escrow-transaction/:T_ref', name: 'transaction', component: () => import('pages/Escrow.vue')},
+      { path: 'product/:slug', name: 'product', component: () => import('pages/Escrow.vue')},
+      { path: 'product/:slug/:referral_token', name: 'refer_product', component: () => import('pages/Escrow.vue')},
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
       { path: 'escrow/dispute/:id', name: 'dispute', component: () => import('pages/Escrow.vue')},
       { path: 'escrow/product/:slug/payment', name: 'payment', component: () => import('pages/Escrow.vue')},
       { path: 'payment', name: 'payment', component: () => import('pages/Payment.vue'), props: true },

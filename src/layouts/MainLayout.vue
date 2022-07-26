@@ -5,44 +5,53 @@
 
         <q-toolbar-title>
           <q-btn :to=" {name: isLoggedIn ? 'home' : 'index'}" flat dense stack no-caps>
-          <img src="../statics/paylidate-logo.png" style="max-width: 150px">
+            <img src="../statics/paylidate-logo.png" style="max-width: 150px">
           </q-btn>
         </q-toolbar-title>
 
         <div v-if="isLoggedIn" class="row">
+<<<<<<< HEAD
            <!-- <ActivateCard v-if="!account || !Object.keys(account).length " /> -->
+=======
+          <!-- <ActivateCard v-if="!account || !Object.keys(account).length " /> -->
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
           <q-btn color="black" @click="userMode(true)" flat no-caps label="Admin Mode" v-if="false" />
           <q-btn color="black" @click="userMode(false)" flat no-caps label="User Mode" v-if="false" />
           <q-btn color="black" flat no-caps label="Escrow" :to="{name: 'escrow'}" v-if="$q.screen.gt.xs" />
           <!-- <Notifications class="q-mx-sm"/> -->
-          <Profile v-if="user &&  Object.keys(user).length " :user="user"/>
+          <Profile v-if="user &&  Object.keys(user).length " :user="user" />
         </div>
 
         <div v-else class="q-gutter-y-xs">
+<<<<<<< HEAD
           <q-btn color="black" href="#escrow" flat no-caps label="Escrow"  v-if="$q.screen.gt.xs" />
+=======
+          <q-btn color="black" href="#escrow" flat no-caps label="Escrow" v-if="$q.screen.gt.xs" />
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
           <q-btn color="black" href="#virtual_card" flat no-caps label="Virtual Cards" v-if="$q.screen.gt.xs" />
           <q-btn color="black" href="#about" flat no-caps label="About Us" v-if="$q.screen.gt.xs" />
           <q-btn color="black" href="#team" flat no-caps tag="a" label="Team" v-if="$q.screen.gt.xs" />
           <q-btn color="black" href="#faq" flat no-caps label="FAQ" v-if="$q.screen.gt.xs" />
           <span class="q-gutter-x-xs">
+<<<<<<< HEAD
           <q-btn color="secondary" size="sm" no-caps label="Signup" :to="{name: 'register'}" />
           <q-btn color="black" size="sm" no-caps label="Login" :to="{name: 'login'}" />
+=======
+            <q-btn color="secondary" size="sm" no-caps label="Signup" :to="{name: 'register'}" />
+            <q-btn color="black" size="sm" no-caps label="Login" :to="{name: 'login'}" />
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
           </span>
         </div>
 
-        <q-btn color="secondary" flat dense round v-if="$q.screen.lt.sm" icon="menu" aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
+        <q-btn color="secondary" flat dense round v-if="isLoggedIn && $q.screen.lt.sm && theauth" icon="menu"
+          aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
 
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-if="$q.screen.lt.sm"
-      v-model="leftDrawerOpen"
-      show-if-above
-      side="left" behavior="mobile"
-      :width="250"
-    >
+    <q-drawer v-if="$q.screen.lt.sm" v-model="leftDrawerOpen" show-if-above side="left" behavior="mobile" :width="250">
       <q-list>
+<<<<<<< HEAD
         <q-item-label
           header
           class="text-secondary text-bold"
@@ -58,27 +67,29 @@
         />
 
         
+=======
+        <q-item-label header class="text-secondary text-bold">
+        </q-item-label>
+
+
+        <EssentialLink v-for="(link, index) in dashboardMenu" :key="index" v-bind="link"
+          v-if="linkStatus(link.is_authenticated)" />
+
+
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
         <LogOut v-if="isLoggedIn" :variant="'large'" class="fixed-bottom" />
       </q-list>
     </q-drawer>
 
- <!-- v-if="isLoggedIn && $q.screen.gt.xs" -->
-    <q-drawer
-      v-if="isLoggedIn && $q.screen.gt.xs && theauth"
-
-      v-model="leftDrawerOpen"
-      behavior="desktop" bordered
-      show-if-above
-      :width="200"
-    >
+    <!-- v-if="isLoggedIn && $q.screen.gt.xs" -->
+    <q-drawer v-if="isLoggedIn && $q.screen.gt.xs && theauth"
+      v-model="leftDrawerOpen" behavior="desktop" bordered show-if-above :width="200">
       <q-list>
-        <q-item-label
-          header
-          class="text-secondary text-bold"
-        >
-        <!-- Welcome  {{user.name}} -->
+        <q-item-label header class="text-secondary text-bold">
+          <!-- Welcome  {{user.name}} -->
         </q-item-label>
         <template v-if="adminMode">
+<<<<<<< HEAD
         <EssentialLink
           v-for="(link, index) in adminDashboardMenu"
           :key="index"
@@ -93,6 +104,14 @@
           v-bind="link"
           v-if="linkStatus(link.is_authenticated)"
         />
+=======
+          <EssentialLink v-for="(link, index) in adminDashboardMenu" :key="index" v-bind="link"
+            v-if="linkStatus(link.is_authenticated)" />
+        </template>
+        <template v-else>
+          <EssentialLink v-for="(link, index) in dashboardMenu" :key="index" v-bind="link"
+            v-if="linkStatus(link.is_authenticated)" />
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
         </template>
         <LogOut v-if="isLoggedIn" :variant="'large'" class="fixed-bottom" />
       </q-list>
@@ -231,6 +250,15 @@ export default {
         },
         
         {
+          title: 'Referral',
+          caption: '',
+          icon: 'account_balance_wallet',
+          link: 'referral',
+          is_active: false,
+          is_authenticated: true
+        }, 
+        
+        {
           title: 'Settings',
           caption: '',
           icon: 'settings',
@@ -312,7 +340,11 @@ export default {
         || myroute == 'view' || myroute == 'checkout' || myroute == 'success'
         || myroute == 'details' || myroute == 'integration' || myroute == 'finish'
         || myroute == 'platform' || myroute == 'install' || myroute == 'bank' || myroute == 'product'
+<<<<<<< HEAD
         || myroute == 'transaction' || myroute == 'disputes'
+=======
+        || myroute == 'transaction' || myroute == 'disputes' || myroute == 'refer_product'
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
         ){
         return false
       }else{

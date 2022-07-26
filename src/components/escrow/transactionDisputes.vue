@@ -17,8 +17,13 @@
     </q-dialog>
 
     <q-table
+<<<<<<< HEAD
       title="Transactions"
       :data="contents"
+=======
+      title="Disputes"
+      :data="getContents"
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
       :columns="columns"
       row-key="name"
       square
@@ -47,10 +52,17 @@
 
           <q-td key="dispute_solved" :props="props">
           <q-badge v-if="props.row.dispute_solved == false"  color="negative">
+<<<<<<< HEAD
               Not solved
             </q-badge>
             <q-badge v-else color="negative">
               Solved
+=======
+              Unresolved
+            </q-badge>
+            <q-badge v-else color="positive">
+              Resolved
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
             </q-badge>
             
           </q-td>
@@ -60,8 +72,13 @@
           </q-td>
 
           <q-td key="solve_dispute" :props="props">
+<<<<<<< HEAD
             <q-btn v-if="props.row.user_id == user.id" label="Confirm"  class="bg-secondary" color="white" flat size="sm" no-caps />
             <q-btn v-else disable label="Confirm"  class="bg-secondary" color="white" flat size="sm" no-caps />
+=======
+            <q-btn v-if="props.row.user_id == user.id && props.row.dispute_solved == false " label="End Dispute" @click="reslove_despute(props.row.id, props.row.transaction_id, props.row.user_id)" class="bg-secondary" color="white" flat size="sm" no-caps />
+            <q-btn v-else disable label="End Dispute" class="bg-secondary" color="white" flat size="sm" no-caps />
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
 
           </q-td>
 
@@ -94,7 +111,11 @@ export default {
         { name: 'user_email', label: 'Dispute Opened by', field: 'user', sortable: true,  align: 'left'  },
         { name: 'dispute_solved', label: 'Dispute Status', field: 'dispute_solved', sortable: true,  align: 'left'  },
         { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'center', sortable: true, },
+<<<<<<< HEAD
         { name: 'solve_dispute', label: 'Confirm to resolve dispute', field: '',  align: 'left', sortable: true },
+=======
+        { name: 'solve_dispute', label: '', field: '',  align: 'left', sortable: true },
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
       ],
       contents:[],     
     }
@@ -104,6 +125,10 @@ export default {
   },
   computed:{
     user(){return this.$store.getters["auth/user"] },
+<<<<<<< HEAD
+=======
+    getContents(){return this.contents },
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
 
   },
   methods: {
@@ -137,6 +162,36 @@ export default {
 
       },
 
+<<<<<<< HEAD
+=======
+      async reslove_despute(id, transaction_id, user_id){
+        
+          this.$q.loading.show({
+          message: 'Hold on, Resolving disputes',
+          spinnerColor: 'secondary'
+          
+        })
+        try{
+        const req = await this.$axios.post(process.env.Api + '/api/resolve-dispute', {id, transaction_id, user_id})
+        const res = req.data
+        //console.log(res.data['0']);
+        //return
+        this.contents = this.contents.map((dispute)=>dispute.id == res.data['0'].id ? res.data['0'] :dispute)
+
+        this.$q.notify({message: 'Dispute resolved', color: 'positive', position: 'top' })
+
+        }
+        catch(error){
+        //console.log(error.response.data.message);
+        this.$q.notify({message: 'Dispute not resolved', color: 'red', position: 'top' })
+         this.$q.loading.hide();
+        }
+        finally{
+            this.$q.loading.hide();
+        }
+      },
+
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
             formatDate(dateString){
           const options = { year: "numeric", month: "long", day: "numeric" }
           return new Date(dateString).toLocaleDateString(undefined, options)

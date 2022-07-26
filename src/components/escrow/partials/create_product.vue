@@ -1,11 +1,16 @@
 <template>
   <div id="targetPage" ref="targetPage">
+<<<<<<< HEAD
     <q-btn unelevated no-caps color="secondary" label="Create" @click="open = true" :style="{width: '150px'}"/>
+=======
+    <q-btn unelevated no-caps color="secondary" label="Create" @click="open = true" :style="{width: '150px'}" />
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
     <q-dialog v-model="open">
       <q-card class="" style="min-width: 300px">
 
         <q-card-section class="q-gutter-xs col-md-6 col-sm-12 col-xs-12">
           <div class="text-h6">Create Product</div>
+<<<<<<< HEAD
           <q-form @submit="createProduct()" class="q-gutter-md" autocomplete="off" >        
             
                 <q-input accept="image/*" ref="uploader" :class="`q-mb-md overflow-hidden ${ rightInput }`" outlined stack-label label="Image" @input="addFiles" multiple type="file" bg-color="white"/>
@@ -27,13 +32,49 @@
           </q-form>
 
           
+=======
+          <q-form @submit="createProduct()" class="q-gutter-md" autocomplete="off">
+
+            <q-input accept="image/*" ref="uploader" :class="`q-mb-md overflow-hidden ${ rightInput }`" outlined
+              stack-label label="Image" @input="addFiles" multiple type="file" bg-color="white" />
+
+            <q-select square outlined v-model="form.type" :options="type_option" label=" Type" />
+            <q-select square outlined v-model="form.transaction_type" :options="transaction_type_option"
+              label="Transaction Type" />
+            <q-input outlined dense v-model="form.name" :rules="schema.name" label="Product/Service Name*" />
+            <q-input outlined dense v-model="form.price" :rules="schema.price" label="Price per Product*"
+              prefix="NGN" />
+            <q-input outlined dense v-model.number="form.quantity" :rules="schema.quantity" type="number"
+              label="Quantity*" />
+            <q-input type="textarea" outlined dense v-model="form.description" label="Product Discription" />
+
+            <div v-if="form.transaction_type == 'buy'">
+              <div>
+                Transaction details will be sent to the seller's email to enable him/her to accept the transaction
+              </div>
+              <q-input outlined dense v-model="form.seller_email" :rules="schema.require" type="email"
+                label="Seller Email*" />
+            </div>
+            <div v-else>
+              <div>
+                If you want this product to be refered by others, please add a referral bonus else live the field blank
+              </div>
+              <q-input outlined dense prefix="NGN" v-model="form.referral_amount" type="number"
+                label="Referral Amount" />
+            </div>
+
+          </q-form>
+
+
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
         </q-card-section>
 
 
         <q-card-actions>
           <!-- <q-btn unelevated no-caps color="primary" label="Create & Make Payment" @click="makePayment()" /> -->
 
-          <q-btn align="right" :loading="loading" unelevated no-caps color="secondary" label="Create Product" @click="createProduct()" />
+          <q-btn align="right" :loading="loading" unelevated no-caps color="secondary" label="Create Product"
+            @click="createProduct()" />
         </q-card-actions>
 
       </q-card>
@@ -44,9 +85,10 @@
     <q-dialog v-model="alert">
       <q-card>
         <q-card-section>
-            <!-- <div class="text-h6">Alert</div> -->
+          <!-- <div class="text-h6">Alert</div> -->
         </q-card-section>
         <q-card-section>
+<<<<<<< HEAD
               <div class="text-center">
                 <q-icon name="check_circle" color="primary" size="xl"/>
               </div>
@@ -72,9 +114,28 @@
           </q-btn><br/>
                 Product Link <a :href="url">{{url}}</a>
               </div>
+=======
+          <div class="text-center">
+            <q-icon name="check_circle" color="primary" size="xl" />
+          </div>
+          <div class="text-positive text-center">
+            Product created successfully
+          </div>
+          <q-space />
+          <div class="text-center">
+            <q-btn size="12px" round flat color="primary" class="" icon="content_copy" @click="copy_link">
+
+              <q-tooltip>
+                {{copyL}}
+              </q-tooltip>
+
+            </q-btn><br />
+            Product Link <a :href="url">{{url}}</a>
+          </div>
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
         </q-card-section>
         <q-card-actions align="right">
-        <q-btn flat label="OK" color="primary" v-close-popup />
+          <q-btn flat label="OK" color="primary" v-close-popup />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -84,8 +145,6 @@
 
 <script>
 import social from "components/common/social_share";
-import { copyToClipboard } from 'quasar'
-import router from 'src/router';
 import { dDataMixin } from 'components/mixins/dataMixins'
 import buySchema from '../../../validation/buy'
 export default {
@@ -114,6 +173,10 @@ export default {
         transaction_type: 'sell',
         type: 'Product',
         seller_email: '',
+<<<<<<< HEAD
+=======
+        referral_amount: '',
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
        
       },
       url: '',
@@ -127,6 +190,7 @@ export default {
     // },
     // 'form.unit':function(new_unit) {
     //   this.form.price = Number(new_unit) * Number(this.form.quantity);
+<<<<<<< HEAD
     // }
   },
 
@@ -159,6 +223,15 @@ export default {
     },
       copy_link(){
       navigator.clipboard.writeText(this.url)
+=======
+    // }  
+  },
+
+  methods: {
+
+      copy_link(){
+      navigator.clipboard.writeText(f)
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
       this.copyLink = 'copied!';
        setTimeout(() => this.copyLink = 'Copy Product Link', 2000);
       
@@ -210,26 +283,33 @@ export default {
       });
     },
 
-    // async createProduct(data = false){
-    //   try{
-    //     this.loading = true;
-    //     const req = await this.$axios.post(process.env.Api + '/api/product', this.form)
-    //     const res = req.data
-    //     if (res.status == 'success') {
-    //       this.open = false
-    //       this.alert = true
-    //       this.loading = false
-    //       this.url = process.env.Domain+'/escrow/product/'+res.data.slug
-    //       this.clearForm();
-    //       router.go();
-    //     }
-    //   }catch(err){
-    //     this.loading = false
-    //   }
-    // },
-
+   
     async createProduct(data = false){
+<<<<<<< HEAD
       try{
+=======
+      try {
+        if (this.form.referral_amount && this.form.transaction_type == 'sell' && this.form.referral_amount < 0) {
+          this.$q.notify({
+            message: 'Invalid referral amount',
+            position: 'top',
+            color: 'red',
+            textColor: 'white'
+          })
+          return
+        }
+
+        if (this.form.referral_amount && this.form.transaction_type == 'sell' && this.form.referral_amount >= this.form.price) {
+          this.$q.notify({
+            message: 'Referral bonus must be less than product price',
+            position: 'top',
+            color: 'red',
+            textColor: 'white'
+          })
+          return;
+        }
+
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
       if(!this.form.seller_email && this.form.transaction_type == 'buy'){
         this.$q.notify({
           message: 'The seller email field can not be empty', 
@@ -252,7 +332,11 @@ export default {
           //// console.log(process.env.Api );
           const req = await this.$axios.post(process.env.Api + '/api/product', this.form)
           const res = req.data
+<<<<<<< HEAD
           //// console.log(req.data);
+=======
+          
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
              //console.log(res);
             
       
@@ -285,7 +369,11 @@ export default {
           //console.log(error.response.data.message)
          this.$q.loading.hide();
           this.loading = false
+<<<<<<< HEAD
         this.$q.notify({message: 'Error:: Dispute not open', color: 'red', position: 'top', type: 'negetive' })
+=======
+        this.$q.notify({message: 'Error while creating product', color: 'red', position: 'top', type: 'negetive' })
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
 
 
         }
@@ -320,6 +408,7 @@ export default {
     }
 
   
+<<<<<<< HEAD
     // async addscript(url){
     //   let scriptTag = document.createElement("script");
     //   scriptTag.setAttribute('src', url);
@@ -338,6 +427,8 @@ export default {
     //   })
     // },
 
+=======
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
 
   },
 

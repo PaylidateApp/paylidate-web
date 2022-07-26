@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< HEAD
   <span v-if="login">
   
     <q-card flat class="q-pa-sm bg-transparent">
@@ -10,11 +11,24 @@
         
       </div>
       <!-- <div class="text-bold text-h6 text-grey q-pt-sm">
+=======
+    <span v-if="login">
+
+      <q-card flat class="q-pa-sm bg-transparent">
+        <div class="text-h5">
+          Welcome, {{ user.name }}
+
+          <!-- <ActivateCard v-if="!account || !Object.keys(account).length" /> -->
+
+        </div>
+        <!-- <div class="text-bold text-h6 text-grey q-pt-sm">
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
         {{account ? account.bank_name : ""}}
       </div>
       <div class="text-bold text-h4 text-grey q-pb-sm">
         {{account ? account.account_number : ""}}
       </div> -->
+<<<<<<< HEAD
     </q-card>
     <span v-if="user.is_admin == true">
     <WithdrawalRequests />
@@ -26,6 +40,27 @@
     </span>
     <!-- <div class="row">
 
+=======
+      </q-card>
+      <span v-if="user.is_admin == true">
+        <span v-if="$route.name == 'withdrawal_requests'">
+          <q-btn v-if="withdrawal_type == 'transaction'" @click="withdrawal_type = 'referral'" color="secondary"
+            size="md" no-caps label="Switch to transaction" />
+          <q-btn v-if="withdrawal_type == 'referral'" @click="withdrawal_type = 'transaction'" color="secondary"
+            size="md" no-caps label="Switch to referral" />
+
+          <WithdrawalRequests v-if="withdrawal_type == 'transaction'" />
+          <ReferralWithdrawalRequests v-if="withdrawal_type == 'referral'" />
+        </span>
+      </span>
+      <span v-else>
+        <div class="text-h5">
+          You are not authorized
+        </div>
+      </span>
+      <!-- <div class="row">
+
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
       <div class="col-md-6 col-sm-12 col-xs-12 q-pa-xs">
         <div class="column q-gutter-sm">
           <WalletCard />
@@ -41,7 +76,11 @@
     </span>
     <span v-else>
       <div class="text-h5">
+<<<<<<< HEAD
           You are not logged in
+=======
+        You are not logged in
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
       </div>
     </span>
   </div>
@@ -51,7 +90,7 @@
 import WithdrawalRequests from './partials/withdrawal_requests'
 import AllTx from './partials/all_tx'
 import TxMonth from './partials/tx_month'
-import ActivateCard from 'components/cards/partials/activate_card'
+import ReferralWithdrawalRequests from './partials/referral_withdrawal_requests'
 import AddMoney from 'components/cards/partials/add_money'
 export default {
   // name: 'ComponentName',
@@ -59,12 +98,16 @@ export default {
     WithdrawalRequests,
     AllTx,
     TxMonth,
-    ActivateCard,
+    ReferralWithdrawalRequests,
     AddMoney
   },
 
   data () {
     return {
+<<<<<<< HEAD
+=======
+      withdrawal_type: 'transaction',
+>>>>>>> 3da087f5a796a3eec09ea965e6e074df2e711cbc
         login: false,
 
     }
