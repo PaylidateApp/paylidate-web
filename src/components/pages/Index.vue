@@ -102,7 +102,6 @@
 
         </div>
 
-
         <div class="row q-mt-xl">
           <div class="col-12 col-sm-6">
 
