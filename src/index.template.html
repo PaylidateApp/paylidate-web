@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Hotjar Tracking Code for https://paylidate.com -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:3081048,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+
+    <title>
+        <%= productName %>
+    </title>
+
+    <meta charset="utf-8">
+    <meta name="description" content="<%= productDescription %>">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (ctx.mode.cordova || ctx.mode.capacitor) { %>, viewport-fit=cover<% } %>">
+
+    <link rel="icon" type="image/png" sizes="128x128" href="./statics/icons/">
+    <link rel="icon" type="image/png" sizes="96x96" href="./statics/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./statics/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./statics/icons/favicon-16x16.png">
+    <link rel="icon" type="image/ico" href="./statics/icons/favicon.ico">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Mukta:wght@200&display=swap" rel="stylesheet">
+
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+</head>
+
+<body style="scroll-behavior: smooth;">
+    <!-- DO NOT touch the following DIV -->
+    <div id="q-app"></div>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {},
+            Tawk_LoadStart = new Date();
+        (function() {
+            var s1 = document.createElement("script"),
+                s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/6290956db0d10b6f3e744f5a/1g42cfdv1';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+</body>
+
+</html>
+
+<Style>
+    html {
+        scroll-behavior: smooth;
+    }
+</Style>

@@ -1,0 +1,16 @@
+import axios, { AxiosInstance } from 'axios';
+import { boot } from 'quasar/wrappers';
+import { LocalStorage } from 'quasar'
+
+declare module 'vue/types/vue' {
+  interface Vue {
+    $axios: AxiosInstance;
+  }
+}
+
+export default boot(({ Vue }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  Vue.prototype.$axios = axios;
+  const token = LocalStorage.getItem('paylidate_token');
+  axios.defaults.headers.common["Authorization"] = token;
+});
