@@ -17,13 +17,19 @@
       </div> -->
       </q-card>
       <span v-if="user.is_admin == true">
-        <span v-if="$route.name == 'withdrawal_requests'">
-          <q-btn v-if="withdrawal_type == 'transaction'" @click="withdrawal_type = 'referral'" color="secondary"
-            size="md" no-caps label="Switch to referral" />
-          <q-btn v-if="withdrawal_type == 'referral'" @click="withdrawal_type = 'transaction'" color="secondary"
-            size="md" no-caps label="Switch to transaction" />
+        <span v-if="$route.name == 'withdrawal_requests'" class="flex">
+          <q-btn @click="withdrawal_type = 'withdrawal'" color="secondary"
+            size="sm" no-caps label="Withdrawal" />          
 
-          <WithdrawalRequests v-if="withdrawal_type == 'transaction'" />
+          <q-btn @click="withdrawal_type = 'refund'" color="secondary q-mx-xs"
+            size="sm" no-caps label="Refund" />
+
+            <q-btn @click="withdrawal_type = 'referral'" color="secondary"
+            size="sm" no-caps label="Referral" />
+
+
+          <WithdrawalRequests v-if="withdrawal_type == 'withdrawal'" />
+          <Refund v-if="withdrawal_type == 'refund'" />
           <ReferralWithdrawalRequests v-if="withdrawal_type == 'referral'" />
         </span>
       </span>
@@ -57,6 +63,7 @@
 
 <script>
 import WithdrawalRequests from './partials/withdrawal_requests'
+import Refund from './partials/refund'
 import AllTx from './partials/all_tx'
 import TxMonth from './partials/tx_month'
 import ReferralWithdrawalRequests from './partials/referral_withdrawal_requests'
@@ -65,6 +72,7 @@ export default {
   // name: 'ComponentName',
   components:{
     WithdrawalRequests,
+    Refund,
     AllTx,
     TxMonth,
     ReferralWithdrawalRequests,
@@ -73,7 +81,7 @@ export default {
 
   data () {
     return {
-      withdrawal_type: 'transaction',
+      withdrawal_type: 'withdrawal',
         login: false,
 
     }

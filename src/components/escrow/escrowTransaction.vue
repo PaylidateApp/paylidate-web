@@ -5,6 +5,54 @@
     <!-- {{transaction}} -->
     <div>
     
+    <!--start request for Refund section -->
+      <q-dialog v-model="refund">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Request for Refund</div>
+        </q-card-section>
+        <span v-if="request_withdrawal.bank_id != ''"> 
+        <q-card-section>
+          <div class="text-bold text-red">
+              Ensure that your bank account details are correct before you request for Refund. You can change your bank account details from the settings tab
+        </div>
+        </q-card-section>
+        
+        <q-card-section>
+          <div class="text-bold">
+              Your money will be sent into your account within 2 hours once your request is successfull
+        </div>
+        </q-card-section>
+        
+        <q-card-section>
+           
+
+            <div>Account Number: {{transaction.bank.account_number}}</div>
+
+            <div>Account Name: {{transaction.bank.account_name}}</div>
+
+            <div>Bank: {{transaction.bank.bank_name}}</div>
+            <div>Amount to Withdraw: {{transaction.amount}}</div>
+
+        </q-card-section>
+        </span>
+        <span v-else>
+        <q-card-section>
+          <div class="text-bold text-red">
+              You can not request for refund while you are yet to add your account details. You can add your bank account details from the settings tab
+        </div>
+        </q-card-section>
+
+        </span>
+        <q-card-actions align="right">
+          <q-btn v-if="request_withdrawal.bank_id != ''" flat size="md" label="Request for Refund" @click="requestRefund()" color="positive" />
+          <q-btn flat size="md" label="Cancel" color="negative" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- end of request for Refund section -->
+
+
     <!--start request for withdrawal section -->
       <q-dialog v-model="withdraw">
       <q-card>
@@ -27,7 +75,7 @@
         <q-card-section>
            
 
-            <div>Acount Number: {{transaction.bank.account_number}}</div>
+            <div>Account Number: {{transaction.bank.account_number}}</div>
 
             <div>Account Name: {{transaction.bank.account_name}}</div>
 
@@ -110,7 +158,7 @@
         </q-card>
       </q-card-section>
 
-
+      <!-- beginning of dispute -->
       <q-card-section v-if="Object.keys(user).length && (transaction.user_id == user.id || transaction.product.user_id == user.id)" class="column">
 
         <span v-if="transaction.payment != null && transaction.payment.verified == true && transaction.status == 1 && transaction.accept_transaction == true">
@@ -132,7 +180,7 @@
         
 
       </q-card-section>
-
+      <!-- end of dispute -->
 
 
       <q-card-section class="column">
@@ -164,6 +212,32 @@
           </q-card-section>
         </q-card>
       </q-card-section>
+
+      <!-- beginning of refund button -->
+      <q-card-section v-if="Object.keys(user).length && (transaction.user_id == user.id || transaction.product.user_id == user.id)" class="column">
+
+        <span v-if="transaction.payment != null && transaction.payment.verified == true && transaction.status == 2 && transaction.accept_transaction == true && transaction.payment.user_id == user.id">
+          <q-btn v-if="!transaction.refund" size="sm" color="secondary" label="Request for Refund" :loading="loading" @click="refund = true"/> 
+          <span v-else>
+          
+            <div v-if="transaction.payment.refund == true"> <q-badge  color="orange" text-color="white" label="Refund complete" /></div> 
+            <div v-else> <q-badge  color="primary" text-color="white" label="Refund Pendding" /></div> 
+            
+          </span>
+
+        </span>
+        <span v-if="transaction.payment != null && transaction.payment.verified == true && transaction.status == 2 && transaction.accept_transaction == true && transaction.payment.user_id != user.id">
+          
+            <div v-if="transaction.withdrawal_request"> 
+              <q-badge v-if="transaction.payment.refund == true" color="orange" text-color="white" label="Buyer has been refunded" />
+              <q-badge v-else color="primary" text-color="white" label="Refund Pendding" />
+            </div> 
+          
+        </span>
+
+
+      </q-card-section>
+      <!-- end of refund -->
 
       <q-card-section v-if="user && transaction.payment" class="column">
         <span v-if="transaction.user_id == user.id || transaction.product.user_id">
@@ -213,6 +287,7 @@
 
               <span v-else>
               <span v-if="transaction.payment.withdrawn == false">
+                  <!-- button to request for a withdrawal -->
                 <q-btn  v-if="transaction.product.user_id == user.id && transaction.product.transaction_type == 'sell'" unelevated no-caps color="secondary" label="Make Withdrawal" :loading="loading" @click="withdraw = true" />
                 <q-btn   v-if="transaction.user_id == user.id && transaction.product.transaction_type == 'buy'" unelevated no-caps color="secondary" label="Make Withdrawal" :loading="loading" @click="withdraw = true" />
               </span>
@@ -330,6 +405,7 @@ export default {
   data() {
     return {
       withdraw: false,
+      refund: false,
       dispute_status: null,
       copyLink:'Copy transaction link',
       T_ref: this.$route.params.T_ref,
@@ -382,6 +458,7 @@ export default {
       
     },
 
+    //cancel a transaction
     async cancelTransaction(){
         try{
         this.$q.loading.show({
@@ -511,7 +588,37 @@ export default {
       }
     },
 
+  //request for refund after an unsuccessful transaction
+    async requestRefund(){
+      try{ 
+        this.$q.loading.show({
+          message: 'Hold on, sending refund request',
+          spinnerColor: 'secondary'
+          
+        })
+        this.request_withdrawal.narration = "Refund for a cancelled transaction";
+      const req = await this.$axios.post(process.env.Api + '/api/request-refund', this.request_withdrawal)
+      const res = req.data
+      this.transaction = res.data
+      this.getTransaction();
+         this.$q.loading.hide();
+        this.$q.notify({message: 'Refund request has been sent successfully', color: 'green', position: 'top' })      
+      }
+      catch(error){
+        //console.log(error.response.data.message);
+         this.$q.loading.hide();
+        this.$q.notify({message: 'Error:: Refund request error', color: 'red', position: 'top' })
 
+        // // console.log(second);
+      }
+      finally{
+        
+        this.$q.loading.hide();
+      }
+
+    },
+
+  //request for withdrawal after a successful transaction
     async requestWithdrawal(){
       try{ 
         this.$q.loading.show({
@@ -522,18 +629,17 @@ export default {
       //this.withdraw = false
         
       const req = await this.$axios.post(process.env.Api + '/api/request-withdrawal', this.request_withdrawal)
-                  
-      this.transaction = res.data
+      const res = req.data
+        this.$q.notify({message: 'Withdrawal request has been sent successfully', color: 'green', position: 'top' })      
       this.getTransaction();
          this.$q.loading.hide();
-        this.$q.notify({message: 'Withdrawal request has been sent successfully', color: 'green', position: 'top' })      
       }
       catch(error){
         //console.log(error.response.data.message);
          this.$q.loading.hide();
         this.$q.notify({message: 'Error:: withdrawal request error', color: 'red', position: 'top' })
 
-        // // console.log(second);
+        // console.log(second);
       }
       finally{
         
@@ -556,7 +662,7 @@ export default {
      
       if(!res.data){
         this.$q.notify({message: 'record not found', color: 'red', position: 'top' })
-
+        return;
         }
       
 
