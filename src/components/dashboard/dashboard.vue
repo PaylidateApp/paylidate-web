@@ -17,7 +17,8 @@
       </div> -->
       </q-card>
       <span v-if="user.is_admin == true">
-        <span v-if="$route.name == 'withdrawal_requests'" class="flex">
+
+        <span v-if="$route.name == 'withdrawal_requests'" class="">
           <q-btn @click="withdrawal_type = 'withdrawal'" color="secondary"
             size="sm" no-caps label="Withdrawal" />          
 
