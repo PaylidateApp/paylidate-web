@@ -954,9 +954,6 @@ export default {
         //     "/api/transaction/report-transaction/" + this.transaction.id, this.report
         // );
 
-        this.otherReasons = "";
-
-        //this.getTransaction();
         this.$q.loading.hide();
         this.$q.notify({
           message: "Your Report has been successfully sent!",
