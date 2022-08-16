@@ -137,7 +137,7 @@ export default {
   methods: {
 
       copy_link(){
-      navigator.clipboard.writeText(f)
+      navigator.clipboard.writeText(this.url)
       this.copyLink = 'copied!';
        setTimeout(() => this.copyLink = 'Copy Product Link', 2000);
       
@@ -202,7 +202,9 @@ export default {
           return
         }
 
-        if (this.form.referral_amount && this.form.transaction_type == 'sell' && this.form.referral_amount >= this.form.price) {
+        if (this.form.referral_amount && this.form.transaction_type == 'sell' && parseFloat(this.form.referral_amount) >= parseFloat(this.form.price)) {
+          console.log(this.form.referral_amount);
+          console.log(this.form.price);
           this.$q.notify({
             message: 'Referral bonus must be less than product price',
             position: 'top',
