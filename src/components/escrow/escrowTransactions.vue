@@ -146,7 +146,7 @@ add payment remitance date automatically on all transaction <br> -->
               Transaction completed
             </q-badge>
             <q-badge v-else color="negative">
-              Transaction cancel
+              Transaction cancelled
             </q-badge>
           </q-td>
 
