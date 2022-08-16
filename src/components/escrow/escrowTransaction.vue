@@ -588,7 +588,7 @@ export default {
       this.getTransaction()
 
       } catch (error) {
-      console.log(error.response.data.message);
+      //console.log(error.response.data.message);
         this.$q.loading.hide();
         this.$q.notify({
           message: "Error reporting transaction",
