@@ -4,6 +4,51 @@
 
     <!-- {{transaction}} -->
     <div>
+
+    <!--start report transaction section -->
+            <q-dialog v-model="report">
+              <q-card>
+                <q-card-section>
+                  <div class="text-h6">Report Transaction</div>
+                </q-card-section>
+              
+                <q-card-section>
+                Kindly select your reason for reporting this transaction
+                  <div class="q-gutter-sm">
+                    <q-radio v-model="report_form.reportT" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="Item Not Delivered" label="Item Not Delivered" /> <br/>
+                    <q-radio v-model="report_form.reportT" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="Wrong Item Delivered" label="Wrong Item Delivered" /><br/>
+                    <q-radio v-model="report_form.reportT" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="Late Delivery" label="Late Delivery" /><br/>
+                    <q-radio v-model="report_form.reportT" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="Other Reasons" label="Other Reasons" />
+
+                  </div>
+                  <q-input
+                    v-if="report_form.reportT =='Other Reasons'"
+                    type="text"
+                    v-model="report_form.otherReasons"
+                    outlined
+                    dense
+                  />
+                </q-card-section>
+                <q-card-actions align="right">
+                  <q-btn
+                    flat
+                    label="Close"
+                    color="red-3"
+                    text-color="red"
+                    v-close-popup
+                  />
+                  <q-btn
+                    flat
+                    label="Okay"
+                    color="green-3"
+                    text-color="green"
+                    @click="reportTransaction()"
+
+                  />
+                </q-card-actions>
+              </q-card>
+            </q-dialog>
+            <!-- end of report transaction section -->
     
     <!--start request for Refund section -->
       <q-dialog v-model="refund">
@@ -296,15 +341,32 @@
 
         </div>
       
-        <div v-else-if="transaction.payment != null && transaction.payment.verified && transaction.status == 0 && transaction.accept_transaction == true">
+        <div v-else-if="transaction.payment != null && transaction.payment.verified && transaction.accept_transaction == true">
+           
+          <span v-if="transaction.status == 0"> 
            <div> <q-badge  color="green" text-color="white" label="Payment completed. Waiting for transaction to be confirmed and approved" /></div>  
-          
+
           <q-btn class="q-mx-sm" v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="secondary" label="Confirm Transaction" :loading="loading" @click="confirm = true" />
-          <q-btn v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="primary" label="Cancel Transaction" :loading="loading" @click="cancelTransaction()" />
+          <q-btn v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="primary" label="Report Transaction" :loading="loading" @click="report = true" />
           
           <q-btn class="q-mx-sm" v-if="transaction.product.transaction_type == 'sell' && user.id == transaction.user_id" unelevated no-caps color="secondary" label="Confirm Transaction" :loading="loading" @click="confirm = true" />
-          <q-btn v-if="transaction.product.transaction_type == 'sell' && user.id == transaction.user_id" unelevated no-caps color="primary" label="Cancel Transaction" :loading="loading" @click="cancelTransaction()" />
+          <q-btn v-if="transaction.product.transaction_type == 'sell' && user.id == transaction.user_id" unelevated no-caps color="primary" label="Report Transaction" :loading="loading" @click="report = true" />
 
+
+          </span>
+          
+          <span v-if="transaction.status == 4"> 
+           <div> <q-badge  color="red" text-color="white" label="Transaction failed and dispute not settled." /></div>  
+
+          <q-btn v-if="transaction.product.transaction_type == 'buy' && user.id == transaction.product.user_id" unelevated no-caps color="red" label="Cancel Transaction" :loading="loading" @click="cancelTransaction()" />
+          
+          <q-btn v-if="transaction.product.transaction_type == 'sell' && user.id == transaction.user_id" unelevated no-caps color="red" label="Cancel Transaction" :loading="loading" @click="cancelTransaction()" />
+
+          </span>
+           <div v-if="transaction.status == 3"> <q-badge  color="secondary" text-color="white" label="This transaction has been reported by the buyer and waiting for settlement" /></div>  
+
+
+         
           <q-dialog v-model="confirm">
       <q-card style="min-width:300px">
         <q-card-section>
@@ -405,6 +467,7 @@ export default {
   data() {
     return {
       withdraw: false,
+      report: false,
       refund: false,
       dispute_status: null,
       copyLink:'Copy transaction link',
@@ -427,6 +490,11 @@ export default {
       form:{
         email: '',
         password: '',
+      },
+      report_form: {
+        sellerEmail: "",
+        reportT: "",
+        otherReasons: "",
       },
       //payment_url: `${window.location.href}/payment`
     }
@@ -479,6 +547,53 @@ export default {
         // // console.log(error.response.data.message);
         this.$q.loading.hide()
       this.$q.notify({message: 'Error while trying to cancel transaction', color: 'red'})
+      }
+    },
+
+
+        //report a transaction
+    async reportTransaction() {
+      try {
+        // this.$q.loading.show({
+        //   message: "Hold on, Reporting transaction",
+        //   spinnerColor: "secondary",
+        // });
+        // console.log(this.report);
+        let report = null;
+        if (this.report_form.reportT == "Other Reasons") {
+          report = this.report_form.otherReasons;
+        
+      }
+      else{
+          report = this.report_form.reportT
+
+      }
+      if(!report){
+        this.$q.notify({
+          message: "You most select a reason for reprot",
+          color: "red",
+        });
+        return
+      }
+        const req = await this.$axios.post(process.env.Api + "/api/transaction/report-transaction/" + this.transaction.id, {'report':report, 'sellerEmail':this.report_form.sellerEmail});
+        
+        //console.log(req)
+        this.report = false;
+        this.$q.loading.hide();
+        this.$q.notify({
+          message: "Your Report has been successfully sent!",
+          color: "green",
+        });
+
+      this.getTransaction()
+
+      } catch (error) {
+      console.log(error.response.data.message);
+        this.$q.loading.hide();
+        this.$q.notify({
+          message: "Error reporting transaction",
+          color: "red",
+        });
       }
     },
 
@@ -667,7 +782,7 @@ export default {
       
 
       this.transaction = res.data
-
+      this.report_form.sellerEmail = this.transaction.seller_email;
         //console.log(res.data)
       
         let bank = res.data.bank

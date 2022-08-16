@@ -171,7 +171,7 @@ components:{
       }
           
               
-      const req = await this.$axios.post(process.env.Api + '/api/transfer_to_bank', refundDetails)
+      const req = await this.$axios.post(process.env.Api + '/api/transfer-to-buyer-bank', refundDetails)
       //console.log(req);
       const res = req.data
         this.$q.notify({message: 'Refund successfull', color: 'positive', position: 'top' })
