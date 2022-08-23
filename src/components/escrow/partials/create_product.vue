@@ -340,10 +340,11 @@ export default {
   },
 
   methods: {
-    copy_link() {
-      navigator.clipboard.writeText(f);
-      this.copyLink = "copied!";
-      setTimeout(() => (this.copyLink = "Copy Product Link"), 2000);
+      copy_link(){
+      navigator.clipboard.writeText(this.url)
+      this.copyLink = 'copied!';
+       setTimeout(() => this.copyLink = 'Copy Product Link', 2000);
+
     },
     addFiles(files) {
       const maxAllowedSize = 2 * 1024 * 1024;
@@ -470,11 +471,23 @@ export default {
           this.form.referral_amount < 0
         ) {
           this.$q.notify({
-            message: "Invalid referral amount",
-            position: "top",
-            color: "red",
-            textColor: "white",
-          });
+            message: 'Invalid referral amount',
+            position: 'top',
+            color: 'red',
+            textColor: 'white'
+          })
+          return
+        }
+
+        if (this.form.referral_amount && this.form.transaction_type == 'sell' && parseFloat(this.form.referral_amount) >= parseFloat(this.form.price)) {
+          console.log(this.form.referral_amount);
+          console.log(this.form.price);
+          this.$q.notify({
+            message: 'Referral bonus must be less than product price',
+            position: 'top',
+            color: 'red',
+            textColor: 'white'
+          })
           return;
         }
 
