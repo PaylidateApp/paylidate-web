@@ -1,5 +1,42 @@
 <template>
   <div>
+        <q-dialog v-model="chat" :style="chatModelStyle">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Dispute Chat</div>
+        </q-card-section>
+        <q-card-section v-if="dispute_chat_messages" style="overflow-y: scroll; height:300px;">
+        
+
+          <span v-for="dispute_chat in dispute_chat_messages" :key="dispute_chat.id">
+          
+            <div><strong> {{dispute_chat.sender}} </strong></div>
+            <div> {{dispute_chat.message}} </div>
+            <div class="row">
+            <div class="justify-end"> <strong>{{formatDate(dispute_chat.created_at)}} </strong> </div>
+            </div>
+             <q-separator />
+             <br/>
+          </span>
+            
+            
+
+        </q-card-section>
+        <q-card-section v-else>
+        
+          <div>No message available</div>           
+
+        </q-card-section>
+        <div class="q-px-sm">
+        <q-input outlined dense v-model="chatForm.message" label="message" />
+        </div>
+        <q-card-actions align="right">
+          <q-btn flat size="md" label="Cancel" color="negative" v-close-popup />
+          <q-btn v-if="chatForm.message" flat size="md" label="Send" color="green" @click="send_message(chatForm.transaction_id, chatForm.dispute_id)" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
       <q-dialog v-model="disputeModal">
       <q-card>
         <q-card-section>
@@ -60,9 +97,11 @@
           </q-td>
 
           <q-td key="solve_dispute" :props="props">
+            <q-btn  label="reply/view dispute" @click="disputeChats(props.row.transaction_id, props.row.id, props.row.dispute_chat)" class="bg-secondary" color="white" flat size="sm" no-caps />
+            <span class="q-mx-sm">
             <q-btn v-if="props.row.user_id == user.id && props.row.dispute_solved == false " label="End Dispute" @click="reslove_despute(props.row.id, props.row.transaction_id, props.row.user_id)" class="bg-secondary" color="white" flat size="sm" no-caps />
             <q-btn v-else disable label="End Dispute" class="bg-secondary" color="white" flat size="sm" no-caps />
-
+           </span>
           </q-td>
 
         </q-tr>
@@ -83,10 +122,20 @@ export default {
   },
   data () {
     return {
+      
       disputeModal: false,
+      chat: false,
       dispute: null,
       title: null,
       T_id: this.$route.params.transaction_id,
+      dispute_chat_messages: null,
+      dispute_chats: null,
+      chatForm:{
+        transaction_id: null,
+        dispute: null,
+        message: null,
+
+      },
       columns: [
         // { name: 'src', field: 'src' },
         { name: 'subject', label: 'Dispute Subject', field: 'subject', align: 'left' , sortable: true,},
@@ -105,6 +154,8 @@ export default {
   computed:{
     user(){return this.$store.getters["auth/user"] },
     getContents(){return this.contents },
+    chatModelStyle(){ return this.$q.screen.gt.sm ? "min-width: 500px" : "min-width: 300px"},
+
 
   },
   methods: {
@@ -119,6 +170,7 @@ export default {
         const req = await this.$axios.get(process.env.Api + '/api/transaction-disputes/'+ this.T_id)
        
         this.contents = req.data.data;
+        //console.log(req.data.data);
         this.$q.loading.hide();
 
         }catch(error){
@@ -138,6 +190,7 @@ export default {
 
       },
 
+      
       async reslove_despute(id, transaction_id, user_id){
         
           this.$q.loading.show({
@@ -165,8 +218,48 @@ export default {
         }
       },
 
-            formatDate(dateString){
-          const options = { year: "numeric", month: "long", day: "numeric" }
+      async send_message(){
+       
+          this.$q.loading.show({
+          message: 'Hold on, Sending message',
+          spinnerColor: 'secondary'
+          
+        })
+        try{
+        const req = await this.$axios.post(process.env.Api + '/api/send-dispute-chat', this.chatForm)
+        const res = req.data.data
+        //console.log(res.data['0']);
+        //return
+        //this.contents = this.contents.map((dispute)=>dispute.id == res.data['0'].id ? res.data['0'] :dispute)
+        this.$q.notify({message: 'Message sent', color: 'positive', position: 'top' })
+        this.dispute_chat_messages.push(res);
+        this.getTransactionDispute();
+
+        }
+        catch(error){
+        //console.log(error.response.data.message);
+        this.$q.notify({message: 'error', color: 'red', position: 'top' })
+         this.$q.loading.hide();
+        }
+        finally{
+          this.chatForm.message = null;
+            this.$q.loading.hide();
+        }
+      },
+
+    disputeChats(transaction_id, dispute_id, chats){
+        
+        this.chat = true;
+        this.chatForm.transaction_id = transaction_id;
+        this.chatForm.dispute_id = dispute_id;
+        this.dispute_chat_messages = chats
+        //console.log(transaction_id, dispute_id);
+      
+      },
+      
+
+        formatDate(dateString){
+          const options = { year: "numeric", month: "long", day: "numeric", hour:"numeric", minute:"numeric" }
           return new Date(dateString).toLocaleDateString(undefined, options)
       },
 

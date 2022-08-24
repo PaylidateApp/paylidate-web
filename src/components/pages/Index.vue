@@ -2,6 +2,26 @@
   <q-page :class="$q.screen.gt.sm?'text-primary row q-pt-md':'text-primary row'" class="" style="scroll-behavior: smooth; font-family:'Mukta', sans-serif;">
 
     <div class="q-pa-sm q-pa-sm-xl q-mt-lg full-width flex justify-center" >
+
+    <q-dialog v-model="play">	
+      <q-card style="min-width:300px">	
+        <q-card-section>	
+          <div class="text-h4"></div>	
+          </q-card-section>	
+          	
+        <q-card-section>	
+          <div>	
+            <iframe width="420" height="345" src="https://www.youtube.com/embed/7CiyRLBaDDA?controls=0"></iframe>	
+          </div>	
+         	
+          </q-card-section>	
+          	
+          <q-card-actions align="right">	
+            <q-btn flat label="cancel" color="green-3" text-color="red" v-close-popup />	
+        </q-card-actions>	
+      </q-card>	
+    </q-dialog>
+
     <div style="max-width:1200px" class="">
       <div class="row items-center justify-center reverse">
       <div class="col-12 col-sm-5 align-center">
