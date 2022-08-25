@@ -1096,7 +1096,7 @@ export default {
         this.getTransaction();
         this.$q.loading.hide();
         this.$q.notify({
-          message: "Transaction accepted seccessfully",
+          message: "Transaction accepted successfully",
           color: "green",
         });
       } catch (error) {
@@ -1123,7 +1123,7 @@ export default {
         this.getTransaction();
         this.$q.loading.hide();
         this.$q.notify({
-          message: "Transaction decline seccessfully",
+          message: "Transaction decline successfully",
           color: "green",
         });
       } catch (error) {
@@ -1139,7 +1139,7 @@ export default {
     async dispute(id) {
       try {
         if (this.transaction.dispute === 0 || this.transaction.dispute === 2) {
-          this.$q.loading.show("Hold on, openning dispute", "secondary");
+          this.$q.loading.show("Hold on, opening dispute", "secondary");
           this.$axios.get(
             `${process.env.Api}/api/transaction/open-dispute/${id}`
           );
