@@ -9,7 +9,7 @@
           <!-- <sell />
           <buy /> -->
 
-          <CreateProduct />
+          <CreateProduct btnType='create'/>
         </div>
       </q-card-section>
     </q-card>
@@ -56,7 +56,7 @@ add payment remitance date automatically on all transaction <br> -->
               {{ currency(props.row.price) }}
             </q-badge>
           </q-td>
-          
+
           <q-td key="transaction_type" :props="props">
             <q-badge color="primary">
               {{ props.row.transaction_type }}
@@ -116,7 +116,7 @@ add payment remitance date automatically on all transaction <br> -->
            <q-td key="created_at" :props="props">
             {{ formatDate(props.row.created_at) }}
           </q-td>
-            
+
             <q-td key="view" :props="props" class="column">
             <q-btn :to="{name: 'product', params: {slug: props.row.slug}}" label="View Product" class="bg-secondary" color="white" flat size="sm" no-caps />
             <!-- <q-btn @click="canceledDelivery(props.row.id)" color="negative" size="xs" no-caps label="Cancel Order" /> -->
@@ -138,6 +138,7 @@ import CreateProduct from './partials/create_product.vue'
 import Disput from './partials/disput.vue'
 export default {
   // name: 'ComponentName',
+
   components:{
     eExport, buy, sell, Payment, CreateProduct, Disput
   },
@@ -176,17 +177,17 @@ export default {
   },
 
   methods: {
-    
+
       async getProduct(){
         try{
         this.$q.loading.show({
           message: 'Hold on, fetching product',
           spinnerColor: 'secondary'
-          
+
         })
         const req = await this.$axios.get(process.env.Api + '/api/product')
         const res = req.data
-        
+
         this.content = res.data;
         //console.log(res.data);
          this.$q.loading.hide();
@@ -197,7 +198,7 @@ export default {
           finally{
               this.$q.loading.hide();
           }
-      },      
+      },
 
       currency(amount){
         return (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'NGN' }).format(amount));
@@ -207,7 +208,7 @@ export default {
       navigator.clipboard.writeText(window.location.origin+'/product/'+slug)
       this.copyLink = 'copied!';
        setTimeout(() => this.copyLink = 'Copy Link', 2000);
-      
+
     },
 
       sum_ammount(type,user_id){
