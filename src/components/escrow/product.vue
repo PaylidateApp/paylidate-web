@@ -419,7 +419,7 @@ export default {
           const res = req.data;
           this.getProduct();
           this.$q.loading.hide();
-          this.$q.notify({ message: "Request successfully", color: "green" });
+          this.$q.notify({ message: "Request seccessfully", color: "green" });
           this.$router.push({ name: "transactions" });
         } catch (error) {
           //console.log(error.response.data.message);
@@ -442,7 +442,7 @@ export default {
     async editProduct(id) {
       try {
         if (this.product.dispute === 0 || this.product.dispute === 2) {
-          this.$q.loading.show("Hold on, opening dispute", "secondary");
+          this.$q.loading.show("Hold on, openning dispute", "secondary");
           this.$axios.get(`${process.env.Api}/api/product/open-dispute/${id}`);
           this.product.dispute = 1;
           this.$q.loading.hide();

@@ -1,7 +1,7 @@
 <template>
   <div id="targetPage" ref="targetPage">
     <q-btn
-      v-if="btnType === 'create'"
+      v-if="btnType == 'create'"
       unelevated
       no-caps
       color="secondary"
@@ -19,7 +19,7 @@
       :style="{ width: '150px' }"
     />
 
-    <div v-if="btnType === 'create'">
+    <div v-if="btnType == 'create'">
       <q-dialog v-model="open">
         <q-card class="" style="min-width: 300px">
           <q-card-section class="q-gutter-xs col-md-6 col-sm-12 col-xs-12">
@@ -84,7 +84,7 @@
                 outlined
                 dense
                 v-model="form.description"
-                label="Product Description"
+                label="Product Discription"
               />
 
               <div v-if="form.transaction_type == 'buy'">
@@ -103,8 +103,8 @@
               </div>
               <div v-else>
                 <div>
-                  If you want this product to be referred by others, please add
-                  a referral bonus else leave the field blank
+                  If you want this product to be refered by others, please add a
+                  referral bonus else live the field blank
                 </div>
                 <q-input
                   outlined
@@ -141,7 +141,7 @@
           <q-card-section class="q-gutter-xs col-md-6 col-sm-12 col-xs-12">
             <div class="text-h6">Edit Product</div>
             <q-form
-              @submit="updateProduct()"
+              @submit="createProduct()"
               class="q-gutter-md"
               autocomplete="off"
             >
@@ -171,7 +171,6 @@
                 v-model="product.transaction_type"
                 :options="transaction_type_option"
                 label="Transaction Type"
-                required
                 readonly
               />
               <q-input
@@ -221,8 +220,8 @@
               </div>
               <div v-else>
                 <div>
-                  If you want this product to be referred by others, please add
-                  a referral bonus else live the field blank
+                  If you want this product to be refered by others, please add a
+                  referral bonus else live the field blank
                 </div>
                 <q-input
                   outlined
@@ -340,11 +339,10 @@ export default {
   },
 
   methods: {
-      copy_link(){
-      navigator.clipboard.writeText(this.url)
-      this.copyLink = 'copied!';
-       setTimeout(() => this.copyLink = 'Copy Product Link', 2000);
-
+    copy_link() {
+      navigator.clipboard.writeText(f);
+      this.copyLink = "copied!";
+      setTimeout(() => (this.copyLink = "Copy Product Link"), 2000);
     },
     addFiles(files) {
       const maxAllowedSize = 2 * 1024 * 1024;
@@ -361,63 +359,70 @@ export default {
 
     async updateProduct() {
       try {
-        if (this.product.name.length === 0 || this.product.name === "") {
+
+        if (this.product.name.length == 0 || this.product.name.trim == "") {
           this.$q.notify({
-            message: "Please type in Product Name",
+            message: "Please type a valid Product Name",
+            position: "top",
             color: "red",
+            textColor: "white",
           });
           return;
         }
-        if (this.product.price == 0 || this.product.price < 100) {
+        if (this.product.price.length == 0 || this.product.price < 100) {
           this.$q.notify({
             message: "Amount must be greater than 100",
+            position: "top",
             color: "red",
+            textColor: "white",
           });
           return;
         }
-        if (this.product.quantity.length === 0 || this.product.quantity === 0) {
+        if (this.product.quantity.length == 0 || this.product.quantity == 0 || this.product.quantity < 0) {
           this.$q.notify({
             message: "Please add the Quantity",
+            position: "top",
             color: "red",
+            textColor: "white",
           });
           return;
         }
+
         const req = await this.$axios.post(
-          process.env.Api + "/api/product/update/" + this.product.id,
-          {
-            name: this.product.name,
-            price: this.product.price,
-            type: this.product.transaction_type,
-            description: this.product.description,
-            quantity: this.product.quantity,
-            referral_amount: this.product.referral_amount,
-          }
-        );
-
-        const res = req.data;
-
-        console.log(res);
-
-        if (res.status == "success") {
-          this.open = false;
-          this.loading = false;
-
-          this.$q.notify({
-            message: "Your Product has been successfully updated!",
-            color: "green",
-          });
-          this.clearForm();
+        process.env.Api + "/api/product/update/" + this.product.id,
+        {
+          name: this.product.name,
+          price: this.product.price,
+          type: this.product.transaction_type,
+          description: this.product.description,
+          quantity: this.product.quantity,
+          referral_amount: this.product.referral_amount,
         }
-        this.loading = false;
-        this.$q.loading.hide();
+      );
+
+      const res = req.data;
+
+      if (res.status == "success") {
+              this.open = false;
+              this.loading = false;
+
+              this.clearForm();
+
+              this.$q.loading.hide();
+        this.$q.notify({
+          message: "Your Product has been successfully updated!",
+          color: "green",
+        });
+            }
+            this.loading = false;
+            this.$q.loading.hide();
 
 
-        //this.getProduct();
       } catch (error) {
-        console.log(error.response.data.message);
+        //console.log(error.response.data.message);
         this.$q.loading.hide();
         this.$q.notify({
-          message: "Error updating product",
+          message: "Error! Product could not be updated at this time",
           color: "red",
         });
       }
@@ -471,23 +476,11 @@ export default {
           this.form.referral_amount < 0
         ) {
           this.$q.notify({
-            message: 'Invalid referral amount',
-            position: 'top',
-            color: 'red',
-            textColor: 'white'
-          })
-          return
-        }
-
-        if (this.form.referral_amount && this.form.transaction_type == 'sell' && parseFloat(this.form.referral_amount) >= parseFloat(this.form.price)) {
-          console.log(this.form.referral_amount);
-          console.log(this.form.price);
-          this.$q.notify({
-            message: 'Referral bonus must be less than product price',
-            position: 'top',
-            color: 'red',
-            textColor: 'white'
-          })
+            message: "Invalid referral amount",
+            position: "top",
+            color: "red",
+            textColor: "white",
+          });
           return;
         }
 
