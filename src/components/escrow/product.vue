@@ -159,21 +159,14 @@
               btnType="edit"
               :product="product"
             />
-            <!-- <q-btn
-              color="primary"
-              size="md"
-              class="q-mx-sm"
-              label="Edit Product"
-              @click="getProduct"
-            /> -->
 
-            <q-btn
+            <!-- <q-btn
               v-if="product.transaction.length > 0"
               color="red"
               size="md"
               label="Delete Product"
               @click="deleteProduct()"
-            />
+            /> -->
           </div>
 
           <div v-if="product.user_id != user.id">
