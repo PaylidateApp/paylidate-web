@@ -353,7 +353,7 @@
           <q-separator/>
 
           <div class="text-justify text-grey-7 text-subtitle2" v-if="FAQs.Q4">
-         Paylidate charges  3% for each transaction, (NB: For transaction below NGN 3,334 there is a fix charges of N100, and for transaction above NGN 83,334 their is a fix charges of N2500)
+         Paylidate charges  3% for each transaction, (NB: For transactions below NGN 3,334 there is a fixed charge of N100, and for transactions above NGN 83,334 there is a fixed charge of N2500)
           </div>
 
 
