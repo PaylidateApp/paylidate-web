@@ -84,7 +84,7 @@
                 outlined
                 dense
                 v-model="form.description"
-                label="Product Discription"
+                label="Product Description"
               />
 
               <div v-if="form.transaction_type == 'buy'">
@@ -103,7 +103,7 @@
               </div>
               <div v-else>
                 <div>
-                  If you want this product to be refered by others, please add a
+                  If you want this product to be referred by others, please add a
                   referral bonus else live the field blank
                 </div>
                 <q-input
@@ -165,6 +165,7 @@
                 :options="type_option"
                 label=" Type"
               />
+
               <q-select
                 square
                 outlined
@@ -220,7 +221,7 @@
               </div>
               <div v-else>
                 <div>
-                  If you want this product to be refered by others, please add a
+                  If you want this product to be referred by others, please add a
                   referral bonus else live the field blank
                 </div>
                 <q-input
@@ -395,7 +396,7 @@ export default {
         {
           name: this.product.name,
           price: this.product.price,
-          type: this.product.transaction_type,
+          type: this.product.type,
           description: this.product.description,
           quantity: this.product.quantity,
           referral_amount: this.product.referral_amount,
