@@ -19,19 +19,27 @@
         </div>
 
         <div v-else class="q-gutter-y-xs">
-          <q-btn color="black" href="#escrow" flat no-caps label="Escrow" v-if="$q.screen.gt.xs" />
-          <q-btn color="black" href="#virtual_card" flat no-caps label="Virtual Cards" v-if="$q.screen.gt.xs" />
-          <q-btn color="black" href="#about" flat no-caps label="About Us" v-if="$q.screen.gt.xs" />
-          <q-btn color="black" href="#team" flat no-caps tag="a" label="Team" v-if="$q.screen.gt.xs" />
-          <q-btn color="black" href="#faq" flat no-caps label="FAQ" v-if="$q.screen.gt.xs" />
+        <a href="#escrow">
+          <q-btn color="black" flat no-caps label="Escrow" v-if="$q.screen.gt.xs" />
+        </a>
+        <a href="#support">
+          <q-btn color="black" flat no-caps label="Support" v-if="$q.screen.gt.xs" />
+        </a>
+        <a href="#about">
+          <q-btn color="black" flat no-caps label="About Us" v-if="$q.screen.gt.xs" />
+        </a>
+        <a href="#team">
+          <q-btn color="black" flat no-caps tag="a" label="Team" v-if="$q.screen.gt.xs" />
+        </a>
+        <a href="#faq">
+          <q-btn color="black" flat no-caps label="FAQ" v-if="$q.screen.gt.xs" />
+        </a>
           <span class="q-gutter-x-xs">
             <q-btn color="secondary" size="sm" no-caps label="Signup" :to="{name: 'register'}" />
             <q-btn color="black" size="sm" no-caps label="Login" :to="{name: 'login'}" />
           </span>
         </div>
-
-        <q-btn color="secondary" flat dense round v-if="isLoggedIn && $q.screen.lt.sm && theauth" icon="menu"
-          aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
+        <q-btn color="secondary" flat dense round v-if="$q.screen.lt.sm" icon="menu" aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
 
       </q-toolbar>
     </q-header>
@@ -111,10 +119,10 @@ export default {
           is_authenticated: false
         },
         {
-          title: 'Virtual Cards',
+          title: 'Support',
           caption: '',
-          icon: 'credit_card',
-          link: '#virtual_card',
+          icon: 'contact_support',
+          link: '#support',
           is_active: true,
           is_authenticated: false
         },
@@ -322,3 +330,12 @@ export default {
 }
 
 </script>
+
+<style lang="scss" scoped>
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+</style>
+
