@@ -1,11 +1,9 @@
 <template>
   
+  <a v-if="link.includes('#')" :href="link">
   <q-item
-    v-if="link.includes('#')"
+    
     clickable
-    :href="link"
-    
-    
   >
     <q-item-section
       v-if="icon"
@@ -21,7 +19,7 @@
       </q-item-label>
     </q-item-section>
   </q-item>
-
+</a>
  <q-item
     v-else
     clickable

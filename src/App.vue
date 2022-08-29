@@ -22,19 +22,19 @@ export default {
   //     }
   //   },
 
-  preFetch ({ store, redirect }) {
-     if (store.state.auth.token) {
-        store.dispatch("auth/user");
-        store.dispatch("auth/account");
-        store.dispatch("card/cards");
-        // store.dispatch("auth/unread_notification");
-      }else{
-        let myroute = this.$route.name;
+  // preFetch ({ store, redirect }) {
+  //    if (store.state.auth.token) {
+  //       store.dispatch("auth/user");
+  //       store.dispatch("auth/account");
+  //       store.dispatch("card/cards");
+  //       // store.dispatch("auth/unread_notification");
+  //     }else{
+  //       let myroute = this.$route.name;
 
-        myroute == 'login' || myroute == 'register' || myroute == 'product'
-        if (!myroute)redirect({ path: '/' })
-      }
-  },
+  //       myroute == 'login' || myroute == 'register' || myroute == 'product'
+  //       if (!myroute)redirect({ path: '/' })
+  //     }
+  // },
 
 }
 </script>
