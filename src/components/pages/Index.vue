@@ -178,19 +178,26 @@
               <div class="text-h6 text-bold">Attah Lawrence</div>
               <div class="text-subtitle2 text-secondary">Founder / CEO</div>
               <div class="q-pt-xs q-gutter-sm text-grey-7" style="font-size: 1.5em" >
-              <q-btn flat padding="none" size="sm" href="https://www.linkedin.com/in/lawrence-ojonugwa-attah/" target="_blank">
+              <a href="https://www.linkedin.com/in/lawrence-ojonugwa-attah/" target="_blank">
+              <q-btn flat padding="none" size="sm" >
                   <q-icon name="ion-logo-linkedin" class=""/>
                 </q-btn>
-              <q-btn flat padding="none" size="sm" href="https://m.facebook.com/Lawrence.ojonugua.attah" target="_blank">
+                </a>
+                <a href="https://m.facebook.com/Lawrence.ojonugua.attah" target="_blank">
+              <q-btn flat padding="none" size="sm">
                 <q-icon name="fab fa-facebook-f"/>
               </q-btn>
-              <q-btn flat padding="none" size="sm" href="#" target="_blank">
+              </a>
+              <a href="#" target="_blank">
+              <q-btn flat padding="none" size="sm">
               <q-icon name="fab fa-instagram"/>
               </q-btn>
-              <q-btn flat padding="none" size="sm" href="https://twitter.com/theOjonugwa?t=0CxxQsGvmHqWj_Mhzyfs-g&s=08" target="_blank">
+              </a>
+              <a href="https://twitter.com/theOjonugwa?t=0CxxQsGvmHqWj_Mhzyfs-g&s=08" target="_blank">
+              <q-btn flat padding="none" size="sm" >
               <q-icon name="ion-logo-twitter"/>
               </q-btn>
-
+              </a>
             </div>
             </q-card-section>
 
@@ -203,18 +210,26 @@
               <div class="text-h6 text-bold">Adegoke Daniel</div>
               <div class="text-subtitle2 text-secondary">Software Engineer</div>
               <div class="q-pt-xs q-gutter-sm text-grey-7" style="font-size: 1.5em" >
-              <q-btn flat padding="none" size="sm" href="https://linkedin.com/in/danieladegoke" target="_blank">
+              <a href="https://linkedin.com/in/danieladegoke" target="_blank">
+              <q-btn flat padding="none" size="sm" >
                   <q-icon name="ion-logo-linkedin" class=""/>
                 </q-btn>
-              <q-btn flat padding="none" size="sm" href="#" target="_blank">
+              </a>
+              <a href="#" target="_blank">
+              <q-btn flat padding="none" size="sm" to="#" target="_blank">
                 <q-icon name="fab fa-facebook-f"/>
               </q-btn>
-              <q-btn flat padding="none" size="sm" href="#" target="_blank">
+              </a>
+              <a href="#" target="_blank">
+              <q-btn flat padding="none" size="sm" to="#" target="_blank">
               <q-icon name="fab fa-instagram"/>
               </q-btn>
-              <q-btn flat padding="none" size="sm" href="https://www.twitter.com/pecular" target="_blank">
+              </a>
+              <a href="https://www.twitter.com/pecular" target="_blank">
+              <q-btn flat padding="none" size="sm">
               <q-icon name="ion-logo-twitter"/>
               </q-btn>
+              </a>
 
             </div>
             </q-card-section>
@@ -227,45 +242,60 @@
             <q-card-section>
               <div class="text-h6 text-bold">Simon Onazi</div>
               <div class="text-subtitle2 text-secondary">Software Engineer</div>
-              <div class="q-pt-xs q-gutter-sm text-grey-7" style="font-size: 1.5em" >
-              <q-btn flat padding="none" size="sm" href="https://www.linkedin.com/in/simon-onazi-moses/" target="_blank">
+              <div class="q-pt-xs q-gutter-sm text-grey-7" style="font-size: 1.5em">
+              <a  href="https://www.linkedin.com/in/simon-onazi-moses/" target="_blank">
+              <q-btn flat padding="none" size="sm">
                   <q-icon name="ion-logo-linkedin" class=""/>
                 </q-btn>
-              <q-btn flat padding="none" size="sm" href="https://m.facebook.com/profile.php?id=100001012312875" target="_blank">
+                </a>
+              <a href="https://m.facebook.com/profile.php?id=100001012312875" target="_blank">
+              <q-btn flat padding="none" size="sm">
                 <q-icon name="fab fa-facebook-f"/>
               </q-btn>
-              <q-btn flat padding="none" size="sm" href="#" target="_blank">
+              </a>
+              <a href="#" target="_blank">
+              <q-btn flat padding="none" size="sm">
               <q-icon name="fab fa-instagram"/>
               </q-btn>
-              <q-btn flat padding="none" size="sm" href="https://twitter.com/syflex" target="_blank">
+              </a>
+              <a href="https://twitter.com/syflex" target="_blank">
+              <q-btn flat padding="none" size="sm">
               <q-icon name="ion-logo-twitter"/>
               </q-btn>
+              </a>
 
             </div>
             </q-card-section>
 
 
           </q-card>
-          <q-card class="my-card" square style="max-width: 195px">
+          <q-card class="my-card" square style="max-width: 205px">
             <img src="../../statics/team_members/philemon.png" style="max-width: 250px">
 
             <q-card-section>
               <div class="text-h6 text-bold">Philemon Shekari</div>
               <div class="text-subtitle2 text-secondary">Software Engineer</div>
-              <div class="q-pt-xs q-gutter-sm text-grey-7" style="font-size: 1.5em" >
-              <q-btn flat padding="none" size="sm" href="https://www.instagram.com/paylidate/?hl=enhttps://www.linkedin.com/mwlite/in/shekari-philemon-85882a179" target="_blank">
+              <div class="q-pt-xs q-gutter-sm text-grey-7" style="font-size: 1.5em">
+              <a href="https://www.linkedin.com/mwlite/in/shekari-philemon-85882a179" target="_blank">
+              <q-btn flat padding="none" size="sm">
                   <q-icon name="ion-logo-linkedin" class=""/>
                 </q-btn>
-              <q-btn flat padding="none" size="sm" href="https://m.facebook.com/philemon.shekari" target="_blank">
+                </a>
+                <a href="https://m.facebook.com/philemon.shekari" target="_blank">
+              <q-btn flat padding="none" size="sm">
                 <q-icon name="fab fa-facebook-f"/>
               </q-btn>
-              <q-btn flat padding="none" size="sm" href="#" target="_blank">
+              </a>
+              <a hre="#" target="_blank">
+              <q-btn flat padding="none" size="sm">
               <q-icon name="fab fa-instagram"/>
               </q-btn>
-              <q-btn flat padding="none" size="sm" href="https://twitter.com/Philzy94?t=ySyers_FVqvKAO6FWUmjWA&s=08" target="_blank">
+              </a>
+              <a href="https://twitter.com/Philzy94?t=ySyers_FVqvKAO6FWUmjWA&s=08" target="_blank">
+              <q-btn flat padding="none" size="sm">
               <q-icon name="ion-logo-twitter"/>
               </q-btn>
-
+              </a>
             </div>
             </q-card-section>
 
@@ -278,18 +308,27 @@
               <div class="text-h6 text-bold">Salihu Umar</div>
               <div class="text-subtitle2 text-secondary">Product Design</div>
               <div class="q-pt-xs q-gutter-sm text-grey-7" style="font-size: 1.5em" >
-              <q-btn flat padding="none" size="sm" href="www.linkedin.com/in/umarinusasalihu" target="_blank">
+              <a href="https://linkedin.com/in/umarinusasalihu" target="_blank">
+              <q-btn flat padding="none" size="sm">
                   <q-icon name="ion-logo-linkedin" class=""/>
                 </q-btn>
-              <q-btn flat padding="none" size="sm" href="https://web.facebook.com/i.umarsalihu" target="_blank">
+              </a>
+              <a href="https://web.facebook.com/i.umarsalihu" target="_blank">
+              <q-btn flat padding="none" size="sm">
                 <q-icon name="fab fa-facebook-f"/>
               </q-btn>
-              <q-btn flat padding="none" size="sm" href="https://www.instagram.com/i_umarsalihu/" target="_blank">
+              </a>
+              <a  href="https://www.instagram.com/i_umarsalihu/" target="_blank">
+              <q-btn flat padding="none" size="sm">
               <q-icon name="fab fa-instagram"/>
               </q-btn>
-              <q-btn flat padding="none" size="sm" href="https://twitter.com/i_umarsalihu" target="_blank">
+              </a>
+              <a href="https://twitter.com/i_umarsalihu" target="_blank">
+              <q-btn flat padding="none" size="sm" >
               <q-icon name="ion-logo-twitter"/>
               </q-btn>
+              
+              </a>
 
             </div>
             </q-card-section>
@@ -353,7 +392,7 @@
           <q-separator/>
 
           <div class="text-justify text-grey-7 text-subtitle2" v-if="FAQs.Q4">
-         Paylidate charges  3% for each transaction, (NB: For transactions below NGN 3,334 there is a fixed charge of N100, and for transactions above NGN 83,334 there is a fixed charge of N2500)
+         Paylidate charges  3% for each transaction, (NB: For transaction below NGN 3,334 there is a fix charges of N100, and for transaction above NGN 83,334 their is a fix charges of N2500)
           </div>
 
 
@@ -540,7 +579,7 @@
 
          <div :class="$q.screen.gt.sm?'flex justify-center':'flex q-gutter-y-md'">
 
-            <q-input v-model="text" class="" style="min-width:300px;" type="email" label="Enter your email address" />
+            <q-input v-model="email" class="" style="min-width:300px;" type="email" label="Enter your email address" />
             <q-btn color="primary" style="margin-top:15px"  no-caps no-wrap class="q-pa-none" label="Join our community" />
          </div>
 
@@ -555,21 +594,28 @@
     <div class="full-width q-px-sm q-px-sm-xl flex justify-center bg-grey-2">
     <div style="max-width:1200px" class=" full-width ">
         <div class="q-pt-lg q-gutter-sm text-grey-9" style="font-size: 1.2em" >
-             <q-btn flat padding="none" size="md" href="https://www.linkedin.com/company/ourpasskey" target="_blank">
+            <a href="https://www.linkedin.com/company/ourpasskey" target="_blank">
+             <q-btn flat padding="none" size="md">
              <q-icon name="ion-logo-linkedin" class=""/>
              </q-btn>
-
-             <q-btn flat padding="none" size="md" type="a" href="https://web.facebook.com/paylidate" target="__blank">
+             </a>
+            <a href="https://web.facebook.com/paylidate" target="__blank">
+             <q-btn flat padding="none" size="md" type="a">
               <q-icon classs="clickable" name="fab fa-facebook-f" />
              </q-btn>
+             </a>
 
-             <q-btn flat padding="none" size="md" href="https://www.instagram.com/paylidate/?hl=en" target="_blank">
+             <a href="https://www.instagram.com/paylidate/?hl=en" target="_blank">
+             <q-btn flat padding="none" size="md" >
               <q-icon name="fab fa-instagram" />
              </q-btn>
+             </a>
 
-             <q-btn flat padding="none" size="md" href="https://twitter.com/paylidate" target="_blank">
+            <a href="https://twitter.com/paylidate" target="_blank">
+             <q-btn flat padding="none" size="md" >
               <q-icon name="ion-logo-twitter" type="a"/>
              </q-btn>
+            </a>
 
         </div>
         <div class="text-primary text-bold " :class="$q.screen.gt.sm?'flex justify-between':''">
@@ -577,20 +623,29 @@
           <div class=" q-pt-none" style="margin-left:-50px">
           <ul class="flex text-weight-bolder " >
           <li>
-           <q-btn class="text-weight-bolder" color="black" href="#escrow" flat no-caps label="Escrow"   />
+          <a href="#escrow">
+           <q-btn class="text-weight-bolder" color="black" flat no-caps label="Escrow"/>
+          </a>
           </li>
           <li>
-          <q-btn class="text-weight-bolder" color="black" href="#support" flat no-caps label="Support"  />
-
+          <a href="#support">
+           <q-btn class="text-weight-bolder" color="black" flat no-caps label="Support"/>
+          </a>
           </li>
           <li>
-          <q-btn class="text-weight-bolder" color="black" href="#about" flat no-caps label="About Us"  />
+          <a href="#about">
+           <q-btn class="text-weight-bolder" color="black"  flat no-caps label="About"/>
+          </a>
           </li>
           <li>
-          <q-btn class="text-weight-bolder" color="black" href="#team" flat no-caps tag="a" label="Team"  />
+          <a href="#team">
+           <q-btn class="text-weight-bolder" color="black" flat no-caps label="Team"/>
+          </a>
           </li>
           <li>
-          <q-btn class="text-weight-bolder" color="black" href="#faq" flat no-caps label="FAQ"  />
+          <a to="#faq">
+           <q-btn class="text-weight-bolder" color="black" flat no-caps label="FAQ"/>
+          </a>
           </li>
           </ul>
           </div>
@@ -613,6 +668,7 @@ export default {
   },
   data() {
     return {
+      email: null,
       play: false,
       slide: 1,
       autoplay: true,
@@ -630,6 +686,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+a {
+  text-decoration: none;
+  color: inherit;
+}
 li {
   display: block;
 
