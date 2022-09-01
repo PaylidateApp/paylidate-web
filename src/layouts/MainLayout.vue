@@ -4,7 +4,7 @@
       <q-toolbar>
 
         <q-toolbar-title>
-          <q-btn :to=" {name: isLoggedIn ? 'home' : 'index'}" flat dense stack no-caps>
+          <q-btn to="/" flat dense stack no-caps>
             <img src="../statics/paylidate-logo.png" style="max-width: 150px">
           </q-btn>
         </q-toolbar-title>
