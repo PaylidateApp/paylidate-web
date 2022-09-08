@@ -573,17 +573,23 @@
           <div class="q-gutter-y-sm">
           <div class="text-secondary text-h4">Join Our Community</div>
           <div class="text-subtitle1 text-bold">Sign Up Today!</div>
+
+
+
+
           </div>
         </div>
         <div class="row full-width flex justify-center q-py-lg">
-
+          <form action="https://paylidate.us13.list-manage.com/subscribe/post?u=1eaeaa6901711f741ab95b973&amp;id=97c617120a&amp;f_id=00c0c0e2f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
          <div :class="$q.screen.gt.sm?'flex justify-center':'flex q-gutter-y-md'">
 
-            <q-input v-model="email" class="" style="min-width:300px;" type="email" label="Enter your email address" />
-            <q-btn color="primary" style="margin-top:15px"  no-caps no-wrap class="q-pa-none" label="Join our community" />
+            <q-input value="" name="EMAIL" class="" style="min-width:300px;" type="email" label="Enter your email address" />
+            <input type="hidden" name="tags" value="6656183"></input>
+            <input type="hidden" name="b_1eaeaa6901711f741ab95b973_97c617120a" tabindex="-1" value=""></input>
+            <q-btn type="submit"  color="primary" style="margin-top:15px"  no-caps no-wrap class="q-pa-none" label="Join our community" />
          </div>
 
-
+        </form>
         </div>
 
       </div>
@@ -670,6 +676,7 @@ export default {
     return {
       email: null,
       play: false,
+      news_letter: false,
       slide: 1,
       autoplay: true,
       FAQs:{
@@ -706,4 +713,9 @@ li {
 .Montserrat{
     font-family: 'Montserrat', sans-serif;
 }
+
+#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif;  width:600px;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+
 </style>
