@@ -10,7 +10,9 @@
         </q-toolbar-title>
 
         <div v-if="isLoggedIn" class="row">
-          <!-- <ActivateCard v-if="!account || !Object.keys(account).length " /> -->
+            <!-- <q-btn  color="primary" size="13px" style="max-height: 33px; max-width: 104px; margin-top: 5px;" class="q-mx-sm q-pa-none"  v-if="isLoggedIn" no-caps label="Instant Pay" :to="{name: 'instant_pay'}" /> -->
+            <!-- <ActivateCard v-if="!account || !Object.keys(account).length " /> -->
+          <q-btn color="black" @click="userMode(true)" flat no-caps label="Admin Mode" v-if="false" />
           <q-btn color="black" @click="userMode(true)" flat no-caps label="Admin Mode" v-if="false" />
           <q-btn color="black" @click="userMode(false)" flat no-caps label="User Mode" v-if="false" />
           <q-btn color="black" flat no-caps label="Escrow" :to="{name: 'escrow'}" v-if="$q.screen.gt.xs" />
@@ -35,6 +37,7 @@
           <q-btn color="black" flat no-caps label="FAQ" v-if="$q.screen.gt.xs" />
         </a>
           <span class="q-gutter-x-xs">
+            <q-btn color="black" size="sm" v-if="isLoggedIn" no-caps label="Instant Pay" :to="{name: 'instant_pay'}" />
             <q-btn color="secondary" size="sm" no-caps label="Signup" :to="{name: 'register'}" />
             <q-btn color="black" size="sm" no-caps label="Login" :to="{name: 'login'}" />
           </span>
@@ -77,6 +80,16 @@
       </q-list>
     </q-drawer>
 
+    <q-dialog v-model="instantPay">
+      <q-card>
+ 
+        <q-card-section class="q-gutter-x-xs">
+          <q-btn color="secondary" size="sm" no-caps label="Transfer money" :to="{name: 'instant_pay'}" />
+            <q-btn color="black" size="sm" no-caps label="Withdraw money" :to="{name: 'recieve_instant_funds'}" />
+        </q-card-section>
+
+      </q-card>
+    </q-dialog>
 
 
     <q-page-container>
@@ -101,7 +114,7 @@ export default {
 
   data () {
     return {
-      
+      instantPay: false,
       leftDrawerOpen: false,
       name: '',
       mail: {
@@ -197,6 +210,14 @@ export default {
           icon: 'account_balance_wallet',
           link: 'wallet',
           is_active: false,
+          is_authenticated: true
+        },
+        {
+          title: 'Instant Pay',
+          caption: '',
+          icon: 'payments',
+          link: 'instant-pay',
+          is_active: true,
           is_authenticated: true
         },
 

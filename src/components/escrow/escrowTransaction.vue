@@ -528,11 +528,7 @@
         </q-card-section>
 
         <q-card-section class="column">
-          <div
-            v-if="
-              transaction.status == 2 && transaction.accept_transaction == true
-            "
-          >
+          <div v-if="transaction.status == 2 && transaction.accept_transaction == true">
             <div>
               <q-badge
                 color="red"
@@ -571,7 +567,7 @@
                   class="text-orange text-bold"
                   v-if="transaction.payment.withdrawn == false"
                 >
-                  Your have requested for a withdrawal, expect your money into
+                  You have requested for a withdrawal, expect your money into
                   your bank account soon
                 </div>
                 <div class="text-orange text-bold" v-else></div>
