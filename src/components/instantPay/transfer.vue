@@ -12,7 +12,7 @@
       <q-card-section class="q-gutter-sm">
        
         <q-input outlined dense v-model="form.amount" label="Amount*" inputmode="numeric" pattern="[0-9]*" oninput="value=value.replace(/[^\d]/g,'')" />
-        <q-input outlined dense :value="form.receiver_number"  @keyup="verify_user_number" label="Receiver's Phone Number*" maxlength="11" inputmode="numeric" pattern="[0-9]*" oninput="value=value.replace(/[^\d]/g,'')" />
+        <q-input outlined dense :value="form.receiver_number"  @keyup="verify_user_number" label="Receiver's Paylidate Phone Number*" maxlength="11" inputmode="numeric" pattern="[0-9]*" oninput="value=value.replace(/[^\d]/g,'')" />
         <span class="text-grey text-caption text-weight-bolder">{{ form.rec_name }}</span>
         <q-input type="textarea" outlined dense v-model="form.description" label="Description"/>
       </q-card-section>
