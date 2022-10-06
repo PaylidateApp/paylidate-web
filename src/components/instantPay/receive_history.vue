@@ -2,7 +2,7 @@
   <div class="">
     <q-card flat square class="bg-primary column flex-center">
       <q-card-section class="column flex-center q-gutter-sm">
-        <div class="text-h5 text-bold text-secondary">
+        <div class="text-h5 text-bold text-secondary text-center">
           Instant Pay Receive History
         </div>
         <div class="row q-gutter-sm">

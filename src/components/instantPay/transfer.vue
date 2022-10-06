@@ -181,6 +181,8 @@ export default {
       this.form.receiver_number = event.target.value;
       try{
       if(event.target.value.length != 11){
+        this.form.rec_name = ''
+
           return
       }
 
@@ -196,7 +198,9 @@ export default {
       if(res.name == null)
       {
         this.form.receiver_number = ''
-        this.$q.notify({message: 'Userddd is not in Paylidate', color: 'red'}) 
+        this.$q.notify({message: 'This number is not associated with a paylidate user', color: 'red'}) 
+        this.form.rec_name = ''
+
         return                  
       }
         this.form.rec_name = res.name
@@ -205,9 +209,10 @@ export default {
         
         }catch(error){
           //console.log(error.response.data.message);
+          this.form.rec_name = ''
         this.form.receiver_number = ''
          this.loading = false;
-          this.$q.notify({message: 'User is not in Paylidate', color: 'red'})                   
+          this.$q.notify({message: 'This number is not associated with a paylidate user', color: 'red'})                   
       }
       finally{
          this.$q.loading.hide();
