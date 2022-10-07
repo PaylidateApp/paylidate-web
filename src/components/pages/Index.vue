@@ -6,7 +6,7 @@
   >
     <div
       class="q-pr-xl q-pa-sm-xl q-mt-lg full-width flex justify-center bg-orange-1"
-      style="min-height: 500px"
+      style="min-height: 480px"
     >
       <q-dialog v-model="play">
         <q-card style="min-width: 300px">
@@ -48,7 +48,7 @@
 
           <div class="col-12 col-sm-7">
             <div
-              class="text-h2 text-weight-bolder text-primary gt-sm"
+              class="q-py-lg text-h2 text-weight-bolder text-primary gt-sm"
               style="max-width: 600px"
             >
               Fast and secured <span>digital payments</span> your
@@ -112,7 +112,7 @@
                 color="primary"
                 no-caps
                 size="18px"
-                class="q-px-md Montserrat"
+                class="q-px-xl Montserrat"
                 label="Register"
                 :to="{ name: 'register' }"
               />
@@ -120,13 +120,13 @@
             </div>
 
             <div
-              class="fit row wrap justify-center items-center content-center lt-md text-weight-light q-gutter-sm q-py-xl"
+              class="row lt-md fit wrap justify-center items-center content-center text-weight-light q-gutter-sm q-py-xl"
               style="max-width: 600px"
             >
               <q-btn
                 color="primary"
                 no-caps
-                size="18px"
+                size="10px"
                 class="q-px-xl Montserrat"
                 label="Register"
                 :to="{ name: 'register' }"
@@ -154,10 +154,8 @@
       </div>
     </div>
 
-    <div
-      id="escrow"
-      class="q-pa-sm q-pa-sm-xl full-width bg-grey-1 flex justify-center"
-    >
+    <!-- What Paylidate will do for you -->
+    <div class="q-pa-sm q-pa-sm-xl full-width bg-grey-1 flex justify-center">
       <div style="max-width: 1200px" class="q-py-xl full-width text-center">
         <div
           class="gt-sm text-center text-h6 flex justify-center text-weight-light"
@@ -329,8 +327,8 @@
       </div>
     </div>
 
+    <!-- How Paylidate Works -->
     <div
-      id="escrow"
       class="q-pa-sm q-pa-sm-xl full-width bg-blue-grey-10 flex justify-center"
     >
       <div style="max-width: 1200px" class="q-py-xl full-width text-center">
@@ -356,6 +354,7 @@
                 size="18px"
                 class="q-px-xl q-py-xs Montserrat"
                 label="For Sellers"
+                disable
               />
             </div>
             <div class="col-3 col-sm-3 q-pa-sm">
@@ -365,6 +364,7 @@
                 size="18px"
                 class="q-px-xl q-py-xs Montserrat"
                 label="For Buyers"
+                disable
               />
             </div>
           </div>
@@ -683,7 +683,6 @@
                 </div>
                 <q-separator dark inset />
               </q-card-section>
-
             </div>
           </q-card>
         </div>
@@ -691,7 +690,7 @@
         <!--Mobile  -->
         <div class="lt-md text-center flex justify-center">
           <div
-            class="text-h5 text-weight-bold text-white"
+            class="text-h6 text-weight-bold text-white"
             style="max-width: 500px"
           >
             How Paylidate works
@@ -706,6 +705,7 @@
                 size="10px"
                 class="q-px-xl q-py-xs Montserrat"
                 label="For Sellers"
+                disable
               />
             </div>
             <div class="col-3 col-sm-3 q-pa-sm">
@@ -715,6 +715,7 @@
                 size="10px"
                 class="q-px-xl q-py-xs Montserrat"
                 label="For Buyers"
+                disable
               />
             </div>
           </div>
@@ -1037,10 +1038,8 @@
       </div>
     </div>
 
-    <div
-      id="about"
-      class="q-pa-sm q-pa-sm-xl bg-blue-6 full-width flex justify-center"
-    >
+    <!--About Paylidate  -->
+    <div class="q-pa-sm q-pa-sm-xl bg-blue-6 full-width flex justify-center">
       <div style="max-width: 1200px" class="q-py-lg q-py-sm-xl full-width">
         <div class="row justify-evenly gt-sm">
           <div class="col-12 col-sm-5 flex justify-center">
@@ -1101,7 +1100,6 @@
 
         <!-- Mobile Responsiveness -->
         <div class="lt-md column full-width q-py-md q-px-lg Montserrat">
-
           <div class="col flex text-justify">
             <div
               class="text-black text-weight-bold text-h6"
@@ -1109,9 +1107,7 @@
             >
               Paylidate connects buyers and sellers
             </div>
-            <div
-              class="text-subtitle1 q-py-md text-weight-light Montserrat"
-            >
+            <div class="text-subtitle1 q-py-md text-weight-light Montserrat">
               We believe people should be able to choose how they want to pay
               during transactions online without being subjected to the risk of
               loosing their money. Before now, this trust problem was contained
@@ -1127,20 +1123,20 @@
               to pay remains in question until delivery. <br />
 
               <div class="row q-pa-md">
-              <img
-                src="../../statics/rectangle_21.png"
-                spinner-color="white"
-                style="width: 90%; height: 80%"
-              />
-            </div>
-            <div class="col q-py-md flex text-justify">
-              <div
-                class="text-black text-weight-bold text-h6"
-                style="max-width: 400px"
-              >
-                Pay with no doubt and sell without fear
+                <img
+                  src="../../statics/rectangle_21.png"
+                  spinner-color="white"
+                  style="width: 90%; height: 80%"
+                />
               </div>
-            </div>
+              <div class="col q-py-md flex text-justify">
+                <div
+                  class="text-black text-weight-bold text-h6"
+                  style="max-width: 400px"
+                >
+                  Pay with no doubt and sell without fear
+                </div>
+              </div>
 
               it's important that you stay focused on your goals without getting
               distracted by unnecessary worries. That is why Paylidate makes
@@ -1148,13 +1144,315 @@
               <br />
             </div>
           </div>
-
         </div>
-
       </div>
     </div>
 
-    <!-- Mobile Responsiveness -->
+    <!-- Unique Features Section -->
+    <div class="q-pa-sm q-pa-sm-xl full-width bg-grey-1 flex justify-center">
+      <div style="max-width: 1200px" class="q-py-xl full-width text-center">
+        <div
+          class="gt-sm text-center text-h6 flex justify-center text-weight-light"
+        >
+          <div
+            class="text-h2 text-weight-bold text-primary"
+            style="max-width: 500px"
+          >
+            Get started with our unique features.
+          </div>
+        </div>
+
+        <div class="gt-sm row justify-center full-width q-py-xl Montserrat">
+          <div class="col-4" style="border-right: 1px solid #ccc">
+            <div
+              class="row"
+              style="
+                 {
+                  width: calc(100% - 32px);
+                  height: 190px;
+
+                  border-bottom: 1px solid #ccc;
+                }
+              "
+            >
+              <div class="text-justify flex">
+                <div>
+                  <div class="q-pb-xs q-pt-lg">
+                    <img src="../../statics/money.png" style="width: 25px" />
+                  </div>
+                  <div
+                    class="q-py-sm text-h6 text-weight-bold align-left"
+                    style="max-width: 300px"
+                  >
+                    Escrow
+                  </div>
+                  <div class="q-py-sm" style="max-width: 300px">
+                    Buy and sell with ease. Use Paylidate's escrow payment to
+                    secure your transactions.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="row"
+              style="
+                 {
+                  width: calc(100% - 32px);
+                  height: 200px;
+                  border-bottom: 1px solid #ccc;
+                }
+              "
+            >
+              <div class="text-justify flex">
+                <div>
+                  <div class="q-pb-xs q-pt-xl">
+                    <img src="../../statics/receipt.png" style="width: 25px" />
+                  </div>
+                  <div
+                    class="q-py-sm text-h6 text-weight-bold align-left"
+                    style="max-width: 300px"
+                  >
+                    Paylidate Checkouts
+                  </div>
+                  <div class="q-py-sm" style="max-width: 300px">
+                    Use Paylidate button to checkout with just an email address
+                    and password.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="row"
+              style="
+                 {
+                  width: calc(100% - 32px);
+                  height: 190px;
+                }
+              "
+            >
+              <div class="text-justify flex">
+                <div>
+                  <div class="q-pb-xs q-pt-xl">
+                    <img src="../../statics/wallet.png" style="width: 25px" />
+                  </div>
+                  <div
+                    class="q-py-sm text-h6 text-weight-bold align-left"
+                    style="max-width: 300px"
+                  >
+                    Wallet
+                  </div>
+                  <div class="q-py-sm" style="max-width: 300px">
+                    Make secured escrow payments in a flash.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div
+              class="row"
+              style="
+                 {
+                  width: calc(100% - 32px);
+                  height: 290px;
+                  border-bottom: 1px solid #ccc;
+                }
+              "
+            >
+              <div class="q-px-lg q-py-xl flex text-justify">
+                <div>
+                  <div class="q-pb-xs q-pt-xl">
+                    <img src="../../statics/ring.png" style="width: 25px" />
+                  </div>
+                  <div
+                    class="q-py-sm text-h6 text-weight-bold align-left"
+                    style="max-width: 300px"
+                  >
+                    Connect to Earn
+                  </div>
+                  <div class="q-py-sm" style="max-width: 300px">
+                    Help friends connect with buyers and earn from the sales.
+                    Sellers can add how much they want referrers to earn on
+                    every sale.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="row"
+              style="
+                 {
+                  width: calc(100% - 32px);
+                  height: 290px;
+                }
+              "
+            >
+              <div class="q-px-lg q-py-lg flex text-justify">
+                <div>
+                  <div class="q-pb-xs q-pt-sm">
+                    <img src="../../statics/coins.png" style="width: 25px" />
+                  </div>
+                  <div
+                    class="q-py-sm text-h6 text-weight-bold align-left"
+                    style="max-width: 300px"
+                  >
+                    Paylidate Points
+                  </div>
+                  <div class="q-py-sm" style="max-width: 300px">
+                    Earn Paylidate points on the go. Milestone points,
+                    transaction points, bonuses and other offers.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="gt-sm q-py-xs text-center text-h6 flex justify-center text-weight-light"
+        >
+          <q-btn
+            color="primary"
+            no-caps
+            size="18px"
+            class="q-px-lg Montserrat"
+            label="Learn More"
+            :to="{ name: '#' }"
+          />
+        </div>
+
+        <!-- Mobile Responsiveness -->
+        <q-card class="my-card flex bg-white lt-md" style="width: 100%">
+          <div class=" full-width flex justify-center q-py-md">
+            <div class="flex q-gutter-y-md text-h6 text-weight-bold text-primary q-pt-xl" style="max-width: 250px">
+              Get started with our unique features.
+            </div>
+          </div>
+
+            <div class="full-width q-py-none q-px-lg Montserrat">
+          <div class="col align-left">
+            <q-card-section>
+              <div class="text-justify flex q-py-md">
+                <div>
+                  <div class="q-py-sm">
+                    <img src="../../statics/money.png" style="width: 25px" />
+                  </div>
+                  <div
+                    class="q-py-sm text-subtitle1 text-weight-bold align-left"
+                    style="max-width: 300px"
+                  >
+                    Escrow
+                  </div>
+                  <div class="q-py-sm text-subtitle2" style="max-width: 300px">
+                    Buy and sell with ease. Use Paylidate's escrow payment to
+                    secure your transactions.
+                  </div>
+                </div>
+              </div>
+
+              <q-separator />
+            </q-card-section>
+
+            <q-card-section>
+              <div class="text-justify flex q-pb-md">
+                <div>
+                  <div class="q-py-sm">
+                    <img src="../../statics/receipt.png" style="width: 25px" />
+                  </div>
+                  <div
+                    class="q-py-sm text-subtitle1 text-weight-bold align-left"
+                    style="max-width: 300px"
+                  >
+                    Paylidate Checkouts
+                  </div>
+                  <div class="q-py-sm text-subtitle2" style="max-width: 300px">
+                    Use Paylidate button to checkout with just an email address
+                    and password.
+                  </div>
+                </div>
+              </div>
+              <q-separator />
+            </q-card-section>
+
+            <q-card-section>
+              <div class="text-justify flex q-pb-md">
+                <div>
+                  <div class="q-py-sm">
+                    <img src="../../statics/wallet.png" style="width: 25px" />
+                  </div>
+                  <div
+                    class="q-py-sm text-subtitle1 text-weight-bold align-left"
+                    style="max-width: 300px"
+                  >
+                    Wallet
+                  </div>
+                  <div class="q-py-sm text-subtitle2" style="max-width: 300px">
+                    Make secured escrow payments in a flash.
+                  </div>
+                </div>
+              </div>
+              <q-separator />
+            </q-card-section>
+            <q-card-section>
+              <div class="text-justify flex q-pb-md">
+                <div>
+                  <div class="q-py-sm">
+                    <img src="../../statics/ring.png" style="width: 25px" />
+                  </div>
+                  <div
+                    class="q-py-sm text-subtitle1 text-weight-bold align-left"
+                    style="max-width: 300px"
+                  >
+                    Connect to Earn
+                  </div>
+                  <div class="q-py-sm text-subtitle2" style="max-width: 300px">
+                    Help friends connect with buyers and earn from the sales.
+                    Sellers can add how much they want referrers to earn on
+                    every sale.
+                  </div>
+                </div>
+              </div>
+              <q-separator />
+            </q-card-section>
+
+            <q-card-section>
+              <div class="text-justify flex q-py-md">
+                <div>
+                  <div class="q-py-sm">
+                    <img src="../../statics/coins.png" style="width: 25px" />
+                  </div>
+                  <div
+                    class="q-py-sm text-subtitle1 text-weight-bold align-left"
+                    style="max-width: 300px"
+                  >
+                    Paylidate Points
+                  </div>
+                  <div class="q-py-sm text-subtitle2" style="max-width: 300px">
+                    Earn Paylidate points on the go. Milestone points,
+                    transaction points, bonuses and other offers.
+                  </div>
+                </div>
+              </div>
+            </q-card-section>
+          </div>
+          </div>
+          <div class=" full-width flex justify-center q-py-sm q-pb-xl">
+            <div class="flex q-gutter-y-md">
+            <q-btn
+              color="primary"
+              no-caps
+              size="10px"
+              class="q-px-xl Montserrat"
+              label="Learn More"
+              :to="{ name: '#' }"
+            />
+          </div>
+        </div>
+        </q-card>
+      </div>
+    </div>
+
+    <!-- Partners Mobile Responsiveness -->
     <div class="full-width bg-green flex justify-center q-py-md Montserrat">
       <div class="column items-center full-width lt-md" style="height: 150px">
         <div class="col">
@@ -1209,6 +1507,7 @@
         </div>
       </div>
 
+      <!-- Partners -->
       <div class="row full-width Montserrat gt-sm">
         <div class="col-8">
           <div
@@ -1304,11 +1603,7 @@
             </div>
           </div>
           <div class="row full-width flex justify-center q-py-lg">
-            <div
-              :class="
-                $q.screen.gt.sm ? 'flex justify-center' : 'flex q-gutter-y-md'
-              "
-            >
+            <div class="flex q-gutter-y-md">
               <div
                 class="text-center text-h6 flex flex-center text-weight-light"
               >
@@ -1348,18 +1643,17 @@
             <div class="row">
               <div>
                 <img
-                src="../../statics/payli_logo.png"
-                style="max-width: 200px"
-              />
+                  src="../../statics/payli_logo.png"
+                  style="max-width: 200px"
+                />
               </div>
               <div class="q-px-sm q-py-sm">
-              <img
-                src="../../statics/payli_text.png"
-                style="max-width: 200px"
-              />
+                <img
+                  src="../../statics/payli_text.png"
+                  style="max-width: 200px"
+                />
+              </div>
             </div>
-            </div>
-
           </div>
           <div class="col-2 text-white">
             <div class="row text-h6 text-weight-medium">Company</div>

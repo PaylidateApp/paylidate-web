@@ -1,52 +1,38 @@
 <template>
   <q-layout view="hHh Lpr lFf">
     <q-header class="bg-orange-1" >
-      <q-toolbar class="row justify-between">
+      <q-toolbar>
 
-        <div class="col-sm-2 align-left">
-            <div
-                  class="q-py-md q-pl-md text-h6 text-weight-bold align-left"
-                  style="{max-width: 300px, padding-right: 0px;}"
-                >
-                <q-toolbar-title>
-                <q-btn :to=" {name: isLoggedIn ? 'home' : 'index'}" flat dense stack no-caps>
-                <img src="../statics/paylidate-logo.png" style="max-width: 150px">
-              </q-btn>
-            </q-toolbar-title>
-            </div>
+        <q-toolbar-title>
+          <q-btn :to=" {name: isLoggedIn ? 'home' : 'index'}" flat dense stack no-caps>
+            <img src="../statics/paylidate-logo.png" style="max-width: 150px">
+          </q-btn>
+        </q-toolbar-title>
+
+        <div v-if="isLoggedIn" class="row">
+          <!-- <ActivateCard v-if="!account || !Object.keys(account).length " /> -->
+          <q-btn color="black" @click="userMode(true)" flat no-caps label="Admin Mode" v-if="false" />
+          <q-btn color="black" @click="userMode(false)" flat no-caps label="User Mode" v-if="false" />
+          <q-btn color="black" flat no-caps label="Escrow" :to="{name: 'escrow'}" v-if="$q.screen.gt.xs" />
+          <!-- <Notifications class="q-mx-sm"/> -->
+          <Profile v-if="user &&  Object.keys(user).length " :user="user" />
         </div>
 
-            <div v-if="isLoggedIn" class="row">
-              <!-- <ActivateCard v-if="!account || !Object.keys(account).length " /> -->
-              <q-btn color="black" @click="userMode(true)" flat no-caps label="Admin Mode" v-if="false" />
-              <q-btn color="black" @click="userMode(false)" flat no-caps label="User Mode" v-if="false" />
-              <q-btn color="black" flat no-caps label="Escrow" :to="{name: 'escrow'}" v-if="$q.screen.gt.xs" />
-              <!-- <Notifications class="q-mx-sm"/> -->
-              <Profile v-if="user &&  Object.keys(user).length " :user="user" />
-            </div>
-
-            <div v-else class="col-md-8 col-sm-6 align-left q-py-md">
-            <div v-if="$q.screen.gt.xs && $q.screen.gt.sm">
-                <q-btn color="black" href="#escrow" size="md" flat no-caps label="Escrow"  />
-                <q-btn color="black" href="#support" size="md" flat no-caps label="Support" />
-                <q-btn color="black" href="#about" size="md" flat no-caps label="About Us"  />
-                <q-btn color="black" href="#team" flat size="md" no-caps tag="a" label="Team" />
-                <q-btn color="black" href="#faq" flat size="md" no-caps label="FAQ"  />
-              </div>
-          </div>
-
-          <div class="col-md-2 col-sm-2 align-left q-py-md q-gutter-x-xs">
-        <div class="row">
-          <div class="col q-pa-sm">
-            <q-btn color="secondary" size="md" no-caps label="Register" :to="{name: 'register'}" />
-          </div>
-          <div class="col q-pa-sm">
-              <q-btn color="primary" size="md" no-caps label="Login" :to="{name: 'login'}" />
-          </div>
+        <div v-else class="row q-gutter-y-xs">
+          <q-btn color="black" href="#escrow" flat no-caps label="Escrow" v-if="$q.screen.gt.xs" />
+          <q-btn color="black" href="#virtual_card" flat no-caps label="Support" v-if="$q.screen.gt.xs" />
+          <q-btn color="black" href="https://www.paylidate.com/about" flat no-caps label="About Us" v-if="$q.screen.gt.xs" />
+          <q-btn color="black" href="#team" flat no-caps tag="a" label="Instant Pay" v-if="$q.screen.gt.xs" />
+          <q-btn color="black" href="https://www.paylidate.com/faq" flat no-caps label="FAQ" v-if="$q.screen.gt.xs" />
+          <span class="q-gutter-x-xs">
+            <q-btn color="secondary" size="sm" no-caps label="Register" :to="{name: 'register'}" />
+            <q-btn color="black" size="sm" no-caps label="Login" :to="{name: 'login'}" />
+          </span>
         </div>
-      </div>
-          <q-btn color="secondary" flat dense round v-if="isLoggedIn && $q.screen.lt.sm && theauth" icon="menu"
+
+        <q-btn color="secondary" flat dense round v-if="isLoggedIn && $q.screen.lt.sm && theauth" icon="menu"
           aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
+
       </q-toolbar>
     </q-header>
 
@@ -82,6 +68,8 @@
         <LogOut v-if="isLoggedIn" :variant="'large'" class="fixed-bottom" />
       </q-list>
     </q-drawer>
+
+
 
     <q-page-container>
       <router-view />
@@ -139,10 +127,10 @@ export default {
           is_authenticated: false
         },
         {
-          title: 'Team',
+          title: 'Instant Pay',
           caption: '',
-          icon: 'group',
-          link: '#team',
+          icon: 'payment',
+          link: '#instant',
           is_active: true,
           is_authenticated: false
         },
