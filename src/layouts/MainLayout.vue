@@ -25,7 +25,7 @@
           <q-btn color="black" href="#team" flat no-caps tag="a" label="Instant Pay" v-if="$q.screen.gt.xs" />
           <q-btn color="black" href="https://www.paylidate.com/faq" flat no-caps label="FAQ" v-if="$q.screen.gt.xs" />
           <span class="q-gutter-x-xs">
-            <q-btn color="secondary" size="sm" no-caps label="Register" :to="{name: 'register'}" />
+            <q-btn color="secondary" size="sm" no-caps label="Sign Up" :to="{name: 'register'}" />
             <q-btn color="black" size="sm" no-caps label="Login" :to="{name: 'login'}" />
           </span>
         </div>
