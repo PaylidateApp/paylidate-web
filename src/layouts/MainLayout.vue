@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh Lpr lFf">
-    <q-header class="bg-orange-1" >
+    <q-header style="background-image: linear-gradient(to right, #FFF4D8 -0.12%, #FFD0B9 96.86% );" >
       <q-toolbar>
 
         <q-toolbar-title>

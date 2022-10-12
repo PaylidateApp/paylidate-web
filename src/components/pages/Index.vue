@@ -1,76 +1,77 @@
 <template>
   <q-page
+    class="section1"
     :class="$q.screen.gt.sm ? 'text-primary row q-pt-md' : 'text-primary row'"
-    class="bg-orange-1 font-Nexa-Light"
     style="scroll-behavior: smooth; font-family: 'Mukta', sans-serif"
   >
-    <div class="q-pr-xl q-mt-lg full-width flex justify-center bg-orange-1">
-      <q-dialog v-model="play">
-        <q-card style="min-width: 300px">
-          <q-card-section>
-            <div class="text-h4"></div>
-          </q-card-section>
-
-          <q-card-section>
-            <div>
-              <iframe
-                width="420"
-                height="345"
-                src="https://www.youtube.com/embed/7CiyRLBaDDA?controls=0"
-              ></iframe>
-            </div>
-          </q-card-section>
-
-          <q-card-actions align="right">
-            <q-btn
-              flat
-              label="cancel"
-              color="green-3"
-              text-color="red"
-              v-close-popup
-            />
-          </q-card-actions>
-        </q-card>
-      </q-dialog>
-
+    <div
+      class="section1 q-pr-xl q-mt-lg full-width flex justify-center gt-sm"
+      style="height: 612px"
+    >
       <div style="max-width: 1200px" class="q-pb-none">
         <div class="row items-center justify-center reverse">
-          <div
-            class="col-12 col-sm-5 align-center q-pt-md gt-sm"
-          >
+          <div class="col-12 col-sm-8 align-center q-pt-md">
             <img
               src="../../statics/girlie.png"
               spinner-color="white"
               style="
-                width: 100%;
-                height: 500px;
-                padding-top: 25px;
-                padding-bottom: 0px;
+                width: 838px;
+                height: 596px;
+                padding-top: 20px;
+                padding-left: 0px;
               "
             />
           </div>
 
-          <div class="col-12 col-sm-7 font-Nexa-Light">
+          <div class="col-12 col-sm-4">
             <div
-              class="q-pt-lg q-pb-none text-h2 text-weight-bold text-primary gt-sm font-Nexa-Light"
+              class="gt-sm"
               style="
+                width: 520px;
+                height: 270;
                 max-width: 600px;
-                /* font-family: 'font-Nexa-Light', sans-serif; */
+                padding-top: 10px;
+                padding-left: 30px;
+                color: #001140;
+                font-family: 'Nexa';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 60px;
+                line-height: 69px;
               "
             >
               Fast and secured <span>digital payments</span>
               guaranteed
             </div>
             <div
-              class="text-h6 q-py-md text-weight-light gt-sm"
-              style="max-width: 500px"
+              class="text-weight-light gt-sm"
+              style="
+                padding-top: 30px;
+                padding-left: 30px;
+                height: 64px;
+                width: 508px;
+                font-family: 'Montserrat';
+                color: #89817d;
+              "
             >
               Helping millions of Nigerian buyers and sellers transact safely
               from anywhere without doubt or fear
             </div>
 
             <div
-              class="row items-start text-h6 q-gutter-sm text-weight-light gt-sm"
+              class="row items-start q-gutter-sm gt-sm"
+              style="
+                padding-top: 30px;
+                padding-left: 30px;
+                height: 64px;
+                width: 508px;
+                font-family: 'Montserrat';
+                color: #0e3951;
+                font-style: normal;
+                font-weight: 650;
+                font-size: 14px;
+                line-height: 20px;
+              "
             >
               <div class="col">Transaction Security</div>
               <q-separator vertical />
@@ -83,14 +84,21 @@
               </div>
             </div>
             <div
-              class="text-weight-light q-gutter-sm q-py-lg gt-sm"
-              style="max-width: 600px"
+              class="text-weight-light q-gutter-sm gt-sm"
+              style="
+                padding-top: 30px;
+                padding-left: 30px;
+                height: 64px;
+                width: 508px;
+              "
             >
               <q-btn
-                color="primary"
+                style="background: #182430; color: white"
                 no-caps
+                rounded-borders
+                padding="10px 16px"
                 size="18px"
-                class="q-px-xl Montserrat"
+                class="Montserrat"
                 label="Register"
                 :to="{ name: 'register' }"
               />
@@ -112,11 +120,16 @@
 
     <!-- Mobile Responsiveness -->
     <div
-      class="lt-md text-center item-center full-width flex flex justify-center bg-orange-1 font-Nexa-Light"
+      class="lt-md text-center item-center full-width flex flex justify-center font-Nexa-Light"
+      style="
+        background-image: linear-gradient(
+          to right,
+          #fff4d8 -0.12%,
+          #ffd0b9 96.86%
+        );
+      "
     >
-      <div
-        class="text-h6 text-weight-bold text-primary font-Nexa-Light"
-      >
+      <div class="text-h6 text-weight-bold text-primary font-Nexa-Light">
         Fast and secured <span>digital payments</span>
         guaranteed
       </div>
@@ -138,10 +151,7 @@
         <div class="col text-center flex justify-center">Buyer Protection</div>
       </div>
 
-      <div
-        class="text-primary q-py-lg"
-        style="max-width: 500px"
-      >
+      <div class="text-primary q-py-lg" style="max-width: 500px">
         <q-btn
           color="primary"
           no-caps
@@ -152,95 +162,169 @@
         />
       </div>
 
-      <div
-        class="text-primary flex item-center "
-      >
-
+      <div class="text-primary flex item-center">
         <img
-          src="../../statics/girlie.png"
+          src="../../statics/girlie_mobo.png"
           spinner-color="white"
-          style="width: 100%; padding-right: 80px;"
+          style="width: 100%; padding-right: 80px"
         />
-
       </div>
     </div>
 
     <!-- What Paylidate will do for you -->
-    <div class="q-pa-sm q-pa-sm-xl full-width bg-grey-1 flex justify-center">
+    <div
+      class="q-py-xl q-pa-sm q-pa-sm-xl full-width bg-grey-1 flex justify-center"
+    >
       <div style="max-width: 1200px" class="q-py-xl full-width text-center">
-        <div
-          class="gt-sm text-center flex justify-center"
-        >
-          <div
-            class="text-h2 text-weight-bold text-primary font-Nexa-Light"
-            style="max-width: 500px"
-          >
-            What Paylidate can do for you.
+        <div class="gt-sm">
+          <div class="text-center flex justify-center">
+            <div class="headings" style="">
+              What paylidate can do for you
+            </div>
           </div>
-        </div>
 
-        <div class="gt-sm row full-width q-py-xl Circular">
-          <div class="col-md-3 col-sm-3 align-left">
-            <div class="text-left flex justify-left">
-              <div>
-                <div
-                  class="q-py-md text-h6 text-weight-bold align-left"
-                  style="max-width: 300px"
-                >
-                  01/ Payments
+          <div class="row">
+            <div class="col-6 col-md-3">
+              <div class="row">
+                <div class="text-left flex justify-left">
+                  <div>
+                    <div
+                      class="q-py-md align-left"
+                      style="
+                        height: 30px;
+                        width: 160px;
+                        font-family: 'Nexa';
+                        color: #001140;
+                        font-weight: 700;
+                        font-size: 20px;
+                        line-height: 60px;
+                      "
+                    >
+                      01/ Payments
+                    </div>
+                    <div
+                      class="q-py-xl text-justify Montserrat"
+                      style="
+                        height: 65px;
+                        width: 250px;
+                        color: #6a6664;
+                        font-weight: 600;
+                        font-size: 14px;
+                        line-height: 22px;
+                      "
+                    >
+                      Make payments quickly, easily and safely. Payment would be
+                      held in escrow until you confirm the delivery
+                    </div>
+                  </div>
                 </div>
-                <div class="q-py-md text-subtitle1 text-justify" style="max-width: 300px">
-                  Make payments quickly, easily and safely. Payment would be
-                  held in escrow until you confirm the delivery
+              </div>
+              <div class="row" style="padding-top: 140px">
+                <div class="text-left flex justify-left">
+                  <div
+                    class="q-py-md align-left"
+                    style="
+                      height: 30px;
+                      width: 160px;
+                      font-family: 'Nexa';
+                      color: #001140;
+                      font-weight: 700;
+                      font-size: 20px;
+                      line-height: 60px;
+                    "
+                  >
+                    03/ Refunds
+                  </div>
+                  <div
+                    class=" Montserrat q-py-xl text-justify"
+                    style="
+                      height: 65px;
+                        width: 250px;
+                        color: #6a6664;
+                        font-weight: 600;
+                        font-size: 14px;
+                        line-height: 22px;
+                    "
+                  >
+                    Get a refund if what you got is different from what was
+                    specified by the vendor
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col-md-3 offset-md-6 col-sm-3 align-center">
-            <div class="text-left flex justify-left">
-              <div>
-                <div
-                  class="q-py-md text-h6 text-weight-bold align-left"
-                  style="max-width: 300px"
-                >
-                  02/ Disputes
-                </div>
-                <div class="q-py-md text-subtitle1 text-justify" style="max-width: 300px">
-                  Raise disputes to clear out issues with a transaction
+            <div class="col-6 col-md-6 flex justify-center align-center">
+              <img
+                src="../../statics/gif_for_changing images.gif"
+                spinner-color="white"
+                style="width: 600px; height: 420px; padding-top: 40px; padding-left: 30px"
+              />
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="row" style="padding-left: 100px">
+                <div class="text-left flex justify-left">
+                  <div>
+                    <div
+                      class="q-py-md align-left"
+                      style="
+                        height: 30px;
+                        width: 160px;
+                        font-family: 'Nexa';
+                        color: #001140;
+                        font-weight: 700;
+                        font-size: 20px;
+                        line-height: 60px;
+                      "
+                    >
+                      02/ Disputes
+                    </div>
+                    <div
+                      class="Montserrat q-py-xl text-justify"
+                      style="
+                        height: 65px;
+                        width: 180px;
+                        color: #6a6664;
+                        font-weight: 600;
+                        font-size: 14px;
+                        line-height: 22px;
+                      "
+                    >
+                      Raise disputes to clear out issues with a transaction
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="gt-sm row full-width q-py-xl Circular">
-          <div class="col-md-3 col-sm-3 align-left">
-            <div class="text-left flex justify-left">
-              <div>
-                <div
-                  class="q-py-md text-h6 text-weight-bold align-left"
-                  style="max-width: 300px"
-                >
-                  03/ Refunds
-                </div>
-                <div class="q-py-md text-subtitle1 text-justify" style="max-width: 300px">
-                  Get a refund if what you got is different from what was
-                  specified by the vendor
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 offset-md-6 col-sm-3 align-center">
-            <div class="text-left flex justify-left">
-              <div>
-                <div
-                  class="q-py-md text-h6 text-weight-bold align-left"
-                  style="max-width: 300px"
-                >
-                  04/ Bonuses
-                </div>
-                <div class="q-py-md text-subtitle1 text-justify" style="max-width: 300px">
-                  Earn points from referrals, connecting vendors with buyers and
-                  meeting transaction milestone.
+              <div class="row" style="padding-top: 140px; padding-left: 100px">
+                <div class="text-left flex justify-left">
+                  <div>
+                    <div
+                      class="q-py-md align-left"
+                      style="
+                        height: 30px;
+                        width: 160px;
+                        font-family: 'Nexa';
+                        color: #001140;
+                        font-weight: 700;
+                        font-size: 20px;
+                        line-height: 60px;
+                      "
+                    >
+                      04/ Bonuses
+                    </div>
+                    <div
+                      class="Montserrat q-py-xl text-justify"
+                      style="
+                        height: 65px;
+                        width: 180px;
+                        color: #6a6664;
+                        font-weight: 600;
+                        font-size: 14px;
+                        line-height: 22px;
+                      "
+                    >
+                      Earn points from referrals, connecting vendors with buyers
+                      and meeting transaction milestone.
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -340,24 +424,18 @@
 
     <!-- How Paylidate Works -->
     <div
-      class="q-pa-sm q-pa-sm-xl full-width bg-blue-grey-10 flex justify-center"
+      class="q-pa-sm q-pa-sm-xl full-width flex justify-center"
+      style="background-color: #182430"
     >
       <div style="max-width: 1200px" class="q-py-xl full-width text-center">
-        <div
-          class="gt-sm text-center flex justify-center"
-        >
-          <div
-            class="text-h2 text-weight-bold text-white font-Nexa-Light"
-            style="max-width: 700px"
-          >
-            How Paylidate works
+        <div class="gt-sm text-center flex justify-center">
+          <div class="headings text-white " style="width: 600px;">
+            How Paylidate Works
           </div>
         </div>
 
         <div class="gt-sm row full-width q-pt-xl justify-evenly">
-          <div
-            class="text-center flex justify-center"
-          >
+          <div class="text-center flex justify-center">
             <div class="col-3 col-sm-3 q-pa-sm">
               <q-btn
                 color="secondary"
@@ -365,7 +443,6 @@
                 size="18px"
                 class="q-px-xl q-py-xs Montserrat"
                 label="For Sellers"
-                disable
               />
             </div>
             <div class="col-3 col-sm-3 q-pa-sm">
@@ -382,9 +459,13 @@
         </div>
 
         <div class="gt-sm row">
-          <q-card class="my-card bg-blue-grey-10" flat style="width: 100%">
-            <div class="row full-width q-py-sm Circular">
-              <q-card-section class="q-px-xl">
+          <q-card
+            class="my-card"
+            flat
+            style="width: 100%; background-color: #182430"
+          >
+            <div class="row full-width q-py-sm Montserrat">
+              <q-card-section class="q-px-xl card_section">
                 <div class="row q-py-lg">
                   <div class="text-left flex justify-left">
                     <div class="col-2">
@@ -404,7 +485,7 @@
                       </div>
                       <div
                         class="col-4 q-py-sm text-white text-subtitle1 text-justify"
-                        style="width: 300px; height: 80px;"
+                        style="width: 300px; height: 80px"
                       >
                         A simple sign up page to get you on board.
                       </div>
@@ -448,7 +529,7 @@
                       </div>
                       <div
                         class="q-py-sm text-white text-subtitle1 text-justify"
-                        style="width: 300px; height: 80px;"
+                        style="width: 300px; height: 80px"
                       >
                         Add your account number in the settings and complete
                         your account setup
@@ -493,7 +574,7 @@
                       </div>
                       <div
                         class="q-py-sm text-white text-subtitle1 text-justify"
-                        style="width: 300px; height: 80px;"
+                        style="width: 300px; height: 80px"
                       >
                         Click the "create" button on the product page, add your
                         product/service details to create a product link.
@@ -538,7 +619,7 @@
                       </div>
                       <div
                         class="q-py-sm text-white text-subtitle1 text-justify"
-                        style="width: 300px; height: 80px;"
+                        style="width: 300px; height: 80px"
                       >
                         Copy and share the generated product link
                       </div>
@@ -582,10 +663,10 @@
                       </div>
                       <div
                         class="q-py-sm text-white text-subtitle1 text-justify"
-                        style="width: 300px; height: 80px;"
+                        style="width: 300px; height: 80px"
                       >
-                        When customers pay through your product link, you receive
-                        an email alert of the payment
+                        When customers pay through your product link, you
+                        receive an email alert of the payment
                       </div>
                     </div>
                     <div class="col-2">
@@ -627,7 +708,7 @@
                       </div>
                       <div
                         class="q-py-sm text-white text-subtitle1 text-justify"
-                        style="width: 300px; height: 80px;"
+                        style="width: 300px; height: 80px"
                       >
                         Complete the agreed delivery
                       </div>
@@ -671,7 +752,7 @@
                       </div>
                       <div
                         class="q-py-sm text-white text-subtitle1 text-justify"
-                        style="width: 300px; height: 80px;"
+                        style="width: 300px; height: 80px"
                       >
                         When delivery is complete, withdrawal will be enabled
                       </div>
@@ -732,14 +813,18 @@
           </div>
         </div>
 
-        <q-card class="my-card flex bg-blue-grey-10 lt-md" flat style="width: 100%">
+        <q-card
+          class="my-card flex bg-blue-grey-10 lt-md"
+          flat
+          style="width: 100%"
+        >
           <div class="row full-width flex justify-center q-py-sm Circular">
             <q-card-section>
               <div class="row q-py-lg">
                 <div class="text-left flex justify-left">
                   <div class="col-2">
                     <div
-                      class="q-py-sm q-px-sm text-subtitle1 text-white text-weight-bold align-left "
+                      class="q-py-sm q-px-sm text-subtitle1 text-white text-weight-bold align-left"
                       style="max-width: 100px"
                     >
                       01/
@@ -1050,13 +1135,16 @@
     </div>
 
     <!--About Paylidate  -->
-    <div class="q-pa-sm q-pa-sm-xl full-width flex justify-center" style="background-color: #319ed9;">
+    <div
+      class="q-pa-sm q-pa-sm-xl full-width flex justify-center"
+      style="background-color: #319ed9"
+    >
       <div style="max-width: 1200px" class="q-py-lg q-py-sm-xl full-width">
         <div class="row justify-evenly gt-sm">
           <div class="col-12 col-sm-5 flex justify-center">
             <div class="row q-pt-xl">
               <img
-                src="../../statics/rectangle21.png"
+                src="../../statics/handshake.png"
                 spinner-color="white"
                 style="width: 100%; height: 80%"
               />
@@ -1081,9 +1169,9 @@
               class="text-h6 q-py-lg q-py-sm-none text-weight-light Circular"
               :style="$q.screen.gt.sm ? '' : 'line-height:normal'"
             >
-              We believe you should be able to choose how you want to pay
-              during transactions online without being subjected to the risk of
-              loosing your money.
+              We believe you should be able to choose how you want to pay during
+              transactions online without being subjected to the risk of loosing
+              your money.
               <br /><br />
 
               <div
@@ -1117,14 +1205,15 @@
               Paylidate connects buyers and sellers
             </div>
             <div class="text-subtitle1 q-py-md text-weight-light Circular">
-              We believe you should be able to choose how you want to pay
-              during transactions online without being subjected to the risk of
-              loosing your money.
-              <br /> <br />
+              We believe you should be able to choose how you want to pay during
+              transactions online without being subjected to the risk of loosing
+              your money.
+              <br />
+              <br />
 
               <div class="row q-pa-md">
                 <img
-                  src="../../statics/rectangle21.png"
+                  src="../../statics/handshake_mobo.png"
                   spinner-color="white"
                   style="width: 90%; height: 80%"
                 />
@@ -1474,7 +1563,9 @@
     </div>
 
     <!-- Partners Mobile Responsiveness -->
-    <div class="full-width bg-green flex justify-center q-py-md font-Nexa-Light">
+    <div
+      class="full-width bg-green flex justify-center q-py-md font-Nexa-Light"
+    >
       <div class="column items-center full-width lt-md" style="height: 150px">
         <div class="col">
           <div
@@ -1591,24 +1682,34 @@
         <div style="max-width: 1200px" class="full-width text-center">
           <div class="row justify-evenly">
             <div class="col-4 q-py-sm q-px-xl text-primary">
-              <div class="row text-h6 text-weight-light font-Nexa-Light">Company</div>
+              <div class="row text-h6 text-weight-light font-Nexa-Light">
+                Company
+              </div>
               <div class="row q-py-sm Circular">Legal</div>
               <div class="row q-py-sm Circular">Developers</div>
               <div class="row q-py-sm Circular">Security</div>
               <div class="row q-py-sm Circular">Partners</div>
-              <div class="row q-py-sm text-justify Circular">Escrow Agreement</div>
+              <div class="row q-py-sm text-justify Circular">
+                Escrow Agreement
+              </div>
               <div class="row q-py-sm Circular">Privacy</div>
             </div>
             <div class="col-4 q-py-sm q-px-xl text-primary">
-              <div class="row text-h6 text-weight-light font-Nexa-Light">Sitemap</div>
+              <div class="row text-h6 text-weight-light font-Nexa-Light">
+                Sitemap
+              </div>
               <div class="row q-py-sm Circular">Home</div>
               <div class="row q-py-sm Circular">Fees</div>
-              <div class="row q-py-sm text-justify Circular">Resource Center</div>
+              <div class="row q-py-sm text-justify Circular">
+                Resource Center
+              </div>
               <div class="row q-py-sm Circular">About</div>
               <div class="row q-py-sm Circular">FAQ</div>
             </div>
             <div class="col-4 q-py-sm q-px-xl text-primary">
-              <div class="row text-h6 text-weight-light font-Nexa-Light">Socials</div>
+              <div class="row text-h6 text-weight-light font-Nexa-Light">
+                Socials
+              </div>
               <div class="row q-py-sm Circular">Facebook</div>
               <div class="row q-py-sm Circular">Linkedin</div>
               <div class="row q-py-sm Circular">Instagram</div>
@@ -1617,7 +1718,9 @@
           </div>
           <div class="text-center text-h6 flex flex-center text-weight-light">
             <div class="q-gutter-y-sm">
-              <div class="text-secondary text-h4 font-Nexa-Light">Head Office</div>
+              <div class="text-secondary text-h4 font-Nexa-Light">
+                Head Office
+              </div>
               <div class="text-subtitle1 text-bold Circular">
                 No. 14 Oluwasogo Str. Ikeja, Lagos
               </div>
@@ -1629,7 +1732,9 @@
                 class="text-center text-h6 flex flex-center text-weight-light"
               >
                 <div class="q-gutter-y-sm">
-                  <div class="text-secondary text-h4 font-Nexa-Light">News Letter</div>
+                  <div class="text-secondary text-h4 font-Nexa-Light">
+                    News Letter
+                  </div>
                   <div class="row">
                     <q-input
                       v-model="text"
@@ -1668,16 +1773,12 @@
                   style="max-width: 200px"
                 />
               </div>
-              <div class="q-px-sm q-py-sm">
-                <img
-                  src="../../statics/payli_text.png"
-                  style="max-width: 200px"
-                />
-              </div>
             </div>
           </div>
           <div class="col-2 text-white">
-            <div class="row text-h6 text-weight-medium font-Nexa-Light">Company</div>
+            <div class="row text-h6 text-weight-medium font-Nexa-Light">
+              Company
+            </div>
             <div class="row q-py-sm Circular">Legal</div>
             <div class="row q-py-sm Circular">Developers</div>
             <div class="row q-py-sm Circular">Security</div>
@@ -1686,23 +1787,31 @@
             <div class="row q-py-sm Circular">Privacy</div>
           </div>
           <div class="col-2 text-white">
-            <div class="row text-h6 text-weight-medium font-Nexa-Light">Sitemap</div>
+            <div class="row text-h6 text-weight-medium font-Nexa-Light">
+              Sitemap
+            </div>
             <div class="row q-py-sm Circular">Home</div>
             <div class="row q-py-sm Circular">Fees</div>
             <div class="row q-py-sm Circular">Resource Center</div>
-            <div class="row q-py-sm Circular">About </div>
-            <div class="row q-py-sm Circular">FAQ </div>
+            <div class="row q-py-sm Circular">About</div>
+            <div class="row q-py-sm Circular">FAQ</div>
           </div>
-          <div class ="col-2 text-white">
-            <div class ="row text-h6 text-weight-medium font-Nexa-Light">Socials</div>
+          <div class="col-2 text-white">
+            <div class="row text-h6 text-weight-medium font-Nexa-Light">
+              Socials
+            </div>
             <div class="row q-py-sm Circular">Facebook</div>
             <div class="row q-py-sm Circular">Linkedin</div>
             <div class="row q-py-sm Circular">Instagram</div>
             <div class="row q-py-sm Circular">Twitter</div>
           </div>
           <div class="col-3 text-white">
-            <div class="row text-h6 text-weight-medium font-Nexa-Light">Head Office</div>
-            <div class="row q-py-sm Circular">No. 14 Oluwasogo Str. Ikeja, Lagos</div>
+            <div class="row text-h6 text-weight-medium font-Nexa-Light">
+              Head Office
+            </div>
+            <div class="row q-py-sm Circular">
+              No. 14 Oluwasogo Str. Ikeja, Lagos
+            </div>
             <div class="row text-h6 text-weight-medium q-py-sm font-Nexa-Light">
               News Letter
             </div>
@@ -1798,5 +1907,27 @@ li {
 
 .Montserrat {
   font-family: "Montserrat", sans-serif;
+}
+
+.section1 {
+  background-image: linear-gradient(to right, #fff4d8 -0.12%, #ffd0b9 96.86%);
+}
+
+.headings {
+  width: 480px;
+  height: 120px;
+  font-weight: 700;
+  font-size: 48px;
+  font-family: "Montserrat";
+  color: #001140;
+  line-height: 62px;
+}
+
+.card_section:hover {
+  background-color: #111a24;
+}
+
+.section2 {
+  background-image: url("./../../statics/frame2.png");
 }
 </style>
