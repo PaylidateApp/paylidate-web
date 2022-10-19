@@ -1,6 +1,7 @@
 <template>
   <q-layout view="hHh Lpr lFf">
-    <q-header class="bg-orange-1" >
+
+    <q-header class="gt-sm" style="background-image: linear-gradient(to right, #FFF4D8 -0.12%, #FFD0B9 96.86% );" >
       <q-toolbar>
 
         <q-toolbar-title>
@@ -18,16 +19,38 @@
           <Profile v-if="user &&  Object.keys(user).length " :user="user" />
         </div>
 
-        <div v-else class="row q-gutter-y-xs">
-          <q-btn color="black" href="#escrow" flat no-caps label="Escrow" v-if="$q.screen.gt.xs" />
-          <q-btn color="black" href="#virtual_card" flat no-caps label="Support" v-if="$q.screen.gt.xs" />
-          <q-btn color="black" href="https://www.paylidate.com/about" flat no-caps label="About Us" v-if="$q.screen.gt.xs" />
-          <q-btn color="black" href="#team" flat no-caps tag="a" label="Instant Pay" v-if="$q.screen.gt.xs" />
-          <q-btn color="black" href="https://www.paylidate.com/faq" flat no-caps label="FAQ" v-if="$q.screen.gt.xs" />
-          <span class="q-gutter-x-xs">
-            <q-btn color="secondary" size="sm" no-caps label="Sign Up" :to="{name: 'register'}" />
-            <q-btn color="black" size="sm" no-caps label="Login" :to="{name: 'login'}" />
+        <div v-else class="row flex full-width">
+          <div class="col-2">
+            <q-toolbar-title>
+          <q-btn :to=" {name: isLoggedIn ? 'home' : 'index'}" flat dense stack no-caps>
+            <img src="../statics/paylidate-logo.png" style="width: 150px; padding-top: 15px;">
+          </q-btn>
+        </q-toolbar-title>
+          </div>
+          <div class="col-7">
+            <div class="nav">
+              <a href="#escrow">Escrow</a>
+              <a href="#support" >Support</a>
+              <a href="https://www.paylidate.com/about">About Us</a>
+              <a href="https://www.paylidate.com/faq" style="text-align: center;">FAQ</a>
+              <a href="#instant_pay" >Instant Pay</a>   
+            </div>
+          </div>
+          <div class="col-3" style="padding: 15px 0px 15px 25px;">
+            <span class="q-gutter-x-xs">
+              <q-btn 
+                no-caps
+                rounded-borders
+                padding="10px 26px"
+                size="14px"
+                class="Montserrat" color="secondary" label="Sign Up" :to="{name: 'register'}" />
+              <q-btn 
+                class="Montserrat"
+                rounded-borders
+                padding="10px 26px"
+                size="14px" color="primary" no-caps label="Login" :to="{name: 'login'}" />          
           </span>
+          </div>
         </div>
 
         <q-btn color="secondary" flat dense round v-if="isLoggedIn && $q.screen.lt.sm && theauth" icon="menu"
@@ -36,7 +59,55 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-if="$q.screen.lt.sm" v-model="leftDrawerOpen" show-if-above side="left" behavior="mobile" :width="250">
+    <q-header class="lt-md" style="background-image: linear-gradient(to right, #FFF4D8 -0.12%, #FFD0B9 96.86% ); border-bottom: 1px solid #ecd2aa;" >
+      <q-toolbar>
+
+        <q-toolbar-title>
+
+            <img src="../statics/paylidate-logo.png" style="width: 95px; height: 30px;">
+          
+        </q-toolbar-title>
+
+        <q-btn flat @click="leftDrawerOpen = !leftDrawerOpen" round dense icon="drag_handle" />
+        
+
+        <!-- <q-btn flat dense round v-if="isLoggedIn && $q.screen.lt.sm && theauth" icon="drag_handle"
+          aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" /> -->
+
+
+      </q-toolbar>
+    </q-header>
+
+    <q-drawer
+        v-model="left"
+        :width="200"
+        :breakpoint="500"
+        overlay
+        bordered
+        class="bg-grey-3"
+      >
+        <q-scroll-area class="fit">
+          <q-list>
+
+            <div v-for="(menuItem, index) in menuList" :key="index">
+              <q-item clickable :active="menuItem.label === 'Outbox'" v-ripple>
+                <q-item-section avatar>
+                  <q-icon :name="menuItem.icon" />
+                </q-item-section>
+                <q-item-section>
+                  {{ menuItem.label }}
+                </q-item-section>
+              </q-item>
+              <q-separator :key="'sep' + index" v-if="menuItem.separator" />
+            </div>
+
+          </q-list>
+        </q-scroll-area>
+      </q-drawer>
+
+
+
+    <q-drawer v-if="$q.screen.lt.sm" class="black" :breakpoint="500" overlay v-model="leftDrawerOpen" show-if-above side="left" behavior="mobile" :width="350">
       <q-list>
         <q-item-label header class="text-secondary text-bold">
         </q-item-label>
@@ -320,5 +391,30 @@ export default {
   },
 
 }
-
 </script>
+
+<style>
+
+.nav {
+    text-align: left;
+    padding-top: 30px;
+    padding-bottom: 15px;
+}
+
+.nav a{
+    text-decoration: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 95px;
+    height: 60px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    color: #76716F;
+}
+
+
+
+
+</style>
