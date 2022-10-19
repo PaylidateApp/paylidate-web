@@ -1,17 +1,18 @@
 <template>
   <q-layout view="hHh Lpr lFf">
-
-    <q-header class="gt-sm" style="background-image: linear-gradient(to right, #FFF4D8 -0.12%, #FFD0B9 96.86% );" >
+    <q-header class="" style="background-color:white">
       <q-toolbar>
 
         <q-toolbar-title>
-          <q-btn :to=" {name: isLoggedIn ? 'home' : 'index'}" flat dense stack no-caps>
+          <q-btn to="/" flat dense stack no-caps>
             <img src="../statics/paylidate-logo.png" style="max-width: 150px">
           </q-btn>
         </q-toolbar-title>
 
         <div v-if="isLoggedIn" class="row">
-          <!-- <ActivateCard v-if="!account || !Object.keys(account).length " /> -->
+            <!-- <q-btn  color="primary" size="13px" style="max-height: 33px; max-width: 104px; margin-top: 5px;" class="q-mx-sm q-pa-none"  v-if="isLoggedIn" no-caps label="Instant Pay" :to="{name: 'instant_pay'}" /> -->
+            <!-- <ActivateCard v-if="!account || !Object.keys(account).length " /> -->
+          <q-btn color="black" @click="userMode(true)" flat no-caps label="Admin Mode" v-if="false" />
           <q-btn color="black" @click="userMode(true)" flat no-caps label="Admin Mode" v-if="false" />
           <q-btn color="black" @click="userMode(false)" flat no-caps label="User Mode" v-if="false" />
           <q-btn color="black" flat no-caps label="Escrow" :to="{name: 'escrow'}" v-if="$q.screen.gt.xs" />
@@ -19,95 +20,34 @@
           <Profile v-if="user &&  Object.keys(user).length " :user="user" />
         </div>
 
-        <div v-else class="row flex full-width">
-          <div class="col-2">
-            <q-toolbar-title>
-          <q-btn :to=" {name: isLoggedIn ? 'home' : 'index'}" flat dense stack no-caps>
-            <img src="../statics/paylidate-logo.png" style="width: 150px; padding-top: 15px;">
-          </q-btn>
-        </q-toolbar-title>
-          </div>
-          <div class="col-7">
-            <div class="nav">
-              <a href="#escrow">Escrow</a>
-              <a href="#support" >Support</a>
-              <a href="https://www.paylidate.com/about">About Us</a>
-              <a href="https://www.paylidate.com/faq" style="text-align: center;">FAQ</a>
-              <a href="#instant_pay" >Instant Pay</a>   
-            </div>
-          </div>
-          <div class="col-3" style="padding: 15px 0px 15px 25px;">
-            <span class="q-gutter-x-xs">
-              <q-btn 
-                no-caps
-                rounded-borders
-                padding="10px 26px"
-                size="14px"
-                class="Montserrat" color="secondary" label="Sign Up" :to="{name: 'register'}" />
-              <q-btn 
-                class="Montserrat"
-                rounded-borders
-                padding="10px 26px"
-                size="14px" color="primary" no-caps label="Login" :to="{name: 'login'}" />          
+        <div v-else class="q-gutter-y-xs">
+        <a href="#escrow">
+          <q-btn color="black" flat no-caps label="Escrow" v-if="$q.screen.gt.xs" />
+        </a>
+        <a href="#support">
+          <q-btn color="black" flat no-caps label="Support" v-if="$q.screen.gt.xs" />
+        </a>
+        <a href="#about">
+          <q-btn color="black" flat no-caps label="About Us" v-if="$q.screen.gt.xs" />
+        </a>
+        <a href="#team">
+          <q-btn color="black" flat no-caps tag="a" label="Team" v-if="$q.screen.gt.xs" />
+        </a>
+        <a href="#faq">
+          <q-btn color="black" flat no-caps label="FAQ" v-if="$q.screen.gt.xs" />
+        </a>
+          <span class="q-gutter-x-xs">
+            <q-btn color="black" size="sm" v-if="isLoggedIn" no-caps label="Instant Pay" :to="{name: 'instant_pay'}" />
+            <q-btn color="secondary" size="sm" no-caps label="Signup" :to="{name: 'register'}" />
+            <q-btn color="black" size="sm" no-caps label="Login" :to="{name: 'login'}" />
           </span>
-          </div>
         </div>
-
-        <q-btn color="secondary" flat dense round v-if="isLoggedIn && $q.screen.lt.sm && theauth" icon="menu"
-          aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
+        <q-btn color="secondary" flat dense round v-if="$q.screen.lt.sm" icon="menu" aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
 
       </q-toolbar>
     </q-header>
 
-    <q-header class="lt-md" style="background-image: linear-gradient(to right, #FFF4D8 -0.12%, #FFD0B9 96.86% ); border-bottom: 1px solid #ecd2aa;" >
-      <q-toolbar>
-
-        <q-toolbar-title>
-
-            <img src="../statics/paylidate-logo.png" style="width: 95px; height: 30px;">
-          
-        </q-toolbar-title>
-
-        <q-btn flat @click="leftDrawerOpen = !leftDrawerOpen" round dense icon="drag_handle" />
-        
-
-        <!-- <q-btn flat dense round v-if="isLoggedIn && $q.screen.lt.sm && theauth" icon="drag_handle"
-          aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" /> -->
-
-
-      </q-toolbar>
-    </q-header>
-
-    <q-drawer
-        v-model="left"
-        :width="200"
-        :breakpoint="500"
-        overlay
-        bordered
-        class="bg-grey-3"
-      >
-        <q-scroll-area class="fit">
-          <q-list>
-
-            <div v-for="(menuItem, index) in menuList" :key="index">
-              <q-item clickable :active="menuItem.label === 'Outbox'" v-ripple>
-                <q-item-section avatar>
-                  <q-icon :name="menuItem.icon" />
-                </q-item-section>
-                <q-item-section>
-                  {{ menuItem.label }}
-                </q-item-section>
-              </q-item>
-              <q-separator :key="'sep' + index" v-if="menuItem.separator" />
-            </div>
-
-          </q-list>
-        </q-scroll-area>
-      </q-drawer>
-
-
-
-    <q-drawer v-if="$q.screen.lt.sm" class="black" :breakpoint="500" overlay v-model="leftDrawerOpen" show-if-above side="left" behavior="mobile" :width="350">
+    <q-drawer v-if="$q.screen.lt.sm" v-model="leftDrawerOpen" show-if-above side="left" behavior="mobile" :width="250">
       <q-list>
         <q-item-label header class="text-secondary text-bold">
         </q-item-label>
@@ -140,6 +80,16 @@
       </q-list>
     </q-drawer>
 
+    <q-dialog v-model="instantPay">
+      <q-card>
+ 
+        <q-card-section class="q-gutter-x-xs">
+          <q-btn color="secondary" size="sm" no-caps label="Transfer money" :to="{name: 'instant_pay'}" />
+            <q-btn color="black" size="sm" no-caps label="Withdraw money" :to="{name: 'recieve_instant_funds'}" />
+        </q-card-section>
+
+      </q-card>
+    </q-dialog>
 
 
     <q-page-container>
@@ -164,7 +114,7 @@ export default {
 
   data () {
     return {
-
+      instantPay: false,
       leftDrawerOpen: false,
       name: '',
       mail: {
@@ -182,10 +132,10 @@ export default {
           is_authenticated: false
         },
         {
-          title: 'Virtual Cards',
+          title: 'Support',
           caption: '',
-          icon: 'credit_card',
-          link: '#virtual_card',
+          icon: 'contact_support',
+          link: '#support',
           is_active: true,
           is_authenticated: false
         },
@@ -198,10 +148,10 @@ export default {
           is_authenticated: false
         },
         {
-          title: 'Instant Pay',
+          title: 'Team',
           caption: '',
-          icon: 'payment',
-          link: '#instant',
+          icon: 'group',
+          link: '#team',
           is_active: true,
           is_authenticated: false
         },
@@ -213,7 +163,7 @@ export default {
           is_active: true,
           is_authenticated: false
         },
-
+        
         {
           title: 'Register',
           caption: '',
@@ -262,6 +212,14 @@ export default {
           is_active: false,
           is_authenticated: true
         },
+        {
+          title: 'Instant Pay',
+          caption: '',
+          icon: 'payments',
+          link: 'instant-pay',
+          is_active: true,
+          is_authenticated: true
+        },
 
         {
           title: 'Trade Points',
@@ -278,8 +236,8 @@ export default {
           link: 'referral',
           is_active: false,
           is_authenticated: true
-        },
-
+        }, 
+        
         {
           title: 'Settings',
           caption: '',
@@ -373,7 +331,7 @@ export default {
   },
 
   methods: {
-
+    
     linkStatus(status){
       if (status && this.$store.state.auth.token) {
         return true
@@ -386,35 +344,19 @@ export default {
     },
 
     userMode(mode){
-      this.$q.localStorage.set('user_mode', mode);
+      this.$q.localStorage.set('user_mode', mode); 
     }
   },
 
 }
+
 </script>
 
-<style>
-
-.nav {
-    text-align: left;
-    padding-top: 30px;
-    padding-bottom: 15px;
+<style lang="scss" scoped>
+a {
+  text-decoration: none;
+  color: inherit;
 }
-
-.nav a{
-    text-decoration: none;
-    padding-left: 10px;
-    padding-right: 10px;
-    width: 95px;
-    height: 60px;
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    color: #76716F;
-}
-
-
-
 
 </style>
+
