@@ -1,6 +1,11 @@
 <template>
   <q-layout view="hHh Lpr lFf">
+<<<<<<< HEAD
     <q-header class="" style="background-color:white">
+=======
+
+    <q-header class="gt-sm" style="background-image: linear-gradient(to right, #FFF4D8 -0.12%, #FFD0B9 96.86% ); width: 100%;">
+>>>>>>> fc3ce9c97837f927fa2b475e61b5eced015ab640
       <q-toolbar>
 
         <q-toolbar-title>
@@ -20,6 +25,7 @@
           <Profile v-if="user &&  Object.keys(user).length " :user="user" />
         </div>
 
+<<<<<<< HEAD
         <div v-else class="q-gutter-y-xs">
         <a href="#escrow">
           <q-btn color="black" flat no-caps label="Escrow" v-if="$q.screen.gt.xs" />
@@ -40,9 +46,60 @@
             <q-btn color="black" size="sm" v-if="isLoggedIn" no-caps label="Instant Pay" :to="{name: 'instant_pay'}" />
             <q-btn color="secondary" size="sm" no-caps label="Signup" :to="{name: 'register'}" />
             <q-btn color="black" size="sm" no-caps label="Login" :to="{name: 'login'}" />
+=======
+        <div v-else class="row flex justify-between" style="width: 85%">
+
+          <div class="col-7">
+            <div class="nav">
+              <a href="#escrow">Escrow</a>
+              <a href="#support" >Support</a>
+              <a href="https://www.paylidate.com/about">About Us</a>
+              <a href="https://www.paylidate.com/faq" style="text-align: center;">FAQ</a>
+              <a href="#instant_pay" >Instant Pay</a>
+            </div>
+          </div>
+          <div class="col-5" style="padding: 15px 0px 15px 150px;">
+            <span class="q-gutter-x-xs">
+              <q-btn
+                no-caps
+                rounded-borders
+                padding="10px 26px"
+                size="14px"
+                class="Montserrat" color="secondary" label="Sign Up" :to="{name: 'register'}" />
+              <q-btn
+                class="Montserrat"
+                rounded-borders
+                padding="10px 26px"
+                size="14px" color="primary" no-caps label="Login" :to="{name: 'login'}" />
+>>>>>>> fc3ce9c97837f927fa2b475e61b5eced015ab640
           </span>
         </div>
+<<<<<<< HEAD
         <q-btn color="secondary" flat dense round v-if="$q.screen.lt.sm" icon="menu" aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
+=======
+
+        <q-btn color="secondary" flat dense round v-if="isLoggedIn && $q.screen.lt.sm && theauth" icon="menu"
+          aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
+
+      </q-toolbar>
+    </q-header>
+
+    <q-header class="lt-md" style="background-image: linear-gradient(to right, #FFF4D8 -0.12%, #FFD0B9 96.86% ); border-bottom: 1px solid #ecd2aa;" >
+      <q-toolbar>
+
+        <q-toolbar-title>
+
+            <img src="../statics/paylidate-logo.png" style="width: 95px; height: 30px;">
+
+        </q-toolbar-title>
+
+        <q-btn flat @click="leftDrawerOpen = !leftDrawerOpen" round dense icon="drag_handle" />
+
+
+        <!-- <q-btn flat dense round v-if="isLoggedIn && $q.screen.lt.sm && theauth" icon="drag_handle"
+          aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" /> -->
+
+>>>>>>> fc3ce9c97837f927fa2b475e61b5eced015ab640
 
       </q-toolbar>
     </q-header>
@@ -134,8 +191,13 @@ export default {
         {
           title: 'Support',
           caption: '',
+<<<<<<< HEAD
           icon: 'contact_support',
           link: '#support',
+=======
+          icon: 'credit_card',
+          link: '#contact',
+>>>>>>> fc3ce9c97837f927fa2b475e61b5eced015ab640
           is_active: true,
           is_authenticated: false
         },
@@ -360,3 +422,9 @@ a {
 
 </style>
 
+<<<<<<< HEAD
+=======
+
+
+</style>
+>>>>>>> fc3ce9c97837f927fa2b475e61b5eced015ab640

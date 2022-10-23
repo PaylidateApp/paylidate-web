@@ -2,119 +2,100 @@
   <q-page
     class="section1"
     :class="$q.screen.gt.sm ? 'text-primary row q-pt-md' : 'text-primary row'"
-    style="scroll-behavior: smooth; font-family: 'Mukta', 'sans-serif'"
+    style="scroll-behavior: smooth; font-family: 'Mukta', 'sans-serif'; width:100%"
   >
-    <div
-      class="section1 q-pr-xl q-mt-lg full-width flex justify-center gt-sm"
-      style="height: 612px"
-    >
-      <div style="max-width: 1200px" class="q-pb-none">
-        <div class="row items-center justify-center reverse">
-          <div class="col-12 col-sm-8 align-center q-pt-xl">
-            <img
-              src="../../statics/girlie.png"
-              spinner-color="white"
-              style="
-                width: 838px;
-                height: 596px;
-                padding-top: 20px;
-                padding-left: 0px;
-              "
-            />
-          </div>
-
-          <div class="col-12 col-sm-4">
-            <div
-              class="gt-sm"
-              style="
-                width: 520px;
-                height: 270;
-                max-width: 600px;
-                padding-top: 10px;
-                padding-left: 30px;
-                color: #001140;
-                font-family: 'Nexa';
-                font-style: normal;
-                font-weight: 700;
-                font-size: 60px;
-                line-height: 69px;
-              "
-            >
-              Fast and secured <span>digital payments</span>
-              guaranteed
-            </div>
-            <div
-              class="text-weight-light gt-sm"
-              style="
-                padding-top: 30px;
-                padding-left: 30px;
-                height: 64px;
-                width: 508px;
-                font-family: 'Montserrat';
-                color: #89817d;
-              "
-            >
-              Helping millions of Nigerian buyers and sellers transact safely
-              from anywhere without doubt or fear
-            </div>
-
-            <div
-              class="row items-start q-gutter-sm gt-sm"
-              style="
-                padding-top: 30px;
-                padding-left: 30px;
-                height: 64px;
-                width: 508px;
-                font-family: 'Montserrat';
-                color: #0e3951;
-                font-style: normal;
-                font-weight: 650;
-                font-size: 14px;
-                line-height: 20px;
-              "
-            >
-              <div class="col">Transaction Security</div>
-              <q-separator vertical />
-              <div class="col text-center flex justify-center">
-                Seller Guarantee
-              </div>
-              <q-separator vertical />
-              <div class="col text-center flex justify-center">
-                Buyer Protection
-              </div>
-            </div>
-            <div
-              class="text-weight-light q-gutter-sm gt-sm"
-              style="
-                padding-top: 30px;
-                padding-left: 30px;
-                height: 64px;
-                width: 508px;
-              "
-            >
-              <q-btn
-                style="background: #182430; color: white"
-                no-caps
-                rounded-borders
-                padding="10px 16px"
-                size="18px"
-                class="Montserrat"
-                label="Register"
-                :to="{ name: 'register' }"
-              />
-              <!-- <q-btn color="secondary" no-caps class="q-pa-xs Montserrat" icon="play_arrow" label="Play Demo" @click="play = true" /> -->
-            </div>
-          </div>
+    <div class="section1 q-pr-xl q-mt-lg flex justify-center gt-sm" style="width:100%">
+      <div class="row items-center justify-center reverse" style="width: 100%">
+        <div class="col-12 col-sm-8 align-center q-pt-xl" style="width: 60%">
+          <img
+            src="../../statics/girlie.png"
+            spinner-color="white"
+            style="width: 100%; padding-top: 20px; padding-left: 0px"
+          />
         </div>
 
-        <!-- <div class="text-center q-py-lg">
-              <div class="q-py-sm text-secondary Montserrat">Powered by</div>
-              <div class="">
-              <img src="../../statics/partners/lotusfort1.png" style="width:160px; " />
+        <div class="col-12 col-sm-4" style="width: 40%">
+          <div
+            class=""
+            style="
+              width: 520px;
+              height: 270;
+              max-width: 600px;
+              padding-top: 10px;
+              padding-left: 30px;
+              color: #001140;
+              font-family: 'Nexa';
+              font-style: normal;
+              font-weight: 700;
+              font-size: 60px;
+              line-height: 69px;
+            "
+          >
+            Fast and secured <span>digital payments</span>
+            guaranteed
+          </div>
+          <div
+            class=""
+            style="
+              padding-top: 30px;
+              padding-left: 30px;
+              height: 64px;
+              width: 508px;
+              font-family: 'Montserrat';
+              color: #89817d;
+            "
+          >
+            Helping millions of Nigerian buyers and sellers transact safely from
+            anywhere without doubt or fear
+          </div>
 
-              </div>
-
-      </div> -->
+          <div
+            class="row items-start q-gutter-sm gt-sm"
+            style="
+              padding-top: 30px;
+              padding-left: 30px;
+              height: 64px;
+              width: 508px;
+              font-family: 'Montserrat';
+              color: #0e3951;
+              font-style: normal;
+              font-weight: 650;
+              font-size: 14px;
+              line-height: 20px;
+            "
+          >
+            <div class="col">Transaction Security</div>
+            <q-separator vertical />
+            <div class="col text-center flex justify-center">
+              Seller Guarantee
+            </div>
+            <q-separator vertical />
+            <div class="col text-center flex justify-center">
+              Buyer Protection
+            </div>
+          </div>
+          <div
+            class="text-weight-light q-gutter-sm gt-sm"
+            style="
+              padding-top: 30px;
+              padding-left: 30px;
+              height: 64px;
+              width: 508px;
+            "
+          >
+            <q-btn
+              style="background: #182430; color: white"
+              no-caps
+              rounded-borders
+              padding="10px 16px"
+              size="18px"
+              class="Montserrat"
+              label="Register"
+              :to="{ name: 'register' }"
+            />
+            <!-- <q-btn color="secondary" no-caps class="q-pa-xs Montserrat" icon="play_arrow" label="Play Demo" @click="play = true" /> -->
+          </div>
+        </div>
       </div>
     </div>
 
@@ -177,16 +158,16 @@
 
     <!-- What Paylidate will do for you -->
     <div
-      class="q-py-xl q-pa-sm q-pa-sm-xl full-width bg-grey-1 flex justify-center gt-sm"
+      class="q-py-xl q-pa-sm q-pa-sm-xl bg-grey-1 flex justify-center gt-sm" style="width:100%"
     >
-      <div style="max-width: 1200px" class="q-py-xl full-width text-center">
+      <div class="q-py-xl full-width text-center">
         <div class="gt-sm">
           <div class="text-center flex justify-center">
             <div class="headings" style="">What paylidate can do for you</div>
           </div>
 
-          <div class="row">
-            <div class="col-6 col-md-3">
+          <div class="row" style="width: 98%; justify-content: space-evenly">
+            <div class="col-6 col-md-3" style="width: 25%">
               <div class="row">
                 <div class="text-left flex justify-left">
                   <div>
@@ -254,20 +235,23 @@
                 </div>
               </div>
             </div>
-            <div class="col-6 col-md-6 flex justify-center align-center">
+            <div
+              class="col-6 col-md-6 flex justify-center align-center"
+              style="width: 50%"
+            >
               <img
                 src="../../statics/gif_for_changing images.gif"
                 spinner-color="white"
                 style="
-                  width: 600px;
-                  height: 420px;
+                  width: 100%;
+
                   padding-top: 40px;
                   padding-left: 30px;
                 "
               />
             </div>
-            <div class="col-6 col-md-3">
-              <div class="row" style="padding-left: 100px">
+            <div class="col-6 col-md-3" style="width: 25%">
+              <div class="row" style="padding-left: 50px">
                 <div class="text-left flex justify-left">
                   <div>
                     <div
@@ -288,7 +272,7 @@
                       class="Montserrat q-py-xl text-justify"
                       style="
                         height: 65px;
-                        width: 180px;
+                        width: 200px;
                         color: #6a6664;
                         font-weight: 600;
                         font-size: 14px;
@@ -300,7 +284,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row" style="padding-top: 140px; padding-left: 100px">
+              <div class="row" style="padding-top: 140px; padding-left: 50px">
                 <div class="text-left flex justify-left">
                   <div>
                     <div
@@ -321,7 +305,7 @@
                       class="Montserrat q-py-xl text-justify"
                       style="
                         height: 65px;
-                        width: 180px;
+                        width: 200px;
                         color: #6a6664;
                         font-weight: 600;
                         font-size: 14px;
@@ -395,7 +379,7 @@
           <img
             src="../../statics/gif_for_mobo.gif"
             spinner-color="white"
-            style="width: 100%; height: 300px"
+            style="width: 350px; height: 300px"
           />
         </div>
       </div>
@@ -403,8 +387,8 @@
 
     <!-- How Paylidate Works -->
     <div
-      class="q-pa-sm q-pa-sm-xl full-width flex justify-center"
-      style="background-color: #182430"
+      class="q-pa-sm q-pa-sm-xl flex justify-center"
+      style="background-color: #182430; width: 100%"
     >
       <div
         style="max-width: 1200px; padding-top: 60px; padding-bottom: 80px"
@@ -419,7 +403,7 @@
         <div class="gt-sm row full-width q-pt-sm justify-evenly">
           <div class="text-center flex justify-center">
             <div class="col q-pr-md">
-              <button @click="toggleBuyer" class="big-btn1">For Seller</button>
+              <button @click="toggleSeller" class="big-btn1">For Seller</button>
             </div>
             <div class="col q-pl-md">
               <button @click="toggleBuyer" class="big-btn2">For Buyer</button>
@@ -431,389 +415,396 @@
           <q-card
             class="my-card"
             flat
-            style="width: 100%; background-color: #182430"
+            style="width: 98%; background-color: #182430"
           >
             <div class="row full-width q-py-sm">
-              <div class="q-px-xl">
-                <div class="row q-py-lg card_section">
-                  <div class="text-left flex justify-left">
-                    <div class="col-2">
-                      <div class="q-py-md q-px-sm align-left card-item-num">
-                        01/
+              <div class="row" style="width: 100%">
+                <div class="col q-px-xl" style="width: 45%">
+                  <div class="row q-py-lg card_section" style="width: 100%">
+                    <div class="text-left flex justify-left">
+                      <div class="col-2" style="width: 10%">
+                        <div class="q-py-md q-px-sm align-left card-item-num">
+                          01/
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-4 q-pl-md">
-                      <div
-                        class="q-py-md text-justify align-left card-item-header"
-                      >
-                        Sign Up
+                      <div class="col-4 q-pl-md" style="width: 70%">
+                        <div
+                          class="q-py-md text-justify align-left card-item-header"
+                        >
+                          Sign Up
+                        </div>
+                        <div class="col-4 q-py-sm text-justify card_item">
+                          A simple sign up page to get you on board.
+                        </div>
                       </div>
-                      <div class="col-4 q-py-sm text-justify card_item">
-                        A simple sign up page to get you on board.
+                      <div class="col-2" style="width: 20%">
+                        <q-card-actions
+                          vertical
+                          class="q-pl-lg justify-around q-px-md"
+                        >
+                          <q-btn
+                            outline
+                            round
+                            size="lg"
+                            color="white"
+                            icon="arrow_forward"
+                          />
+                        </q-card-actions>
                       </div>
-                    </div>
-                    <div class="col-2">
-                      <q-card-actions
-                        vertical
-                        class="q-pl-lg justify-around q-px-md"
-                      >
-                        <q-btn
-                          outline
-                          round
-                          size="lg"
-                          color="white"
-                          icon="arrow_forward"
-                        />
-                      </q-card-actions>
                     </div>
                   </div>
+                  <q-separator dark inset />
                 </div>
-                <q-separator dark inset />
+
+                <div class="col" style="width: 45%">
+                  <div class="row q-py-lg card_section" style="width: 100%">
+                    <div class="text-left flex justify-left">
+                      <div class="col-2" style="width: 10%">
+                        <div
+                          class="q-py-md q-px-sm text-weight-bold align-left card-item-num"
+                        >
+                          02/
+                        </div>
+                      </div>
+                      <div class="col-6 q-pl-md" style="width: 70%">
+                        <div
+                          class="q-py-md text-justify card-item-header align-left"
+                          style="max-width: 200px"
+                        >
+                          Set Up Account
+                        </div>
+                        <div class="q-py-sm text-justify card_item">
+                          Add your account number in the settings and complete
+                          your account setup
+                        </div>
+                      </div>
+                      <div class="col-2" style="width: 20%">
+                        <q-card-actions
+                          vertical
+                          class="q-pl-lg justify-around q-px-md"
+                        >
+                          <q-btn
+                            outline
+                            round
+                            size="lg"
+                            color="white"
+                            icon="arrow_forward"
+                          />
+                        </q-card-actions>
+                      </div>
+                    </div>
+                  </div>
+                  <q-separator dark inset />
+                </div>
               </div>
 
-              <div class="">
-                <div class="row q-py-lg card_section">
-                  <div class="text-left flex justify-left">
-                    <div class="col-2">
-                      <div
-                        class="q-py-md q-px-sm text-weight-bold align-left card-item-num"
-                      >
-                        02/
+              <div class="row" style="width: 100%">
+                <div v-if="seller" class="col q-px-xl" style="width: 45%">
+                  <div class="row q-py-lg card_section" style="width: 100%">
+                    <div class="text-left flex justify-left">
+                      <div class="col-2" style="width: 10%">
+                        <div class="q-py-md q-px-sm align-left card-item-num">
+                          03/
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-6 q-pl-md">
-                      <div
-                        class="q-py-md text-justify card-item-header align-left"
-                        style="max-width: 200px"
-                      >
-                        Set Up Account
+                      <div class="col-6 q-pl-md" style="width: 70%">
+                        <div
+                          class="q-py-md text-justify align-left card-item-header"
+                          style="max-width: 200px"
+                        >
+                          Create Product
+                        </div>
+                        <div class="q-py-sm text-justify card_item">
+                          Click the "create" button on the product page, add
+                          your product/service details to create a product link.
+                        </div>
                       </div>
-                      <div class="q-py-sm text-justify card_item">
-                        Add your account number in the settings and complete
-                        your account setup
+                      <div class="col-2" style="width: 20%">
+                        <q-card-actions
+                          vertical
+                          class="q-pl-lg justify-around q-px-md"
+                        >
+                          <q-btn
+                            outline
+                            round
+                            size="lg"
+                            color="white"
+                            icon="arrow_forward"
+                          />
+                        </q-card-actions>
                       </div>
-                    </div>
-                    <div class="col-2">
-                      <q-card-actions
-                        vertical
-                        class="q-pl-lg justify-around q-px-md"
-                      >
-                        <q-btn
-                          outline
-                          round
-                          size="lg"
-                          color="white"
-                          icon="arrow_forward"
-                        />
-                      </q-card-actions>
                     </div>
                   </div>
+                  <q-separator dark inset />
                 </div>
-                <q-separator dark inset />
+
+                <div v-if="buyer" class="col q-px-xl" style="width: 45%">
+                  <div class="row q-py-lg card_section" style="width: 100%">
+                    <div class="text-left flex justify-left">
+                      <div class="col-2" style="width: 10%">
+                        <div class="q-py-sm q-px-sm align-left card-item-num">
+                          03/
+                        </div>
+                      </div>
+                      <div class="col-6 q-pl-md" style="width: 70%">
+                        <div
+                          class="q-py-sm text-justify align-left card-item-header"
+                          style="max-width: 300px; line-height: 30px"
+                        >
+                          Create A Buy Product With Seller’s Tag
+                        </div>
+                        <div class="q-py-md text-justify card_item">
+                          Use the seller’s user tag or email to create a payment
+                          request. The seller has to to accept before payment
+                          can be made
+                        </div>
+                      </div>
+                      <div class="col-2" style="width: 20%">
+                        <q-card-actions
+                          vertical
+                          class="q-pl-lg justify-around q-px-md"
+                        >
+                          <q-btn
+                            outline
+                            round
+                            size="lg"
+                            color="white"
+                            icon="arrow_forward"
+                          />
+                        </q-card-actions>
+                      </div>
+                    </div>
+                  </div>
+                  <q-separator dark inset />
+                </div>
+
+                <div v-if="seller" class="col" style="width: 45%">
+                  <div class="row q-py-lg card_section" style="width: 100%">
+                    <div class="text-left flex justify-left">
+                      <div class="col-2" style="width: 10%">
+                        <div class="q-py-md q-px-sm align-left card-item-num">
+                          04/
+                        </div>
+                      </div>
+                      <div class="col-6 q-pl-md" style="width: 70%">
+                        <div
+                          class="q-py-md text-justify align-left card-item-header"
+                        >
+                          Copy & Share Payment Link
+                        </div>
+                        <div class="q-py-sm card_item text-justify">
+                          Copy and share the generated product link
+                        </div>
+                      </div>
+                      <div class="col-2" style="width: 20%">
+                        <q-card-actions
+                          vertical
+                          class="q-pl-lg justify-around q-px-md"
+                        >
+                          <q-btn
+                            outline
+                            round
+                            size="lg"
+                            color="white"
+                            icon="arrow_forward"
+                          />
+                        </q-card-actions>
+                      </div>
+                    </div>
+                  </div>
+                  <q-separator dark inset />
+                </div>
+
+                <div v-if="buyer" class="col" style="width: 45%">
+                  <div class="row q-py-lg card_section" style="width: 100%">
+                    <div class="text-left flex justify-left">
+                      <div class="col-2" style="width: 10%">
+                        <div class="q-py-md q-px-sm align-left card-item-num">
+                          04/
+                        </div>
+                      </div>
+                      <div class="col-6 q-pl-md" style="width: 70%">
+                        <div
+                          class="q-py-md text-justify align-left card-item-header"
+                        >
+                          Click on Seller-Product Link
+                        </div>
+                        <div class="q-py-sm card_item text-justify">
+                          View the product by clicking on the vendor’s product
+                          link
+                        </div>
+                      </div>
+                      <div class="col-2" style="width: 20%">
+                        <q-card-actions
+                          vertical
+                          class="q-pl-lg justify-around q-px-md"
+                        >
+                          <q-btn
+                            outline
+                            round
+                            size="lg"
+                            color="white"
+                            icon="arrow_forward"
+                          />
+                        </q-card-actions>
+                      </div>
+                    </div>
+                  </div>
+                  <q-separator dark inset />
+                </div>
               </div>
 
-              <div v-if="seller" class="q-px-xl">
-                <div class="row q-py-lg card_section">
-                  <div class="text-left flex justify-left">
-                    <div class="col-2">
-                      <div class="q-py-md q-px-sm align-left card-item-num">
-                        03/
+              <div class="row" style="width: 100%">
+                <div v-if="seller" class="col q-px-xl" style="width: 45%">
+                  <div class="row q-py-lg card_section" style="width: 100%">
+                    <div class="text-left flex justify-left">
+                      <div class="col-2" style="width: 10%">
+                        <div class="q-py-md q-px-sm align-left card-item-num">
+                          05/
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-6 q-pl-md">
-                      <div
-                        class="q-py-md text-justify align-left card-item-header"
-                        style="max-width: 200px"
-                      >
-                        Create Product
+                      <div class="col-6 q-pl-md" style="width: 70%">
+                        <div
+                          class="q-py-md text-justify align-left card-item-header"
+                        >
+                          Receive Payments
+                        </div>
+                        <div class="q-py-sm card_item text-justify">
+                          When customers pay through your product link, you
+                          receive an email alert of the payment
+                        </div>
                       </div>
-                      <div class="q-py-sm text-justify card_item">
-                        Click the "create" button on the product page, add your
-                        product/service details to create a product link.
+                      <div class="col-2" style="width: 20%">
+                        <q-card-actions
+                          vertical
+                          class="q-pl-lg justify-around q-px-md"
+                        >
+                          <q-btn
+                            outline
+                            round
+                            size="lg"
+                            color="white"
+                            icon="arrow_forward"
+                          />
+                        </q-card-actions>
                       </div>
-                    </div>
-                    <div class="col-2">
-                      <q-card-actions
-                        vertical
-                        class="q-pl-lg justify-around q-px-md"
-                      >
-                        <q-btn
-                          outline
-                          round
-                          size="lg"
-                          color="white"
-                          icon="arrow_forward"
-                        />
-                      </q-card-actions>
                     </div>
                   </div>
+                  <q-separator dark inset />
                 </div>
-                <q-separator dark inset />
-              </div>
 
-              <div v-if="buyer" class="q-px-xl">
-                <div class="row q-py-lg card_section">
-                  <div class="text-left flex justify-left">
-                    <div class="col-2">
-                      <div class="q-py-md q-px-sm align-left card-item-num">
-                        03/
+                <div v-if="buyer" class="col q-px-xl" style="width: 45%">
+                  <div class="row q-py-lg card_section" style="width: 100%">
+                    <div class="text-left flex justify-left">
+                      <div class="col-2" style="width: 10%">
+                        <div class="q-py-md q-px-sm align-left card-item-num">
+                          05/
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-6 q-pl-md">
-                      <div
-                        class="q-py-md text-justify align-left card-item-header"
-                        style="width: 350px"
-                      >
-                        Create A Buy Product With Seller’s Tag
+                      <div class="col-6 q-pl-md" style="width: 70%">
+                        <div
+                          class="q-py-md text-justify align-left card-item-header"
+                        >
+                          Make Payment
+                        </div>
+                        <div class="q-py-sm card_item text-justify">
+                          Make payment using any of the available payment
+                          channels
+                        </div>
                       </div>
-                      <div class="q-py-sm text-justify card_item">
-                        Use the seller’s user tag or email to create a payment
-                        request. The seller has to to accept before payment can
-                        be made
+                      <div class="col-2" style="width: 20%">
+                        <q-card-actions
+                          vertical
+                          class="q-pl-lg justify-around q-px-md"
+                        >
+                          <q-btn
+                            outline
+                            round
+                            size="lg"
+                            color="white"
+                            icon="arrow_forward"
+                          />
+                        </q-card-actions>
                       </div>
-                    </div>
-                    <div class="col-2">
-                      <q-card-actions
-                        vertical
-                        class="q-pl-lg justify-around q-px-md"
-                      >
-                        <q-btn
-                          outline
-                          round
-                          size="lg"
-                          color="white"
-                          icon="arrow_forward"
-                        />
-                      </q-card-actions>
                     </div>
                   </div>
+                  <q-separator dark inset />
                 </div>
-                <q-separator dark inset />
-              </div>
 
-              <div v-if="seller">
-                <div class="row q-py-lg card_section">
-                  <div class="text-left flex justify-left">
-                    <div class="col-2">
-                      <div class="q-py-md q-px-sm align-left card-item-num">
-                        04/
+                <div v-if="seller" class="col" style="width: 45%">
+                  <div class="row q-py-lg card_section" style="width: 100%">
+                    <div class="text-left flex justify-left">
+                      <div class="col-2" style="width: 10%">
+                        <div class="q-py-md q-px-sm align-left card-item-num">
+                          06/
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-6 q-pl-md">
-                      <div
-                        class="q-py-md text-justify align-left card-item-header"
-                      >
-                        Copy & Share Payment Link
+                      <div class="col-6 q-pl-md" style="width: 70%">
+                        <div
+                          class="q-py-md text-justify align-left card-item-header"
+                        >
+                          Deliver Product or Service
+                        </div>
+                        <div class="q-py-sm text-justify card_item">
+                          Complete the agreed delivery
+                        </div>
                       </div>
-                      <div class="q-py-sm card_item text-justify">
-                        Copy and share the generated product link
+                      <div class="col-2" style="width: 20%">
+                        <q-card-actions
+                          vertical
+                          class="q-pl-lg justify-around q-px-md"
+                        >
+                          <q-btn
+                            outline
+                            round
+                            size="lg"
+                            color="white"
+                            icon="arrow_forward"
+                          />
+                        </q-card-actions>
                       </div>
-                    </div>
-                    <div class="col-2">
-                      <q-card-actions
-                        vertical
-                        class="q-pl-lg justify-around q-px-md"
-                      >
-                        <q-btn
-                          outline
-                          round
-                          size="lg"
-                          color="white"
-                          icon="arrow_forward"
-                        />
-                      </q-card-actions>
                     </div>
                   </div>
+                  <q-separator dark inset />
                 </div>
-                <q-separator dark inset />
-              </div>
 
-              <div v-if="buyer">
-                <div class="row q-py-lg card_section">
-                  <div class="text-left flex justify-left">
-                    <div class="col-2">
-                      <div class="q-py-md q-px-sm align-left card-item-num">
-                        04/
+                <div v-if="buyer" class="col" style="width: 45%">
+                  <div class="row q-py-lg card_section" style="width: 100%">
+                    <div class="text-left flex justify-left">
+                      <div class="col-2" style="width: 10%">
+                        <div class="q-py-md q-px-sm align-left card-item-num">
+                          06/
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-6 q-pl-md">
-                      <div
-                        class="q-py-md text-justify align-left card-item-header"
-                      >
-                        Click on Seller-Product Link
+                      <div class="col-6 q-pl-md" style="width: 70%">
+                        <div
+                          class="q-py-md text-justify align-left card-item-header"
+                        >
+                          Receive Delivery
+                        </div>
+                        <div class="q-py-sm text-justify card_item">
+                          After payment, the seller would be prompted the make
+                          the delivery
+                        </div>
                       </div>
-                      <div class="q-py-sm card_item text-justify">
-                        View the product by clicking on the vendor’s product
-                        link
+                      <div class="col-2" style="width: 20%">
+                        <q-card-actions
+                          vertical
+                          class="q-pl-lg justify-around q-px-md"
+                        >
+                          <q-btn
+                            outline
+                            round
+                            size="lg"
+                            color="white"
+                            icon="arrow_forward"
+                          />
+                        </q-card-actions>
                       </div>
-                    </div>
-                    <div class="col-2">
-                      <q-card-actions
-                        vertical
-                        class="q-pl-lg justify-around q-px-md"
-                      >
-                        <q-btn
-                          outline
-                          round
-                          size="lg"
-                          color="white"
-                          icon="arrow_forward"
-                        />
-                      </q-card-actions>
                     </div>
                   </div>
+                  <q-separator dark inset />
                 </div>
-                <q-separator dark inset />
-              </div>
-
-              <div v-if="seller" class="q-px-xl">
-                <div class="row q-py-lg card_section">
-                  <div class="text-left flex justify-left">
-                    <div class="col-2">
-                      <div class="q-py-md q-px-sm align-left card-item-num">
-                        05/
-                      </div>
-                    </div>
-                    <div class="col-6 q-pl-md">
-                      <div
-                        class="q-py-md text-justify align-left card-item-header"
-                      >
-                        Receive Payments
-                      </div>
-                      <div class="q-py-sm card_item text-justify">
-                        When customers pay through your product link, you
-                        receive an email alert of the payment
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <q-card-actions
-                        vertical
-                        class="q-pl-lg justify-around q-px-md"
-                      >
-                        <q-btn
-                          outline
-                          round
-                          size="lg"
-                          color="white"
-                          icon="arrow_forward"
-                        />
-                      </q-card-actions>
-                    </div>
-                  </div>
-                </div>
-                <q-separator dark inset />
-              </div>
-
-              <div v-if="buyer" class="q-px-xl">
-                <div class="row q-py-lg card_section">
-                  <div class="text-left flex justify-left">
-                    <div class="col-2">
-                      <div class="q-py-md q-px-sm align-left card-item-num">
-                        05/
-                      </div>
-                    </div>
-                    <div class="col-6 q-pl-md">
-                      <div
-                        class="q-py-md text-justify align-left card-item-header"
-                      >
-                        Make Payment
-                      </div>
-                      <div class="q-py-sm card_item text-justify">
-                        Make payment using any of the available payment channels
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <q-card-actions
-                        vertical
-                        class="q-pl-lg justify-around q-px-md"
-                      >
-                        <q-btn
-                          outline
-                          round
-                          size="lg"
-                          color="white"
-                          icon="arrow_forward"
-                        />
-                      </q-card-actions>
-                    </div>
-                  </div>
-                </div>
-                <q-separator dark inset />
-              </div>
-
-              <div v-if="seller">
-                <div class="row q-py-lg card_section">
-                  <div class="text-left flex justify-left">
-                    <div class="col-2">
-                      <div class="q-py-md q-px-sm align-left card-item-num">
-                        06/
-                      </div>
-                    </div>
-                    <div class="col-6 q-pl-md">
-                      <div
-                        class="q-py-md text-justify align-left card-item-header"
-                      >
-                        Deliver Product or Service
-                      </div>
-                      <div class="q-py-sm text-justify card_item">
-                        Complete the agreed delivery
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <q-card-actions
-                        vertical
-                        class="q-pl-lg justify-around q-px-md"
-                      >
-                        <q-btn
-                          outline
-                          round
-                          size="lg"
-                          color="white"
-                          icon="arrow_forward"
-                        />
-                      </q-card-actions>
-                    </div>
-                  </div>
-                </div>
-                <q-separator dark inset />
-              </div>
-
-              <div v-if="buyer">
-                <div class="row q-py-lg card_section">
-                  <div class="text-left flex justify-left">
-                    <div class="col-2">
-                      <div class="q-py-md q-px-sm align-left card-item-num">
-                        06/
-                      </div>
-                    </div>
-                    <div class="col-6 q-pl-md">
-                      <div
-                        class="q-py-md text-justify align-left card-item-header"
-                      >
-                        Receive Delivery
-                      </div>
-                      <div class="q-py-sm text-justify card_item">
-                        After payment, the seller would be prompted the make the
-                        delivery
-                      </div>
-                    </div>
-                    <div class="col-2">
-                      <q-card-actions
-                        vertical
-                        class="q-pl-lg justify-around q-px-md"
-                      >
-                        <q-btn
-                          outline
-                          round
-                          size="lg"
-                          color="white"
-                          icon="arrow_forward"
-                        />
-                      </q-card-actions>
-                    </div>
-                  </div>
-                </div>
-                <q-separator dark inset />
               </div>
 
               <div v-if="seller" class="q-px-xl">
@@ -902,7 +893,7 @@
         </div>
         <div class="lt-md row full-width q-py-lg justify-evenly">
           <div class="col-6 q-px-sm">
-            <button @click="toggleBuyer" class="small-btn1">For Seller</button>
+            <button @click="toggleSeller" class="small-btn1">For Seller</button>
           </div>
           <div class="col q-pl-sm">
             <button @click="toggleBuyer" class="small-btn2">For Buyer</button>
@@ -912,9 +903,9 @@
         <q-card
           class="my-card lt-md"
           flat
-          style="width: 100%; background-color: #182430"
+          style="width: 98%; background-color: #182430"
         >
-          <div class="row full-width flex justify-center q-py-sm Montserrat">
+          <div class="row full-width flex justify-center q-py-sm Montserrat" style="width: 100%">
             <q-card-section>
               <div class="row q-py-lg" style="height: 150px">
                 <div class="text-left flex justify-left">
@@ -1428,8 +1419,8 @@
 
     <!--About Paylidate  -->
     <div
-      class="q-pt-lg full-width flex justify-center"
-      style="background-color: #319ed9"
+      class="q-pt-lg flex justify-center"
+      style="background-color: #319ed9; width: 100%;"
     >
       <div style="max-width: 1200px" class="full-width">
         <div class="row justify-evenly gt-sm">
@@ -1512,14 +1503,14 @@
 
     <!-- Unique Features Section -->
     <div class="q-pa-sm q-pa-sm-xl full-width bg-grey-1 flex justify-center">
-      <div style="max-width: 1200px" class="q-py-xl full-width text-center">
+      <div style="width: 100%" class="q-py-xl full-width text-center">
         <div class="gt-sm text-center flex justify-center">
           <div class="headings" style="width: 600px">
             Get started with our unique features
           </div>
         </div>
 
-        <div class="gt-sm row justify-center full-width q-py-xl">
+        <div class="gt-sm row justify-center q-py-xl" style="width:98%">
           <div class="col-4" style="border-right: 1px solid #ccc">
             <div
               class="row"
@@ -1540,7 +1531,7 @@
                   <div class="q-py-xs sub-body-2" style="max-width: 300px">
                     Escrow
                   </div>
-                  <div class="q-py-sm sub-body-3" style="width: 380px">
+                  <div class="q-py-sm sub-body-3" style="width: 90%">
                     Buy and sell with ease. Use Paylidate's escrow payment to
                     secure your transactions.
                   </div>
@@ -1568,7 +1559,7 @@
                   >
                     Paylidate Checkouts
                   </div>
-                  <div class="q-py-sm sub-body-3" style="width: 380px">
+                  <div class="q-py-sm sub-body-3" style="width: 80%">
                     Use Paylidate button to checkout with just an email address
                     and password.
                   </div>
@@ -1595,7 +1586,7 @@
                   >
                     Wallet
                   </div>
-                  <div class="q-py-sm sub-body-3" style="width: 380px">
+                  <div class="q-py-sm sub-body-3" style="width: 90%">
                     Make secured escrow payments in a flash.
                   </div>
                 </div>
@@ -1800,48 +1791,23 @@
       class="full-width lt-md flex justify-left q-py-md Montserrat"
       style="height: 155px; background-color: #88c58f"
     >
-      <div class="full-width flex q-py-md">
-        <div
-          class="row q-pb-md q-px-md partners-mobo"
-          
-        >
-          Partners
-        </div>
+      <div class="row full-width q-py-md">
+        <div class="col-12 col-12 q-pb-md q-px-md partners-mobo">Partners</div>
       </div>
 
       <div class="full-width flex q-py-md">
         <div class="row full-width justify-around q-pl-md q-pb-md">
-          <div class="col-6">
-            <div class="row">
-              <div class="row">
-                <img
-                  src="../../statics/providus.png"
-                  style="width: 33px; height: 33px"
-                />
-              </div>
-              <div
-                class="row q-px-md q-py-sm partners-mobo-2"
-                style="width: 200px"
-              >
-                Providus Bank
-              </div>
-            </div>
+          <div class="col">
+            <img
+              src="../../statics/providus_mobo.png"
+              style="width: 200px; height: 33px"
+            />
           </div>
-          <div class="col-6">
-            <div class="row">
-              <div class="row">
-                <img
-                  src="../../statics/flutterwave.png"
-                  style="width: 33px; height: 33px"
-                />
-              </div>
-              <div
-                class="row q-px-sm q-py-sm partners-mobo-2"
-                style="width: 200px"
-              >
-                Flutterwave
-              </div>
-            </div>
+          <div class="col">
+            <img
+              src="../../statics/flutter_mobo.png"
+              style="width: 200px; height: 33px"
+            />
           </div>
         </div>
       </div>
@@ -1849,11 +1815,11 @@
 
     <!-- Partners -->
     <div
-      class="gt-sm full-width flex justify-center q-py-md Montserrat"
-      style="height: 175px; background-color: #88c58f"
+      class="gt-sm flex justify-center q-py-md Montserrat"
+      style="height: 175px; background-color: #88c58f; width: 100%"
     >
-      <div class="row full-width">
-        <div class="col-7">
+      <div class="row" style="width: 100%">
+        <div class="col-7" style="width: 60%">
           <div
             class="q-py-xl q-px-xl headings"
             style="width: 200px; height: 70px"
@@ -1861,40 +1827,14 @@
             Partners
           </div>
         </div>
-        <div class="col-5" style="padding-top: 50px">
+        <div class="col-5" style="padding-top: 50px; width: 40%">
           <div class="row">
-            <div class="col-auto">
-              <div class="row">
-                <div class="row">
-                  <img
-                    src="../../statics/providus.png"
-                    style="width: 40px; height: 40px"
-                  />
-                </div>
-                <div
-                  class="row q-px-sm q-py-sm partners-sec"
-                  style="width: 200px"
-                >
-                  Providus Bank
-                </div>
-              </div>
+            <div class="col-auto" style="width: 50%">
+              <img src="../../statics/providus_mobo.png" style="width: 80%" />
             </div>
 
-            <div class="col-auto q-pl-xl">
-              <div class="row">
-                <div class="row">
-                  <img
-                    src="../../statics/flutterwave.png"
-                    style="width: 40px; height: 40px"
-                  />
-                </div>
-                <div
-                  class="row q-px-sm q-py-sm partners-sec"
-                  style="width: 150px"
-                >
-                  Flutterwave
-                </div>
-              </div>
+            <div class="col-auto q-pl-xl" style="width: 50%">
+              <img src="../../statics/flutter_mobo.png" style="width: 80%" />
             </div>
           </div>
         </div>
@@ -1902,146 +1842,136 @@
     </div>
 
     <!-- Mobile -->
-    <div class="full-width flex justify-left lt-md" style="background-color:#182430;">
-      <div
-        class="full-width q-py-md q-py-sm-xl flex justify-left"
-      >
-      <q-card
+    <div
+      class="full-width flex justify-left lt-md"
+      style="background-color: #182430"
+    >
+      <div class="full-width q-py-md q-py-sm-xl flex justify-left">
+        <q-card
           class="my-card"
           flat
           style="background-color: #182430; width: 100%"
         >
-        <q-card-section>
-            <div class="row full-width justify-start ">
-              
-                <img
-                      src="../../statics/payli_logo.png"
-                      style="width: 100px; "
-                    />
-              
+          <q-card-section>
+            <div class="row full-width justify-start">
+              <img src="../../statics/payli_logo.png" style="width: 100px" />
             </div>
             <div class="full-width q-py-md">
-          <div class="row justify-start">
-            <div class="col-4 q-py-sm q-pl-sm">
-              <div class="row mobo-footer-header">
-                Company
-              </div>
-              <div class="row q-py-sm mobo-footer-body">Legal</div>
-              <div class="row q-py-sm mobo-footer-body">Developers</div>
-              <div class="row q-py-sm mobo-footer-body">Security</div>
-              <div class="row q-py-sm mobo-footer-body">Partners</div>
-              <div class="row q-py-sm text-justify mobo-footer-body">
-                Escrow Agreement
-              </div>
-              <div class="row q-py-sm mobo-footer-body">Privacy</div>
-            </div>
-            <div class="col-4 q-py-sm q-pl-sm ">
-              <div class="row mobo-footer-header">
-                Sitemap
-              </div>
-              <div class="row q-py-sm mobo-footer-body">Home</div>
-              <div class="row q-py-sm mobo-footer-body">Fees</div>
-              <div class="row q-py-sm text-justify mobo-footer-body">
-                Resource Center
-              </div>
-              <div class="row q-py-sm mobo-footer-body">About</div>
-              <div class="row q-py-sm mobo-footer-body">FAQ</div>
-            </div>
-            <div class="col-4 q-py-sm q-pl-sm">
-              <div class="row mobo-footer-header">
-                Socials
-              </div>
-              <div class="row q-py-sm mobo-footer-body">Facebook</div>
-              <div class="row q-py-sm mobo-footer-body">Linkedin</div>
-              <div class="row q-py-sm mobo-footer-body">Instagram</div>
-              <div class="row q-py-sm mobo-footer-body">Twitter</div>
-            </div>
-          </div>
-          <div class="text-left flex flex-left q-py-lg q-pl-sm ">
-            <div class="q-gutter-y-sm">
-              <div class="mobo-footer-header" style="width: 110px;">
-                Head Office
-              </div>
-              <div class="mobo-footer-body" style="width: 300px;">
-                No. 14 Oluwasogo Str. Ikeja, Lagos
-              </div>
-            </div>
-          </div>
-          <div class="row full-width flex flex-left q-pl-sm q-py-lg">
-            <div class="flex q-gutter-y-md">
-              <div
-                class="text-left flex flex-left "
-              >
-                <div class="q-gutter-y-sm">
-                  <div class="mobo-footer-header" style="width: 110px;">
-                    News Letter
+              <div class="row justify-start">
+                <div class="col-4 q-py-sm q-pl-sm">
+                  <div class="row mobo-footer-header">Company</div>
+                  <div class="row q-py-sm mobo-footer-body">Legal</div>
+                  <div class="row q-py-sm mobo-footer-body">Developers</div>
+                  <div class="row q-py-sm mobo-footer-body">Security</div>
+                  <div class="row q-py-sm mobo-footer-body">Partners</div>
+                  <div class="row q-py-sm text-justify mobo-footer-body">
+                    Escrow Agreement
                   </div>
-                  <div class="row">
-                    <q-input
-                      v-model="text"
-                      label-color="white"
-                      style="min-width: 250px;"
-                      type="email"
-                      label="Enter your email address"
-                    />
+                  <div class="row q-py-sm mobo-footer-body">Privacy</div>
+                </div>
+                <div class="col-4 q-py-sm q-pl-sm">
+                  <div class="row mobo-footer-header">Sitemap</div>
+                  <div class="row q-py-sm mobo-footer-body">Home</div>
+                  <div class="row q-py-sm mobo-footer-body">Fees</div>
+                  <div class="row q-py-sm text-justify mobo-footer-body">
+                    Resource Center
+                  </div>
+                  <div class="row q-py-sm mobo-footer-body">About</div>
+                  <div class="row q-py-sm mobo-footer-body">FAQ</div>
+                </div>
+                <div class="col-4 q-py-sm q-pl-sm">
+                  <div class="row mobo-footer-header">Socials</div>
+                  <div class="row q-py-sm mobo-footer-body">Facebook</div>
+                  <div class="row q-py-sm mobo-footer-body">Linkedin</div>
+                  <div class="row q-py-sm mobo-footer-body">Instagram</div>
+                  <div class="row q-py-sm mobo-footer-body">Twitter</div>
+                </div>
+              </div>
+              <div class="text-left flex flex-left q-py-lg q-pl-sm">
+                <div class="q-gutter-y-sm">
+                  <div class="mobo-footer-header" style="width: 110px">
+                    Head Office
+                  </div>
+                  <div class="mobo-footer-body" style="width: 300px">
+                    No. 14 Oluwasogo Str. Ikeja, Lagos
+                  </div>
+                </div>
+              </div>
+              <div class="row full-width flex flex-left q-pl-sm q-py-lg">
+                <div class="flex q-gutter-y-md">
+                  <div class="text-left flex flex-left">
+                    <div class="q-gutter-y-sm">
+                      <div class="mobo-footer-header" style="width: 110px">
+                        News Letter
+                      </div>
+                      <div class="row">
+                        <q-input
+                          v-model="text"
+                          label-color="white"
+                          style="min-width: 250px"
+                          type="email"
+                          label="Enter your email address"
+                        />
 
-                    <q-btn
-                      color="white"
-                      outline
-                      round
-                      size="md"
-                      style="margin-top: 15px"
-                      class="q-pa-none"
-                      icon="arrow_forward"
-                    />
+                        <q-btn
+                          color="white"
+                          outline
+                          round
+                          size="md"
+                          style="margin-top: 15px"
+                          class="q-pa-none"
+                          icon="arrow_forward"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        </q-card-section>
-        <q-separator dark inset />
+          </q-card-section>
+          <q-separator dark inset />
 
-<q-card-section>
-  <div class="full-width flex q-px-sm q-px-sm-xl" >
-    <div class="row justify-between">
-      <div class="col-4">
-        <div class="mobo-footer-body-2" style="">
-          hello@paylidate.com
-          <div
-            style="
-              border-bottom: 1px solid #0081fe;
-              padding-top: 10px;
-              width: 165px;
-            "
-          ></div>
-        </div>
-      </div>
-      <div class="col-4 q-px-xl" style="">
-        <div class="mobo-footer-body-2" style="">
-          08066984101
-          <div
-            style="
-              border-bottom: 1px solid #0081fe;
-              padding-top: 10px;
-              width: 100px;
-            "
-          ></div>
-        </div>
-      </div>
-    </div>
-    <div class="row full-width q-py-lg">
-      <div class="full-width flex q-py-md">
-        <div
-          class="row q-pb-md mobo-footer-body-2" style="opacity: 0.6; width: 400px">
-          © 2022 Lotusfort Tech Ltd. All Rights Reserved
-        </div>
-      </div>
-    </div>
-  </div>
-</q-card-section>
-      </q-card>
+          <q-card-section>
+            <div class="full-width flex q-px-sm q-px-sm-xl">
+              <div class="row justify-between">
+                <div class="col-4">
+                  <div class="mobo-footer-body-2" style="">
+                    hello@paylidate.com
+                    <div
+                      style="
+                        border-bottom: 1px solid #0081fe;
+                        padding-top: 10px;
+                        width: 165px;
+                      "
+                    ></div>
+                  </div>
+                </div>
+                <div class="col-4 q-px-xl" style="">
+                  <div class="mobo-footer-body-2" style="">
+                    08066984101
+                    <div
+                      style="
+                        border-bottom: 1px solid #0081fe;
+                        padding-top: 10px;
+                        width: 100px;
+                      "
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row full-width q-py-lg">
+                <div class="full-width flex q-py-md">
+                  <div
+                    class="row q-pb-md mobo-footer-body-2"
+                    style="opacity: 0.6; width: 400px"
+                  >
+                    © 2022 Lotusfort Tech Ltd. All Rights Reserved
+                  </div>
+                </div>
+              </div>
+            </div>
+          </q-card-section>
+        </q-card>
       </div>
     </div>
 
@@ -2056,18 +1986,18 @@
           style="background-color: #182430; width: 100%"
         >
           <q-card-section>
-            <div style="max-width: 1200px" class="row">
-              <div class="col-3">
+            <div style="width: 98%" class="row">
+              <div class="col-3" style="width: 20%">
                 <div class="row">
                   <div>
                     <img
                       src="../../statics/payli_logo.png"
-                      style="width: 150px; padding-left: 30px"
+                      style="width: 80%; padding-left: 30px"
                     />
                   </div>
                 </div>
               </div>
-              <div class="col-2" style="color: #ffffff">
+              <div class="col-2 q-pt-md" style="color: #ffffff; width: 15%">
                 <div
                   class="row sub-body-3"
                   style="
@@ -2086,7 +2016,7 @@
                 <div class="row card-item-2">Escrow Agreement</div>
                 <div class="row card-item-2">Privacy</div>
               </div>
-              <div class="col-2 text-white">
+              <div class="col-2 text-white q-pt-md" style="width: 15%">
                 <div
                   class="row sub-body-3"
                   style="
@@ -2104,7 +2034,7 @@
                 <div class="row card-item-2">About</div>
                 <div class="row card-item-2">FAQ</div>
               </div>
-              <div class="col-2 text-white">
+              <div class="col-2 text-white q-pt-md" style="width: 15%">
                 <div
                   class="row sub-body-3"
                   style="
@@ -2121,7 +2051,7 @@
                 <div class="row card-item-2">Instagram</div>
                 <div class="row card-item-2">Twitter</div>
               </div>
-              <div class="col-3 text-white">
+              <div class="col-3 text-white q-pt-md" style="width: 35%">
                 <div
                   class="row sub-body-3"
                   style="
@@ -2149,16 +2079,10 @@
                   News Letter
                 </div>
                 <div class="row q-py-md">
-                  <div
-                    :class="
-                      $q.screen.gt.sm
-                        ? 'flex justify-center'
-                        : 'flex q-gutter-y-md'
-                    "
-                  >
+
                     <q-input
                       v-model="text"
-                      class=""
+
                       style="
                         width: 250px;
                         height: 40px;
@@ -2173,7 +2097,6 @@
                       label="Enter your email address"
                       label-color="white"
                       color="white"
-
                     />
                     <q-btn
                       color="white"
@@ -2184,7 +2107,7 @@
                       class="q-pa-none"
                       icon="arrow_forward"
                     />
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -2194,8 +2117,8 @@
 
           <q-card-section>
             <div class="full-width flex q-px-sm q-px-sm-xl" style="">
-              <div style="max-width: 1200px" class="row full-width text-center">
-                <div class="col-4">
+              <div style="width: 98%; max-width: 1200px" class="row text-center" >
+                <div class="col-4" style="width:30%">
                   <div class="footer-style" style="">
                     hello@paylidate.com
                     <div
@@ -2207,7 +2130,7 @@
                     ></div>
                   </div>
                 </div>
-                <div class="col-4 q-px-xl" style="">
+                <div class="col-4 q-px-xl" style="width:30%">
                   <div class="footer-style" style="">
                     08066984101
                     <div
@@ -2219,7 +2142,7 @@
                     ></div>
                   </div>
                 </div>
-                <div class="col-4 q-px-xs">
+                <div class="col-4 q-px-xs" style="width:40%">
                   <div class="footer-style" style="width: 450px">
                     © 2022 Lotusfort Tech Ltd. All Rights Reserved
                   </div>
@@ -2245,8 +2168,12 @@ export default {
   },
   methods: {
     toggleBuyer() {
-      this.buyer = !this.buyer;
-      this.seller = !this.seller;
+      this.buyer = true;
+      this.seller = false;
+    },
+    toggleSeller() {
+      this.buyer = false;
+      this.seller = true;
     },
   },
 };
@@ -2271,6 +2198,8 @@ li {
 
 .section1 {
   background-image: linear-gradient(to right, #fff4d8 -0.12%, #ffd0b9 96.86%);
+  width: 100%;
+  margin: 0 auto;
 }
 
 .headings {
@@ -2338,9 +2267,13 @@ li {
   line-height: 24px;
   text-align: justify;
   padding-top: 20px;
-  padding-left: 60px;
+  padding-left: 30px;
   color: #ffffff;
   opacity: 0.75;
+}
+
+.card_section {
+  width: 100%;
 }
 
 .card_section:hover {
@@ -2450,7 +2383,7 @@ li {
   font-weight: 700;
   font-size: 20px;
   color: #ffffff;
-  line-height: 62px;
+  line-height: 60px;
 }
 
 .mobo-card-item-header {
@@ -2618,7 +2551,7 @@ li {
   color: #001140;
 }
 .unique-sec-body {
-  width: 370px;
+  max-width: 350px;
   height: 43px;
   font-family: "Montserrat";
   font-style: normal;
@@ -2630,20 +2563,20 @@ li {
 .mobo-footer-header {
   width: 74px;
   height: 28px;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 28px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .mobo-footer-body {
   width: 82px;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 450;
   font-size: 13.5px;
-  color: #FFFFFF;
+  color: #ffffff;
   opacity: 0.75;
 }
 
@@ -2651,13 +2584,13 @@ li {
   width: 150px;
   height: 24px;
   padding-top: 20px;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 450;
   font-size: 16px;
   line-height: 24px;
   text-align: justify;
-  color: #FFFFFF;
+  color: #ffffff;
   opacity: 0.75;
 }
 </style>
