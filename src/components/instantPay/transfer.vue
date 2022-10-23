@@ -142,7 +142,7 @@ export default {
         // const res = req.data
         // this.open = false;
       },
-    async transfer_confrimation(){
+    async transfer_confirmation(){
       let form = this.$q.localStorage.getItem('instant_pay')
       let ref = 'PD' + this.$q.localStorage.getItem('ref')
       form.payment_ref = ref;
