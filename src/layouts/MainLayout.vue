@@ -9,8 +9,13 @@
       <q-toolbar>
 
         <q-toolbar-title>
+<<<<<<< HEAD
           <q-btn to="/" flat dense stack no-caps>
             <img src="../statics/paylidate-logo.png" style="max-width: 150px">
+=======
+          <q-btn :to=" {name: isLoggedIn ? 'home' : 'index'}" flat dense stack no-caps>
+            <img src="../statics/paylidate-logo.png" style="max-width: 100%">
+>>>>>>> c188fea69199dbeb669b3d89feefeabb76f0a91b
           </q-btn>
         </q-toolbar-title>
 
@@ -58,20 +63,25 @@
               <a href="#instant_pay" >Instant Pay</a>
             </div>
           </div>
-          <div class="col-5" style="padding: 15px 0px 15px 150px;">
+          <div class="col-5" style="padding: .9rem 0rem .9rem 9.3rem;">
             <span class="q-gutter-x-xs">
               <q-btn
                 no-caps
                 rounded-borders
-                padding="10px 26px"
-                size="14px"
+                padding=".625rem 1.625rem"
+                size=".875rem"
                 class="Montserrat" color="secondary" label="Sign Up" :to="{name: 'register'}" />
               <q-btn
                 class="Montserrat"
                 rounded-borders
+<<<<<<< HEAD
                 padding="10px 26px"
                 size="14px" color="primary" no-caps label="Login" :to="{name: 'login'}" />
 >>>>>>> fc3ce9c97837f927fa2b475e61b5eced015ab640
+=======
+                padding=".625rem 1.625rem"
+                size=".875rem" color="primary" no-caps label="Login" :to="{name: 'login'}" />
+>>>>>>> c188fea69199dbeb669b3d89feefeabb76f0a91b
           </span>
         </div>
 <<<<<<< HEAD
