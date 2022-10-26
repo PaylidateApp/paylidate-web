@@ -1289,7 +1289,7 @@
           <img
             src="../../statics/handshake_mobo.png"
             spinner-color="white"
-            style="max-width: 100%; max-width:400px;"
+            style="max-width: 100%;"
           />
         </div>
         <div class="row flex text-justify">
@@ -1640,7 +1640,7 @@
             </div>
             <div class="full-width q-py-md">
               <div class="row justify-start">
-                <div class="col-4 q-py-sm q-pl-sm">
+                <div class="col-12 q-py-sm q-pl-sm">
                   <div class="row"><h2 class="footer-header">Company</h2></div>
                   <div class="row"><p class="footer-body">Legal</p></div>
                   <div class="row"><p class="footer-body">Developers</p></div>
@@ -1651,7 +1651,7 @@
                   </div>
                   <div class="row"><p class="footer-body">Privacy</p></div>
                 </div>
-                <div class="col-4 q-py-sm q-pl-sm">
+                <div class="col-12 q-py-sm q-pl-sm">
                   <div class="row"><h2 class="footer-header">Sitemap</h2></div>
                   <div class="row"><p class="footer-body">Home</p></div>
                   <div class="row"><p class="footer-body">Fees</p></div>
@@ -1661,7 +1661,7 @@
                   <div class="row"><p class="footer-body">About</p></div>
                   <div class="row"><p class="footer-body">FAQ</p></div>
                 </div>
-                <div class="col-4 q-py-sm q-pl-sm">
+                <div class="col-12 q-py-sm q-pl-sm">
                   <div class="row"><h2 class="footer-header">Socials</h2></div>
                   <div class="row"><p class="footer-body">Facebook</p></div>
                   <div class="row"><p class="footer-body">LinkedIn</p></div>
