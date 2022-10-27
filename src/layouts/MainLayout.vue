@@ -1,124 +1,54 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@philzy94 
-syflex
-/
-paylidate_app
-Private
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-paylidate_app/src/layouts/MainLayout.vue
-@ferdie213
-ferdie213 more on landing page responsiveness
-Latest commit c188fea 4 hours ago
- History
- 3 contributors
-@philzy94@ferdie213@syflex
-414 lines (361 sloc)  11.3 KB
-
 <template>
   <q-layout view="hHh Lpr lFf">
-
-    <q-header class="gt-sm"
-      style="background-image: linear-gradient(to right, #FFF4D8 -0.12%, #FFD0B9 96.86% ); width: 100%;">
+    <q-header class="" style="background-color:white">
       <q-toolbar>
 
         <q-toolbar-title>
-          <q-btn :to=" {name: isLoggedIn ? 'home' : 'index'}" flat dense stack no-caps>
-            <img src="../statics/paylidate-logo.png" style="max-width: 100%">
+          <q-btn to="/" flat dense stack no-caps>
+            <img src="../statics/paylidate-logo.png" style="max-width: 150px">
           </q-btn>
         </q-toolbar-title>
-
+        
         <div v-if="isLoggedIn" class="row">
+          <!-- <q-btn  color="primary" size="13px" style="max-height: 33px; max-width: 104px; margin-top: 5px;" class="q-mx-sm q-pa-none"  v-if="isLoggedIn" no-caps label="Instant Pay" :to="{name: 'instant_pay'}" /> -->
           <!-- <ActivateCard v-if="!account || !Object.keys(account).length " /> -->
+          <q-btn color="black" @click="userMode(true)" flat no-caps label="Admin Mode" v-if="false" />
           <q-btn color="black" @click="userMode(true)" flat no-caps label="Admin Mode" v-if="false" />
           <q-btn color="black" @click="userMode(false)" flat no-caps label="User Mode" v-if="false" />
           <q-btn color="black" flat no-caps label="Escrow" :to="{name: 'escrow'}" v-if="$q.screen.gt.xs" />
           <!-- <Notifications class="q-mx-sm"/> -->
           <Profile v-if="user &&  Object.keys(user).length " :user="user" />
         </div>
-
-        <div v-else class="row flex justify-between" style="width: 85%">
-
-          <div class="col-7">
-            <div class="nav">
-              <a href="#escrow">Escrow</a>
-              <a href="#support">Support</a>
-              <a href="https://www.paylidate.com/about">About Us</a>
-              <a href="https://www.paylidate.com/faq" style="text-align: center;">FAQ</a>
-              <a href="#instant_pay">Instant Pay</a>
-            </div>
-          </div>
-          <div class="col-5" style="padding: .9rem 0rem .9rem 9.3rem;">
-            <span class="q-gutter-x-xs">
-              <q-btn no-caps rounded-borders padding=".625rem 1.625rem" size=".875rem" class="Montserrat"
-                color="secondary" label="Sign Up" :to="{name: 'register'}" />
-              <q-btn class="Montserrat" rounded-borders padding=".625rem 1.625rem" size=".875rem" color="primary"
-                no-caps label="Login" :to="{name: 'login'}" />
-            </span>
-          </div>
+        
+        <div v-else class="q-gutter-y-xs">
+          <a href="#escrow">
+            <q-btn color="black" flat no-caps label="Escrow" v-if="$q.screen.gt.xs" />
+          </a>
+          <a href="#support">
+            <q-btn color="black" flat no-caps label="Support" v-if="$q.screen.gt.xs" />
+          </a>
+          <a href="#about">
+            <q-btn color="black" flat no-caps label="About Us" v-if="$q.screen.gt.xs" />
+          </a>
+          <a href="#team">
+            <q-btn color="black" flat no-caps tag="a" label="Team" v-if="$q.screen.gt.xs" />
+          </a>
+          <a href="#faq">
+            <q-btn color="black" flat no-caps label="FAQ" v-if="$q.screen.gt.xs" />
+          </a>
+          <span class="q-gutter-x-xs">
+            <q-btn color="black" size="sm" v-if="isLoggedIn" no-caps label="Instant Pay" :to="{name: 'instant_pay'}" />
+            <q-btn color="secondary" size="sm" no-caps label="Signup" :to="{name: 'register'}" />
+            <q-btn color="black" size="sm" no-caps label="Login" :to="{name: 'login'}" />
+          </span>
         </div>
-
-        <q-btn color="secondary" flat dense round v-if="isLoggedIn && $q.screen.lt.sm && theauth" icon="menu"
-          aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
-
-      </q-toolbar>
-    </q-header>
-
-    <q-header class="lt-md"
-      style="background-image: linear-gradient(to right, #FFF4D8 -0.12%, #FFD0B9 96.86% ); border-bottom: 1px solid #ecd2aa;">
-      <q-toolbar>
-
-        <q-toolbar-title>
-
-          <img src="../statics/paylidate-logo.png" style="width: 95px; height: 30px;">
-
-        </q-toolbar-title>
-
-        <q-btn color="primary" flat @click="leftDrawerOpen = !leftDrawerOpen" round dense icon="drag_handle" />
-
-
-        <!-- <q-btn flat dense round v-if="isLoggedIn && $q.screen.lt.sm && theauth" icon="drag_handle"
-          aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" /> -->
-
+        <q-btn color="secondary" flat dense round v-if="$q.screen.lt.sm" icon="menu" aria-label="Menu"
+          @click="leftDrawerOpen = !leftDrawerOpen" />
 
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="left" :width="200" :breakpoint="500" overlay bordered class="bg-grey-3">
-      <q-scroll-area class="fit">
-        <q-list>
-
-          <div v-for="(menuItem, index) in menuList" :key="index">
-            <q-item clickable :active="menuItem.label === 'Outbox'" v-ripple>
-              <q-item-section avatar>
-                <q-icon :name="menuItem.icon" />
-              </q-item-section>
-              <q-item-section>
-                {{ menuItem.label }}
-              </q-item-section>
-            </q-item>
-            <q-separator :key="'sep' + index" v-if="menuItem.separator" />
-          </div>
-
-        </q-list>
-      </q-scroll-area>
-    </q-drawer>
-
-
-
-    <q-drawer v-if="$q.screen.lt.sm" class="black" :breakpoint="500" overlay v-model="leftDrawerOpen" show-if-above
-      side="left" behavior="mobile" :width="350">
+    <q-drawer v-if="$q.screen.lt.sm" v-model="leftDrawerOpen" show-if-above side="left" behavior="mobile" :width="250">
       <q-list>
         <q-item-label header class="text-secondary text-bold">
         </q-item-label>
@@ -151,6 +81,16 @@ Latest commit c188fea 4 hours ago
       </q-list>
     </q-drawer>
 
+    <q-dialog v-model="instantPay">
+      <q-card>
+
+        <q-card-section class="q-gutter-x-xs">
+          <q-btn color="secondary" size="sm" no-caps label="Transfer money" :to="{name: 'instant_pay'}" />
+          <q-btn color="black" size="sm" no-caps label="Withdraw money" :to="{name: 'recieve_instant_funds'}" />
+        </q-card-section>
+
+      </q-card>
+    </q-dialog>
 
 
     <q-page-container>
@@ -168,17 +108,21 @@ import LogOut from 'components/auth/logout.vue'
 import ActivateCard from 'components/cards/partials/activate_card'
 export default {
   name: 'MainLayout',
+
   components: {
     EssentialLink, LogOut, Notifications, Profile, ActivateCard, comingSoon
   },
+
   data() {
     return {
+      instantPay: false,
       leftDrawerOpen: false,
       name: '',
       mail: {
         title: 'App Support',
         link: 'mailto:paylidatesupport@lotusfort.com?subject=Paylidate%20Customer%20Support',
       },
+
       dashboardMenu: [
         {
           title: 'Escrow',
@@ -191,8 +135,8 @@ export default {
         {
           title: 'Support',
           caption: '',
-          icon: 'credit_card',
-          link: '#contact',
+          icon: 'contact_support',
+          link: '#support',
           is_active: true,
           is_authenticated: false
         },
@@ -205,10 +149,10 @@ export default {
           is_authenticated: false
         },
         {
-          title: 'Instant Pay',
+          title: 'Team',
           caption: '',
-          icon: 'payment',
-          link: '#instant',
+          icon: 'group',
+          link: '#team',
           is_active: true,
           is_authenticated: false
         },
@@ -220,6 +164,7 @@ export default {
           is_active: true,
           is_authenticated: false
         },
+
         {
           title: 'Register',
           caption: '',
@@ -269,6 +214,15 @@ export default {
           is_authenticated: true
         },
         {
+          title: 'Instant Pay',
+          caption: '',
+          icon: 'payments',
+          link: 'instant-pay',
+          is_active: true,
+          is_authenticated: true
+        },
+
+        {
           title: 'Trade Points',
           caption: '',
           icon: 'savings',
@@ -284,6 +238,7 @@ export default {
           is_active: false,
           is_authenticated: true
         },
+
         {
           title: 'Settings',
           caption: '',
@@ -307,6 +262,7 @@ export default {
         //   is_active: false
         // },
       ],
+
       adminDashboardMenu: [
         {
           title: 'Dashboard',
@@ -348,9 +304,11 @@ export default {
           is_active: true,
           is_authenticated: true
         },
+
       ]
     }
   },
+
   computed: {
     adminMode() { return this.$q.localStorage.getItem('user_mode') },
     user() { return this.$store.getters["auth/user"] },
@@ -370,8 +328,11 @@ export default {
         return true
       }
     },
+
   },
+
   methods: {
+
     linkStatus(status) {
       if (status && this.$store.state.auth.token) {
         return true
@@ -382,45 +343,20 @@ export default {
       }
       return false
     },
+
     userMode(mode) {
       this.$q.localStorage.set('user_mode', mode);
     }
   },
+
 }
+
 </script>
 
-<style>
-.nav {
-  text-align: left;
-  padding-top: 30px;
-  padding-bottom: 15px;
-}
-
-.nav a {
+<style lang="scss" scoped>
+a {
   text-decoration: none;
-  padding-left: 10px;
-  padding-right: 10px;
-  width: 95px;
-  height: 60px;
-  font-family: 'Montserrat';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  color: #76716F;
+  color: inherit;
 }
 </style>
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-paylidate_app/MainLayout.vue at update · syflex/paylidate_app
+

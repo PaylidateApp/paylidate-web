@@ -135,7 +135,7 @@
             <h2 class="big-sub-header">What paylidate can do for you</h2>
           </div>
 
-          <div class="row" style="width: 98%; justify-content: space-evenly">
+          <div class="row" style="width: 98%;">
             <div class="col-6 col-md-3" style="width: 25%; padding-left:2rem;">
               <div class="row">
                 <div class="flex text-justify">
@@ -174,6 +174,7 @@
                 spinner-color="white"
                 style="
                   width: 100%;
+                  height: 90%;
                   padding-top: 2.5rem;
                   padding-left: 1.875rem;
                 "
@@ -1680,25 +1681,20 @@
                   <div class="text-left flex flex-left">
                     <div class="q-gutter-y-sm">
                       <h2 class="footer-header">News Letter</h2>
-                      <div class="row">
-                        <q-input
-                          v-model="text"
-                          label-color="white"
-                          style="min-width: 15.6rem"
-                          type="email"
-                          label="Enter your email address"
-                        />
-
-                        <q-btn
-                          color="white"
-                          outline
-                          round
-                          size="md"
-                          style="margin-top: 1rem"
-                          class="q-pa-none"
-                          icon="arrow_forward"
-                        />
-                      </div>
+                      <form
+                        action="https://paylidate.us13.list-manage.com/subscribe/post?u=1eaeaa6901711f741ab95b973&amp;id=97c617120a&amp;f_id=00c0c0e2f0"
+                        method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+                        novalidate>
+                      
+                        <div class="row q-py-md">
+                          <q-input style="min-width: 15.6rem" dark type="email" label="Enter your email address" label-color="white" value="" name="EMAIL" />
+                          <input type="hidden" name="tags" value="6656183">
+                          <input type="hidden" name="b_1eaeaa6901711f741ab95b973_97c617120a" tabindex="-1" value="">
+                          <q-btn color="white" outline round size="md" style="margin-top: 1rem" class="q-pa-none" icon="arrow_forward"
+                            type="submit" />
+                        </div>
+                      </form>
+                     
                     </div>
                   </div>
                 </div>
@@ -1807,21 +1803,27 @@
                   class="q-pt-lg row big-subtitle-2">
                   News Letter
                 </div>
+                <form
+                  action="https://paylidate.us13.list-manage.com/subscribe/post?u=1eaeaa6901711f741ab95b973&amp;id=97c617120a&amp;f_id=00c0c0e2f0"
+                  method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"
+                  novalidate>
+
                 <div class="row q-py-md">
-                  <q-input
-                    v-model="text"
+                  <q-input              
                     style="
                       width: 12rem;
                       padding-top: 0.3rem;
                       font-size: .75rem;
-                      line-height: 1.37rem;
-                      opacity: 0.75;
+                      
                     "
+                    dark
                     type="email"
                     label="Enter your email address"
                     label-color="white"
-                    color="white"
+                    value="" name="EMAIL" 
                   />
+                  <input type="hidden" name="tags" value="6656183">
+                  <input type="hidden" name="b_1eaeaa6901711f741ab95b973_97c617120a" tabindex="-1" value="">
                   <q-btn
                     color="white"
                     outline
@@ -1830,8 +1832,10 @@
                     style="margin-top: 1rem"
                     class="q-pa-none"
                     icon="arrow_forward"
+                    type="submit"
                   />
                 </div>
+                </form>
               </div>
             </div>
           </q-card-section>
@@ -1888,6 +1892,7 @@ export default {
   components: {},
   data() {
     return {
+      text: null,
       buyer: false,
       seller: true,
     };
