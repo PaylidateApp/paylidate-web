@@ -1,14 +1,13 @@
 <template>
   <q-page
-    class="section1"
-    :class="$q.screen.gt.sm ? 'text-primary row q-pt-md' : 'text-primary row'"
+    class="section1 text-primary row"
     style="
       scroll-behavior: smooth;
       font-family: 'Mukta', 'sans-serif';
       width: 100%;
     "
   >
-    <div class="section1 q-pr-xl q-mt-lg flex gt-sm" style="padding-top: 4rem;">
+    <div class="section1 q-pr-xl flex gt-sm">
       <div class="row items-center justify-center" style="width: 100%; padding-left: 4rem;">
         <div class="col-12 col-sm-4" style="width: 40%">
           <h1 class="big-header">
