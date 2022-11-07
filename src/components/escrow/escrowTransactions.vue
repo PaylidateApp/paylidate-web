@@ -190,6 +190,9 @@ export default {
     }
   },
   mounted() {
+    if (!this.$q.localStorage.getItem('paylidate_token')) {
+      this.$router.push({ name: "login" });
+    }
     this.getTransactions();
   },
   computed:{
