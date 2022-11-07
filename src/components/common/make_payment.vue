@@ -113,7 +113,7 @@ export default {
           return "Your Transaction fee is NGN 100"
         }
         else if( charge > 2500){
-          this.form.total_amount = original_amount + 2060;
+          this.form.total_amount = original_amount + 2500;
           return "Your Transaction fee is NGN 2500"
         }
         else {

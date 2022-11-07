@@ -17,8 +17,8 @@
         <q-input type="textarea" outlined dense v-model="form.description" label="Description"/>
       </q-card-section>
       <q-card-section>
-        <q-btn v-if="!form.amount || !form.receiver_number || form.amount < 200 || form.receiver_number.length != 11" disable color="primary" no-caps label="Transfer" class="full-width" />
-        <q-btn v-else :loading="loading" color="primary" no-caps label="Transfer" class="full-width" @click="transfer_money()" />
+        <q-btn v-if="!form.amount || !form.receiver_number || form.amount < 200 || form.receiver_number.length != 11" disable color="primary" no-caps label="PAY" class="full-width" />
+        <q-btn v-else :loading="loading" color="primary" no-caps label="PAY" class="full-width" @click="transfer_money()" />
       </q-card-section>
 
     </q-card>

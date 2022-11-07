@@ -3,7 +3,7 @@
       <!-- {{thedata}} <br /><br />
       {{thedata.config.data}} -->
     <q-card flat bordered style="min-width: 300px">
-      <div class="column flex-center cursor-pointer" @click="$router.push({name: 'login'})">
+      <div class="column flex-center cursor-pointer q-pt-md" @click="$router.push({name: 'login'})">
         <img src="../../statics/icons/favicon-128x128.png" style="max-width: 100px">
         <div class=" text-weight-light text-caption text-weight-bolder">
           Paylidate

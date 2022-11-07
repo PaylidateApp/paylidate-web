@@ -410,10 +410,12 @@ export default {
           //console.log(req);
 
           const res = req.data;
-          this.getProduct();
+           
           this.$q.loading.hide();
-          this.$q.notify({ message: "Request seccessfully", color: "green" });
-          this.$router.push({ name: "transactions" });
+          this.$q.notify({ message: "Request seccessful", color: "green" });
+          //console.log(res.data.transaction_ref);
+          this.$router.push({ path: '/escrow-transaction/' + res.data.transaction_ref});
+          //this.$router.push({ name: "transactions" });
         } catch (error) {
           //console.log(error.response.data.message);
           this.$q.loading.hide();

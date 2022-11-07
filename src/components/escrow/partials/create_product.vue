@@ -488,8 +488,8 @@ export default {
         }
 
         if (this.form.referral_amount && this.form.transaction_type == 'sell' && parseFloat(this.form.referral_amount) >= parseFloat(this.form.price)) {
-          console.log(this.form.referral_amount);
-          console.log(this.form.price);
+          //console.log(this.form.referral_amount);
+          //console.log(this.form.price);
           this.$q.notify({
             message: 'Referral bonus must be less than product price',
             position: 'top',
