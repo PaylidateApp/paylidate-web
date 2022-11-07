@@ -21,19 +21,19 @@
         </div>
 
         <div v-else class="q-gutter-y-xs">
-          <a href="#escrow">
+          <a href="escrow-transactions">
             <q-btn color="black" flat no-caps label="Escrow" v-if="$q.screen.gt.xs" />
           </a>
           <a href="#support">
             <q-btn color="black" flat no-caps label="Support" v-if="$q.screen.gt.xs" />
           </a>
-          <a href="#about">
+          <a href="about">
             <q-btn color="black" flat no-caps label="About Us" v-if="$q.screen.gt.xs" />
           </a>
-          <a href="#team">
-            <q-btn color="black" flat no-caps tag="a" label="Team" v-if="$q.screen.gt.xs" />
+          <a href="instant-pay">
+            <q-btn color="black" flat no-caps tag="a" label="Instant Pay" v-if="$q.screen.gt.xs" />
           </a>
-          <a href="#faq">
+          <a href="faq">
             <q-btn color="black" flat no-caps label="FAQ" v-if="$q.screen.gt.xs" />
           </a>
           <span class="q-gutter-x-xs">
