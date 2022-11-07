@@ -10,12 +10,13 @@ const routes: RouteConfig[] = [
       { path: 'about', name: 'about',component: () => import('pages/About.vue') },
       { path: 'faq', name: 'faq',component: () => import('pages/FAQ.vue') },
       { path: 'escrow-help', name: 'escrow-help',component: () => import('pages/EscrowHelp.vue') },
-      { path: 'instant-pay', name: 'instant_pay',component: () => import('pages/instant_pay.vue')}, 
-      { path: 'recieve-instant-funds/:token', name: 'recieve_instant_funds',component: () => import('pages/instant_pay.vue')},
+      { path: 'instant-pay', name: 'instant_pay',component: () => import('pages/Instant_pay.vue')},
+      { path: 'recieve-instant-funds/:token', name: 'recieve_instant_funds',component: () => import('pages/Instant_pay.vue')},
       { path: 'register', name: 'register',component: () => import('pages/Auth.vue')},
       { path: 'forgot', name: 'forgot',component: () => import('pages/Auth.vue') },
       { path: 'reset-password/:token', name: 'reset-password', component: () => import('pages/Auth.vue') },
       { path: 'withdrawal-requests', name: 'withdrawal_requests', component: () => import('pages/Dashboard.vue'), meta: { requiresAuth: true } },
+      { path: 'user-dashboard', name: 'user_dashboard',component: () => import('pages/UserDashboard.vue'), meta: { requiresAuth: true } },
       { path: 'account', name: 'account',component: () => import('pages/Auth.vue'), meta: { requiresAuth: true } },
       { path: 'products', name: 'products', component: () => import('pages/Escrow.vue'), meta: { requiresAuth: true } },
       { path: 'transaction-disputes/:transaction_id', name: 'disputes', component: () => import('pages/Escrow.vue'), meta: { requiresAuth: true } },
@@ -39,7 +40,7 @@ const routes: RouteConfig[] = [
       { path: 'settings', name: 'settings', component: () => import('pages/Settings.vue'), meta: { requiresAuth: true } },
       { path: '/product-payment', name: 'product-status', component: () => import('pages/product_status.vue'), meta: { requiresAuth: true } },
       { path: '/escrow-transaction/:t_ref/:t_id/payment', name: 'pay-product', component: () => import('pages/product_payment.vue'), meta: { requiresAuth: true } },
-      
+
 
         // { path: 'security', name: 'security', component: () => import('pages/Index.vue') },
         // { path: 'initAccount', name: 'initAccount',component: () => import('pages/Auth.vue') },
