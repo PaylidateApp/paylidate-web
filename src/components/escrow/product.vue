@@ -222,7 +222,8 @@
               outlined
               dense
               v-model="form.description"
-              label="Transaction Description"
+              label="Note to Seller"
+              placeholder="You could add specific details about the product you are paying for like colour, size, etc. and also delivery information like state and delivery address"
             />
           </q-card-section>
 
@@ -410,7 +411,7 @@ export default {
           //console.log(req);
 
           const res = req.data;
-           
+
           this.$q.loading.hide();
           this.$q.notify({ message: "Request seccessful", color: "green" });
           //console.log(res.data.transaction_ref);

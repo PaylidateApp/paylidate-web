@@ -85,6 +85,7 @@
                 dense
                 v-model="form.description"
                 label="Product Description"
+                placeholder="Add details of this product/service here including specifications, note, and delivery details."
               />
 
               <div v-if="form.transaction_type == 'buy'">
