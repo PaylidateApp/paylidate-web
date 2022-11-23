@@ -8,8 +8,11 @@
       width: 100%;
     "
   >
-    <div class="section1 q-pr-xl q-mt-lg flex gt-sm" style="padding-top: 4rem;">
-      <div class="row items-center justify-center" style="width: 100%; padding-left: 4rem;">
+    <div class="section1 q-pr-xl q-mt-lg flex gt-sm" style="padding-top: 4rem">
+      <div
+        class="row items-center justify-center"
+        style="width: 100%; padding-left: 4rem"
+      >
         <div class="col-12 col-sm-4" style="width: 40%">
           <h1 class="big-header">
             Fast and secured <span>digital payments</span>
@@ -23,7 +26,7 @@
           <div
             class="row items-start q-gutter-sm gt-sm"
             style="
-              padding-top: .4rem;
+              padding-top: 0.4rem;
               font-family: 'Montserrat';
               color: #0e3951;
               font-style: normal;
@@ -44,7 +47,8 @@
           </div>
           <div
             class="text-weight-light q-gutter-sm gt-sm"
-            style="padding-top: 2.5rem;">
+            style="padding-top: 2.5rem"
+          >
             <q-btn
               style="background: #182430; color: white"
               no-caps
@@ -120,7 +124,7 @@
         <img
           src="../../statics/girlie_mobo.png"
           spinner-color="white"
-          style="width: 80%; max-width:400px;"
+          style="width: 80%; max-width: 400px"
         />
       </div>
     </div>
@@ -131,83 +135,67 @@
       style="width: 100%"
     >
       <div class="q-py-xl full-width text-center">
-          <div>
-            <h2 class="big-sub-header">What paylidate can do for you</h2>
-          </div>
+        <div>
+          <h2 class="big-sub-header">What paylidate can do for you</h2>
+        </div>
 
-          <div class="row" style="width: 98%; justify-content: space-evenly">
-            <div class="col-6 col-md-3" style="width: 25%; padding-left:2rem;">
-              <div class="row">
-                <div class="flex text-justify">
-                  <div>
-                    <h5
-                      class="big-title align-left">
-                      01/ Payments
-                    </h5>
-                    <p class="big-sub-body">
-                      Make payments quickly, easily and safely. Payment would be
-                      held in escrow until you confirm the delivery
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="row" style="padding-top: 8rem;">
-                <div class="flex text-justify">
-                  <h5
-                    class="big-title"
-                  >
-                    03/ Refunds
-                </h5>
+        <div class="row" style="width: 98%; justify-content: space-evenly">
+          <div class="col-6 col-md-3" style="width: 25%; padding-left: 2rem">
+            <div class="row">
+              <div class="flex text-justify">
+                <div>
+                  <h5 class="big-title align-left">01/ Payments</h5>
                   <p class="big-sub-body">
-                    Get a refund if what you got is different from what was
-                    specified by the vendor
+                    Make payments quickly, easily and safely. Payment would be
+                    held in escrow until you confirm the delivery
                   </p>
                 </div>
               </div>
             </div>
-            <div
-              class="col-6 col-md-6 flex justify-center align-center"
-              style="width: 50%"
-            >
-              <img
-                src="../../statics/gif_for_changing images.gif"
-                spinner-color="white"
-                style="
-                  width: 100%;
-                  padding-top: 2.5rem;
-                  padding-left: 1.875rem;
-                "
-              />
+            <div class="row" style="padding-top: 8rem">
+              <div class="flex text-justify">
+                <h5 class="big-title">03/ Refunds</h5>
+                <p class="big-sub-body">
+                  Get a refund if what you got is different from what was
+                  specified by the vendor
+                </p>
+              </div>
             </div>
-            <div class="col-6 col-md-3" style="width: 25%; padding-left: 2.5rem">
-              <div class="row">
-                <div class="text-left flex justify-left">
-                  <div>
-                    <h5 class="big-title">
-                      02/ Disputes
-                    </h5>
-                    <p class="big-sub-body">
-                      Raise disputes to clear out issues with a transaction
-                    </p>
-                  </div>
+          </div>
+          <div
+            class="col-6 col-md-6 flex justify-center align-center"
+            style="width: 50%"
+          >
+            <img
+              src="../../statics/gif_for_changing images.gif"
+              spinner-color="white"
+              style="width: 100%; padding-top: 2.5rem; padding-left: 1.875rem"
+            />
+          </div>
+          <div class="col-6 col-md-3" style="width: 25%; padding-left: 2.5rem">
+            <div class="row">
+              <div class="text-left flex justify-left">
+                <div>
+                  <h5 class="big-title">02/ Disputes</h5>
+                  <p class="big-sub-body">
+                    Raise disputes to clear out issues with a transaction
+                  </p>
                 </div>
               </div>
-              <div class="row" style="padding-top: 8rem;">
-                <div class="flex text-justify">
-                  <div>
-                    <h5 class="big-title">
-                      04/ Bonuses
-                    </h5>
-                    <p class="big-sub-body">
-                      Earn points from referrals, connecting vendors with buyers
-                      and meeting transaction milestone.
-                    </p>
-                  </div>
+            </div>
+            <div class="row" style="padding-top: 8rem">
+              <div class="flex text-justify">
+                <div>
+                  <h5 class="big-title">04/ Bonuses</h5>
+                  <p class="big-sub-body">
+                    Earn points from referrals, connecting vendors with buyers
+                    and meeting transaction milestone.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
-
+        </div>
       </div>
     </div>
 
@@ -287,7 +275,7 @@
           <img
             src="../../statics/gif_for_mobo.gif"
             spinner-color="white"
-            style="width: 98%; max-width:400px;"
+            style="width: 98%; max-width: 400px"
           />
         </div>
       </div>
@@ -303,7 +291,7 @@
         class="full-width text-center"
       >
         <div class="gt-sm text-center flex justify-center">
-          <h2 class="big-sub-header" style="color:#ffffff;">
+          <h2 class="big-sub-header" style="color: #ffffff">
             How Paylidate Works
           </h2>
         </div>
@@ -311,10 +299,22 @@
         <div class="gt-sm row full-width q-pt-sm justify-evenly">
           <div class="text-center flex justify-center">
             <div class="col q-pr-md">
-              <button class="button" @click="toggleSeller" :class="{active: activeSeller}">For Seller</button>
+              <button
+                class="button"
+                @click="toggleSeller"
+                :class="{ active: activeSeller }"
+              >
+                For Seller
+              </button>
             </div>
             <div class="col q-pl-md">
-              <button class="button" @click="toggleBuyer" :class="{active: activeBuyer}">For Buyer</button>
+              <button
+                class="button"
+                @click="toggleBuyer"
+                :class="{ active: activeBuyer }"
+              >
+                For Buyer
+              </button>
             </div>
           </div>
         </div>
@@ -331,25 +331,19 @@
                   <div class="row q-py-lg card_section" style="width: 100%">
                     <div class="text-left flex justify-left">
                       <div class="col-2" style="width: 10%">
-                        <div class="q-px-sm align-left card-item-num">
-                          01/
-                        </div>
+                        <div class="q-px-sm align-left card-item-num">01/</div>
                       </div>
-                      <div class="col-6 q-pl-md" style="width: 75%;">
-                        <h5
-                          class="text-justify card-item-header"
-                        >
-                          Sign Up
-                        </h5>
+                      <div class="col-6 q-pl-md" style="width: 75%">
+                        <h5 class="text-justify card-item-header">Sign Up</h5>
                         <p class="text-justify card_item">
                           A simple sign up page to get you on board.
                         </p>
                       </div>
-                      <div class="col-3" style="width: 15%; padding-top: 2.5rem;">
-                        <q-card-actions
-                          vertical
-                          class="justify-around q-px-md"
-                        >
+                      <div
+                        class="col-3"
+                        style="width: 15%; padding-top: 2.5rem"
+                      >
+                        <q-card-actions vertical class="justify-around q-px-md">
                           <q-btn
                             outline
                             round
@@ -368,28 +362,22 @@
                   <div class="row q-py-lg card_section" style="width: 100%">
                     <div class="text-left flex justify-left">
                       <div class="col-2" style="width: 10%">
-                        <div
-                          class="q-px-sm card-item-num"
-                        >
-                          02/
-                        </div>
+                        <div class="q-px-sm card-item-num">02/</div>
                       </div>
-                      <div class="col-4 q-pl-md" style="width: 75%;">
-                        <h5
-                          class="text-justify card-item-header"
-                        >
-                        Set Up Account
+                      <div class="col-4 q-pl-md" style="width: 75%">
+                        <h5 class="text-justify card-item-header">
+                          Set Up Account
                         </h5>
                         <p class="text-justify card_item">
                           Add your account number in the settings and complete
                           your account setup
                         </p>
                       </div>
-                      <div class="col-3" style="width: 15%; padding-top: 2.5rem;">
-                        <q-card-actions
-                          vertical
-                          class="justify-around q-px-md"
-                        >
+                      <div
+                        class="col-3"
+                        style="width: 15%; padding-top: 2.5rem"
+                      >
+                        <q-card-actions vertical class="justify-around q-px-md">
                           <q-btn
                             outline
                             round
@@ -410,26 +398,22 @@
                   <div class="row q-py-lg card_section" style="width: 100%">
                     <div class="text-left flex justify-left">
                       <div class="col-2" style="width: 10%">
-                        <div class="q-px-sm card-item-num">
-                          03/
-                        </div>
+                        <div class="q-px-sm card-item-num">03/</div>
                       </div>
-                      <div class="col-4 q-pl-md" style="width: 75%;">
-                        <h5
-                          class="text-justify card-item-header"
-                        >
-                        Create Product
+                      <div class="col-4 q-pl-md" style="width: 75%">
+                        <h5 class="text-justify card-item-header">
+                          Create Product
                         </h5>
                         <p class="text-justify card_item">
                           Click the "create" button on the product page, add
                           your product/service details to create a product link.
                         </p>
                       </div>
-                      <div class="col-3" style="width: 15%; padding-top: 2.5rem;">
-                        <q-card-actions
-                          vertical
-                          class="justify-around q-px-md"
-                        >
+                      <div
+                        class="col-3"
+                        style="width: 15%; padding-top: 2.5rem"
+                      >
+                        <q-card-actions vertical class="justify-around q-px-md">
                           <q-btn
                             outline
                             round
@@ -448,15 +432,11 @@
                   <div class="row q-py-lg card_section" style="width: 100%">
                     <div class="text-left flex justify-left">
                       <div class="col-2" style="width: 10%">
-                        <div class="q-px-sm card-item-num">
-                          03/
-                        </div>
+                        <div class="q-px-sm card-item-num">03/</div>
                       </div>
-                      <div class="col-4 q-pl-md" style="width: 75%;">
-                        <h5
-                          class="text-justify card-item-header"
-                        >
-                        Create A Buy Product With Seller’s Tag
+                      <div class="col-4 q-pl-md" style="width: 75%">
+                        <h5 class="text-justify card-item-header">
+                          Create A Buy Product With Seller’s Tag
                         </h5>
                         <p class="text-justify card_item">
                           Use the seller’s user tag or email to create a payment
@@ -465,7 +445,10 @@
                         </p>
                       </div>
 
-                      <div class="col-2" style="width: 15%; padding-top: 2.5rem;">
+                      <div
+                        class="col-2"
+                        style="width: 15%; padding-top: 2.5rem"
+                      >
                         <q-card-actions
                           vertical
                           class="q-pl-lg justify-around q-px-md"
@@ -488,21 +471,20 @@
                   <div class="row q-py-lg card_section" style="width: 100%">
                     <div class="text-left flex justify-left">
                       <div class="col-2" style="width: 10%">
-                        <div class="q-px-sm card-item-num">
-                          04/
-                        </div>
+                        <div class="q-px-sm card-item-num">04/</div>
                       </div>
-                      <div class="col-4 q-pl-md" style="width: 75%;">
-                        <h5
-                          class="text-justify card-item-header"
-                        >
-                        Copy & Share Payment Link
+                      <div class="col-4 q-pl-md" style="width: 75%">
+                        <h5 class="text-justify card-item-header">
+                          Copy & Share Payment Link
                         </h5>
                         <p class="text-justify card_item">
                           Copy and share the generated product link
                         </p>
                       </div>
-                      <div class="col-2" style="width: 15%; padding-top: 2.5rem;">
+                      <div
+                        class="col-2"
+                        style="width: 15%; padding-top: 2.5rem"
+                      >
                         <q-card-actions
                           vertical
                           class="q-pl-lg justify-around q-px-md"
@@ -525,22 +507,21 @@
                   <div class="row q-py-lg card_section" style="width: 100%">
                     <div class="text-left flex justify-left">
                       <div class="col-2" style="width: 10%">
-                        <div class="q-px-sm card-item-num">
-                          04/
-                        </div>
+                        <div class="q-px-sm card-item-num">04/</div>
                       </div>
-                      <div class="col-4 q-pl-md" style="width: 75%;">
-                        <h5
-                          class="text-justify card-item-header"
-                        >
-                        Click on Seller-Product Link
+                      <div class="col-4 q-pl-md" style="width: 75%">
+                        <h5 class="text-justify card-item-header">
+                          Click on Seller-Product Link
                         </h5>
                         <p class="text-justify card_item">
                           View the product by clicking on the vendor’s product
                           link
                         </p>
                       </div>
-                      <div class="col-2" style="width: 15%; padding-top: 2.5rem;">
+                      <div
+                        class="col-2"
+                        style="width: 15%; padding-top: 2.5rem"
+                      >
                         <q-card-actions
                           vertical
                           class="q-pl-lg justify-around q-px-md"
@@ -565,22 +546,21 @@
                   <div class="row q-py-lg card_section" style="width: 100%">
                     <div class="text-left flex justify-left">
                       <div class="col-2" style="width: 10%">
-                        <div class="q-px-sm card-item-num">
-                          05/
-                        </div>
+                        <div class="q-px-sm card-item-num">05/</div>
                       </div>
-                      <div class="col-4 q-pl-md" style="width: 75%;">
-                        <h5
-                          class="text-justify card-item-header"
-                        >
-                        Receive Payments
+                      <div class="col-4 q-pl-md" style="width: 75%">
+                        <h5 class="text-justify card-item-header">
+                          Receive Payments
                         </h5>
                         <p class="text-justify card_item">
                           When customers pay through your product link, you
                           receive an email alert of the payment
                         </p>
                       </div>
-                      <div class="col-2" style="width: 15%; padding-top: 2.5rem;">
+                      <div
+                        class="col-2"
+                        style="width: 15%; padding-top: 2.5rem"
+                      >
                         <q-card-actions
                           vertical
                           class="q-pl-lg justify-around q-px-md"
@@ -603,15 +583,11 @@
                   <div class="row q-py-lg card_section" style="width: 100%">
                     <div class="text-left flex justify-left">
                       <div class="col-2" style="width: 10%">
-                        <div class="q-px-sm card-item-num">
-                          05/
-                        </div>
+                        <div class="q-px-sm card-item-num">05/</div>
                       </div>
-                      <div class="col-4 q-pl-md" style="width: 75%;">
-                        <h5
-                          class="text-justify card-item-header"
-                        >
-                        Make Payment
+                      <div class="col-4 q-pl-md" style="width: 75%">
+                        <h5 class="text-justify card-item-header">
+                          Make Payment
                         </h5>
                         <p class="text-justify card_item">
                           Make payment using any of the available payment
@@ -619,7 +595,10 @@
                         </p>
                       </div>
 
-                      <div class="col-2" style="width: 15%; padding-top: 2.5rem;">
+                      <div
+                        class="col-2"
+                        style="width: 15%; padding-top: 2.5rem"
+                      >
                         <q-card-actions
                           vertical
                           class="q-pl-lg justify-around q-px-md"
@@ -642,22 +621,21 @@
                   <div class="row q-py-lg card_section" style="width: 100%">
                     <div class="text-left flex justify-left">
                       <div class="col-2" style="width: 10%">
-                        <div class="q-px-sm card-item-num">
-                          06/
-                        </div>
+                        <div class="q-px-sm card-item-num">06/</div>
                       </div>
-                      <div class="col-4 q-pl-md" style="width: 75%;">
-                        <h5
-                          class="text-justify card-item-header"
-                        >
-                        Deliver Product or Service
+                      <div class="col-4 q-pl-md" style="width: 75%">
+                        <h5 class="text-justify card-item-header">
+                          Deliver Product or Service
                         </h5>
                         <p class="text-justify card_item">
                           Complete the agreed delivery
                         </p>
                       </div>
 
-                      <div class="col-2" style="width: 15%; padding-top: 2.5rem;">
+                      <div
+                        class="col-2"
+                        style="width: 15%; padding-top: 2.5rem"
+                      >
                         <q-card-actions
                           vertical
                           class="q-pl-lg justify-around q-px-md"
@@ -680,16 +658,12 @@
                   <div class="row q-py-lg card_section" style="width: 100%">
                     <div class="text-left flex justify-left">
                       <div class="col-2" style="width: 10%">
-                        <div class="q-px-sm card-item-num">
-                          06/
-                        </div>
+                        <div class="q-px-sm card-item-num">06/</div>
                       </div>
 
-                      <div class="col-4 q-pl-md" style="width: 75%;">
-                        <h5
-                          class="text-justify card-item-header"
-                        >
-                        Receive Delivery
+                      <div class="col-4 q-pl-md" style="width: 75%">
+                        <h5 class="text-justify card-item-header">
+                          Receive Delivery
                         </h5>
                         <p class="text-justify card_item">
                           After payment, the seller would be prompted the make
@@ -697,12 +671,11 @@
                         </p>
                       </div>
 
-
-                      <div class="col-2" style="width: 15%; padding-top: 2.5rem;">
-                        <q-card-actions
-                          vertical
-                          class=" justify-around q-px-md"
-                        >
+                      <div
+                        class="col-2"
+                        style="width: 15%; padding-top: 2.5rem"
+                      >
+                        <q-card-actions vertical class="justify-around q-px-md">
                           <q-btn
                             outline
                             round
@@ -718,30 +691,22 @@
                 </div>
               </div>
 
-
               <div v-if="seller" class="q-px-xl" style="width: 45%">
                 <div class="row q-py-lg card_section" style="width: 100%">
                   <div class="text-left flex justify-left">
                     <div class="col-2" style="width: 10%">
-                      <div class="q-px-sm card-item-num">
-                        07/
-                      </div>
+                      <div class="q-px-sm card-item-num">07/</div>
                     </div>
-                    <div class="col-4 q-pl-md" style="width: 75%;">
-                        <h5
-                          class="text-justify card-item-header"
-                        >
+                    <div class="col-4 q-pl-md" style="width: 75%">
+                      <h5 class="text-justify card-item-header">
                         Withdraw Funds
-                        </h5>
-                        <p class="text-justify card_item">
-                          When delivery is complete, withdrawal will be enabled
-                        </p>
-                      </div>
-                    <div class="col-2" style="width:15%; padding-top:2.5rem;">
-                      <q-card-actions
-                        vertical
-                        class="justify-around q-px-md"
-                      >
+                      </h5>
+                      <p class="text-justify card_item">
+                        When delivery is complete, withdrawal will be enabled
+                      </p>
+                    </div>
+                    <div class="col-2" style="width: 15%; padding-top: 2.5rem">
+                      <q-card-actions vertical class="justify-around q-px-md">
                         <q-btn
                           outline
                           round
@@ -760,26 +725,19 @@
                 <div class="row q-py-lg card_section" style="width: 100%">
                   <div class="text-left flex justify-left">
                     <div class="col-2" style="width: 10%">
-                      <div class="q-px-sm card-item-num">
-                        07/
-                      </div>
+                      <div class="q-px-sm card-item-num">07/</div>
                     </div>
-                    <div class="col-4 q-pl-md" style="width: 75%;">
-                        <h5
-                          class="text-justify card-item-header"
-                        >
+                    <div class="col-4 q-pl-md" style="width: 75%">
+                      <h5 class="text-justify card-item-header">
                         Confirm Payment
-                        </h5>
-                        <p class="text-justify card_item">
-                          On delivery,access the product and confirm it’s what you
+                      </h5>
+                      <p class="text-justify card_item">
+                        On delivery,access the product and confirm it’s what you
                         ordered. If it is, then confirm the payment.
-                        </p>
-                      </div>
-                    <div class="col-2" style="width:15%; padding-top:2.5rem;">
-                      <q-card-actions
-                        vertical
-                        class="justify-around q-px-md"
-                      >
+                      </p>
+                    </div>
+                    <div class="col-2" style="width: 15%; padding-top: 2.5rem">
+                      <q-card-actions vertical class="justify-around q-px-md">
                         <q-btn
                           outline
                           round
@@ -1225,49 +1183,43 @@
     <!--About Paylidate  -->
     <div
       class="flex"
-      style="background-color: #319ed9; width: 100%; padding-bottom: 2rem;"
+      style="background-color: #319ed9; width: 100%; padding-bottom: 2rem"
     >
-        <div class="row  justify-evenly gt-sm">
-          <div class="col-6 flex justify-center" style="width:40%">
-            <div class="row q-pt-xl">
-              <img
-                src="../../statics/handshake.png"
-                spinner-color="white"
-                style="width: 100%; max-width:550px;"
-              />
-            </div>
+      <div class="row justify-evenly gt-sm">
+        <div class="col-6 flex justify-center" style="width: 40%">
+          <div class="row q-pt-xl">
+            <img
+              src="../../statics/handshake.png"
+              spinner-color="white"
+              style="width: 100%; max-width: 550px"
+            />
           </div>
-          <div
-            class="col-6 flex text-justify"
-            style="padding-top: 6.25rem; padding-left: 3.125rem; width:40%"
-          >
-            <h5 class="headings-2">Paylidate connects buyers and sellers</h5>
-            <p class="big-sub-body" style="color:#062231; line-height: 1.8rem;">
-              We believe you should be able to choose how you want to pay during
-              transactions online without being subjected to the risk of loosing
-              your money.
-            </p>
-          </div>
+        </div>
+        <div
+          class="col-6 flex text-justify"
+          style="padding-top: 6.25rem; padding-left: 3.125rem; width: 40%"
+        >
+          <h5 class="headings-2">Paylidate connects buyers and sellers</h5>
+          <p class="big-sub-body" style="color: #062231; line-height: 1.8rem">
+            We believe you should be able to choose how you want to pay during
+            transactions online without being subjected to the risk of loosing
+            your money.
+          </p>
+        </div>
 
-          <div class="row justify-center gt-sm" style="padding-top: .3125rem">
-            <div class="col-4 flex">
-              <h2 class="headings-2">
-              Pay with no doubt and sell without fear
-            </h2>
-            </div>
-            <div class="col-6 flex" style="padding-left: 12.4rem;">
-              <p
-              class=" big-sub-body"
-              style="color:#062231; line-height: 1.8rem;"
-            >
+        <div class="row justify-center gt-sm" style="padding-top: 0.3125rem">
+          <div class="col-4 flex">
+            <h2 class="headings-2">Pay with no doubt and sell without fear</h2>
+          </div>
+          <div class="col-6 flex" style="padding-left: 12.4rem">
+            <p class="big-sub-body" style="color: #062231; line-height: 1.8rem">
               It's important that you stay focused on your goals without getting
               distracted by unnecessary worries. That is why Paylidate makes
               payments easy and protects you whether you are buying or selling.
-          </p>
-            </div>
-
+            </p>
           </div>
         </div>
+      </div>
     </div>
 
     <!-- Mobile Responsiveness -->
@@ -1287,9 +1239,9 @@
         </p>
         <div class="row q-pa-md">
           <img
-            src="../../statics/handshake_mobo.png"
+            src="../../statics/handshake.png"
             spinner-color="white"
-            style="max-width: 100%; max-width:400px;"
+            style="width: 100%; max-width: 400px;"
           />
         </div>
         <div class="row flex text-justify">
@@ -1333,9 +1285,7 @@
                   <div class="q-pb-xs q-pt-lg">
                     <img src="../../statics/money.png" style="width: 10%" />
                   </div>
-                  <div class="q-py-xs big-subtitle">
-                    Escrow
-                  </div>
+                  <div class="q-py-xs big-subtitle">Escrow</div>
                   <div class="q-py-sm big-sub-body" style="width: 90%">
                     Buy and sell with ease. Use Paylidate's escrow payment to
                     secure your transactions.
@@ -1358,11 +1308,7 @@
                   <div class="q-pb-xs q-pt-xl">
                     <img src="../../statics/receipt.png" style="width: 10%" />
                   </div>
-                  <div
-                    class="q-py-xs big-subtitle "
-                  >
-                    Paylidate Checkouts
-                  </div>
+                  <div class="q-py-xs big-subtitle">Paylidate Checkouts</div>
                   <div class="q-py-sm big-sub-body" style="width: 80%">
                     Use Paylidate button to checkout with just an email address
                     and password.
@@ -1384,11 +1330,7 @@
                   <div class="q-pt-xl">
                     <img src="../../statics/wallet.png" style="width: 12%" />
                   </div>
-                  <div
-                    class="q-py-xs big-subtitle"
-                  >
-                    Wallet
-                  </div>
+                  <div class="q-py-xs big-subtitle">Wallet</div>
                   <div class="q-py-sm big-sub-body" style="width: 90%">
                     Make secured escrow payments in a flash.
                   </div>
@@ -1412,11 +1354,7 @@
                   <div class="q-pb-xs q-pt-xl">
                     <img src="../../statics/ring.png" style="width: 10%" />
                   </div>
-                  <div
-                    class="q-py-xm big-subtitle"
-                  >
-                    Connect to Earn
-                  </div>
+                  <div class="q-py-xm big-subtitle">Connect to Earn</div>
                   <div class="q-py-sm big-sub-body" style="width: 90%">
                     Help friends connect with buyers and earn from the sales.
                     Sellers can add how much they want referrers to earn on
@@ -1439,11 +1377,7 @@
                   <div class="q-pb-xs q-pt-sm">
                     <img src="../../statics/coins.png" style="width: 10%" />
                   </div>
-                  <div
-                    class="q-py-sm big-subtitle"
-                  >
-                    Paylidate Points
-                  </div>
+                  <div class="q-py-sm big-subtitle">Paylidate Points</div>
                   <div class="q-py-sm big-sub-body" style="width: 90%">
                     Earn Paylidate points on the go. Milestone points,
                     transaction points, bonuses and other offers.
@@ -1607,7 +1541,12 @@
     >
       <div class="row" style="width: 100%">
         <div class="col-7" style="width: 60%">
-          <h2 class="big-sub-header" style="text-align: left; padding-left: 2rem;">Partners</h2>
+          <h2
+            class="big-sub-header"
+            style="text-align: left; padding-left: 2rem"
+          >
+            Partners
+          </h2>
         </div>
         <div class="col-5" style="padding-top: 50px; width: 40%">
           <div class="row">
@@ -1642,31 +1581,53 @@
               <div class="row justify-start">
                 <div class="col-4 q-py-sm q-pl-sm">
                   <div class="row"><h2 class="footer-header">Company</h2></div>
-                  <div class="row"><p class="footer-body">Legal</p></div>
+                  <!-- <div class="row"><p class="footer-body">Legal</p></div>
                   <div class="row"><p class="footer-body">Developers</p></div>
                   <div class="row"><p class="footer-body">Security</p></div>
-                  <div class="row"><p class="footer-body">Partners</p></div>
+                  <div class="row"><p class="footer-body">Partners</p></div> -->
                   <div class="row text-justify">
-                    <p class="footer-body">Escrow Agreement</p>
+                    <a href="escrow-agreement"><p class="footer-body">Escrow Agreement</p></a>
                   </div>
                   <div class="row"><p class="footer-body">Privacy</p></div>
                 </div>
                 <div class="col-4 q-py-sm q-pl-sm">
                   <div class="row"><h2 class="footer-header">Sitemap</h2></div>
-                  <div class="row"><p class="footer-body">Home</p></div>
-                  <div class="row"><p class="footer-body">Fees</p></div>
-                  <div class="row text-justify">
-                    <p class="footer-body">Resource Center</p>
+
+                  <div class="row">
+                    <a href="/"> <p class="footer-body">Home</p> </a>
                   </div>
-                  <div class="row"><p class="footer-body">About</p></div>
-                  <div class="row"><p class="footer-body">FAQ</p></div>
+                  <div class="row">
+                    <a href="#fees"><p class="footer-body">Fees</p></a>
+                  </div>
+                  <!-- <div class="row text-justify">
+                    <p class="footer-body">Resource Center</p>
+                  </div> -->
+                  <div class="row">
+                    <a href="about">
+                      <p class="footer-body">About</p>
+                    </a>
+                  </div>
+                  <div class="row">
+                    <a href="faq">
+                      <p class="footer-body">FAQ</p>
+                    </a>
+                  </div>
                 </div>
                 <div class="col-4 q-py-sm q-pl-sm">
                   <div class="row"><h2 class="footer-header">Socials</h2></div>
-                  <div class="row"><p class="footer-body">Facebook</p></div>
-                  <div class="row"><p class="footer-body">LinkedIn</p></div>
-                  <div class="row"><p class="footer-body">Instagram</p></div>
-                  <div class="row"><p class="footer-body">Twitter</p></div>
+
+                  <div class="row">
+                    <a href="https://facebook.com/paylidate.escrow"><p class="footer-body">Facebook</p></a>
+                  </div>
+                  <div class="row">
+                    <a href="https://linkedin.com/company/paylidate"><p class="footer-body">LinkedIn</p></a>
+                  </div>
+                  <div class="row">
+                    <a href="https://instagram.com/paylidate"><p class="footer-body">Instagram</p></a>
+                  </div>
+                  <div class="row">
+                    <a href="https://twitter.com/paylidate"><p class="footer-body">Twitter</p></a>
+                  </div>
                 </div>
               </div>
               <div class="text-left flex flex-left q-py-lg q-pl-sm">
@@ -1714,11 +1675,14 @@
                 style="width: 100%; padding-top: 2.5rem"
               >
                 <div class="col-4" style="width: 45%">
-                  <div style="border-bottom: 1px solid #0081fe; width: 8.75rem">
-                    <p class="sub-body" style="color: #ffffff">
-                      hello@paylidate.com
-                    </p>
-                  </div>
+                  <a href="mailto:hello@paylidate.com?subject=Mail to Paylidate">
+                    <div style="border-bottom: 1px solid #0081fe; width: 8.75rem">
+                      <p class="sub-body" style="color: #ffffff">
+                        hello@paylidate.com
+                      </p>
+                    </div>
+                  </a>
+
                 </div>
                 <div class="col-4 q-px-xl" style="width: 45%">
                   <div style="border-bottom: 1px solid #0081fe; width: 5.62rem">
@@ -1762,58 +1726,60 @@
                 </div>
               </div>
               <div class="col-2 q-pt-md" style="color: #ffffff; width: 18%">
-                <div
-                  class="row big-subtitle-2"
-                >
-                  Company
-                </div>
-                <div class="row card-item-2">Legal</div>
+                <div class="row big-subtitle-2">Company</div>
+                <!-- <div class="row card-item-2">Legal</div>
                 <div class="row card-item-2">Developers</div>
                 <div class="row card-item-2">Security</div>
-                <div class="row card-item-2">Partners</div>
-                <div class="row card-item-2">Escrow Agreement</div>
+                <div class="row card-item-2">Partners</div> -->
+                <div class="row">
+                  <a href="escrow-agreement"> <p class="card-item-2">Escrow Agreement</p> </a>
+                </div>
                 <div class="row card-item-2">Privacy</div>
               </div>
               <div class="col-2 text-white q-pt-md" style="width: 18%">
-                <div
-                  class="row big-subtitle-2">
-                  Sitemap
+                <div class="row big-subtitle-2">Sitemap</div>
+                <div class="row">
+                  <a href="/"> <p class="card-item-2">Home</p> </a>
                 </div>
-                <div class="row card-item-2">Home</div>
-                <div class="row card-item-2">Fees</div>
-                <div class="row card-item-2">Resource Center</div>
-                <div class="row card-item-2">About</div>
-                <div class="row card-item-2">FAQ</div>
+                <div class="row">
+                  <a href="#fee"> <p class="card-item-2">Fees</p> </a>
+                </div>
+                <!-- <div class="row card-item-2">Resource Center</div> -->
+                <div class="row">
+                  <a href="about"> <p class="card-item-2">About</p> </a>
+                </div>
+                <div class="row">
+                  <a href="faq"> <p class="card-item-2">FAQ</p> </a>
+                </div>
               </div>
               <div class="col-2 text-white q-pt-md" style="width: 18%">
-                <div
-                  class="row big-subtitle-2">
-                  Socials
-                </div>
-                <div class="row card-item-2">Facebook</div>
-                <div class="row card-item-2">Linkedin</div>
-                <div class="row card-item-2">Instagram</div>
-                <div class="row card-item-2">Twitter</div>
+                <div class="row big-subtitle-2">Socials</div>
+                <div class="row">
+                    <a href="https://facebook.com/paylidate.escrow"><p class="card-item-2">Facebook</p></a>
+                  </div>
+                  <div class="row">
+                    <a href="https://linkedin.com/company/paylidate"><p class="card-item-2">LinkedIn</p></a>
+                  </div>
+                  <div class="row">
+                    <a href="https://instagram.com/paylidate"><p class="card-item-2">Instagram</p></a>
+                  </div>
+                  <div class="row">
+                    <a href="https://twitter.com/paylidate"><p class="card-item-2">Twitter</p></a>
+                  </div>
               </div>
               <div class="col-3 text-white q-pt-md" style="width: 25%">
-                <div
-                  class="row big-subtitle-2">
-                  Head Office
-                </div>
+                <div class="row big-subtitle-2">Head Office</div>
                 <div class="row card-item-2">
                   No. 14 Oluwasogo Str. Ikeja, Lagos
                 </div>
-                <div
-                  class="q-pt-lg row big-subtitle-2">
-                  News Letter
-                </div>
+                <div class="q-pt-lg row big-subtitle-2">News Letter</div>
                 <div class="row q-py-md">
                   <q-input
                     v-model="text"
                     style="
                       width: 12rem;
                       padding-top: 0.3rem;
-                      font-size: .75rem;
+                      font-size: 0.75rem;
                       line-height: 1.37rem;
                       opacity: 0.75;
                     "
@@ -1840,21 +1806,21 @@
 
           <q-card-section>
             <div class="full-width flex q-px-sm q-px-sm-xl" style="">
-              <div
-                style="width: 98%;"
-                class="row text-center"
-              >
+              <div style="width: 98%" class="row text-center">
                 <div class="col-4" style="width: 30%">
-                  <div class="footer-style" style="">
-                    hello@paylidate.com
-                    <div
-                      style="
-                        border-bottom: 1px solid #0081fe;
-                        padding-top: .63rem;
-                        width: 10rem;
-                      "
-                    ></div>
-                  </div>
+                  <a href="mailto:hello@paylidate.com?subject=Mail to Paylidate">
+                    <div class="footer-style" style="">
+                      hello@paylidate.com
+                        <div
+                          style="
+                            border-bottom: 1px solid #0081fe;
+                            padding-top: 0.63rem;
+                            width: 10rem;
+                          ">
+                        </div>
+                    </div>
+                  </a>
+
                 </div>
                 <div class="col-4 q-px-xl" style="width: 30%">
                   <div class="footer-style" style="">
@@ -1862,7 +1828,7 @@
                     <div
                       style="
                         border-bottom: 1px solid #0081fe;
-                        padding-top: .63rem;
+                        padding-top: 0.63rem;
                         width: 6.3rem;
                       "
                     ></div>
@@ -1912,14 +1878,12 @@ export default {
     // },
     toggleBuyer() {
       this.buyer = true;
-      this.activeBuyer = true,
-      this.seller = false;
+      (this.activeBuyer = true), (this.seller = false);
       this.activeSeller = false;
     },
     toggleSeller() {
       this.buyer = false;
-      this.activeBuyer = false,
-      this.seller = true;
+      (this.activeBuyer = false), (this.seller = true);
       this.activeSeller = true;
     },
   },
@@ -1976,17 +1940,21 @@ h5 {
 p {
   font-size: 1rem;
   font-weight: 450;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   line-height: 2rem;
   color: #89817d;
   text-align: center;
+}
+
+a {
+  text-decoration: none;
 }
 
 .subtitle {
   font-style: normal;
   font-weight: 700;
   font-size: 1.125rem;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   line-height: 2.5rem;
   align-items: left;
   color: #001140;
@@ -1995,7 +1963,7 @@ p {
 .sub-body {
   font-weight: 450;
   font-size: 1rem;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   line-height: 1.5rem;
   text-align: justify;
   color: #6a6664;
@@ -2004,14 +1972,14 @@ p {
 .sub-body-2 {
   font-weight: 450;
   font-size: 1rem;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   line-height: 1.75rem;
   text-align: justify;
   color: #bcbfc8;
 }
 
 .big-subtitle {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 700;
   font-size: 1.5rem;
@@ -2024,7 +1992,7 @@ p {
   font-weight: 550;
   font-size: 1rem;
   line-height: 1.75rem;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .subtitle-num {
@@ -2041,7 +2009,7 @@ p {
   font-style: normal;
   font-weight: 500;
   font-size: 1rem;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   line-height: 1.75rem;
   color: #ffffff;
 }
@@ -2049,7 +2017,7 @@ p {
   font-style: normal;
   font-weight: 450;
   font-size: 0.9rem;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   line-height: 1.375rem;
   color: #ffffff;
   opacity: 0.75;
@@ -2068,14 +2036,14 @@ p {
 .big-paragraph {
   font-size: 1rem;
   font-weight: 550;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   line-height: 2rem;
   color: #89817d;
   text-align: left;
 }
 
 .big-sub-header {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 700;
   font-size: 3rem;
@@ -2085,7 +2053,7 @@ p {
 }
 
 .big-title {
-  font-family: 'font-Nexa-Light';
+  font-family: "font-Nexa-Light";
   font-style: normal;
   font-weight: 700;
   font-size: 1.25rem;
@@ -2100,7 +2068,7 @@ p {
   font-size: 1rem;
   line-height: 1.5rem;
   text-align: left;
-  color: #6A6664;
+  color: #6a6664;
 }
 
 .headings-2 {
@@ -2131,14 +2099,13 @@ p {
 
 .card_section:hover {
   background-color: #111a24;
-
 }
 
 .button {
   width: 18rem;
   height: 4.6rem;
   border: none;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 700;
@@ -2162,7 +2129,7 @@ p {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 300;
-  font-size: .75rem;
+  font-size: 0.75rem;
   line-height: 2rem;
   cursor: pointer;
   color: #ffffff;
@@ -2180,7 +2147,7 @@ p {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 300;
-  font-size: .75rem;
+  font-size: 0.75rem;
   color: #ffffff;
   background-color: #1c3044;
   cursor: pointer;
@@ -2198,6 +2165,7 @@ p {
   color: #bcbfc8;
   width: 25rem;
   height: 5rem;
+  text-decoration: none;
 }
 
 .card-item-2 {
@@ -2205,8 +2173,9 @@ p {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 200;
-  font-size: .88rem;
+  font-size: 0.88rem;
   line-height: 1.36rem;
+  text-decoration: none;
   color: #ffffff;
   opacity: 0.75;
 }
@@ -2228,5 +2197,4 @@ p {
   color: #a8acb6;
   -webkit-text-stroke: 1px #a8acb6;
 }
-
 </style>

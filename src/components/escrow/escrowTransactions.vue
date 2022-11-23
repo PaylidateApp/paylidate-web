@@ -13,7 +13,7 @@
         </div>
       </q-card-section>
     </q-card>
-    <q-card flat square class="bg-primary">
+    <!-- <q-card flat square class="bg-primary">
       <q-card-section class="row flex-center no-padding q-gutter-sm">
         <div class="text-secondary text-center text-uppercase">
           <div class="text-h5 text-bold">{{currency(sum_ammount('received',user.id))}}</div>
@@ -25,7 +25,7 @@
           <div style="font-size: 10px">PAYMENTS MADE</div>
         </div>
       </q-card-section>
-    </q-card>
+    </q-card> -->
 
     <div>
 
@@ -76,7 +76,7 @@ add payment remitance date automatically on all transaction <br> -->
             <q-badge v-else color="negative">
               {{ currency(props.row.amount) }}
             </q-badge>
-            
+
 
           </q-td>
 
@@ -102,7 +102,7 @@ add payment remitance date automatically on all transaction <br> -->
                {{ 'Un-Paid' }}
             </q-badge>
             <Payment v-else :amount="props.row.price" :T_ref="props.row.T_ref" :product="props.row" :url="payment_url+props.row.T_ref+'/payment'"/>
-          </q-td> 
+          </q-td>
           <q-td key="link" :props="props">
             <q-btn label="Copy Link" @click="copy_link(props.row.transaction_ref)" flat size="sm" no-caps
               class="bg-grey">
@@ -134,19 +134,22 @@ add payment remitance date automatically on all transaction <br> -->
 
           <q-td key="transaction_status" :props="props">
             <q-badge v-if="props.row.accept_transaction == null" color="steal">
-              Awaiting acceptance
+              <!-- Awaiting acceptance -->
+              Pending
             </q-badge>
             <q-badge v-else-if="props.row.accept_transaction == false" color="negetive">
               Not Accepted
             </q-badge>
             <q-badge v-else-if="props.row.status == 0" color="secondary">
-              Transaction accepted but Pending
+              <!-- Transaction accepted but Pending -->
+              Accepted
             </q-badge>
             <q-badge v-else-if="props.row.status == 1" color="positive">
-              Transaction completed
+              Completed
             </q-badge>
             <q-badge v-else color="negative">
-              Transaction cancelled
+              <!-- Transaction cancelled -->
+              Cancelled
             </q-badge>
           </q-td>
 
@@ -174,10 +177,10 @@ export default {
       columns: [
         // { name: 'src', field: 'src' },
         { name: 'transaction_ref', label: 'Transaction ref', field: 'transaction', align: 'left' , sortable: true,},
-        { name: 'name', label: 'Product Name', field: 'name', align: 'left' , sortable: true, },
-        { name: 'quantity', label: 'Total Quantity', field: 'transaction', sortable: true,  align: 'left'  },
-        { name: 'amount', label: 'Total Price', field: 'transaction', sortable: true,  align: 'left'  },
-        { name: 'transaction_type', label: 'Transaction Type', field: 'transaction_type', sortable: true,  align: 'center'  },
+        { name: 'name', label: 'Product/Service', field: 'name', align: 'left' , sortable: true, },
+        { name: 'quantity', label: 'Qty', field: 'transaction', sortable: true,  align: 'left'  },
+        { name: 'amount', label: 'Price', field: 'transaction', sortable: true,  align: 'left'  },
+        { name: 'transaction_type', label: 'Type', field: 'transaction_type', sortable: true,  align: 'center'  },
         // { name: 'confirmed', label: 'Confirmation', field: 'confirmed', align: 'left', sortable: true },
         // { name: 'payment_status', label: 'Payment', field: 'payment_status',align: 'left', sortable: true },
         //{ name: 'link', label: 'Transaction link', field: '', align: 'center', sortable: true },
@@ -206,15 +209,15 @@ export default {
          this.$q.loading.show({
           message: 'Hold on, fetching transaction records',
           spinnerColor: 'secondary'
-          
+
         })
         try{
         const req = await this.$axios.get(process.env.Api + '/api/transaction')
         const res = req.data
-          
+
         this.contents = res.data;
         //console.log(this.contents)
-        
+
          this.$q.loading.hide();
         }catch(err){
          this.$q.loading.hide();
@@ -234,7 +237,7 @@ export default {
       sum_ammount(type,user_id){
       if(this.contents){
         const sort_ammounts = this.contents.filter(function(item) {
-            
+
             if (item.payment && item.payment.verified) {
               if (item.payment.user_id != user_id && type === 'received') {
                 item.product.price =item.referer_id ? (parseFloat(item.amount) + parseFloat(item.referral.amount)): item.amount
@@ -243,7 +246,7 @@ export default {
               if (item.payment.user_id == user_id && type === 'made') {
                 return item
               }
-              
+
             }
           })
         let sum = sort_ammounts.reduce((accumulator, current) => Number(accumulator) + Number(current.product.price), 0);
@@ -253,7 +256,7 @@ export default {
       }
     },
       formatDate(dateString){
-          const options = { year: "numeric", month: "long", day: "numeric" }
+          const options = { year: "numeric", month: "numeric", day: "numeric" }
           return new Date(dateString).toLocaleDateString(undefined, options)
       },
       startDelivery(data){

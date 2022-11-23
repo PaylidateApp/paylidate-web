@@ -77,7 +77,7 @@ export default {
           const response = await this.$axios.post(`${process.env.Api}/api/password/reset`, this.form)
           this.loading = false
           this.$q.notify({message: 'Password reset successful', color: 'green'})
-         
+
           this.$router.push({ name: 'login' })
         }
         catch (error) {

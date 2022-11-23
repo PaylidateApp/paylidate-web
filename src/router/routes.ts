@@ -10,6 +10,7 @@ const routes: RouteConfig[] = [
       { path: 'about', name: 'about',component: () => import('pages/About.vue') },
       { path: 'faq', name: 'faq',component: () => import('pages/FAQ.vue') },
       { path: 'escrow-help', name: 'escrow-help',component: () => import('pages/EscrowHelp.vue') },
+      { path: 'escrow-agreement', name: 'escrow_agreement',component: () => import('pages/EscrowAgreement.vue') },
       { path: 'instant-pay', name: 'instant_pay',component: () => import('pages/Instant_pay.vue')},
       { path: 'recieve-instant-funds/:token', name: 'recieve_instant_funds',component: () => import('pages/Instant_pay.vue')},
       { path: 'register', name: 'register',component: () => import('pages/Auth.vue')},
