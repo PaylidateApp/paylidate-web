@@ -1,12 +1,19 @@
 <template>
-  <div class="flex flex-center q-pt-xl" style="border-radius: 100">
-    <q-card class="my-card q-pl-xs" style="border-radius: 20px">
+  <div class="flex flex-center q-pt-xl">
+    <div class=" bg-secondary q-pa-lg" style="border-radius: 14px; min-width: 400px">
        
-      <q-card-section>
-        <div class="text-h5 text-weight-medium text-blue-grey-4">MY BALANCE</div>
-        <div class="text-subtitle2">by John Doe</div>
-      </q-card-section>
-    </q-card>
+      <div>
+        <div class="text-subtitle2 text-white">Paylidate Wallet</div>
+        <div class="flex justify-between">
+          <div>
+            <div class="text-h6 text-weight-bold text-white">Balance NGN 20,000.00</div>
+            <div class="text-h6 text-weight-bold text-white">Bonus NGN 20,000.00</div>          
+          </div>
+          <q-icon size="xl" color="white" name="account_balance_wallet" />
+        </div>
+        <div class="text-subtitle2 text-white">1234567890</div>
+      </div>
+    </div>
   </div>
 </template>
 
