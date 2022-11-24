@@ -9,7 +9,7 @@
 
                   Transfer to this account to fund your wallet <br /><br />
                   {{ wallet.account_number }} <br /><br />
-                  WEMA Bank
+                  {{ wallet.bank_name }}
                 </strong>
                 </div>
             </q-card-section>
@@ -68,7 +68,7 @@
                 <div class="text-subtitle1 text-secondary">{{ user.name }}</div>
                 <div class="text-secondary no-padding text-center text-uppercase">
                   <div class="text-subtitle1 text-secondary">{{ wallet.account_number }}</div>
-                  <div style="font-size: 11px">WEMA Bank</div>
+                  <div style="font-size: 11px">{{ wallet.bank_name }}</div>
   
                 </div>
               </div>
@@ -132,9 +132,10 @@ export default {
       prompt:false,
       fundWallet:false,
       wallet: {
-        balance: '',
-        bonus: '',
-        account_number: '',
+        balance: 0,
+        bonus: 0,
+        account_number: 0000000000,
+        bank_name: '',
       }, 
       bvn: null,
 
