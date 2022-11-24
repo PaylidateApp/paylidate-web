@@ -1,19 +1,29 @@
 <template>
   <div class="flex flex-center q-pt-xl">
-    <div class=" bg-secondary q-pa-lg" style="border-radius: 14px; min-width: 400px">
+    <div class=" bg-primary q-pa-md" style="border-radius: 14px; min-width: 370px">
        
       <div>
-        <div class="text-subtitle2 text-white">Paylidate Wallet</div>
-        <div class="flex justify-between">
+        <div class="text-subtitle1 text-secondary">Paylidate Wallet</div>
+        <div class="flex justify-between q-my-md">
           <div>
-            <div class="text-h6 text-weight-bold text-white">Balance NGN 20,000.00</div>
-            <div class="text-h6 text-weight-bold text-white">Bonus NGN 20,000.00</div>          
+            <div class="row flex-center no-padding q-gutter-sm">
+              <div class="text-secondary text-center text-uppercase">
+                <div class="text-subtitle1 text-bold"><s>N</s>20,000.00</div>
+                <div style="font-size: 10px">BALANCE</div>
+              </div>
+              <q-separator spaced vertical dark />
+              <div class="text-secondary text-center text-uppercase">
+                <div class="text-subtitle1 text-bold"><s>N</s>20,000.00</div>
+                <div style="font-size: 10px">BONUS</div>
+              </div>
+            </div>
           </div>
-          <q-icon size="xl" color="white" name="account_balance_wallet" />
+          <q-icon size="xl" color="secondary" name="account_balance_wallet" />
         </div>
-        <div class="text-subtitle2 text-white">1234567890</div>
+        <div class="text-subtitle1 text-secondary">1234567890</div>
       </div>
     </div>
+
   </div>
 </template>
 
