@@ -93,13 +93,13 @@
                   {{ props.row.narration }}
                 </q-td>
                 <q-td key="amount" :props="props">
-                  {{currency(props.row.amount) }}
+                  ₦ {{currency(props.row.amount) }}
                 </q-td>
                 <q-td key="balance_before" :props="props">
-                  {{ currency(props.row.balance_before) }}
+                  ₦ {{ currency(props.row.balance_before) }}
                 </q-td>
                 <q-td key="balance_after" :props="props">
-                  {{ currency(props.row.balance_after) }}
+                  ₦ {{ currency(props.row.balance_after) }}
                 </q-td>
   
                 <q-td key="created_at" :props="props">
@@ -134,8 +134,8 @@ export default {
       wallet: {
         balance: 0,
         bonus: 0,
-        account_number: 0000000000,
-        bank_name: '',
+        account_number: '0000000000',
+        bank_name: '  ',
       }, 
       bvn: null,
 
@@ -182,7 +182,7 @@ export default {
           return
         }
         this.wallet = res.data;
-        this.contents = res.data.wallet_history;
+        this.contents = res.data.wallet_history.reverse();
 
         this.$q.loading.hide();
       } catch (error) {
