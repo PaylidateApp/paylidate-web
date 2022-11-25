@@ -1783,6 +1783,7 @@
                       line-height: 1.37rem;
                       opacity: 0.75;
                     "
+                    :input-style="{ color:'white'}"
                     type="email"
                     label="Enter your email address"
                     label-color="white"
