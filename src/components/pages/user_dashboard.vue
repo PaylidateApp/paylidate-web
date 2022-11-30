@@ -54,7 +54,7 @@
         </div>
       </div>
       <div
-        class="container container-absolute gt-sm"
+        class="container full-width container-absolute gt-sm"
         style="padding: 0.75rem 0px"
       >
         <div class="float-img">
@@ -113,8 +113,8 @@
       <div class="container-two">
         <div class="section-main">
           <h4>Dashboard</h4>
-          <div class="box">
-            <div class="col box-items col-one">
+          <div class="row full-width justify-start q-pb-lg">
+            <div class="col col-one">
               <div>
                 <img
                   src="../../statics/user_dashboard_assets/upload.png"
@@ -123,11 +123,11 @@
                 />
               </div>
               <div>
-                <p class="dashboard-text">Payments Made</p>
-                <p class="dashboard-num">₦100,500,480</p>
+                <div class="dashboard-text">Payments Made</div>
+                <div class="dashboard-num q-py-sm">₦100,500,480</div>
               </div>
             </div>
-            <div class="col box-items col-one">
+            <div class="col col-one">
               <div>
                 <img
                   src="../../statics/user_dashboard_assets/download.png"
@@ -136,33 +136,27 @@
                 />
               </div>
               <div>
-                <p class="dashboard-text">Total Payments Received</p>
-                <p class="dashboard-num">₦21,656,999</p>
+                <div class="dashboard-text">Total Payments Received</div>
+                <div class="dashboard-num q-py-sm">₦21,656,999</div>
               </div>
             </div>
           </div>
+
           <div class="dashboard-sec-two">
 
-            <!-- <div class="row justify-between box box-lg-2">
-              <div
-              class="col-xs-12 col-md-3"
-              style="
-                border: 1px solid #94a0ac;
-                margin-bottom: 0.5rem;
-                padding: 1rem;
-              "
-              >
+            <div class="row justify-around full-width q-py-md gt-sm">
 
+              <div class="col-4 box-items" style="border: 1px solid #94a0ac; width: 15rem;">
                 <img
-                  src="../../statics/user_dashboard_assets/wallet.png"
+                src="../../statics/user_dashboard_assets/wallet.png"
                   spinner-color="white"
-                  style="width: 20%"
+                  style="width: 20%; max-width: 24px"
                 />
                 <p class="dashboard-heading">₦3,000,500</p>
                 <p class="dashboard-subtxt">Wallet Balance</p>
               </div>
 
-              <div class="col-xs-5 col-md-3" style="border: 1px solid #94a0ac">
+              <div class="col-4 box-items" style="border: 1px solid #94a0ac; width: 15rem;">
                 <img
                   src="../../statics/user_dashboard_assets/paylogo.png"
                   spinner-color="white"
@@ -172,8 +166,8 @@
                 <p class="dashboard-subtxt">Paylidate Points</p>
               </div>
               <div
-                class="col-xs-5 col-md-3"
-                style="border: 1px solid #94a0ac; "
+                class="col-4 box-items"
+                style="border: 1px solid #94a0ac; width: 15rem;"
               >
                 <img
                   src="../../statics/user_dashboard_assets/people.png"
@@ -183,9 +177,9 @@
                 <p class="dashboard-heading">₦25,990</p>
                 <p class="dashboard-subtxt">Referral Payments</p>
               </div>
-            </div> -->
+            </div>
 
-            <div class="row box box-lg-2">
+            <div class="row full-width box box-lg-2 q-pr-sm lt-md">
               <div
               class="row"
               style="
@@ -234,7 +228,7 @@
           <h4>Notifications</h4>
           <div class="box-notification">
             <div
-              class="box notification-card"
+              class="box full-width notification-card"
               style="background: rgba(255, 234, 223, 0.6)"
             >
               <div class="round-box" style="background: #eb6117">
@@ -248,7 +242,7 @@
               </p>
             </div>
             <div
-              class="box notification-card notification-card-left"
+              class="box full-width notification-card "
               style="background: rgba(212, 255, 205, 0.6)"
             >
               <div class="round-box" style="background: #1e820f">
@@ -261,9 +255,37 @@
                 Active Transactions
               </p>
             </div>
+            <div
+              class="box full-width notification-card"
+              style="background: rgba(190, 232, 255, 0.6)"
+            >
+              <div class="round-box" style="background: #0f699a">
+                <p class="notification-num">9</p>
+              </div>
+              <p
+                class="notification-text q-px-sm q-py-sm"
+                style="color: #0f699a"
+              >
+                Pending Withdrawals
+              </p>
+            </div>
+            <div
+              class="box full-width notification-card"
+              style="background: rgba(251, 190, 177, 0.6)"
+            >
+              <div class="round-box" style="background: #6f1a07">
+                <p class="notification-num">9</p>
+              </div>
+              <p
+                class="notification-text q-px-sm q-py-sm"
+                style="color: #6f1a07"
+              >
+                Pending Refunds
+              </p>
+            </div>
           </div>
 
-          <div class="box-notification">
+          <!-- <div class="box-notification">
             <div
               class="box notification-card"
               style="background: rgba(190, 232, 255, 0.6)"
@@ -292,7 +314,7 @@
                 Pending Refunds
               </p>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -308,7 +330,7 @@ export default {
       this.$router.push({ name: "login" });
     }
   },
-  
+
 }
 </script>
 
@@ -353,7 +375,7 @@ container-two {
 
 .box {
   display: flex;
-  width: 90%;
+  width: 100%;
   border-radius: 4px;
 }
 .box-items {
@@ -364,7 +386,9 @@ container-two {
 
 .box-notification {
   display: flex;
+  flex-direction: column;
 }
+
 
 .round-box {
   border-radius: 50px;
@@ -382,6 +406,7 @@ container-two {
   background-color: #182430;
   width: 98%;
 }
+
 .section1-text {
   font-family: "Montserrat";
   font-style: normal;
@@ -391,6 +416,7 @@ container-two {
   color: #a5a5a5;
   padding-top: 0.5rem;
 }
+
 .section-two {
   background-color: #fafffd;
   padding-left: 0.5rem;
@@ -436,9 +462,6 @@ container-two {
   margin-bottom: 0.75rem;
 }
 
-.notification-card-left {
-  margin-left: 0.75rem;
-}
 
 .notification-text {
   font-family: "Montserrat";
