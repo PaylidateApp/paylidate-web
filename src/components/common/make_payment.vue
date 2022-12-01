@@ -93,7 +93,7 @@
               checked-icon="task_alt"
               unchecked-icon="panorama_fish_eye"
               val="card"
-              label="With your card"
+              label="Flutterwave Checkout"
             /><br />
           </div>
         </q-card-section>
@@ -195,7 +195,9 @@ export default {
           process.env.Api + "/api/debit-wallet/",
           { amount: this.form.amount, narration: this.transaction.product.name }
         );
-        //console.log(req)
+        const res = req.data;
+        console.log(res)
+
         } else if (this.payment_method == "card") {
           console.log(this.payment_method);
           this.makePayment();
