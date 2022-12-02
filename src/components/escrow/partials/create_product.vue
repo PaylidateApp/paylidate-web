@@ -9,8 +9,8 @@
       @click="open = true"
       :style="{ width: '150px' }"
     />
-    <q-btn
-      v-else
+    <div class="row justify-between" v-else>
+      <q-btn
       unelevated
       no-caps
       color="secondary"
@@ -18,6 +18,47 @@
       @click="open = true"
       :style="{ width: '150px' }"
     />
+
+    <div id="share-buttons">
+
+      <a class="facebook" target="blank">
+        <font-awesome-icon icon="fa-brands fa-facebook" />
+        <q-icon
+          class=" q-pa-sm cursor-pointer"
+          name="fab fa-facebook"
+          size="md"
+          color="blue-10"
+          @click="socialShare"
+        />
+
+      </a>
+      <a class="twitter" target="blank">
+        <q-icon
+          class="fab fa-twitter q-pa-sm cursor-pointer"
+          size="md"
+          color="light-blue-5"
+          @click="socialShare"
+        />
+      </a>
+      <a class="linkedin" target="blank">
+        <q-icon
+          class="fab fa-linkedin q-pa-sm cursor-pointer"
+          size="md"
+          color="blue-8"
+          @click="socialShare"
+        />
+      </a>
+      <a class="whatsapp lt-md" target="blank">
+        <q-icon
+          class="fab fa-whatsapp q-pa-sm cursor-pointer"
+          size="md"
+          color="green-14"
+          @click="socialShare"
+        />
+      </a>
+    </div>
+
+    </div>
 
     <div v-if="btnType == 'create'">
       <q-dialog v-model="open">
@@ -342,6 +383,27 @@ export default {
 
   methods: {
 
+    socialShare() {
+      const link = encodeURI(window.location.href);// `https://paylidate.com/product/5VgJH231122153353/NxqE1OPIhW140722131816`
+      const msg = encodeURIComponent(this.product.description);
+      const title = encodeURIComponent(document.querySelector('title').textContent);
+
+      console.log([link, msg, title]);
+
+      const fb = document.querySelector('.facebook');
+      fb.href = `https://www.facebook.com/share.php?u=${link}`;
+
+      const twitter = document.querySelector('.twitter');
+      twitter.href = `https://twitter.com/share?&url=${link}&text=${msg}`
+
+      const linkedIn = document.querySelector('.linkedin');
+      linkedIn.href = `https://linkedin.com/sharing/share-offsite/?url=${link}`
+
+      const whatsapp = document.querySelector('.whatsapp');
+      whatsapp.href = `https://api.whatsapp.com/send?phone=whatsappphonenumber&text=${link}`
+
+    },
+
 
       copy_link(){
       navigator.clipboard.writeText(this.url)
@@ -366,7 +428,7 @@ export default {
 
         if (this.product.name.length == 0 || this.product.name.trim == "") {
           this.$q.notify({
-            message: "Please type a valid Product Name",
+            message: "Please enter a valid Product Name",
             position: "top",
             color: "red",
             textColor: "white",
@@ -548,7 +610,7 @@ export default {
               // console.log(this.siteUrl+'/product/'+res.data.slug);
               // this.url = process.env.Domain+'/escrow/product/'+res.data.slug
               this.url = this.siteUrl + "/product/" + res.data.slug;
-              // console.log('afteerrr')
+              //  console.log("afteer")
               this.clearForm();
             }
             this.loading = false;
@@ -619,3 +681,10 @@ export default {
   // }
 };
 </script>
+
+<style scoped>
+a {
+  text-decoration: none;
+}
+
+</style>

@@ -32,7 +32,7 @@ const routes: RouteConfig[] = [
       { path: ':link/fund', name: 'fund', component: () => import('pages/Payment.vue'), props: true },
 
       { path: 'transaction', name: 'transaction', component: () => import('pages/Transaction.vue'), meta: { requiresAuth: true } },
-      { path: 'wallet', name: 'wallet', component: () => import('pages/wallet.vue'), meta: { requiresAuth: true } },
+      { path: 'wallet', name: 'wallet', component: () => import('pages/Wallet.vue'), meta: { requiresAuth: true } },
       { path: 'virtual-card/payment', name: 'virtual-card-payment', component: () => import('pages/Card.vue'), meta: { requiresAuth: true } },
       { path: 'virtual-card/create', name: 'create-card', component: () => import('pages/Card.vue'), meta: { requiresAuth: true } },
       { path: 'virtual-card/fund-card/:card_id', name: 'fund-card', component: () => import('pages/Card.vue'), props: true, meta: { requiresAuth: true } },

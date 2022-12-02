@@ -661,6 +661,7 @@ export default {
 
   mounted() {
     this.getProduct();
+
     this.ref_link = window.location.href + "/" + this.user.referral_token;
     // if(!this.$q.localStorage.getItem('paylidate_token')) this.onLogin = true
     // else this.getProduct()

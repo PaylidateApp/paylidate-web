@@ -37,7 +37,7 @@
         </p>
         <div class="row caption-one text-center justify-between q-py-lg gt-sm">
           <p>Make Payments</p>
-          <div class="q-pt-xs">
+          <div class="q-pt-xs q-px-md">
             <img
               src="../../statics/register_assets/Vector.png"
               style="width: 0.9rem; height: 0.9rem"
@@ -45,7 +45,7 @@
           </div>
 
           <p>Receive Delivery</p>
-          <div class="q-pt-xs">
+          <div class="q-pt-xs q-px-md">
             <img
               src="../../statics/register_assets/Vector.png"
               style="width: 0.9rem; height: 0.9rem"
