@@ -187,28 +187,60 @@ export default {
           });
           return;
         }
+
         if (this.payment_method == "wallet") {
-          console.log(this.payment_method);
+                 
+          this.loading = true
+          const req = await this.$axios.post(process.env.Api + "/api/debit-wallet",
+          { "amount": this.form.total_amount, "narration": "Payment for "+this.transaction.product.name }
+          );
+          const res = req.data;
+          if (res.status !== 'success') {
+              this.$q.notify({
+              message: "Something went wrong, please try again",
+              color: "red",
+              });
 
-          const req = await this.$axios.post(
+            return;
+          }
 
-          process.env.Api + "/api/debit-wallet/",
-          { amount: this.form.amount, narration: this.transaction.product.name }
-        );
-        const res = req.data;
-        console.log(res)
+        const form ={
+        
+        payment_ref: 'WL'+Date.now(),
+        payment_id: res.data.id,
+        transaction_id: this.transaction.id,       
+      }
+          const request = await this.$axios.post(process.env.Api + '/api/make-payment', form)
+          const response = request.data;     
+         
+          if(response.status == 'success'){
 
-        } else if (this.payment_method == "card") {
-          console.log(this.payment_method);
+            this.loading = false
+            this.$router.push({ name: "transactions"})
+            this.$q.notify({message: 'Successful', color: 'green'})
+            return;
+            }
+            
+            this.$router.push({ name: "transactions"})
+            this.loading = false
+            this.$q.notify({message: 'Something went wrong, please try again', color: 'red'})
+
+
+        }
+        else if (this.payment_method == "card") {
+          
           this.makePayment();
         }
       } catch (error) {
-         console.log(error.message);
-        this.$q.loading.hide();
+        //console.log(error.response.data.message);
+        this.loading = false
         this.$q.notify({
-          message: "Something went wrong, please try again",
+          message: error.response.data.message,
           color: "red",
         });
+      }
+      finally {
+        this.loading = false
       }
     },
 
