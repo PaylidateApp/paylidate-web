@@ -157,6 +157,18 @@ add payment remitance date automatically on all transaction <br> -->
       </template>
 
     </q-table>
+
+    <template>
+  <div class="q-pa-md" id="trans">
+    <q-table
+      title="Transactions"
+      :contents="contents"
+      :columns="columns"
+      row-key="name"
+      class="text-center"
+    />
+  </div>
+</template>
   </div>
 </template>
 
@@ -187,7 +199,101 @@ export default {
         { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'center', sortable: true, },
         { name: 'transaction_status', label: 'Status', field: 'transaction',  align: 'left', sortable: true },
       ],
-      contents:[],
+
+      contents: [
+        {
+          transaction_ref: 'Frozen Yogurt',
+          name: 159,
+          quantity: 6.0,
+          amount: 24,
+          transaction_type: 4.0,
+          created_at: 87,
+          transaction_status: '14%'
+        },
+        {
+          transaction_ref: 'Ice cream sandwich',
+          name: 237,
+          quantity: 9.0,
+          amount: 37,
+          transaction_type: 4.3,
+          created_at: 129,
+          transaction_status: '8%'
+        },
+        {
+          transaction_ref: 'Eclair',
+          name: 262,
+          quantity: 16.0,
+          amount: 23,
+          transaction_type: 6.0,
+          created_at: 337,
+          transaction_status: '6%'
+        },
+        {
+          transaction_ref: 'Cupcake',
+          name: 305,
+          quantity: 3.7,
+          amount: 67,
+          transaction_type: 4.3,
+          created_at: 413,
+          transaction_status: '3%'
+        },
+        {
+          transaction_ref: 'Gingerbread',
+          name: 356,
+          quantity: 16.0,
+          amount: 49,
+          transaction_type: 3.9,
+          created_at: 327,
+          transaction_status: '7%'
+        },
+        {
+          transaction_ref: 'Jelly bean',
+          name: 375,
+          quantity: 0.0,
+          amount: 94,
+          transaction_type: 0.0,
+          created_at: 50,
+          transaction_status: '0%'
+        },
+        {
+          transaction_ref: 'Lollipop',
+          name: 392,
+          quantity: 0.2,
+          amount: 98,
+          transaction_type: 0,
+          created_at: 38,
+          transaction_status: '0%'
+        },
+        {
+          transaction_ref: 'Honeycomb',
+          name: 408,
+          quantity: 3.2,
+          amount: 87,
+          transaction_type: 6.5,
+          created_at: 562,
+          transaction_status: '0%'
+        },
+        {
+          transaction_ref: 'Donut',
+          name: 452,
+          quantity: 25.0,
+          amount: 51,
+          transaction_type: 4.9,
+          created_at: 326,
+          transaction_status: '2%'
+        },
+        {
+          transaction_ref: 'KitKat',
+          name: 518,
+          quantity: 26.0,
+          amount: 65,
+          transaction_type: 7,
+          created_at: 54,
+          transaction_status: '12%'
+        }
+      ],
+
+      
       payment_url: `${window.location.href}/product/`,
       copyLink:'Copy link',
     }
