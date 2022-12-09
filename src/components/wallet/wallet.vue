@@ -13,67 +13,73 @@
                 </strong>
                 </div>
             </q-card-section>
-        
+
             <q-card-actions align="right" class="text-secondary q-pr-md">
                 <q-btn flat label="OK" color="primary" v-close-popup />
             </q-card-actions>
           </q-card>
         </q-dialog>
+
+
         <q-dialog v-model="prompt" persistent>
           <q-card style="width: 350px">
             <q-card-section>
               <div class="text-red">You don't have a paylidate wallet, please enter your BVN below to create your wallet</div>
             </q-card-section>
-        
+
             <q-card-section class="q-pt-none">
               <q-input dense :rules="schema.bvn"  type="number" v-model="bvn" autofocus @keyup.enter="createWallet()" />
             </q-card-section>
-        
+
             <q-card-actions align="right" class="text-secondary q-pr-md">
 
               <q-btn  label="Create Wallet" :loading="loading" color="secondary" @click="createWallet()" />
             </q-card-actions>
           </q-card>
         </q-dialog>
-       
 
-          <div v-if="!prompt" class=" bg-primary q-pa-md" style="border-radius: 14px; max-width: 400px">
-            
-            <div>
-              <div class="flex justify-between">
-                
-                <div class="text-subtitle1 text-secondary">Paylidate Wallet</div>
-              
-                <q-btn unelevated no-caps color="secondary" label="Fund wallet" @click="fundWallet = true"
-                  />
-  
-              </div>
-              <div class="flex justify-between q-my-md">
-                <div>
-                  <div class="row flex-center no-padding q-gutter-sm">
-                    <div class="text-secondary text-center text-uppercase">
-                      <div class="text-subtitle1 text-bold">₦ {{ currency(parseFloat(wallet.balance)) }}</div>
-                      <div style="font-size: 11px">BALANCE</div>
-                    </div>
-                    <q-separator spaced vertical dark />
-                    <div class="text-secondary text-center text-uppercase">
-                      <div class="text-subtitle1 text-bold">₦ {{ currency(parseFloat(wallet.bonus)) }}</div>
-                      <div style="font-size: 11px">BONUS</div>
-                    </div>
+
+<!--Note change prompt to !prompt and also remove the bvn dialog as a comment -->
+          <div v-if="!prompt" class=" bg-primary q-pa-md wallet" >
+
+                <div class="row walletsection" >
+                  <div class="col-xs-6 col-sm-6 col-md-6 wallettitle">Paylidate Wallet</div>
+
+                  <div class="col-xs-6 col-sm-6 col-md-6 fundwalletcontainer">
+                    <q-btn unelevated no-caps color="secondary" label="Fund wallet" @click="fundWallet = true"
+                 class="fundwallet" />
+                 </div>
+                </div>
+
+                <div class="row walletbalance">
+
+                  <div class="col-xs-6 col-sm-6 col-md-6 balancecontainer">
+
+                    <div class="balance">BALANCE</div>
+                      <div class="text-subtitle1">N {{ currency(parseFloat(wallet.balance)) }}</div>
+
+                  </div>
+
+                  <div class="col-xs-6 col-sm-6 col-md-6 bonuscontainer">
+
+                      <div class="bonus">BONUS</div>
+                      <div class="text-subtitle1">N {{ currency(parseFloat(wallet.bonus)) }}</div>
+
+                  </div>
+
+                </div>
+
+
+                <div class="row useract">
+                  <div class="col-xs-6 col-sm-6 col-md-6 walletusername">
+                    {{ user.name }}
+                  </div>
+
+                  <div class="col-xs-6 col-sm-6 col-md-6 userwalletact">
+                    <div class="text-subtitle2">{{ wallet.account_number }}</div>
+                    <div  class="text-subtitle2">{{ wallet.bank_name }}</div>
                   </div>
                 </div>
-                <q-icon size="xl" color="secondary" name="account_balance_wallet" />
-              </div>
-              <div class="flex justify-between">
-                <div class="text-subtitle1 text-secondary">{{ user.name }}</div>
-                <div class="text-secondary no-padding text-center text-uppercase">
-                  <div class="text-subtitle1 text-secondary">{{ wallet.account_number }}</div>
-                  <div style="font-size: 11px">{{ wallet.bank_name }}</div>
-  
-                </div>
-              </div>
-  
-            </div>
           </div>
                <br/>
         <div v-if="!prompt" >
@@ -82,10 +88,10 @@
               <eExport :array="contents" :columns="columns" />
               <!-- <q-btn unelevated color="primary" icon-right="archive" label="Download Table" no-caps @click="exportTable" /> -->
             </template>
-          
+
             <template v-slot:body="props">
               <q-tr :props="props">
-          
+
                 <q-td key="type" :props="props">
                   {{ props.row.type }}
                 </q-td>
@@ -101,14 +107,14 @@
                 <q-td key="balance_after" :props="props">
                   ₦ {{ currency(props.row.balance_after) }}
                 </q-td>
-  
+
                 <q-td key="created_at" :props="props">
                   {{ formatDate(props.row.created_at) }}
                 </q-td>
-          
+
               </q-tr>
             </template>
-          
+
           </q-table>
         </div>
   </div>
@@ -118,6 +124,7 @@
 import { authRuleMixin } from '../mixins/index';
 import disputeSchema from '../../validation/bank'
 import eExport from 'components/common/export'
+
 
 export default {
   name: 'Wallet',
@@ -136,7 +143,7 @@ export default {
         bonus: 0,
         account_number: '0000000000',
         bank_name: '  ',
-      }, 
+      },
       bvn: null,
 
       columns: [
@@ -147,8 +154,8 @@ export default {
         { name: 'balance_after', label: 'Balance After', field: 'balance_after', sortable: true, align: 'center' },
         { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'center', sortable: true, },
       ],
-      contents: [],  
-      
+      contents: [],
+
     }
   },
   mounted() {
@@ -239,6 +246,101 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
+<style scoped>
 
+.wallet
+{
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 30px;
+  width: 500px;
+  height: 250px;
+}
+.useract
+{
+  margin-top: 24px;
+}
+.wallettitle
+{
+  margin-top: 10px;
+  margin-left: 22px;
+  width:auto;
+}
+.walletbalance
+{
+  margin-top: 29px;
+}
+.fundwallet
+{
+  border-radius: 10px;
+  margin-top: 5px;
+
+}
+.username
+{
+  margin-top: 44px;
+}
+
+.walletusername
+{
+  color:white;
+  font-family: 'Montserrat';
+font-style: normal;
+font-weight: 800;
+font-size: 22px;
+margin-left: 22px;
+}
+.userwalletact
+{
+
+  margin-left: 200px;
+}
+.walletusername, .userwalletact
+{
+    width:auto;
+    font-size: 16px;
+}
+.fundwalletcontainer
+{
+  width: auto;
+  margin-left: 170px
+}
+.walletsection,.bonus, .balance
+{
+  font-family: 'Montserrat';
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+color: #FFFFFF;
+}
+.text-subtitle1
+{
+  color:white;
+  font-family: 'Montserrat';
+font-style: normal;
+font-weight: 800;
+font-size: 22px;
+line-height: 24px;
+margin-top: 6px;
+}
+.text-subtitle2
+{
+  color:white;
+  font-family: 'Montserrat';
+font-style: normal;
+font-weight: 800;
+font-size: 16px;
+line-height: 24px
+}
+
+.balancecontainer
+{
+  width:auto;
+  margin-left: 22px;
+}
+.bonuscontainer
+{
+  width: auto;
+  margin-left: 260px;
+}
 </style>
