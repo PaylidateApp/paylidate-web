@@ -40,9 +40,9 @@ add payment remitance date automatically on all transaction <br> -->
 
     </div>
 
-    <q-table title="Transactions" :data="contents" :columns="columns" row-key="name" square>
+    <!-- <q-table title="Transactions" :data="contents" :columns="columns" row-key="name" square>
       <template v-slot:top-right>
-        <eExport :array="contents" :columns="columns" />
+        <eExport :array="contents" :columns="columns" /> -->
         <!-- <q-btn unelevated color="primary" icon-right="archive" label="Download Table" no-caps @click="exportTable" /> -->
       </template>
 
@@ -56,7 +56,7 @@ add payment remitance date automatically on all transaction <br> -->
             <q-btn class="text-blue" :to="{name: 'transaction', params: {T_ref: props.row.transaction_ref}}" flat
               size="md" no-caps>
 
-              Click to view Transaction
+              view
             </q-btn>
           </q-td>
           <q-td key="name" :props="props">
@@ -159,9 +159,25 @@ add payment remitance date automatically on all transaction <br> -->
     </q-table>
 
     <template>
-  <div class="q-pa-md" id="trans">
+
+      
+      
+
+  <div class="q-pa-md" align: center id="trans">
+    <q-card flat square class=" column flex-center">
+      <q-card-section class="column flex-center q-gutter-sm">
+        <div class="text-h5 text-bold text-dark">
+          Transactions
+        </div>
+        <div class="row q-gutter-sm">
+          <!-- <sell />
+          <buy /> -->
+
+
+        </div>
+      </q-card-section>
+    </q-card>
     <q-table
-      title="Transactions"
       :contents="contents"
       :columns="columns"
       row-key="name"
@@ -188,7 +204,6 @@ export default {
     return {
       columns: [
         // { name: 'src', field: 'src' },
-        { name: 'transaction_ref', label: 'Transaction ref', field: 'transaction', align: 'left' , sortable: true,},
         { name: 'name', label: 'Product/Service', field: 'name', align: 'left' , sortable: true, },
         { name: 'quantity', label: 'Qty', field: 'transaction', sortable: true,  align: 'left'  },
         { name: 'amount', label: 'Price', field: 'transaction', sortable: true,  align: 'left'  },
@@ -198,6 +213,7 @@ export default {
         //{ name: 'link', label: 'Transaction link', field: '', align: 'center', sortable: true },
         { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'center', sortable: true, },
         { name: 'transaction_status', label: 'Status', field: 'transaction',  align: 'left', sortable: true },
+        { name: 'transaction_ref', label: 'Open', field: 'transaction', align: 'left' , sortable: true,},
       ],
 
       contents: [
