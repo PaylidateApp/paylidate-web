@@ -223,7 +223,7 @@
               dense
               v-model="form.description"
               label="Note to Seller"
-              placeholder="You could add specific details about the product you are paying for like colour, size, etc. and also delivery information like state and delivery address"
+              placeholder="You could add specific details about the product you are paying for like color, size, etc. and also delivery information like state and delivery address"
             />
           </q-card-section>
 
@@ -433,12 +433,12 @@ export default {
     editTransaction() {},
 
     deleteProduct() {},
-    acceptProcduct() {},
+    acceptProduct() {},
 
     async editProduct(id) {
       try {
         if (this.product.dispute === 0 || this.product.dispute === 2) {
-          this.$q.loading.show("Hold on, openning dispute", "secondary");
+          this.$q.loading.show("Hold on, opening dispute", "secondary");
           this.$axios.get(`${process.env.Api}/api/product/open-dispute/${id}`);
           this.product.dispute = 1;
           this.$q.loading.hide();
@@ -490,7 +490,7 @@ export default {
         process.env.Api + "/api/product/" + this.slug
       );
       const res = req.data;
-      console.log(res);
+      //console.log(res);
       this.product = res.data;
       this.form.product_id = res.data.id;
       this.$q.loading.hide();

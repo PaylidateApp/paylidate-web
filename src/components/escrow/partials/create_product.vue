@@ -27,7 +27,7 @@
           class=" q-pa-sm cursor-pointer"
           name="fab fa-facebook"
           size="md"
-          color="blue-10"
+          style="color: #0078d7;"
           @click="socialShare"
         />
 
@@ -36,7 +36,7 @@
         <q-icon
           class="fab fa-twitter q-pa-sm cursor-pointer"
           size="md"
-          color="light-blue-5"
+          style="color: #1da1f2;"
           @click="socialShare"
         />
       </a>
@@ -44,15 +44,15 @@
         <q-icon
           class="fab fa-linkedin q-pa-sm cursor-pointer"
           size="md"
-          color="blue-8"
+          style="color: #0077b5;"
           @click="socialShare"
         />
       </a>
-      <a class="whatsapp lt-md" target="blank">
+      <a class="whatsapp" target="blank">
         <q-icon
           class="fab fa-whatsapp q-pa-sm cursor-pointer"
           size="md"
-          color="green-14"
+          style="color: #25d366;"
           @click="socialShare"
         />
       </a>
