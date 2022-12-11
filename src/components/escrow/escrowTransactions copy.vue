@@ -13,11 +13,31 @@
         </div>
       </q-card-section>
     </q-card>
-    
+    <!-- <q-card flat square class="bg-primary">
+      <q-card-section class="row flex-center no-padding q-gutter-sm">
+        <div class="text-secondary text-center text-uppercase">
+          <div class="text-h5 text-bold">{{currency(sum_ammount('received',user.id))}}</div>
+          <div style="font-size: 10px">PAYMENTS RECEIVED</div>
+        </div>
+        <q-separator spaced vertical dark />
+        <div class="text-secondary text-center text-uppercase">
+          <div class="text-h5 text-bold">{{currency(sum_ammount('made',user.id))}}</div>
+          <div style="font-size: 10px">PAYMENTS MADE</div>
+        </div>
+      </q-card-section>
+    </q-card> -->
 
     <div>
 
-      
+      <!--
+###TODO <br>
+add confirm or reject request <br>
+add disbut messaging <br>
+add status badge <br>
+add payment remitance date automatically on all transaction <br> -->
+
+      <!-- {{ contents[0] }} -->
+
     </div>
 
     <!-- <q-table title="Transactions" :data="contents" :columns="columns" row-key="name" square>
@@ -69,7 +89,42 @@
             </q-badge>
           </q-td>
 
-          
+          <!--<q-td key="confirmed" :props="props">
+            <q-badge :color="props.row.secondary_user_id ? 'steal' : 'negative'">
+              {{ props.row.secondary_user_id ? 'Confirmed' : 'Un-confirmed' }}
+            </q-badge>
+          </q-td> -->
+          <!-- <q-td key="payment_status" :props="props">
+            <q-badge v-if="props.row.payment_status" color="steal">
+               {{ 'Paid' }}
+            </q-badge>
+            <q-badge v-else-if="props.row.type === 'sell' && !props.row.payment" color="negative">
+               {{ 'Un-Paid' }}
+            </q-badge>
+            <Payment v-else :amount="props.row.price" :T_ref="props.row.T_ref" :product="props.row" :url="payment_url+props.row.T_ref+'/payment'"/>
+          </q-td>
+          <q-td key="link" :props="props">
+            <q-btn label="Copy Link" @click="copy_link(props.row.transaction_ref)" flat size="sm" no-caps
+              class="bg-grey">
+              <q-tooltip>
+                {{copyL}}
+              </q-tooltip>
+            </q-btn>
+          </q-td>-->
+
+          <!-- <q-td key="action" :props="props" class=""
+            v-if="props.row.type === 'sell' && props.row.user_id == user.id || props.row.type === 'buy' && props.row.user_id != user.id" >
+            <q-btn v-if="props.row.delivery_status == 0" @click="startDelivery(props.row.id)" color="warning" size="xs" no-caps label="Start Delivery" />
+            <q-btn v-if="props.row.delivery_status == 1" @click="orderDelivered(props.row.id)" color="negative" size="xs" no-caps label="Order Completed" />
+            <Disput v-if="props.row.delivery_status == 1" />
+          </q-td>
+          <q-td key="action" :props="props" class=""
+            v-if="props.row.type === 'buy' && props.row.user_id == user.id || props.row.type === 'sell' && props.row.user_id != user.id">
+            <span v-if="props.row.delivery_status == 0" class="text-bold">Awaiting Delivery</span>
+            <q-btn v-if="props.row.delivery_status == 1" @click="orderRecieved(props.row.id)" color="warning" size="xs" no-caps label="Recieved Delivery" />
+            <Disput  />
+          </q-td> -->
+
 
           <!-- TODO paid unpaid in-dispute complete -->
 
@@ -122,9 +177,9 @@
         </div>
       </q-card-section>
     </q-card>
-
+    
     <q-table
-      :data="contents"
+      :contents="contents"
       :columns="columns"
       row-key="name"
       class="text-center"
@@ -150,29 +205,109 @@ export default {
     return {
       columns: [
         // { name: 'src', field: 'src' },
-        { name: 'name', label: 'Product/Service', field: 'name', align: 'center' , sortable: true, },
-        { name: 'quantity', label: 'Qty', field: 'quantity', sortable: true,  align: 'center'  },
-        { name: 'amount', label: 'Price', field: 'amount', sortable: true,  align: 'center'  },
+        { name: 'name', label: 'Product/Service', field: 'name', align: 'left' , sortable: true, },
+        { name: 'quantity', label: 'Qty', field: 'transaction', sortable: true,  align: 'left'  },
+        { name: 'amount', label: 'Price', field: 'transaction', sortable: true,  align: 'left'  },
         { name: 'transaction_type', label: 'Type', field: 'transaction_type', sortable: true,  align: 'center'  },
-        // { name: 'confirmed', label: 'Confirmation', field: 'confirmed', align: 'center', sortable: true },
-        // { name: 'payment_status', label: 'Payment', field: 'payment_status',align: 'center', sortable: true },
+        // { name: 'confirmed', label: 'Confirmation', field: 'confirmed', align: 'left', sortable: true },
+        // { name: 'payment_status', label: 'Payment', field: 'payment_status',align: 'left', sortable: true },
         //{ name: 'link', label: 'Transaction link', field: '', align: 'center', sortable: true },
         { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'center', sortable: true, },
-        { name: 'transaction_status', label: 'Status', field: 'transaction_status',  align: 'center', sortable: true },
-        { name: 'transaction_ref', label: 'Open', field: 'transaction_ref', align: 'center' , sortable: true,},
+        { name: 'transaction_status', label: 'Status', field: 'transaction',  align: 'left', sortable: true },
+        { name: 'transaction_ref', label: 'Open', field: 'transaction', align: 'left' , sortable: true,},
       ],
 
       contents: [
-       /* {
+        {
           transaction_ref: 'Frozen Yogurt',
-          name: "sentencessgjhjkhgkjk".slice(0,5),
+          name: 159,
           quantity: 6.0,
           amount: 24,
           transaction_type: 4.0,
           created_at: 87,
           transaction_status: '14%'
-        },*/
-        
+        },
+        {
+          transaction_ref: 'Ice cream sandwich',
+          name: 237,
+          quantity: 9.0,
+          amount: 37,
+          transaction_type: 4.3,
+          created_at: 129,
+          transaction_status: '8%'
+        },
+        {
+          transaction_ref: 'Eclair',
+          name: 262,
+          quantity: 16.0,
+          amount: 23,
+          transaction_type: 6.0,
+          created_at: 337,
+          transaction_status: '6%'
+        },
+        {
+          transaction_ref: 'Cupcake',
+          name: 305,
+          quantity: 3.7,
+          amount: 67,
+          transaction_type: 4.3,
+          created_at: 413,
+          transaction_status: '3%'
+        },
+        {
+          transaction_ref: 'Gingerbread',
+          name: 356,
+          quantity: 16.0,
+          amount: 49,
+          transaction_type: 3.9,
+          created_at: 327,
+          transaction_status: '7%'
+        },
+        {
+          transaction_ref: 'Jelly bean',
+          name: 375,
+          quantity: 0.0,
+          amount: 94,
+          transaction_type: 0.0,
+          created_at: 50,
+          transaction_status: '0%'
+        },
+        {
+          transaction_ref: 'Lollipop',
+          name: 392,
+          quantity: 0.2,
+          amount: 98,
+          transaction_type: 0,
+          created_at: 38,
+          transaction_status: '0%'
+        },
+        {
+          transaction_ref: 'Honeycomb',
+          name: 408,
+          quantity: 3.2,
+          amount: 87,
+          transaction_type: 6.5,
+          created_at: 562,
+          transaction_status: '0%'
+        },
+        {
+          transaction_ref: 'Donut',
+          name: 452,
+          quantity: 25.0,
+          amount: 51,
+          transaction_type: 4.9,
+          created_at: 326,
+          transaction_status: '2%'
+        },
+        {
+          transaction_ref: 'KitKat',
+          name: 518,
+          quantity: 26.0,
+          amount: 65,
+          transaction_type: 7,
+          created_at: 54,
+          transaction_status: '12%'
+        }
       ],
 
       
