@@ -15,12 +15,13 @@
       >
         <div class="col-12 col-sm-4" style="width: 40%">
           <h1 class="big-header">
-            Fast and secured <span>digital payments</span>
-            guaranteed
+            Providing a secure and reliable
+            <span>way for buyers and sellers</span>
+            to transact online.
           </h1>
           <p class="big-paragraph">
-            Helping millions of Nigerian buyers and sellers transact safely from
-            anywhere without doubt or fear
+            Join the thousands of Nigerian buyers and sellers already protecting
+            their online transactions with Paylidate.
           </p>
 
           <div
@@ -78,11 +79,16 @@
       class="section1 lt-md item-center full-width flex flex justify-center row"
     >
       <div class="q-py-sm" style="padding: 1rem">
-        <h1>Fast and secured <span>digital payments</span> guaranteed</h1>
-        <p>
-          Helping millions of Nigerian buyers and sellers transact safely from
-          anywhere without doubt or fear
-        </p>
+
+        <h1>
+            Providing a secure and reliable
+            <span>way for buyers and sellers</span>
+            to transact online.
+          </h1>
+          <p>
+            Join the thousands of Nigerian buyers and sellers already protecting
+            their online transactions with Paylidate.
+          </p>
       </div>
       <div
         class="row full-width row wrap items-start"
@@ -1241,7 +1247,7 @@
           <img
             src="../../statics/handshake.png"
             spinner-color="white"
-            style="width: 100%; max-width: 400px;"
+            style="width: 100%; max-width: 400px"
           />
         </div>
         <div class="row flex text-justify">
@@ -1586,7 +1592,9 @@
                   <div class="row"><p class="footer-body">Security</p></div>
                   <div class="row"><p class="footer-body">Partners</p></div> -->
                   <div class="row text-justify">
-                    <a href="escrow-agreement"><p class="footer-body">Escrow Agreement</p></a>
+                    <a href="escrow-agreement"
+                      ><p class="footer-body">Escrow Agreement</p></a
+                    >
                   </div>
                   <div class="row"><p class="footer-body">Privacy</p></div>
                 </div>
@@ -1617,16 +1625,24 @@
                   <div class="row"><h2 class="footer-header">Socials</h2></div>
 
                   <div class="row">
-                    <a href="https://facebook.com/paylidate.escrow"><p class="footer-body">Facebook</p></a>
+                    <a href="https://facebook.com/paylidate.escrow"
+                      ><p class="footer-body">Facebook</p></a
+                    >
                   </div>
                   <div class="row">
-                    <a href="https://linkedin.com/company/paylidate"><p class="footer-body">LinkedIn</p></a>
+                    <a href="https://linkedin.com/company/paylidate"
+                      ><p class="footer-body">LinkedIn</p></a
+                    >
                   </div>
                   <div class="row">
-                    <a href="https://instagram.com/paylidate"><p class="footer-body">Instagram</p></a>
+                    <a href="https://instagram.com/paylidate"
+                      ><p class="footer-body">Instagram</p></a
+                    >
                   </div>
                   <div class="row">
-                    <a href="https://twitter.com/paylidate"><p class="footer-body">Twitter</p></a>
+                    <a href="https://twitter.com/paylidate"
+                      ><p class="footer-body">Twitter</p></a
+                    >
                   </div>
                 </div>
               </div>
@@ -1675,14 +1691,17 @@
                 style="width: 100%; padding-top: 2.5rem"
               >
                 <div class="col-4" style="width: 45%">
-                  <a href="mailto:hello@paylidate.com?subject=Mail to Paylidate">
-                    <div style="border-bottom: 1px solid #0081fe; width: 8.75rem">
+                  <a
+                    href="mailto:hello@paylidate.com?subject=Mail to Paylidate"
+                  >
+                    <div
+                      style="border-bottom: 1px solid #0081fe; width: 8.75rem"
+                    >
                       <p class="sub-body" style="color: #ffffff">
                         hello@paylidate.com
                       </p>
                     </div>
                   </a>
-
                 </div>
                 <div class="col-4 q-px-xl" style="width: 45%">
                   <div style="border-bottom: 1px solid #0081fe; width: 5.62rem">
@@ -1732,7 +1751,9 @@
                 <div class="row card-item-2">Security</div>
                 <div class="row card-item-2">Partners</div> -->
                 <div class="row">
-                  <a href="escrow-agreement"> <p class="card-item-2">Escrow Agreement</p> </a>
+                  <a href="escrow-agreement">
+                    <p class="card-item-2">Escrow Agreement</p>
+                  </a>
                 </div>
                 <div class="row card-item-2">Privacy</div>
               </div>
@@ -1755,17 +1776,25 @@
               <div class="col-2 text-white q-pt-md" style="width: 18%">
                 <div class="row big-subtitle-2">Socials</div>
                 <div class="row">
-                    <a href="https://facebook.com/paylidate.escrow"><p class="card-item-2">Facebook</p></a>
-                  </div>
-                  <div class="row">
-                    <a href="https://linkedin.com/company/paylidate"><p class="card-item-2">LinkedIn</p></a>
-                  </div>
-                  <div class="row">
-                    <a href="https://instagram.com/paylidate"><p class="card-item-2">Instagram</p></a>
-                  </div>
-                  <div class="row">
-                    <a href="https://twitter.com/paylidate"><p class="card-item-2">Twitter</p></a>
-                  </div>
+                  <a href="https://facebook.com/paylidate.escrow"
+                    ><p class="card-item-2">Facebook</p></a
+                  >
+                </div>
+                <div class="row">
+                  <a href="https://linkedin.com/company/paylidate"
+                    ><p class="card-item-2">LinkedIn</p></a
+                  >
+                </div>
+                <div class="row">
+                  <a href="https://instagram.com/paylidate"
+                    ><p class="card-item-2">Instagram</p></a
+                  >
+                </div>
+                <div class="row">
+                  <a href="https://twitter.com/paylidate"
+                    ><p class="card-item-2">Twitter</p></a
+                  >
+                </div>
               </div>
               <div class="col-3 text-white q-pt-md" style="width: 25%">
                 <div class="row big-subtitle-2">Head Office</div>
@@ -1783,7 +1812,7 @@
                       line-height: 1.37rem;
                       opacity: 0.75;
                     "
-                    :input-style="{ color:'white'}"
+                    :input-style="{ color: 'white' }"
                     type="email"
                     label="Enter your email address"
                     label-color="white"
@@ -1809,19 +1838,20 @@
             <div class="full-width flex q-px-sm q-px-sm-xl" style="">
               <div style="width: 98%" class="row text-center">
                 <div class="col-4" style="width: 30%">
-                  <a href="mailto:hello@paylidate.com?subject=Mail to Paylidate">
+                  <a
+                    href="mailto:hello@paylidate.com?subject=Mail to Paylidate"
+                  >
                     <div class="footer-style" style="">
                       hello@paylidate.com
-                        <div
-                          style="
-                            border-bottom: 1px solid #0081fe;
-                            padding-top: 0.63rem;
-                            width: 10rem;
-                          ">
-                        </div>
+                      <div
+                        style="
+                          border-bottom: 1px solid #0081fe;
+                          padding-top: 0.63rem;
+                          width: 10rem;
+                        "
+                      ></div>
                     </div>
                   </a>
-
                 </div>
                 <div class="col-4 q-px-xl" style="width: 30%">
                   <div class="footer-style" style="">

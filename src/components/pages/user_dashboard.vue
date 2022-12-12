@@ -121,7 +121,7 @@
               <div>
                 <div class="dashboard-text">Payments Made</div>
                 <div class="dashboard-num q-py-sm">
-                  {{ dashboardInfo.payments_made ? "₦" + dashboardInfo.payments_made: "₦0.00" }}
+                  {{currency(sum_amount('made',user.id))}}
                 </div>
               </div>
             </div>
@@ -136,7 +136,7 @@
               <div>
                 <div class="dashboard-text">Total Payments Received</div>
                 <div class="dashboard-num q-py-sm">
-                  {{ dashboardInfo.payments_received ? "₦" + dashboardInfo.payments_received: "₦0.00"  }}
+                  {{currency(sum_amount('received',user.id))}}
                 </div>
               </div>
             </div>
@@ -154,11 +154,11 @@
                   style="width: 20%; max-width: 24px"
                 />
                 <p class="dashboard-heading">
-                   {{
-                      dashboardInfo.balance
-                        ? "₦" + dashboardInfo.balance.balance
-                        : "You do not have a wallet"
-                    }}
+                  {{
+                    dashboardInfo.balance
+                      ? currency(dashboardInfo.balance.balance)
+                      : "You do not have a wallet"
+                  }}
                 </p>
                 <p class="dashboard-subtxt">Wallet Balance</p>
               </div>
@@ -184,7 +184,9 @@
                   spinner-color="white"
                   style="width: 20%; max-width: 22px"
                 />
-                <p class="dashboard-heading">{{ dashboardInfo.refer ? "₦" + dashboardInfo.refer: "₦0.00" }}</p>
+                <p class="dashboard-heading">
+                  {{ currency(dashboardInfo.refer ? dashboardInfo.refer : 0) }}
+                </p>
                 <p class="dashboard-subtxt">Referral Payments</p>
               </div>
             </div>
@@ -207,7 +209,7 @@
                   <p class="dashboard-heading">
                     {{
                       dashboardInfo.balance
-                        ? "₦" + dashboardInfo.balance.balance
+                        ? currency(dashboardInfo.balance.balance)
                         : "You do not have a wallet"
                     }}
                   </p>
@@ -233,7 +235,9 @@
                   spinner-color="white"
                   style="width: 20%; max-width: 22px"
                 />
-                <p class="dashboard-heading">{{ dashboardInfo.refer ? "₦" + dashboardInfo.refer: "₦0.00" }}</p>
+                <p class="dashboard-heading">
+                  {{ currency(dashboardInfo.refer ? dashboardInfo.refer : 0) }}
+                </p>
                 <p class="dashboard-subtxt">Referral Payments</p>
               </div>
             </div>
@@ -249,7 +253,11 @@
             >
               <div class="round-box" style="background: #eb6117">
                 <p class="notification-num">
-                  {{ dashboardInfo.active_dsiputes ? dashboardInfo.active_dsiputes: "0" }}
+                  {{
+                    dashboardInfo.active_dsiputes
+                      ? dashboardInfo.active_dsiputes
+                      : "0"
+                  }}
                 </p>
               </div>
               <p
@@ -265,7 +273,11 @@
             >
               <div class="round-box" style="background: #1e820f">
                 <p class="notification-num">
-                  {{ dashboardInfo.active_transaction ? dashboardInfo.active_transaction: "0" }}
+                  {{
+                    dashboardInfo.active_transaction
+                      ? dashboardInfo.active_transaction
+                      : "0"
+                  }}
                 </p>
               </div>
               <p
@@ -281,7 +293,11 @@
             >
               <div class="round-box" style="background: #0f699a">
                 <p class="notification-num">
-                  {{ dashboardInfo.pending_withdrawals ? dashboardInfo.pending_withdrawals: "0" }}
+                  {{
+                    dashboardInfo.pending_withdrawals
+                      ? dashboardInfo.pending_withdrawals
+                      : "0"
+                  }}
                 </p>
               </div>
               <p
@@ -297,7 +313,11 @@
             >
               <div class="round-box" style="background: #6f1a07">
                 <p class="notification-num">
-                  {{ dashboardInfo.pending_refunds ? dashboardInfo.pending_refunds: "0" }}
+                  {{
+                    dashboardInfo.pending_refunds
+                      ? dashboardInfo.pending_refunds
+                      : "0"
+                  }}
                 </p>
               </div>
               <p
@@ -319,23 +339,23 @@ export default {
   data() {
     return {
       dashboardInfo: [],
+      dashboardAmount: []
     };
   },
 
   methods: {
     async getUserDashboardInfo() {
       try {
-          this.$q.loading.show({
-            message: "Please Hold, populating your dashboard",
-            spinnerColor: "secondary",
-          });
-          const req = await this.$axios.get(process.env.Api + `/api/dashboard`);
+        this.$q.loading.show({
+          message: "Please Hold, populating your dashboard",
+          spinnerColor: "secondary",
+        });
+        const req = await this.$axios.get(process.env.Api + `/api/dashboard`);
 
-          const res = req.data;
-          // console.log(res);
-          this.dashboardInfo = res.data;
-          this.$q.loading.hide();
-
+        const res = req.data;
+        //console.log(res);
+        this.dashboardInfo = res.data;
+        this.$q.loading.hide();
       } catch (err) {
         this.loading = false;
         this.$q.loading.hide();
@@ -348,10 +368,59 @@ export default {
         });
       }
     },
-  },
+    async getTransactions(){
+        try{
+        const req = await this.$axios.get(process.env.Api + '/api/transaction')
+        const res = req.data
+        //console.log(res)
 
+        this.dashboardAmount = res.data;
+        }catch(err){
+        //console.log(err)
+        }
+        finally{
+        }
+      },
+
+    currency(amount) {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "NGN",
+      }).format(amount);
+    },
+    sum_amount(type, user_id) {
+      if (this.dashboardAmount) {
+        const sort_amounts = this.dashboardAmount.filter(function (item) {
+          if (item.payment && item.payment.verified) {
+            if (item.payment.user_id != user_id && type === "received") {
+              item.product.price = item.referer_id
+                ? parseFloat(item.amount) + parseFloat(item.referral.amount)
+                : item.amount;
+              return item;
+            }
+            if (item.payment.user_id == user_id && type === "made") {
+              return item;
+            }
+          }
+        });
+        let sum = sort_amounts.reduce(
+          (accumulator, current) =>
+            Number(accumulator) + Number(current.product.price),
+          0
+        );
+        return sum;
+      } else {
+        return 0;
+      }
+    },
+  },
+  computed:{
+    user(){return this.$store.getters["auth/user"] },
+
+  },
   mounted() {
     this.getUserDashboardInfo();
+    this.getTransactions();
     if (!this.$q.localStorage.getItem("paylidate_token")) {
       this.$router.push({ name: "login" });
     }

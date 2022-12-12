@@ -214,6 +214,7 @@ export default {
         try{
         const req = await this.$axios.get(process.env.Api + '/api/transaction')
         const res = req.data
+        console.log(res)
 
         this.contents = res.data;
         //console.log(this.contents)
