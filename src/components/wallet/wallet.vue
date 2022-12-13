@@ -83,7 +83,7 @@
           </div>
                <br/>
         <div v-if="!prompt" >
-          <q-table title="WALLET HISTORY" :data="contents" :columns="columns" row-key="name" square>
+          <q-table title="WALLET HISTORY" :data="contents" :columns="columns" row-key="name" square class="wallethistory">
             <template v-slot:top-right>
               <eExport :array="contents" :columns="columns" />
               <!-- <q-btn unelevated color="primary" icon-right="archive" label="Download Table" no-caps @click="exportTable" /> -->
@@ -119,8 +119,33 @@
 
 
 
+<!-- Table for mobile screens -->
+          <q-table title="WALLET HISTORY" title-align="center" :data="contents" :columns="columnsformobile" row-key="name" square class="wallethistoryformobile">
+            <template v-slot:top-right>
+              <eExport :array="contents" :columns="columnsformobile" />
+              <!-- <q-btn unelevated color="primary" icon-right="archive" label="Download Table" no-caps @click="exportTable" /> -->
+            </template>
+
+            <template v-slot:body="props">
+              <q-tr :props="props">
+                <q-td key="amount" :props="props">
+                  ₦ {{currency(props.row.amount) }}
+                </q-td>
+                <q-td key="balance_after" :props="props">
+                  ₦ {{ currency(props.row.balance_after) }}
+                </q-td>
+
+                <q-td key="created_at" :props="props">
+                  {{ formatDate(props.row.created_at) }}
+                </q-td>
+
+              </q-tr>
+            </template>
+
+          </q-table>
         </div>
 
+<!-- Table for mobile screens -->
         <!-- <q-table
       title="Treats"
       :rows="rows"
@@ -165,6 +190,13 @@ export default {
         { name: 'narration', label: 'Narration', field: 'narration', sortable: true, align: 'center' },
         { name: 'amount', label: 'Transaction Amount', field: 'amount', sortable: true, align: 'center' },
         { name: 'balance_before', label: 'Balance Before', field: 'balance_before', sortable: true, align: 'center' },
+        { name: 'balance_after', label: 'Balance After', field: 'balance_after', sortable: true, align: 'center' },
+        { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'center', sortable: true, },
+      ],
+
+      columnsformobile: [
+
+        { name: 'amount', label: 'Transaction Amount', field: 'amount', sortable: true, align: 'center' },
         { name: 'balance_after', label: 'Balance After', field: 'balance_after', sortable: true, align: 'center' },
         { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'center', sortable: true, },
       ],
@@ -384,5 +416,24 @@ line-height: 24px
 
   margin-left: 110px;
 }
+.wallethistory
+{
+  display: none;
 }
+
+
+}
+
+/**for tablets upwards to hide table with 3 columns */
+@media only screen and (min-width: 768px)
+{
+  .wallethistoryformobile
+{
+  display: none ;
+}
+
+}
+
+/**for medium screens and upwards table will be disabled */
+
 </style>
