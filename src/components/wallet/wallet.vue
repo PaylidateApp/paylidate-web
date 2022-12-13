@@ -116,8 +116,22 @@
             </template>
 
           </q-table>
+
+
+
         </div>
+
+        <!-- <q-table
+      title="Treats"
+      :rows="rows"
+      :columns="columns"
+      row-key="name"
+      class=""
+    /> -->
+
   </div>
+
+
 </template>
 
 <script>
@@ -342,5 +356,33 @@ line-height: 24px
 {
   width: auto;
   margin-left: 260px;
+}
+
+@media screen and (max-width: 600px)
+{
+  .wallet
+{
+
+  width: 400px;
+  height:auto;
+  margin-top: 30px;
+}
+
+.fundwalletcontainer
+{
+  width: auto;
+  margin-left: 80px
+}
+
+.bonuscontainer
+{
+  width: auto;
+  margin-left: 150px;
+}
+.userwalletact
+{
+
+  margin-left: 110px;
+}
 }
 </style>
