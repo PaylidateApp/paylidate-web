@@ -18,7 +18,7 @@
 
       <div class="q-pa-md items-start q-gutter-md">
         <text-h1>Overview</text-h1>
-        <div class="row items-start">
+        <div class="row full-width items-start justify-between">
           <div class="col">
             <q-card class="my-card">
               <q-card-section class="bg-white text-black">
@@ -44,7 +44,7 @@
             </q-card>
           </div>
         </div>
-        <div class="row items-start">
+        <div class="row full-width items-start justify-between">
           <div class="col">
             <q-card class="my-card">
               <q-card-section class="bg-white text-black">
@@ -121,7 +121,11 @@
           :columns="columns"
           row-key="name"
         />
+        <div class="q-my-md">
+          <q-btn color="secondary" size="md" rounded no-caps label="View more" />
+        </div>
       </div>
+      <!-- End of Disputes -->
 
       <!-- Transactions -->
       <div id="transaction" class="styling q-pa-md">
@@ -131,12 +135,14 @@
           :columns="columns2"
           row-key="name"
         />
-        <div class="">
-          <q-btn color="secondary" size="sm" no-caps label="View more" />
+        <div class="q-my-md">
+          <q-btn color="secondary" size="md" rounded no-caps label="View more" />
         </div>
       </div>
+      <!-- End of Transactions -->
     </span>
   </div>
+
 
   <!-- <div>
     <span v-if="login">

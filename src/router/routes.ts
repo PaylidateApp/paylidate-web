@@ -18,6 +18,7 @@ const routes: RouteConfig[] = [
       { path: 'reset-password/:token', name: 'reset-password', component: () => import('pages/Auth.vue') },
       { path: 'withdrawal-requests', name: 'withdrawal_requests', component: () => import('pages/Dashboard.vue'), meta: { requiresAuth: true } },
       { path: 'user-dashboard', name: 'user_dashboard',component: () => import('pages/UserDashboard.vue'), meta: { requiresAuth: true } },
+      { path: 'dashboard', name: 'admin-dashboard',component: () => import('pages/Dashboard.vue'), meta: { requiresAuth: true } },
       { path: 'account', name: 'account',component: () => import('pages/Auth.vue'), meta: { requiresAuth: true } },
       { path: 'products', name: 'products', component: () => import('pages/Escrow.vue'), meta: { requiresAuth: true } },
       { path: 'transaction-disputes/:transaction_id', name: 'disputes', component: () => import('pages/Escrow.vue'), meta: { requiresAuth: true } },
