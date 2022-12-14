@@ -53,8 +53,8 @@ add payment remitance date automatically on all transaction <br> -->
           </q-td> -->
           
           <q-td key="name" :props="props" :id="'product_' + props.row.product.id" @mouseover="showFullText('product_' + props.row.product.id)">
+            <span id="showfull" class="hidden">{{ props.row.product.name}}</span>
             <span id="showslice">{{ props.row.product.name.slice(0,5) }}</span>
-            <span id="showfull" :style.display="block">{{ props.row.product.name}}</span>
           </q-td>
           <q-td key="quantity" :props="props">
             <span class="text-bold">{{ props.row.quantity }}</span>
@@ -210,9 +210,16 @@ export default {
             console.log(id)
             let parent=document.getElementById(id)
             let showslice=parent.querySelector("#showslice")
-            let showfull=parent.querySelector("#showsfull")
-            showslice.style.display="none"
-            showfull.style.display="block"
+            let showfull=parent.querySelector("#showfull")
+            showslice.className="hidden"
+            showfull.className="visible"
+            setTimeout(
+             function() {
+                showslice.className="visible";
+                showfull.className="hidden" 
+              },
+              1000
+              );
         },
     async getTransactions(){
         //console.log('contents');
