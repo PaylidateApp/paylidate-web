@@ -52,9 +52,12 @@ add payment remitance date automatically on all transaction <br> -->
             <img :src="props.row.image" style="width: 50px" />
           </q-td> -->
           
-          <q-td key="name" :props="props" :id="'product_' + props.row.product.id" @mouseover="showFullText('product_' + props.row.product.id)">
+          <q-td key="name" :props="props" :id="'product_' + props.row.product.id" 
+          @mouseover="showFullText('product_' + props.row.product.id)"
+          @mouseout="showSliceText('product_' + props.row.product.id)"
+          >
             <span id="showfull" class="hidden">{{ props.row.product.name}}</span>
-            <span id="showslice">{{ props.row.product.name.slice(0,5) }}</span>
+            <span id="showslice">{{ props.row.product.name.slice(0,15) }}</span>
           </q-td>
           <q-td key="quantity" :props="props">
             <span class="text-bold">{{ props.row.quantity }}</span>
@@ -207,20 +210,22 @@ export default {
   },
   methods: {
     showFullText: function(id){
-            console.log(id)
             let parent=document.getElementById(id)
             let showslice=parent.querySelector("#showslice")
             let showfull=parent.querySelector("#showfull")
             showslice.className="hidden"
             showfull.className="visible"
-            setTimeout(
-             function() {
-                showslice.className="visible";
-                showfull.className="hidden" 
-              },
-              1000
-              );
+         },
+
+        showSliceText: function(id){
+          let parent=document.getElementById(id)
+            let showslice=parent.querySelector("#showslice")
+            let showfull=parent.querySelector("#showfull")
+            showslice.className="visible"
+            showfull.className="hidden"
+
         },
+
     async getTransactions(){
         //console.log('contents');
          this.$q.loading.show({
