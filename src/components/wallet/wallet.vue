@@ -390,12 +390,27 @@ line-height: 24px
   margin-left: 260px;
 }
 
-@media screen and (max-width: 600px)
+@media screen and (max-width: 480px)
 {
+  .walletsection,.bonus, .balance
+{
+
+font-size: 14px;
+}
+.text-subtitle1
+{
+
+font-size: 16px;
+}
+.text-subtitle2
+{
+
+font-size: 14px;
+}
   .wallet
 {
 
-  width: 400px;
+  width: 100%;
   height:auto;
   margin-top: 30px;
 }
@@ -403,7 +418,7 @@ line-height: 24px
 .fundwalletcontainer
 {
   width: auto;
-  margin-left: 80px
+  margin-left: 60px
 }
 
 .bonuscontainer
@@ -414,7 +429,7 @@ line-height: 24px
 .userwalletact
 {
 
-  margin-left: 110px;
+  margin-left: 80px;
 }
 .wallethistory
 {
