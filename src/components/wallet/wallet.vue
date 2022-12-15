@@ -426,6 +426,9 @@ font-size: 14px;
   width: auto;
   margin-left: 150px;
 }
+
+/**d */
+
 .userwalletact
 {
 
