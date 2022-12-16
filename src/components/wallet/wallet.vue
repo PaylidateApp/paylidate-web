@@ -448,3 +448,4 @@ font-size: 14px;
 /**for medium screens and upwards table will be disabled */
 
 </style>
+
