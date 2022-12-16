@@ -15,6 +15,7 @@ const routes: RouteConfig[] = [
       { path: 'recieve-instant-funds/:token', name: 'recieve_instant_funds',component: () => import('pages/Instant_pay.vue')},
       { path: 'register', name: 'register',component: () => import('pages/Auth.vue')},
       { path: 'forgot', name: 'forgot',component: () => import('pages/Auth.vue') },
+      { path: 'fulfillment', name: 'fulfillment',component: () => import('pages/Fulfillment.vue')},
       { path: 'reset-password/:token', name: 'reset-password', component: () => import('pages/Auth.vue') },
       { path: 'withdrawal-requests', name: 'withdrawal_requests', component: () => import('pages/Dashboard.vue'), meta: { requiresAuth: true } },
       { path: 'user-dashboard', name: 'user_dashboard',component: () => import('pages/UserDashboard.vue'), meta: { requiresAuth: true } },
