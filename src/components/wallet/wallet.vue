@@ -145,14 +145,7 @@
           </q-table>
         </div>
 
-<!-- Table for mobile screens -->
-        <!-- <q-table
-      title="Treats"
-      :rows="rows"
-      :columns="columns"
-      row-key="name"
-      class=""
-    /> -->
+
 
   </div>
 
