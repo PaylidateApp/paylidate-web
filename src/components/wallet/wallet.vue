@@ -478,6 +478,7 @@ export default {
   .balance {
     font-size: 14px;
   }
+
   .text-subtitle1 {
     font-size: 16px;
   }
@@ -492,23 +493,28 @@ export default {
 
   .fundwalletcontainer {
     width: auto;
-    margin-left: 60px;
+
+  }
+  .wallettitle, .balancecontainer, .fundwalletcontainer, .bonuscontainer, .walletusername, .userwalletact
+  {
+    margin-left: 0px;
   }
 
   .bonuscontainer {
     width: auto;
-    margin-left: 150px;
+
   }
 
   /**d */
-
-  .userwalletact {
-    margin-left: 80px;
+  .walletsection, .walletbalance, .useract
+  {
+    justify-content:space-between;
   }
   .wallethistory {
     display: none;
   }
 }
+
 
 /**for tablets upwards to hide table with 3 columns */
 @media only screen and (min-width: 768px) {
