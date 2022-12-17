@@ -1,46 +1,26 @@
 <template>
   <div class="q-pa-md">
-    <q-card flat square class=" column flex-center">
+    <q-card flat square class="column flex-center">
       <q-card-section class="column flex-center q-gutter-sm">
-        <div class="text-h5 text-bold text-dark">
-          Transactions
-        </div>
+        <div class="text-h5 text-bold text-dark">Transactions</div>
         <div class="row q-gutter-sm">
           <!-- <sell />
           <buy /> -->
-
-
         </div>
       </q-card-section>
     </q-card>
-    <!-- <q-card flat square class="bg-primary">
-      <q-card-section class="row flex-center no-padding q-gutter-sm">
-        <div class="text-secondary text-center text-uppercase">
-          <div class="text-h5 text-bold">{{currency(sum_ammount('received',user.id))}}</div>
-          <div style="font-size: 10px">PAYMENTS RECEIVED</div>
-        </div>
-        <q-separator spaced vertical dark />
-        <div class="text-secondary text-center text-uppercase">
-          <div class="text-h5 text-bold">{{currency(sum_ammount('made',user.id))}}</div>
-          <div style="font-size: 10px">PAYMENTS MADE</div>
-        </div>
-      </q-card-section>
-    </q-card> -->
+    
 
-    <div>
+    
 
-      <!--
-###TODO <br>
-add confirm or reject request <br>
-add disbut messaging <br>
-add status badge <br>
-add payment remitance date automatically on all transaction <br> -->
-
-      <!-- {{ contents[0] }} -->
-
-    </div>
-
-    <q-table title="" :data="contents" :columns="columns" row-key="name" square :dense="$q.screen.lt.md">
+    <q-table
+      title=""
+      :data="contents"
+      :columns="columns"
+      row-key="name"
+      square
+      :dense="$q.screen.lt.md"
+    >
       <template v-slot:top-right>
         <!-- <eExport :array="contents" :columns="columns" /> -->
         <!-- <q-btn unelevated color="primary" icon-right="archive" label="Download Table" no-caps @click="exportTable" /> -->
@@ -51,78 +31,57 @@ add payment remitance date automatically on all transaction <br> -->
           <!-- <q-td key="name" :props="props">
             <img :src="props.row.image" style="width: 50px" />
           </q-td> -->
-          
-          <q-td key="name" :props="props" :id="'product_' + props.row.product.id" 
-          @mouseover="showFullText('product_' + props.row.product.id)"
-          @mouseout="showSliceText('product_' + props.row.product.id)"
+
+          <q-td
+            key="name"
+            :props="props"
+            :id="'product_' + props.row.product.id"
+            @mouseover="showFullText('product_' + props.row.product.id)"
+            @mouseout="showSliceText('product_' + props.row.product.id)"
           >
-            <span id="showfull" class="hidden">{{ props.row.product.name}}</span>
-            <span id="showslice">{{ props.row.product.name.slice(0,15) }}</span>
+            <span id="showfull" class="hidden">{{
+              props.row.product.name
+            }}</span>
+            <span id="showslice">{{
+              props.row.product.name.slice(0, 15)
+            }}</span>
           </q-td>
           <q-td key="quantity" :props="props">
             <span class="text-bold">{{ props.row.quantity }}</span>
           </q-td>
           <q-td key="amount" :props="props">
-
             <q-badge v-if="props.row.amount < 1" color="negative">
               {{ currency(props.row.product.price * props.row.quantity) }}
             </q-badge>
             <q-badge v-else-if="props.row.referer_id" color="negative">
-              {{ currency(parseFloat(props.row.amount) + parseFloat(props.row.referral.amount)) }}
+              {{
+                currency(
+                  parseFloat(props.row.amount) +
+                    parseFloat(props.row.referral.amount)
+                )
+              }}
             </q-badge>
             <q-badge v-else color="negative">
               {{ currency(props.row.amount) }}
             </q-badge>
-
-
           </q-td>
 
           <q-td key="transaction_type" :props="props">
-            <q-badge v-if="props.row.product.transaction_type === 'buy'" color="primary">
-              {{ props.row.product.user_id === user.id ? 'buy' : 'sell' }}
+            <q-badge
+              v-if="props.row.product.transaction_type === 'buy'"
+              color="primary"
+            >
+              {{ props.row.product.user_id === user.id ? "buy" : "sell" }}
             </q-badge>
-            <q-badge v-if="props.row.product.transaction_type === 'sell'" color="primary">
-              {{ props.row.product.user_id === user.id ? 'sell' : 'buy' }}
+            <q-badge
+              v-if="props.row.product.transaction_type === 'sell'"
+              color="primary"
+            >
+              {{ props.row.product.user_id === user.id ? "sell" : "buy" }}
             </q-badge>
           </q-td>
 
-          <!--<q-td key="confirmed" :props="props">
-            <q-badge :color="props.row.secondary_user_id ? 'steal' : 'negative'">
-              {{ props.row.secondary_user_id ? 'Confirmed' : 'Un-confirmed' }}
-            </q-badge>
-          </q-td> -->
-          <!-- <q-td key="payment_status" :props="props">
-            <q-badge v-if="props.row.payment_status" color="steal">
-               {{ 'Paid' }}
-            </q-badge>
-            <q-badge v-else-if="props.row.type === 'sell' && !props.row.payment" color="negative">
-               {{ 'Un-Paid' }}
-            </q-badge>
-            <Payment v-else :amount="props.row.price" :T_ref="props.row.T_ref" :product="props.row" :url="payment_url+props.row.T_ref+'/payment'"/>
-          </q-td>
-          <q-td key="link" :props="props">
-            <q-btn label="Copy Link" @click="copy_link(props.row.transaction_ref)" flat size="sm" no-caps
-              class="bg-grey">
-              <q-tooltip>
-                {{copyL}}
-              </q-tooltip>
-            </q-btn>
-          </q-td>-->
-
-          <!-- <q-td key="action" :props="props" class=""
-            v-if="props.row.type === 'sell' && props.row.user_id == user.id || props.row.type === 'buy' && props.row.user_id != user.id" >
-            <q-btn v-if="props.row.delivery_status == 0" @click="startDelivery(props.row.id)" color="warning" size="xs" no-caps label="Start Delivery" />
-            <q-btn v-if="props.row.delivery_status == 1" @click="orderDelivered(props.row.id)" color="negative" size="xs" no-caps label="Order Completed" />
-            <Disput v-if="props.row.delivery_status == 1" />
-          </q-td>
-          <q-td key="action" :props="props" class=""
-            v-if="props.row.type === 'buy' && props.row.user_id == user.id || props.row.type === 'sell' && props.row.user_id != user.id">
-            <span v-if="props.row.delivery_status == 0" class="text-bold">Awaiting Delivery</span>
-            <q-btn v-if="props.row.delivery_status == 1" @click="orderRecieved(props.row.id)" color="warning" size="xs" no-caps label="Recieved Delivery" />
-            <Disput  />
-          </q-td> -->
-
-
+          
           <!-- TODO paid unpaid in-dispute complete -->
 
           <q-td key="created_at" :props="props">
@@ -134,7 +93,10 @@ add payment remitance date automatically on all transaction <br> -->
               <!-- Awaiting acceptance -->
               Pending
             </q-badge>
-            <q-badge v-else-if="props.row.accept_transaction == false" color="negetive">
+            <q-badge
+              v-else-if="props.row.accept_transaction == false"
+              color="negetive"
+            >
               Not Accepted
             </q-badge>
             <q-badge v-else-if="props.row.status == 0" color="secondary">
@@ -150,155 +112,215 @@ add payment remitance date automatically on all transaction <br> -->
             </q-badge>
           </q-td>
           <q-td key="transaction_ref" :props="props">
-            <q-btn class="text-blue" :to="{name: 'transaction', params: {T_ref: props.row.transaction_ref}}" flatsize="md" no-caps>
+            <q-btn
+              class="text-blue"
+              :to="{
+                name: 'transaction',
+                params: { T_ref: props.row.transaction_ref },
+              }"
+              flatsize="md"
+              no-caps
+            >
               view
             </q-btn>
           </q-td>
-
         </q-tr>
       </template>
-
     </q-table>
   </div>
 </template>
 
 <script>
-import eExport from 'components/common/export'
-import buy from 'components/common/buy'
-import sell from 'components/common/sell'
-import Payment from 'components/common/make_payment'
-import CreateProduct from './partials/create_product.vue'
-import Disput from './partials/disput.vue'
+import eExport from "components/common/export";
+import buy from "components/common/buy";
+import sell from "components/common/sell";
+import Payment from "components/common/make_payment";
+import CreateProduct from "./partials/create_product.vue";
+import Disput from "./partials/disput.vue";
 export default {
   // name: 'ComponentName',
-  components:{
-    eExport, buy, sell, Payment, CreateProduct, Disput
+  components: {
+    eExport,
+    buy,
+    sell,
+    Payment,
+    CreateProduct,
+    Disput,
   },
-  data () {
+  data() {
     return {
       columns: [
         // { name: 'src', field: 'src' },
-        { name: 'name', label: 'Product/Service', field: 'name', align: 'left' , sortable: true, },
-        { name: 'quantity', label: 'Qty', field: 'transaction', sortable: true,  align: 'left'  },
-        { name: 'amount', label: 'Price', field: 'transaction', sortable: true,  align: 'left'  },
-        { name: 'transaction_type', label: 'Type', field: 'transaction_type', sortable: true,  align: 'center'  },
+        {
+          name: "name",
+          label: "Product/Service",
+          field: "name",
+          align: "left",
+          sortable: true,
+        },
+        {
+          name: "quantity",
+          label: "Qty",
+          field: "transaction",
+          sortable: true,
+          align: "left",
+        },
+        {
+          name: "amount",
+          label: "Price",
+          field: "transaction",
+          sortable: true,
+          align: "left",
+        },
+        {
+          name: "transaction_type",
+          label: "Type",
+          field: "transaction_type",
+          sortable: true,
+          align: "center",
+        },
         // { name: 'confirmed', label: 'Confirmation', field: 'confirmed', align: 'left', sortable: true },
         // { name: 'payment_status', label: 'Payment', field: 'payment_status',align: 'left', sortable: true },
         //{ name: 'link', label: 'Transaction link', field: '', align: 'center', sortable: true },
-        { name: 'created_at', label: 'Date Created', field: 'created_at', align: 'center', sortable: true, },
-        { name: 'transaction_status', label: 'Status', field: 'transaction',  align: 'left', sortable: true },
-        { name: 'transaction_ref', label: 'Open', field: 'transaction', align: 'left' , sortable: true,},
-
+        {
+          name: "created_at",
+          label: "Date Created",
+          field: "created_at",
+          align: "center",
+          sortable: true,
+        },
+        {
+          name: "transaction_status",
+          label: "Status",
+          field: "transaction",
+          align: "left",
+          sortable: true,
+        },
+        {
+          name: "transaction_ref",
+          label: "Open",
+          field: "transaction",
+          align: "left",
+          sortable: true,
+        },
       ],
-      contents:[],
+      contents: [],
       payment_url: `${window.location.href}/product/`,
-      copyLink:'Copy link',
-      
-    }
+      copyLink: "Copy link",
+    };
   },
-  
+
   mounted() {
-    if (!this.$q.localStorage.getItem('paylidate_token')) {
+    if (!this.$q.localStorage.getItem("paylidate_token")) {
       this.$router.push({ name: "login" });
     }
     this.getTransactions();
   },
-  computed:{
-     copyL(){return this.copyLink},
-    user(){return this.$store.getters["auth/user"] },
-
+  computed: {
+    copyL() {
+      return this.copyLink;
+    },
+    user() {
+      return this.$store.getters["auth/user"];
+    },
   },
   methods: {
-    showFullText: function(id){
-            let parent=document.getElementById(id)
-            let showslice=parent.querySelector("#showslice")
-            let showfull=parent.querySelector("#showfull")
-            showslice.className="hidden"
-            showfull.className="visible"
-         },
+    showFullText: function (id) {
+      let parent = document.getElementById(id);
+      let showslice = parent.querySelector("#showslice");
+      let showfull = parent.querySelector("#showfull");
+      showslice.className = "hidden";
+      showfull.className = "visible";
+    },
 
-        showSliceText: function(id){
-          let parent=document.getElementById(id)
-            let showslice=parent.querySelector("#showslice")
-            let showfull=parent.querySelector("#showfull")
-            showslice.className="visible"
-            showfull.className="hidden"
+    showSliceText: function (id) {
+      let parent = document.getElementById(id);
+      let showslice = parent.querySelector("#showslice");
+      let showfull = parent.querySelector("#showfull");
+      showslice.className = "visible";
+      showfull.className = "hidden";
+    },
 
-        },
-
-    async getTransactions(){
-        //console.log('contents');
-         this.$q.loading.show({
-          message: 'Hold on, fetching transaction records',
-          spinnerColor: 'secondary'
-
-        })
-        try{
-        const req = await this.$axios.get(process.env.Api + '/api/transaction')
-        const res = req.data
+    async getTransactions() {
+      //console.log('contents');
+      this.$q.loading.show({
+        message: "Hold on, fetching transaction records",
+        spinnerColor: "secondary",
+      });
+      try {
+        const req = await this.$axios.get(process.env.Api + "/api/transaction");
+        const res = req.data;
 
         this.contents = res.data;
         //console.log(this.contents)
-        
 
-         this.$q.loading.hide();
-        }catch(err){
-         this.$q.loading.hide();
-        }
-        finally{
-            this.$q.loading.hide();
-        }
-      },
-       copy_link(T_ref){
-      navigator.clipboard.writeText(window.location.origin+'/escrow-transaction/'+T_ref)
-      this.copyLink = 'copied!';
-       setTimeout(() => this.copyLink = 'Copy Link', 2000);
-       },
-      currency(amount){
-        return (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'NGN' }).format(amount));
-      },
-      sum_ammount(type,user_id){
-      if(this.contents){
-        const sort_ammounts = this.contents.filter(function(item) {
-
-            if (item.payment && item.payment.verified) {
-              if (item.payment.user_id != user_id && type === 'received') {
-                item.product.price =item.referer_id ? (parseFloat(item.amount) + parseFloat(item.referral.amount)): item.amount
-                return item
-              }
-              if (item.payment.user_id == user_id && type === 'made') {
-                return item
-              }
-
+        this.$q.loading.hide();
+      } catch (err) {
+        this.$q.loading.hide();
+      } finally {
+        this.$q.loading.hide();
+      }
+    },
+    copy_link(T_ref) {
+      navigator.clipboard.writeText(
+        window.location.origin + "/escrow-transaction/" + T_ref
+      );
+      this.copyLink = "copied!";
+      setTimeout(() => (this.copyLink = "Copy Link"), 2000);
+    },
+    currency(amount) {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "NGN",
+      }).format(amount);
+    },
+    sum_ammount(type, user_id) {
+      if (this.contents) {
+        const sort_ammounts = this.contents.filter(function (item) {
+          if (item.payment && item.payment.verified) {
+            if (item.payment.user_id != user_id && type === "received") {
+              item.product.price = item.referer_id
+                ? parseFloat(item.amount) + parseFloat(item.referral.amount)
+                : item.amount;
+              return item;
             }
-          })
-        let sum = sort_ammounts.reduce((accumulator, current) => Number(accumulator) + Number(current.product.price), 0);
+            if (item.payment.user_id == user_id && type === "made") {
+              return item;
+            }
+          }
+        });
+        let sum = sort_ammounts.reduce(
+          (accumulator, current) =>
+            Number(accumulator) + Number(current.product.price),
+          0
+        );
         return sum;
-      }else{
+      } else {
         return 0;
       }
     },
-      formatDate(dateString){
-          const options = { year: "numeric", month: "numeric", day: "numeric" }
-          return new Date(dateString).toLocaleDateString(undefined, options)
-      },
-      startDelivery(data){
-        this.$axios.get(`${process.env.Api}/api/product/status/delivery/${data}`)
-        this.getTransactions();
-      },
-      orderDelivered(data){
-        this.$axios.get(`${process.env.Api}/api/product/status/delivered/${data}`)
-        this.getTransactions();
-      },
-      orderRecieved(data){
-        this.$axios.get(`${process.env.Api}/api/product/status/recieved/${data}`)
-        this.getTransactions();
-      },
-      canceledDelivery(data){
-        this.$axios.get(`${process.env.Api}/api/product/status/canceled/${data}`)
-        this.getTransactions();
-      }
-  }
-  
-}
+    formatDate(dateString) {
+      const options = { year: "numeric", month: "numeric", day: "numeric" };
+      return new Date(dateString).toLocaleDateString(undefined, options);
+    },
+    startDelivery(data) {
+      this.$axios.get(`${process.env.Api}/api/product/status/delivery/${data}`);
+      this.getTransactions();
+    },
+    orderDelivered(data) {
+      this.$axios.get(
+        `${process.env.Api}/api/product/status/delivered/${data}`
+      );
+      this.getTransactions();
+    },
+    orderRecieved(data) {
+      this.$axios.get(`${process.env.Api}/api/product/status/recieved/${data}`);
+      this.getTransactions();
+    },
+    canceledDelivery(data) {
+      this.$axios.get(`${process.env.Api}/api/product/status/canceled/${data}`);
+      this.getTransactions();
+    },
+  },
+};
 </script>
