@@ -126,10 +126,10 @@
               <div>{{ product.description ? product.description : "No Description" }}</div>
             </div>
 
-            <q-card-section class="column">
-              <q-separator class="q-mb-sm" />
+            <!-- <q-card-section class="column">
+
               <q-card flat bordered>
-                <!-- {{ product.image !== 'default_product.png' ? product.image : base_image }} -->
+                {{ product.image !== 'default_product.png' ? product.image : base_image }}
 
                 <q-card-section v-if="product.referral_amount > 0">
                   <div v-if="product.user_id != user.id">
@@ -167,7 +167,7 @@
                   </div>
                 </q-card-section>
               </q-card>
-            </q-card-section>
+            </q-card-section> -->
 
             <q-card-section class="column">
               <div v-if="product.user_id == user.id">
@@ -259,6 +259,7 @@
       <!-- <Signup />  -->
     </q-dialog>
 
+<!-- dialog to login if user is not logged in -->
     <q-dialog v-model="onLogin" persistent>
       <q-card class="my-card" :style="ModelStyle">
         <q-form @submit="login()" class="q-gutter-md">
