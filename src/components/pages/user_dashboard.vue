@@ -1,15 +1,9 @@
 <template>
-  <q-page
-    class="q-pa-lg"
-    style="
-      scroll-behavior: smooth;
-      width: 100%;
-    "
-  >
+  <q-page class="q-pa-lg" style="scroll-behavior: smooth; width: 100%">
     <div class="section-one">
       <div class="container lt-md" style="padding: 0.75rem 0px">
         <div class="card-section" style="">
-          <q-card class="my-card">
+          <a href="/products" class="my-card">
             <div>
               <img
                 src="../../statics/user_dashboard_assets/pos_device.png"
@@ -18,7 +12,7 @@
               />
               <p class="section1-text">Create a Product Link</p>
             </div>
-          </q-card>
+          </a>
 
           <div class="q-pl-lg" style="background-color: #182430; width: 50%">
             <img
@@ -30,7 +24,7 @@
         </div>
 
         <div class="card-section" style="margin-bottom; 1rem:">
-          <q-card class="my-card">
+          <a href="/instant-pay" class="my-card">
             <div>
               <img
                 src="../../statics/user_dashboard_assets/instant_pay.png"
@@ -39,9 +33,9 @@
               />
               <p class="section1-text">Instant Paylidate</p>
             </div>
-          </q-card>
+          </a>
 
-          <div class="my-card">
+          <a href="/escrow-transactions" class="my-card">
             <div>
               <img
                 src="../../statics/user_dashboard_assets/money_safe.png"
@@ -50,7 +44,7 @@
               />
               <p class="section1-text">Escrow Transactions</p>
             </div>
-          </div>
+          </a>
         </div>
       </div>
       <div
@@ -65,37 +59,38 @@
           />
         </div>
         <div class="card-section" style="width: 70%; margin-top: 0.7rem">
-          <div class="my-card">
+          <a href="/products" class="my-card">
             <div class="q-pt-md">
               <img
                 src="../../statics/user_dashboard_assets/pos_device.png"
                 spinner-color="white"
-                style="width: 100%; max-width: 4rem"
+                style="width: 100%; max-width: 4rem; padding-left: o"
               />
-              <p class="section1-text">Create a Product Link</p>
+              <div class="section1-text">Create a Product Link</div>
             </div>
-          </div>
-          <div class="my-card">
+          </a>
+
+          <a href="/instant-pay" class="my-card">
             <div class="q-pt-md">
               <img
                 src="../../statics/user_dashboard_assets/instant_pay.png"
                 spinner-color="white"
                 style="width: 100%; max-width: 4rem"
               />
-              <p class="section1-text">Instant Paylidate</p>
+              <div class="section1-text">Instant Paylidate</div>
             </div>
-          </div>
+          </a>
 
-          <div class="my-card">
+          <a href="/escrow-transactions" class="my-card">
             <div class="q-pt-md">
               <img
                 src="../../statics/user_dashboard_assets/money_safe.png"
                 spinner-color="white"
                 style="width: 100%; max-width: 4rem"
               />
-              <p class="section1-text">Escrow Transactions</p>
+              <div class="section1-text">Escrow Transactions</div>
             </div>
-          </div>
+          </a>
         </div>
         <div class="" style="margin-bottom; 1rem: width: 25%">
           <div class="q-pl-xl" style="background-color: #182430">
@@ -113,6 +108,7 @@
       <div class="container-two">
         <div class="section-main">
           <h4>Dashboard</h4>
+
           <div class="row full-width justify-start q-pb-lg">
             <div class="col col-one">
               <div>
@@ -124,7 +120,9 @@
               </div>
               <div>
                 <div class="dashboard-text">Payments Made</div>
-                <div class="dashboard-num q-py-sm">₦100,500,480</div>
+                <div class="dashboard-num q-py-sm">
+                  {{currency(sum_amount('made',user.id))}}
+                </div>
               </div>
             </div>
             <div class="col col-one">
@@ -137,67 +135,86 @@
               </div>
               <div>
                 <div class="dashboard-text">Total Payments Received</div>
-                <div class="dashboard-num q-py-sm">₦21,656,999</div>
+                <div class="dashboard-num q-py-sm">
+                  {{currency(sum_amount('received',user.id))}}
+                </div>
               </div>
             </div>
           </div>
 
           <div class="dashboard-sec-two">
-
             <div class="row justify-around full-width q-py-md gt-sm">
-
-              <div class="col-4 box-items" style="border: 1px solid #94a0ac; width: 15rem;">
+              <div
+                class="col-4 box-items"
+                style="border: 1px solid #94a0ac; width: 15rem"
+              >
                 <img
-                src="../../statics/user_dashboard_assets/wallet.png"
+                  src="../../statics/user_dashboard_assets/wallet.png"
                   spinner-color="white"
                   style="width: 20%; max-width: 24px"
                 />
-                <p class="dashboard-heading">₦3,000,500</p>
+                <p class="dashboard-heading">
+                  {{
+                    dashboardInfo.balance
+                      ? currency(dashboardInfo.balance.balance)
+                      : "You do not have a wallet"
+                  }}
+                </p>
                 <p class="dashboard-subtxt">Wallet Balance</p>
               </div>
 
-              <div class="col-4 box-items" style="border: 1px solid #94a0ac; width: 15rem;">
+              <div
+                class="col-4 box-items"
+                style="border: 1px solid #94a0ac; width: 15rem"
+              >
                 <img
                   src="../../statics/user_dashboard_assets/paylogo.png"
                   spinner-color="white"
                   style="width: 20%; max-width: 24px"
                 />
-                <p class="dashboard-heading">25 PPT</p>
+                <p class="dashboard-heading">00 PPT</p>
                 <p class="dashboard-subtxt">Paylidate Points</p>
               </div>
               <div
                 class="col-4 box-items"
-                style="border: 1px solid #94a0ac; width: 15rem;"
+                style="border: 1px solid #94a0ac; width: 15rem"
               >
                 <img
                   src="../../statics/user_dashboard_assets/people.png"
                   spinner-color="white"
                   style="width: 20%; max-width: 22px"
                 />
-                <p class="dashboard-heading">₦25,990</p>
+                <p class="dashboard-heading">
+                  {{ currency(dashboardInfo.refer ? dashboardInfo.refer : 0) }}
+                </p>
                 <p class="dashboard-subtxt">Referral Payments</p>
               </div>
             </div>
 
             <div class="row full-width box box-lg-2 q-pr-sm lt-md">
               <div
-              class="row"
-              style="
-                border: 1px solid #94a0ac;
-                margin-bottom: 0.5rem;
-                padding: 1rem;
-              "
+                class="row"
+                style="
+                  border: 1px solid #94a0ac;
+                  margin-bottom: 0.5rem;
+                  padding: 1rem;
+                "
               >
-              <div>
-                <img
-                  src="../../statics/user_dashboard_assets/wallet.png"
-                  spinner-color="white"
-                  style="width: 20%"
-                />
-                <p class="dashboard-heading">₦3,000,500</p>
-                <p class="dashboard-subtxt">Wallet Balance</p>
-              </div>
-
+                <div>
+                  <img
+                    src="../../statics/user_dashboard_assets/wallet.png"
+                    spinner-color="white"
+                    style="width: 20%"
+                  />
+                  <p class="dashboard-heading">
+                    {{
+                      dashboardInfo.balance
+                        ? currency(dashboardInfo.balance.balance)
+                        : "You do not have a wallet"
+                    }}
+                  </p>
+                  <p class="dashboard-subtxt">Wallet Balance</p>
+                </div>
               </div>
 
               <div class="col box-items" style="border: 1px solid #94a0ac">
@@ -206,7 +223,7 @@
                   spinner-color="white"
                   style="width: 20%; max-width: 24px"
                 />
-                <p class="dashboard-heading">25 PPT</p>
+                <p class="dashboard-heading">00 PPT</p>
                 <p class="dashboard-subtxt">Paylidate Points</p>
               </div>
               <div
@@ -218,11 +235,14 @@
                   spinner-color="white"
                   style="width: 20%; max-width: 22px"
                 />
-                <p class="dashboard-heading">₦25,990</p>
+                <p class="dashboard-heading">
+                  {{ currency(dashboardInfo.refer ? dashboardInfo.refer : 0) }}
+                </p>
                 <p class="dashboard-subtxt">Referral Payments</p>
               </div>
             </div>
           </div>
+          <!-- <q-btn @click="getUserDashboardInfo">Get Dashboard</q-btn> -->
         </div>
         <div class="side-bar">
           <h4>Notifications</h4>
@@ -232,7 +252,13 @@
               style="background: rgba(255, 234, 223, 0.6)"
             >
               <div class="round-box" style="background: #eb6117">
-                <p class="notification-num">9</p>
+                <p class="notification-num">
+                  {{
+                    dashboardInfo.active_dsiputes
+                      ? dashboardInfo.active_dsiputes
+                      : "0"
+                  }}
+                </p>
               </div>
               <p
                 class="notification-text q-px-sm q-py-sm"
@@ -242,11 +268,17 @@
               </p>
             </div>
             <div
-              class="box full-width notification-card "
+              class="box full-width notification-card"
               style="background: rgba(212, 255, 205, 0.6)"
             >
               <div class="round-box" style="background: #1e820f">
-                <p class="notification-num">9</p>
+                <p class="notification-num">
+                  {{
+                    dashboardInfo.active_transaction
+                      ? dashboardInfo.active_transaction
+                      : "0"
+                  }}
+                </p>
               </div>
               <p
                 class="notification-text q-px-sm q-py-sm"
@@ -260,7 +292,13 @@
               style="background: rgba(190, 232, 255, 0.6)"
             >
               <div class="round-box" style="background: #0f699a">
-                <p class="notification-num">9</p>
+                <p class="notification-num">
+                  {{
+                    dashboardInfo.pending_withdrawals
+                      ? dashboardInfo.pending_withdrawals
+                      : "0"
+                  }}
+                </p>
               </div>
               <p
                 class="notification-text q-px-sm q-py-sm"
@@ -274,7 +312,13 @@
               style="background: rgba(251, 190, 177, 0.6)"
             >
               <div class="round-box" style="background: #6f1a07">
-                <p class="notification-num">9</p>
+                <p class="notification-num">
+                  {{
+                    dashboardInfo.pending_refunds
+                      ? dashboardInfo.pending_refunds
+                      : "0"
+                  }}
+                </p>
               </div>
               <p
                 class="notification-text q-px-sm q-py-sm"
@@ -284,37 +328,6 @@
               </p>
             </div>
           </div>
-
-          <!-- <div class="box-notification">
-            <div
-              class="box notification-card"
-              style="background: rgba(190, 232, 255, 0.6)"
-            >
-              <div class="round-box" style="background: #0f699a">
-                <p class="notification-num">9</p>
-              </div>
-              <p
-                class="notification-text q-px-sm q-py-sm"
-                style="color: #0f699a"
-              >
-                Pending Withdrawals
-              </p>
-            </div>
-            <div
-              class="box notification-card notification-card-left"
-              style="background: rgba(251, 190, 177, 0.6)"
-            >
-              <div class="round-box" style="background: #6f1a07">
-                <p class="notification-num">9</p>
-              </div>
-              <p
-                class="notification-text q-px-sm q-py-sm"
-                style="color: #6f1a07"
-              >
-                Pending Refunds
-              </p>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>
@@ -322,16 +335,97 @@
 </template>
 
 <script>
-
-
 export default {
+  data() {
+    return {
+      dashboardInfo: [],
+      dashboardAmount: []
+    };
+  },
+
+  methods: {
+    async getUserDashboardInfo() {
+      try {
+        this.$q.loading.show({
+          message: "Please Hold, populating your dashboard",
+          spinnerColor: "secondary",
+        });
+        const req = await this.$axios.get(process.env.Api + `/api/dashboard`);
+
+        const res = req.data;
+        //console.log(res);
+        this.dashboardInfo = res.data;
+        this.$q.loading.hide();
+      } catch (err) {
+        this.loading = false;
+        this.$q.loading.hide();
+
+        this.$q.notify({
+          message: "Error populating dashboard",
+          color: "orange",
+          position: "top",
+          type: "warning",
+        });
+      }
+    },
+    async getTransactions(){
+        try{
+        const req = await this.$axios.get(process.env.Api + '/api/transaction')
+        const res = req.data
+        //console.log(res)
+
+        this.dashboardAmount = res.data;
+        }catch(err){
+        //console.log(err)
+        }
+        finally{
+        }
+      },
+
+    currency(amount) {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "NGN",
+      }).format(amount);
+    },
+    sum_amount(type, user_id) {
+      if (this.dashboardAmount) {
+        const sort_amounts = this.dashboardAmount.filter(function (item) {
+          if (item.payment && item.payment.verified) {
+            if (item.payment.user_id != user_id && type === "received") {
+              item.product.price = item.referer_id
+                ? parseFloat(item.amount) + parseFloat(item.referral.amount)
+                : item.amount;
+              return item;
+            }
+            if (item.payment.user_id == user_id && type === "made") {
+              return item;
+            }
+          }
+        });
+        let sum = sort_amounts.reduce(
+          (accumulator, current) =>
+            Number(accumulator) + Number(current.product.price),
+          0
+        );
+        return sum;
+      } else {
+        return 0;
+      }
+    },
+  },
+  computed:{
+    user(){return this.$store.getters["auth/user"] },
+
+  },
   mounted() {
-    if (!this.$q.localStorage.getItem('paylidate_token')) {
+    this.getUserDashboardInfo();
+    this.getTransactions();
+    if (!this.$q.localStorage.getItem("paylidate_token")) {
       this.$router.push({ name: "login" });
     }
   },
-
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -343,6 +437,9 @@ h4 {
   line-height: 1.5rem;
   color: #536980;
   padding-top: 0.75rem;
+}
+a {
+  text-decoration: none;
 }
 .container,
 container-two {
@@ -388,7 +485,6 @@ container-two {
   display: flex;
   flex-direction: column;
 }
-
 
 .round-box {
   border-radius: 50px;
@@ -461,7 +557,6 @@ container-two {
   padding: 0.3rem;
   margin-bottom: 0.75rem;
 }
-
 
 .notification-text {
   font-family: "Montserrat";

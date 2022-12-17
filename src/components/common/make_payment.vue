@@ -189,12 +189,13 @@ export default {
         }
 
         if (this.payment_method == "wallet") {
-                 
+
           this.loading = true
           const req = await this.$axios.post(process.env.Api + "/api/debit-wallet",
           { "amount": this.form.total_amount, "narration": "Payment for "+this.transaction.product.name }
           );
           const res = req.data;
+          console.log(res)
           if (res.status !== 'success') {
               this.$q.notify({
               message: "Something went wrong, please try again",
@@ -205,14 +206,14 @@ export default {
           }
 
         const form ={
-        
+
         payment_ref: 'WL'+Date.now(),
         payment_id: res.data.id,
-        transaction_id: this.transaction.id,       
+        transaction_id: this.transaction.id,
       }
           const request = await this.$axios.post(process.env.Api + '/api/make-payment', form)
-          const response = request.data;     
-         
+          const response = request.data;
+
           if(response.status == 'success'){
 
             this.loading = false
@@ -220,7 +221,7 @@ export default {
             this.$q.notify({message: 'Successful', color: 'green'})
             return;
             }
-            
+
             this.$router.push({ name: "transactions"})
             this.loading = false
             this.$q.notify({message: 'Something went wrong, please try again', color: 'red'})
@@ -228,12 +229,13 @@ export default {
 
         }
         else if (this.payment_method == "card") {
-          
+
           this.makePayment();
         }
       } catch (error) {
         //console.log(error.response.data.message);
         this.loading = false
+
         this.$q.notify({
           message: error.response.data.message,
           color: "red",

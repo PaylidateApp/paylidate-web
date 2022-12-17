@@ -6,7 +6,7 @@
 
         <q-card-section class="q-gutter-xs col-md-6 col-sm-12 col-xs-12">
           <div class="text-h6">You are Buying ?</div>
-          <q-form @submit="createProduct()" class="q-gutter-md" autocomplete="off" >           
+          <q-form @submit="createProduct()" class="q-gutter-md" autocomplete="off" >
             <div class="row q-py-xs">
               <q-input accept="image/*" ref="uploader" :class="`q-mb-md overflow-hidden ${ rightInput }`" outlined stack-label label="Image" @input="addFiles" multiple type="file" bg-color="white"/>
               <!-- <q-btn unelevated no-caps color="primary" label="Upload Image" @click="uploadProductImage()" /> -->
@@ -26,7 +26,7 @@
 
           <div>
             after making payment or creating product a product details link will be
-            automaticalliy generated for you.
+            automatically generated for you.
           </div>
         </q-card-section>
 
@@ -152,7 +152,7 @@ export default {
       }
       this.files = files
     },
-    
+
     uploadProductImage() {
       delete this.$axios.defaults.headers.common["Authorization"];
 
@@ -176,25 +176,25 @@ export default {
               this.loading = false
               this.$q.loading.hide();
               this.$q.notify({
-                message: 'Image Upload failed, kindly try again', 
-                position:'top' , 
-                color: 'orange', 
+                message: 'Image Upload failed, kindly try again',
+                position:'top' ,
+                color: 'orange',
                 textColor:'white'
               })
-              reject(error); 
-            } 
+              reject(error);
+            }
         }
       });
     },
 
-    
+
     async createProduct(data = false){
       this.loading = true;
       this.$q.loading.show(buySchema.loadingInfo);
       const token = this.$q.localStorage.getItem('paylidate_token')
       console.log({ token })
       if(this.files) await this.uploadProductImage();
-      
+
       this.$axios.defaults.headers.common["Authorization"] = token;
       try{
         const req = await this.$axios.post(process.env.Api + '/api/product', this.form)
@@ -212,9 +212,9 @@ export default {
       }catch(err){
         this.loading = false
         this.$q.notify({
-          message: 'Product creation failed, kindly try again', 
-          position:'top' , 
-          color: 'orange', 
+          message: 'Product creation failed, kindly try again',
+          position:'top' ,
+          color: 'orange',
           textColor:'white'
         })
         this.$q.loading.hide();

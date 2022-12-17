@@ -182,21 +182,21 @@ export default {
           is_authenticated: false
         },
         {
-          title: 'Escrow Service',
+          title: 'Dashboard',
           caption: '',
           icon: 'verified_user',
-          link: 'escrow-transactions',
+          link: 'user-dashboard',
           is_active: true,
           is_authenticated: true
         },
-        {
-          title: 'Products',
-          caption: '',
-          icon: 'production_quantity_limits',
-          link: 'products',
-          is_active: false,
-          is_authenticated: true
-        },
+       // {
+       //   title: 'Products',
+       //   caption: '',
+       //   icon: 'production_quantity_limits',
+       //   link: 'products',
+       //   is_active: false,
+       //   is_authenticated: true
+       // },
         // {
         //   title: 'Home',
         //   caption: '',
@@ -213,23 +213,23 @@ export default {
           is_active: false,
           is_authenticated: true
         },
-        {
-          title: 'Instant Pay',
-          caption: '',
-          icon: 'payments',
-          link: 'instant-pay',
-          is_active: true,
-          is_authenticated: true
-        },
+        //{
+        //  title: 'Instant Pay',
+        //  caption: '',
+        //  icon: 'payments',
+        //  link: 'instant-pay',
+        //  is_active: true,
+        //  is_authenticated: true
+        //},
 
-        {
-          title: 'Trade Points',
-          caption: '',
-          icon: 'savings',
-          link: 'wallet',
-          is_active: false,
-          is_authenticated: true
-        },
+       // {
+       //   title: 'Trade Points',
+       //   caption: '',
+       //   icon: 'savings',
+       //   link: 'wallet',
+       //   is_active: false,
+       //   is_authenticated: true
+       // },
         {
           title: 'Referral',
           caption: '',
@@ -249,7 +249,7 @@ export default {
         },
         // {
         //   title: 'Crypto',
-        //   caption: 'comming soon',
+        //   caption: 'coming soon',
         //   icon: 'fa fa-coins',
         //   link: 'crypto',
         //   is_active: false

@@ -130,7 +130,7 @@ export default {
           this.$q.localStorage.set("user_id", response.data.data.id);
 
           this.$store.dispatch("card/cards");
-          this.$router.push({ name: "transactions" });
+          this.$router.push({ name: "user_dashboard" });
         })
         .catch((error) => {
           this.loading = false;
