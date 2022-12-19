@@ -9,19 +9,31 @@
       @click="open = true"
       :style="{ width: '150px' }"
     />
-    <div class="row justify-between" v-else>
-      <q-btn
+    <div class="row" v-else>
+      <div class="col-xs-6 col-sm-6 col-md-6">
+        <q-btn
       unelevated
       no-caps
       color="secondary"
-      label="Edit Product"
+      label="Edit"
       @click="open = true"
-      :style="{ width: '150px' }"
+      class="editproductbtn"
+
     />
+      </div>
 
-    <div id="share-buttons">
 
-      <a class="facebook" target="blank">
+    <!-- <div id="share-buttons" class="row">
+
+      <div class="row socialmediatitile">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            Share on social media
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-12">
+
+        <a class="facebook" target="blank">
         <font-awesome-icon icon="fa-brands fa-facebook" />
         <q-icon
           class=" q-pa-sm cursor-pointer"
@@ -40,14 +52,6 @@
           @click="socialShare"
         />
       </a>
-      <a class="linkedin" target="blank">
-        <q-icon
-          class="fab fa-linkedin q-pa-sm cursor-pointer"
-          size="md"
-          style="color: #0077b5;"
-          @click="socialShare"
-        />
-      </a>
       <a class="whatsapp" target="blank">
         <q-icon
           class="fab fa-whatsapp q-pa-sm cursor-pointer"
@@ -56,7 +60,9 @@
           @click="socialShare"
         />
       </a>
-    </div>
+      </div>
+
+    </div> -->
 
     </div>
 
@@ -383,26 +389,26 @@ export default {
 
   methods: {
 
-    socialShare() {
-      const link = encodeURI(window.location.href);// `https://paylidate.com/product/5VgJH231122153353/NxqE1OPIhW140722131816`
-      const msg = encodeURIComponent(this.product.description);
-      const title = encodeURIComponent(document.querySelector('title').textContent);
+    // socialShare() {
+    //   const link = encodeURI(window.location.href);// `https://paylidate.com/product/5VgJH231122153353/NxqE1OPIhW140722131816`
+    //   const msg = encodeURIComponent(this.product.description);
+    //   const title = encodeURIComponent(document.querySelector('title').textContent);
 
-      console.log([link, msg, title]);
+    //   console.log([link, msg, title]);
 
-      const fb = document.querySelector('.facebook');
-      fb.href = `https://www.facebook.com/share.php?u=${link}`;
+    //   const fb = document.querySelector('.facebook');
+    //   fb.href = `https://www.facebook.com/share.php?u=${link}`;
 
-      const twitter = document.querySelector('.twitter');
-      twitter.href = `https://twitter.com/share?&url=${link}&text=${msg}`
+    //   const twitter = document.querySelector('.twitter');
+    //   twitter.href = `https://twitter.com/share?&url=${link}&text=${msg}`
 
-      const linkedIn = document.querySelector('.linkedin');
-      linkedIn.href = `https://linkedin.com/sharing/share-offsite/?url=${link}`
+    //   const linkedIn = document.querySelector('.linkedin');
+    //   linkedIn.href = `https://linkedin.com/sharing/share-offsite/?url=${link}`
 
-      const whatsapp = document.querySelector('.whatsapp');
-      whatsapp.href = `https://api.whatsapp.com/send?phone=whatsappphonenumber&text=${link}`
+    //   const whatsapp = document.querySelector('.whatsapp');
+    //   whatsapp.href = `https://api.whatsapp.com/send?phone=whatsappphonenumber&text=${link}`
 
-    },
+    // },
 
 
       copy_link(){
@@ -685,6 +691,18 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
+}
+
+.editproductbtn
+{
+  border-radius: 7px;
+  width: 136px;
+  height: 40px;
+  font-family: 'Monteserrat';
+font-style: normal;
+font-weight: 800;
+font-size: 16px;
+line-height: 24px;
 }
 
 </style>

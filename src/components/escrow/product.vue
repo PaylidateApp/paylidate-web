@@ -1,9 +1,8 @@
 <template>
-  <q-page class="flex justify-center">
+  <q-page class="flex justify-center ">
     <!-- {{product}} -->
-    <div>
-      <!-- start of referral link modal -->
-      <q-dialog v-model="referral_modal">
+<!-- start of referral link modal -->
+<q-dialog v-model="referral_modal">
         <q-card>
           <q-card-section>
             <!-- <div class="text-h6">Alert</div> -->
@@ -44,9 +43,8 @@
         </q-card>
       </q-dialog>
       <!-- end of referral link modal -->
-
-      <!-- product details card -->
-      <q-card v-if="product" class="my-card" bordered flat>
+    <!-- product details card -->
+    <q-card v-if="product" class="my-card" bordered flat>
         <!-- <q-img :src="'/product.svg'" spinner-color="white"
       /> -->
 
@@ -55,14 +53,36 @@
           <div class="col-xs-12 col-sm-6 col-md-6 leftsection">
 
 <!-- section to display top icons -->
-<div class="row">
-  <div class="col-xs-6 col-sm-6 col-md-6">
+
+<div class="row copybtncontainer_for_mobilescreen">
+
+<div class="col-xs-12 col-sm-12 col-md-12 copybtn">
+  <div><!-- copy button -->
+<q-btn
+            size="12px"
+            round
+            flat
+            color="primary"
+            class=""
+            icon="content_copy"
+            @click="copy_link"
+          >
+            <q-tooltip>
+              {{ copyL }}
+            </q-tooltip>
+          </q-btn></div>
+</div>
+</div>
+<div class="row escrowtitlecontainer">
+  <div class="col-xs-6 col-sm-6 col-md-6 productnumber">
     <div> </div>
-    <div>011122104745</div>
+    <div>{{ product.product_number}}</div>
 
   </div>
-  <div class="col-xs-6 col-sm-6 col-md-6">
+  <div class="col-xs-6 col-sm-6 col-md-6 transactiontype">
     <div></div>
+    <!-- <div>{{ product.transaction_type }}</div> -->
+
     <div>Escrow</div>
   </div>
 </div>
@@ -74,22 +94,9 @@
           <div class="col-xs-12 col-sm-6 col-md-6 rightsection">
 
             <!-- section to display top icons -->
-<div class="row">
-  <div class="col-xs-3 col-sm-3 col-md-3">
-    <div> </div>
-    <div>Exclusive Mall NG</div>
+<div class="row copybtncontainer">
 
-  </div>
-  <div class="col-xs-3 col-sm-3 col-md-3">
-    <div></div>
-  </div>
-
-  <div class="col-xs-3 col-sm-3 col-md-3">
-    <div></div>
-    <div>Waiting on you</div>
-  </div>
-
-  <div class="col-xs-3 col-sm-3 col-md-3">
+  <div class="col-xs-12 col-sm-12 col-md-12 ">
     <div><!-- copy button -->
 <q-btn
               size="12px"
@@ -104,6 +111,10 @@
                 {{ copyL }}
               </q-tooltip>
             </q-btn></div>
+
+            <div class="copylinktext">
+              Copy Link
+            </div>
   </div>
 </div>
 
@@ -121,9 +132,9 @@
             <div class="productquantity">{{ product.quantity }}</div>
 
 
-            <div class="productdescription">
-              <div>Description:</div>
-              <div>{{ product.description ? product.description : "No Description" }}</div>
+            <div class="productdescriptioncontainer">
+              <div class="productdescriptiontitle">Description:</div>
+              <div class="productdescription">{{ product.description ? product.description : "No Description" }}</div>
             </div>
 
             <!-- <q-card-section class="column">
@@ -169,9 +180,10 @@
               </q-card>
             </q-card-section> -->
 
-            <q-card-section class="column">
+            <q-card-section class="create_edit_product">
               <div v-if="product.user_id == user.id">
-                <CreateProduct btnType="edit" :product="product" />
+
+                <CreateProduct btnType="edit" :product="product"  />
 
                 <!-- <q-btn
     v-if="product.transaction.length > 0"
@@ -214,8 +226,51 @@
             </q-card-section>
           </div>
         </div>
+
+        <div id="share-buttons" class="row sharebuttons">
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+
+<div class="row socialmediatitile">
+  <div class="col-xs-12 col-sm-12 col-md-12 socialmediatitilecolumn">
+      Share on social media
+  </div>
+</div>
+
+<div class="row">
+<div class="col-xs-12 col-sm-12 col-md-12 socialmediaiconscontainer">
+
+  <a class="facebook" target="blank">
+  <font-awesome-icon icon="fa-brands fa-facebook" />
+  <q-icon
+    class=" q-pa-sm cursor-pointer facebookicon"
+    name="fab fa-facebook"
+    size="md"
+    @click="socialShare()"
+  />
+
+</a>
+<a class="twitter" target="blank">
+  <q-icon
+    class="fab fa-twitter q-pa-sm cursor-pointer twittericon"
+    size="md"
+    @click="socialShare()"
+  />
+</a>
+<a class="whatsapp" target="blank">
+  <q-icon
+    class="fab fa-whatsapp q-pa-sm cursor-pointer whatsappicon"
+    size="md"
+    @click="socialShare()"
+  />
+</a>
+</div>
+</div>
+
+</div>
+
+</div>
       </q-card>
-    </div>
 
     <q-dialog v-model="accept_modal" persistent>
       <q-card class="my-card" :style="ModelStyle">
@@ -381,6 +436,27 @@ export default {
       navigator.clipboard.writeText(link);
       this.copyLink = "copied!";
       setTimeout(() => (this.copyLink = "Copy product link"), 2000);
+    },
+
+    socialShare() {
+      const link = encodeURI(window.location.href);// `https://paylidate.com/product/5VgJH231122153353/NxqE1OPIhW140722131816`
+      const msg = encodeURIComponent(this.product.description);
+      const title = encodeURIComponent(document.querySelector('title').textContent);
+
+      console.log([link, msg, title]);
+
+      const fb = document.querySelector('.facebook');
+      fb.href = `https://www.facebook.com/share.php?u=${link}`;
+
+      const twitter = document.querySelector('.twitter');
+      twitter.href = `https://twitter.com/share?&url=${link}&text=${msg}`
+
+      const linkedIn = document.querySelector('.linkedin');
+      linkedIn.href = `https://linkedin.com/sharing/share-offsite/?url=${link}`
+
+      const whatsapp = document.querySelector('.whatsapp');
+      whatsapp.href = `https://api.whatsapp.com/send?phone=whatsappphonenumber&text=${link}`
+
     },
 
     async buyProduct() {
@@ -668,14 +744,24 @@ export default {
 
 <style scoped>
 .my-card {
-  width: 1000px;
-  height: 400px;
-  left: 33px;
+  width: 120%;
+  height: 32rem;
+  margin-left:auto;
+  margin-right: auto;
   top: 20px;
 
   background: #f8f8f8;
   border: 0.3px solid #000000;
   border-radius: 3px;
+}
+.create_edit_product
+{
+  padding: 0px;
+  margin-top: 30px;
+}
+.sharebuttons
+{
+  display: block;
 }
 .productname
 {
@@ -688,6 +774,15 @@ line-height: 48px;
 color: #000000;
 }
 
+.facebook, .twitter, .whatsapp
+{
+  text-decoration: none;
+}
+
+.facebookicon,  .whatsappicon, .twittericon
+{
+  color:  #319ED9;
+}
 .productprice
 {
   font-family: 'Montserrat';
@@ -708,7 +803,102 @@ height: 275px;
 border: 1px solid #000000;
 border-radius: 3px;
 margin-left: 130px;
-margin-top: 36px;
+margin-top: 3px;
 
 }
+.productdescriptiontitle
+{
+  font-family: 'Montserrat';
+font-style: normal;
+font-weight: 800px;
+font-size: 26px;
+line-height: 43px;
+
+color: #000000;
+}
+.productdescription, .productquantity, .copylinktext, .productnumber, .transactiontype, .socialmediatitile
+{
+  font-family: 'Montserrat';
+font-style: normal;
+font-weight: 800px;
+font-size: 14px;
+line-height: 43px;
+
+color: #000000;
+}
+.socialmediatitilecolumn, .socialmediaiconscontainer
+{
+  width:auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+.sharebuttons
+{
+  margin-top: 30px;
+}
+.copybtncontainer
+{
+  width: 12%;
+  margin-left: 80%;
+}
+.escrowtitlecontainer
+{
+  justify-content: space-between;
+}
+.productnumber
+{
+  width:auto;
+  margin-left: 20%;
+}
+.facebook, .twitter
+  {
+    margin-right: 30px;
+  }
+.transactiontype
+{
+  width:auto;
+  margin-right: 38%;
+}
+@media screen and (max-width: 480px)
+{
+  .my-card
+  {
+    height: auto;
+  }
+
+  .productimage
+  {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  .copybtncontainer
+  {
+    display: none;
+  }
+
+
+
+  .copybtncontainer_for_mobilescreen
+    {
+      width: 10%;
+      margin-left: auto;
+    }
+    .copybtn
+    {
+      width: auto;
+    }
+}
+@media screen and (min-width: 768px)
+  {
+    .copybtncontainer_for_mobilescreen
+    {
+      display: none;
+    }
+
+
+
+
+  }
+
 </style>

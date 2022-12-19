@@ -1,5 +1,5 @@
 <template>
-  <q-page class="bg-grey-2" padding>
+  <q-page class="bg-white" padding>
     <Products v-if="$route.name == 'products'" />
     <Transactions v-else-if="$route.name == 'transactions'" />
     <Product v-else-if="$route.name == 'product'" />

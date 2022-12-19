@@ -97,7 +97,7 @@
         </q-scroll-area>
       </q-drawer>
 
-    <q-page-container >
+    <q-page-container class="bg-white"  >
       <router-view></router-view>
     </q-page-container>
 
