@@ -75,15 +75,37 @@
 </div>
 <div class="row escrowtitlecontainer">
   <div class="col-xs-6 col-sm-6 col-md-6 productnumber">
-    <div> </div>
-    <div>{{ product.product_number}}</div>
+    <div class="row">
+      <div class="col-xs-6 col-sm-6 col-md-6" >
+        <q-img
+      src="../../assets/icons/material-symbols_confirmation-number.png"
+      spinner-color="white"
+      style="height: 25px; max-width: 25px"
+    />
+      </div>
 
+      <div class="col-xs-6 col-sm-6 col-md-6" >
+        {{ product.product_number}}
+      </div>
+    </div>
   </div>
   <div class="col-xs-6 col-sm-6 col-md-6 transactiontype">
-    <div></div>
+    <div class="row">
+      <div class="col-xs-6 col-sm-6 col-md-6" >
+        <q-img
+      src="../../assets/icons/mdi_lightbulb-question.png"
+      spinner-color="white"
+      style="height: 25px; max-width: 25px"
+    />
+      </div>
+
+      <div class="col-xs-6 col-sm-6 col-md-6" >
+        Escrow
+      </div>
+    </div>
     <!-- <div>{{ product.transaction_type }}</div> -->
 
-    <div>Escrow</div>
+
   </div>
 </div>
             <img :src="product.image !== 'default_product.png' ? product.image : base_image"
@@ -880,12 +902,12 @@ color: #000000;
   .transactiontype
   {
 
-    margin-right: 8%;
+    margin-right: 14%;
   }
 
   .productnumber
   {
-    margin-left: 10%;
+    margin-left: 8%;
   }
   .productname
   {
@@ -946,6 +968,7 @@ color: #000000;
       width: auto;
     }
 }
+
 @media screen and (min-width: 768px)
   {
     .copybtncontainer_for_mobilescreen
@@ -953,13 +976,6 @@ color: #000000;
       display: none;
     }
 
-
-
-
-  }
-
-  @media only screen and (min-width: 600px)
-  {
     .productimage
     {
       margin-left: 10px;
@@ -980,15 +996,25 @@ color: #000000;
     {
       margin-left:6%;
     }
+
+
   }
 
   /**laptops with really big screens */
-  @media only screen and (min-width: 1440px)
+  @media screen and (min-width: 1024px)
   {
     .transactiontype
     {
-      margin-right: 60%;
+      margin-right: 38%;
     }
+    .productnumber
+    {
+      margin-left: 10%;
+    }
+
+    .productimage {
+    margin-left: 130px;
+}
   }
 
 </style>
