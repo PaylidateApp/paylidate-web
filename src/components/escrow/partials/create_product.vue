@@ -704,5 +704,14 @@ font-weight: 800;
 font-size: 16px;
 line-height: 24px;
 }
+@media screen and (max-width: 480px)
+{
+  .editproductbtn
+  {
+    width: 75px;
+    height: 30px;
+    font-size: 12px;
+  }
+}
 
 </style>

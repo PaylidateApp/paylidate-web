@@ -181,7 +181,7 @@
             </q-card-section> -->
 
             <q-card-section class="create_edit_product">
-              <div v-if="product.user_id == user.id">
+              <div v-if="product.user_id == user.id" class="editbtncontainer">
 
                 <CreateProduct btnType="edit" :product="product"  />
 
@@ -877,7 +877,64 @@ color: #000000;
     display: none;
   }
 
+  .transactiontype
+  {
 
+    margin-right: 8%;
+  }
+
+  .productnumber
+  {
+    margin-left: 10%;
+  }
+  .productname
+  {
+    width:fit-content;
+    margin-left: auto;
+    margin-right:auto;
+    margin-top: 53px;
+    font-size: 16px;
+    font-weight: 900;
+  }
+.productdescriptiontitle
+{
+  width:fit-content;
+    margin-left: auto;
+    margin-right:auto;
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: 900;
+}
+.productdescription
+{
+  width:fit-content;
+    margin-left: auto;
+    font-size: 14px;
+    margin-right:auto;
+}
+  .productprice
+  {
+    width:fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 16px;
+  }
+  .editbtncontainer
+  {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .productquantity
+  {
+    font-size: 14px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   .copybtncontainer_for_mobilescreen
     {
@@ -899,6 +956,39 @@ color: #000000;
 
 
 
+  }
+
+  @media only screen and (min-width: 600px)
+  {
+    .productimage
+    {
+      margin-left: 10px;
+    }
+    .my-card
+    {
+      height: 34rem;
+    }
+    .copybtncontainer
+    {
+      width: fit-content;
+    }
+    .transactiontype
+    {
+      margin-right: 25%;
+    }
+    .productnumber
+    {
+      margin-left:6%;
+    }
+  }
+
+  /**laptops with really big screens */
+  @media only screen and (min-width: 1440px)
+  {
+    .transactiontype
+    {
+      margin-right: 60%;
+    }
   }
 
 </style>
