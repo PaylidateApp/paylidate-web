@@ -48,6 +48,11 @@ const routes: RouteConfig[] = [
         component: () => import("pages/Auth.vue")
       },
       {
+        path: 'fulfillment/:hash',
+        name: 'fulfillment',
+        component: () => import('pages/Fulfillment.vue')
+      },
+      {
         path: "reset-password/:token",
         name: "reset-password",
         component: () => import("pages/Auth.vue")
