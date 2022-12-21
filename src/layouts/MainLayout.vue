@@ -190,7 +190,7 @@
       <router-view />
     </q-page-container>
 
-    <q-footer elevated v-if="display" class="footer">
+    <q-footer elevated v-if="displayFooter" class="footer">
       <q-toolbar>
         <q-toolbar-title class="footertitle">What happens when you make a payment with Paylidate?</q-toolbar-title>
       </q-toolbar>
@@ -265,7 +265,7 @@
     height: auto;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 11px">
+    margin-top: 11px;">
               4. &nbsp;&nbsp;On confirmation of delivery, the payment is released to the seller
              </div>
         </div>
@@ -506,11 +506,15 @@ export default {
     adminMode() {
       return this.$q.localStorage.getItem("user_mode");
     },
-    displayfooter() {
-      if ( this.$route.path == "/products")
+    displayFooter() {
+      if ( this.$route.path == "/product/" + this.$route.params.slug)
       {
-        return this.display = !this.display;
+        return true;
       }
+
+      return false;
+
+
     },
 
     user() {
