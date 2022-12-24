@@ -41,6 +41,7 @@
             <q-btn flat label="OK" color="primary" v-close-popup />
           </q-card-actions>
         </q-card>
+        
       </q-dialog>
       <!-- end of referral link modal -->
     <!-- product details card -->

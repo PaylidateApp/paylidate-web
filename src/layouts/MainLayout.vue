@@ -196,7 +196,7 @@
       </q-toolbar>
 
       <div class="row footercontent">
-        <div class="col-xs-3 col-sm-3 col-md-3 ">
+        <div class="col-xs-12 col-sm-3 col-md-3 xs-mb-2 ">
              <div>
               <q-img
       src="../assets/icons/mdi_bell-check.png"
@@ -214,7 +214,7 @@
              </div>
         </div>
 
-        <div class="col-xs-3 col-sm-3 col-md-3 ">
+        <div class="col-xs-12  col-sm-3 col-md-3 xs-mb-2 ">
 
           <div>
               <q-img
@@ -233,7 +233,7 @@
              </div>
         </div>
 
-        <div class="col-xs-3 col-sm-3 col-md-3 ">
+        <div class="col-xs-12  col-sm-3 col-md-3 ">
           <div>
               <q-img
       src="../assets/icons/mdi_truck-delivery.png"
@@ -252,7 +252,7 @@
              </div>
         </div>
 
-        <div class="col-xs-3 col-sm-3 col-md-3 ">
+        <div class="col-xs-12 col-sm-3 col-md-3">
           <div>
               <q-img
       src="../assets/icons/cash.png"
@@ -283,6 +283,7 @@
         </div>
       </div>
     </q-footer>
+
   </q-layout>
 </template>
 
@@ -552,9 +553,7 @@ export default {
       }
     },
   },
-  mounted() {
-    this.displayfooter();
-  },
+
   methods: {
     linkStatus(status) {
       if (status && this.$store.state.auth.token) {
@@ -630,5 +629,19 @@ color: #000000;
 .escrowagreementlink:hover
 {
   color: #EB6117;
+}
+
+@media screen and (max-width: 600px) {
+
+  .footer
+  {
+    height:auto;
+    margin-top: -120%
+  }
+
+  .footertitle
+  {
+    white-space: normal;
+  }
 }
 </style>
