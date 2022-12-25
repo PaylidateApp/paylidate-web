@@ -205,7 +205,7 @@
     />
              </div>
 
-             <div style="width: 144px;
+             <div class="footertexts" style="width: 144px;
     height: auto;
     margin-left: auto;
     margin-right: auto;
@@ -224,7 +224,7 @@
     />
              </div>
 
-             <div style="width: 105px;
+             <div class="footertexts" style="width: 105px;
     height: auto;
     margin-left: auto;
     margin-right: auto;
@@ -242,7 +242,7 @@
     />
              </div>
 
-             <div style="width: 145px;
+             <div class="footertexts" style="width: 145px;
     height: auto;
     margin-left: auto;
     margin-right: auto;
@@ -261,7 +261,7 @@
     />
              </div>
 
-             <div style="width: 210px;
+             <div class="footertexts" style="width: 210px;
     height: auto;
     margin-left: auto;
     margin-right: auto;
@@ -643,5 +643,14 @@ color: #000000;
   {
     white-space: normal;
   }
+}
+
+@media screen and (max-width: 768px)
+{
+   .footertexts
+   {
+    font-size: 10px;
+    width: fit-content !important;
+   }
 }
 </style>
