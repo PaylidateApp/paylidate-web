@@ -70,6 +70,12 @@ const routes: RouteConfig[] = [
         meta: { requiresAuth: true }
       },
       {
+        path: "admin-dashboard",
+        name: "admin_dashboard",
+        component: () => import("pages/AdminDashboard.vue"),
+        meta: { requiresAuth: true }
+      },
+      {
         path: "account",
         name: "account",
         component: () => import("pages/Auth.vue"),
