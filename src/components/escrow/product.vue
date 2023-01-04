@@ -290,6 +290,8 @@
   </q-page>
 </template>
 
+
+
 <script>
 import AcceptTransaction from "./partials/accept_trans";
 import Payment from "components/common/make_payment";
