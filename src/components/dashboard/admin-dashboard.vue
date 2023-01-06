@@ -10,56 +10,56 @@
 
       <div class="q-pa-md items-start q-gutter-md">
         <div class="text-h2">Overview</div>
-        <div class="row full-width items-start justify-between">
-          <div class="col">
+        <div class="row full-width justify-between">
+          <div class="col-12 col-md-4 q-pt-sm">
             <q-card class="my-card">
               <q-card-section class="bg-white text-black">
-                <div class="text-subtitle2">Total Number of Users</div>
-                <div class="text-h5">1,000,000.00</div>
+                <div class="text-subtitle2">Total No. of Users</div>
+                <div class="text-h5">{{dashboardContent.Total_registered_users}}</div>
               </q-card-section>
             </q-card>
           </div>
-          <div class="col">
+          <div class="col-12 col-md-4 q-pt-sm">
             <q-card class="my-card">
               <q-card-section class="text-black">
-                <div class="text-subtitle2">Total Number of Transactions</div>
-                <div class="text-h5">40,000,000.00</div>
+                <div class="text-subtitle2">Total No. of Transactions</div>
+                <div class="text-h5">{{dashboardContent.Total_Transactions_completed}}</div>
               </q-card-section>
             </q-card>
           </div>
-          <div class="col">
+          <div class="col-12 col-md-4 q-pt-sm">
             <q-card class="my-card">
               <q-card-section class="bg-white text-black">
                 <div class="text-subtitle2">Total Transactions Amount</div>
-                <div class="text-h5">400,000,000.00</div>
+                <div class="text-h5">NGN {{dashboardContent.Total_Transactions_completed_amount}}</div>
               </q-card-section>
             </q-card>
           </div>
         </div>
         <div class="row full-width items-start justify-between">
-          <div class="col">
+          <div class="col-12 col-md-4 q-pt-sm">
             <q-card class="my-card">
               <q-card-section class="bg-white text-black">
-                <div class="text-subtitle2">Total Number of Disputes</div>
-                <div class="text-h5">10,000,000.00</div>
+                <div class="text-subtitle2">Total No. of Disputes</div>
+                <div class="text-h5">{{dashboardContent.Total_Dispute}}</div>
               </q-card-section>
             </q-card>
           </div>
-          <div class="col">
+          <div class="col-12 col-md-4 q-pt-sm">
             <q-card class="my-card">
               <q-card-section class="bg-white text-black">
-                <div class="text-subtitle2">Total Number of Refunds</div>
-                <div class="text-h5">9,000,000.00</div>
+                <div class="text-subtitle2">Total No. of Refunds</div>
+                <div class="text-h5">{{dashboardContent.Total_Refund}}</div>
               </q-card-section>
             </q-card>
           </div>
-          <div class="col">
+          <div class="col-12 col-md-4 q-pt-sm">
             <q-card class="my-card">
               <q-card-section class="bg-white text-black">
                 <div class="text-subtitle2">
-                  Total Number of Referrals(By Code)
+                  Total No. of Referrals(By Code)
                 </div>
-                <div class="text-h5">500,000.00</div>
+                <div class="text-h5">{{dashboardContent.Total_Referrals ? dashboardContent.Total_Referrals : "0" }}</div>
               </q-card-section>
             </q-card>
           </div>
@@ -68,7 +68,7 @@
 
       <div class="q-pa-md row styling text-white" style="background-color:#2F80ED;">
         <div class="row justify-evenly">
-          <div class="col-8">
+          <div class="col-12 col-md-8 q-pt-sm">
             <q-card-section>
               <div class="text-h6 text-justify text-white">
                 Welcome to Paylidate Admin Dashboard
@@ -85,10 +85,10 @@
               <q-btn class="q-pa-xs" color="white" text-color="blue" size="lg" rounded no-caps label="Learn more" />
             </q-card-actions>
           </div>
-          <div class="col-4">
+          <div class="col-12 col-md-4 q-pt-sm">
             <img
             src="../../statics/admin_dashboard_assets/dashboard_img.png"
-            style="width: 320px;"
+            style="width: 100%;"
           />
           </div>
         </div>
@@ -96,16 +96,16 @@
 
       <!-- Wallet -->
       <div class="styling">
-        <div class="text-h6 q-my-md">Wallet</div>
+        <div class="text-h6 q-my-md">Total Wallet Bal.</div>
         <div class="demo text-h6 q-my-md">
-          <div class="q-py-lg">NGN 12,000,000,000.00</div>
+          <div class="q-py-lg">NGN {{ dashboardContent.total_Wallet_Amount }} </div>
         </div>
         <div class="q-my-md">
           <q-btn color="secondary" size="md" rounded no-caps label="View more" />
         </div>
       </div>
 
-      <!-- Disputes -->
+      <!-- List of Disputes -->
       <div class="styling q-pa-md">
         <q-table
           title="Disputes"
@@ -117,9 +117,9 @@
           <q-btn color="secondary" size="md" rounded no-caps label="View more" />
         </div>
       </div>
-      <!-- End of Disputes -->
+      <!-- End of List of Disputes -->
 
-      <!-- Transactions -->
+      <!-- List of Transactions -->
       <div id="transaction" class="styling q-pa-md">
         <q-table
           title="Transactions"
@@ -131,7 +131,21 @@
           <q-btn color="secondary" size="md" rounded no-caps label="View more" />
         </div>
       </div>
-      <!-- End of Transactions -->
+      <!-- End of List of Transactions -->
+
+      <!-- List of Users -->
+      <div class="styling q-pa-md">
+        <q-table
+          title="Users"
+          :rows="rows3"
+          :columns="columns3"
+          row-key="name"
+        />
+        <div class="q-my-md">
+          <q-btn color="secondary" size="md" rounded no-caps label="View more" />
+        </div>
+      </div>
+      <!-- End of List of Users -->
     </span>
   </div>
 </template>
@@ -143,6 +157,7 @@ export default {
   data() {
     return {
         login: false,
+        dashboardContent: [],
       columns: [
         {
           name: "transId",
@@ -208,7 +223,6 @@ export default {
           action: "View",
         },
       ],
-
       columns2: [
         {
           name: "date",
@@ -306,6 +320,47 @@ export default {
           action: "View",
         },
       ],
+      columns3: [
+        {
+          name: "accStatus",
+          required: true,
+          label: "Account Status",
+          align: "left",
+          field: (row) => row.accStatus,
+          format: (val) => `${val}`,
+          sortable: true,
+        },
+        {
+          name: "userName",
+          align: "left",
+          label: "User Name",
+          field: "userName",
+          sortable: true,
+        },
+        {
+          name: "email",
+          align: "left",
+          label: "Email",
+          field: "email",
+          sortable: true,
+        },
+        { name: "userTag", align: "left", label: "User Tag", field: "userTag" },
+      ],
+
+      rows3: [
+        {
+          accStatus: "qrt109998020201",
+          userName: "Realtech Computers",
+          email: "Vera",
+          userTag: "View",
+        },
+        {
+          accStatus: "qrt107267189763",
+          userName: "Ibrahim Abdulhameed",
+          email: "Hajiya Asabe",
+          userTag: "View",
+        },
+      ],
     };
   },
 
@@ -315,7 +370,7 @@ export default {
   },
 
   mounted() {
-    this.getProduct();
+    this.getDashboardData();
 
       if(!this.$q.localStorage.getItem('paylidate_token')) {
         this.login = false
@@ -327,11 +382,11 @@ export default {
   },
 
   methods: {
-    async getProduct(){
-      const req = await this.$axios.get(process.env.Api + '/api/product')
+    async getDashboardData(){
+      const req = await this.$axios.get(process.env.Api + '/api/admin/dashboard')
       const res = req.data
       console.log(res)
-      this.contents = res.data;
+      this.dashboardContent = res.data;
     },
 
     currency(amount){
@@ -351,7 +406,7 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26)
   border-radius: 10px
   width: 100%
-  max-width: 300px
+  max-width: 18rem
 
 .text-subtitle2
   font-style: normal
@@ -397,8 +452,8 @@ export default {
   padding: 1rem
 
 .demo
-  width: 300px
-  height: 120px
+  width: 15rem
+  height: 7.5rem
   margin: auto
   padding: 1rem
   border: 2px solid #ccc
