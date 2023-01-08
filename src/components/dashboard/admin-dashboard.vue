@@ -59,7 +59,7 @@
                 <div class="text-subtitle2">
                   Total No. of Referrals(By Code)
                 </div>
-                <div class="text-h5">{{dashboardContent.Total_Referrals ? dashboardContent.Total_Referrals : "0" }}</div>
+                <div class="text-h5">{{dashboardContent.Total_Referral ? dashboardContent.Total_Referral : "0" }}</div>
               </q-card-section>
             </q-card>
           </div>
@@ -107,43 +107,140 @@
 
       <!-- List of Disputes -->
       <div class="styling q-pa-md">
-        <q-table
-          title="Disputes"
-          :rows="rows"
-          :columns="columns"
-          row-key="name"
-        />
-        <div class="q-my-md">
-          <q-btn color="secondary" size="md" rounded no-caps label="View more" />
-        </div>
+
+    <q-table
+      title="Disputes"
+      :data="contentDispute"
+      :columns="columns"
+      row-key="name"
+      square
+    >
+      <template v-slot:top-right>
+        <eExport :array="contentDispute" :columns="columns" />
+      </template>
+
+       <template v-slot:body="props">
+        <q-tr :props="props">
+
+          <q-td key="transId" :props="props">
+            {{ props.row.transaction_id }}
+          </q-td>
+
+          <q-td key="initiator" :props="props">
+            <span class="text-bold">{{ props.row.initiator }}</span>
+          </q-td>
+
+          <q-td key="secParty" :props="props">
+              {{ props.row.secParty }}
+          </q-td>
+
+          <q-td key="action" :props="props" class="column">
+            <q-btn :to="{name: 'product', params: {slug: props.row.action}}" label="Action" class="bg-secondary" color="white" flat size="sm" no-caps />
+            <!-- <q-btn @click="canceledDelivery(props.row.id)" color="negative" size="xs" no-caps label="Cancel Order" /> -->
+          </q-td>
+        </q-tr>
+
+      </template>
+
+    </q-table>
+
       </div>
       <!-- End of List of Disputes -->
 
       <!-- List of Transactions -->
       <div id="transaction" class="styling q-pa-md">
+
         <q-table
           title="Transactions"
-          :rows="rows2"
+          :data="contentTrans"
           :columns="columns2"
           row-key="name"
-        />
-        <div class="q-my-md">
-          <q-btn color="secondary" size="md" rounded no-caps label="View more" />
-        </div>
+          square
+        >
+      <template v-slot:top-right>
+        <eExport :array="contentTrans" :columns="columns2" />
+      </template>
+
+       <template v-slot:body="props">
+        <q-tr :props="props">
+
+          <q-td key="date" :props="props">
+            {{ props.row.created_at }}
+          </q-td>
+
+          <q-td key="transId" :props="props">
+            {{ props.row.id }}
+          </q-td>
+
+          <q-td key="type" :props="props">
+            <span class="text-bold">{{ props.row.type }}</span>
+          </q-td>
+
+          <q-td key="product" :props="props">
+              {{ props.row.product }}
+          </q-td>
+
+          <q-td key="value" :props="props">
+              {{ props.row.value }}
+          </q-td>
+
+          <q-td key="commission" :props="props">
+              {{ props.row.commission }}
+          </q-td>
+
+          <q-td key="status" :props="props">
+              {{ props.row.status }}
+          </q-td>
+
+          <q-td key="action" :props="props" class="column">
+            <q-btn :to="{}" label="View" class="bg-secondary" color="white" flat size="sm" no-caps />
+            <!-- <q-btn @click="canceledDelivery(props.row.id)" color="negative" size="xs" no-caps label="Cancel Order" /> -->
+          </q-td>
+        </q-tr>
+
+      </template>
+
+    </q-table>
       </div>
       <!-- End of List of Transactions -->
 
       <!-- List of Users -->
       <div class="styling q-pa-md">
+
         <q-table
           title="Users"
-          :rows="rows3"
+          :data="contentUsers"
           :columns="columns3"
           row-key="name"
-        />
-        <div class="q-my-md">
-          <q-btn color="secondary" size="md" rounded no-caps label="View more" />
-        </div>
+          square
+        >
+      <template v-slot:top-right>
+        <eExport :array="contentUsers" :columns="columns3" />
+      </template>
+
+       <template v-slot:body="props">
+        <q-tr :props="props">
+
+          <q-td key="accStatus" :props="props">
+            {{ props.row.active ? "Active" : "Inactive" }}
+          </q-td>
+
+          <q-td key="userName" :props="props">
+            <span class="text-bold">{{ props.row.name }}</span>
+          </q-td>
+
+          <q-td key="email" :props="props">
+              {{ props.row.email }}
+          </q-td>
+
+          <q-td key="userTag" :props="props" class="column">
+            @{{ props.row.name }}
+          </q-td>
+        </q-tr>
+
+      </template>
+
+    </q-table>
       </div>
       <!-- End of List of Users -->
     </span>
@@ -151,8 +248,13 @@
 </template>
 
 <script>
+import eExport from 'components/common/export'
 
 export default {
+
+  components:{
+    eExport
+  },
 
   data() {
     return {
@@ -163,7 +265,7 @@ export default {
           name: "transId",
           required: true,
           label: "Transaction ID",
-          align: "left",
+          align: "center",
           field: (row) => row.transId,
           format: (val) => `${val}`,
           sortable: true,
@@ -182,47 +284,10 @@ export default {
           field: "secParty",
           sortable: true,
         },
-        { name: "action", align: "left", label: "Action", field: "action" },
+        { name: "action", align: "center", label: "Action", field: "action" },
       ],
+      contentDispute: [],
 
-      rows: [
-        {
-          transId: "qrt109998020201",
-          initiator: "Realtech Computers",
-          secParty: "Vera",
-          action: "View",
-        },
-        {
-          transId: "qrt107267189763",
-          initiator: "Ibrahim Abdulhameed",
-          secParty: "Hajiya Asabe",
-          action: "View",
-        },
-        {
-          transId: "qrt10999828763",
-          initiator: "Iyawo Restuarant",
-          secParty: "Paul Walker",
-          action: "View",
-        },
-        {
-          transId: "qrt10999000000",
-          initiator: "Nurudeen & Associates",
-          secParty: "Abigail Johnson Peter",
-          action: "View",
-        },
-        {
-          transId: "qrt187283928763",
-          initiator: "Spoutes Collections",
-          secParty: "Mr. Thomas Ayowale",
-          action: "View",
-        },
-        {
-          transId: "qrt109990948273",
-          initiator: "Samsung Mobile",
-          secParty: "Peter Piper",
-          action: "View",
-        },
-      ],
       columns2: [
         {
           name: "date",
@@ -236,7 +301,7 @@ export default {
           name: "transId",
           required: true,
           label: "Transaction ID",
-          align: "left",
+          align: "center",
           field: "transId",
           sortable: true,
         },
@@ -270,13 +335,14 @@ export default {
         },
         {
           name: "status",
-          align: "left",
+          align: "center",
           label: "Status",
           field: "status",
           sortable: true,
         },
         { name: "action", align: "left", label: "Action", field: "action" },
       ],
+      contentTrans: [],
 
       rows2: [
         {
@@ -287,36 +353,6 @@ export default {
           value: "NGN 150,000.00",
           commission: "NGN 2,000.00",
           status: "Completed",
-          action: "View",
-        },
-        {
-          date: "10/09/21",
-          transId: "qrt107267189763",
-          type: "Services",
-          product: "Legal Representation",
-          value: "NGN 40,000.00",
-          commission: "NGN 300.00",
-          status: "In Progress",
-          action: "View",
-        },
-        {
-          date: "10/09/21",
-          transId: "qrt10999828763",
-          type: "Services",
-          product: "Car Repairs",
-          value: "NGN 40,000.00",
-          commission: "NGN 300.00",
-          status: "Failed",
-          action: "View",
-        },
-        {
-          date: "10/09/21",
-          transId: "qrt10999828763",
-          type: "Product",
-          product: "Suits",
-          value: "NGN 40,000.00",
-          commission: "NGN 300.00",
-          status: "Failed",
           action: "View",
         },
       ],
@@ -346,18 +382,13 @@ export default {
         },
         { name: "userTag", align: "left", label: "User Tag", field: "userTag" },
       ],
+      contentUsers: [],
 
       rows3: [
         {
           accStatus: "qrt109998020201",
           userName: "Realtech Computers",
           email: "Vera",
-          userTag: "View",
-        },
-        {
-          accStatus: "qrt107267189763",
-          userName: "Ibrahim Abdulhameed",
-          email: "Hajiya Asabe",
           userTag: "View",
         },
       ],
@@ -387,6 +418,9 @@ export default {
       const res = req.data
       console.log(res)
       this.dashboardContent = res.data;
+      this.contentDispute = this.dashboardContent.list_Of_Disputes;
+      this.contentTrans = this.dashboardContent.list_Of_Transactions;
+      this.contentUsers = this.dashboardContent.list_Of_Users;
     },
 
     currency(amount){
