@@ -101,127 +101,7 @@
 
 
     <div>
-    <!-- <q-btn
-      color="secondary"
-      size="sm"
-      label="Make Payment"
-      @click="open = true"
-    />
-    <q-dialog v-model="open">
-      <q-card
-        v-if="transaction.quantity > transaction.product.quantity"
-        :style="$q.screen.gt.sm ? 'min-width: 600px' : 'min-width: 300px'"
-      >
-        <q-card-section>
-          <div class="q-pa-md text-h6">
-            This transaction can not continue because the quantity of product
-            available in less than your request. <br />
-            This can be as a result of you not completing the transaction early.
-          </div>
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn
-            flat
-            label="Cancel"
-            no-caps
-            color="negative"
-            @click="
-              open = false;
-              loading = false;
-            "
-          />
-        </q-card-actions>
-      </q-card>
-
-      <q-card
-        v-else
-        :style="$q.screen.gt.sm ? 'min-width: 600px' : 'min-width: 300px'"
-      >
-        <q-card-section>
-          <div class="text-h6">Please Confirm</div>
-        </q-card-section>
-
-        <q-card-section class="column flex-center full-width">
-          <div class="q-py-xs text-center">
-            <div>Note: {{ charges }}</div>
-          </div>
-
-          <div class="q-py-sm text-center">
-            <div class="text-caption text-weight-light">Amount</div>
-            <div class="text-bold text-h5">NGN {{ form.amount }}</div>
-          </div>
-
-          <div class="q-py-sm text-center">
-            <div class="text-caption text-weight-light">Product Name</div>
-            <div class="text-bold text-h6">{{ transaction.product.name }}</div>
-          </div>
-
-          <div class="q-py-sm text-center">
-            <div class="text-caption text-weight-light">Payment Type</div>
-            <div class="text-bold">{{ transaction.product.type }}</div>
-          </div>
-
-          <div class="q-py-sm text-center">
-            <div class="text-caption text-weight-light">Quantity</div>
-            <div class="text-bold text-h6">{{ transaction.quantity }}</div>
-          </div> -->
-
-          <!-- <div class="q-py-xs q-px-lg text-left">
-                <div class="text-caption text-weight-light">Payment Ref</div>
-                <div class="text-bold">{{ '200000-sdsd-sdsd' }}</div>
-              </div> -->
-
-          <!-- <div class="q-py-sm text-center">
-            <div class="text-caption text-weight-light">Payment Status</div>
-            <div class="text-bold">pending</div>
-          </div>
-
-          <div class="q-py-md">
-            <div class=" text-caption text-weight-light text-center">How would you want to pay?</div>
-            <q-radio
-              class="text-bold"
-              v-model="payment_method"
-              checked-icon="task_alt"
-              unchecked-icon="panorama_fish_eye"
-              val="wallet"
-              label="From your wallet"
-            />
-
-            <q-radio
-              class="text-bold"
-              v-model="payment_method"
-              checked-icon="task_alt"
-              unchecked-icon="panorama_fish_eye"
-              val="card"
-              label="Flutterwave Checkout"
-            /><br />
-          </div>
-        </q-card-section>
-        <q-card-actions align="right">
-          <q-btn
-            unelevated
-            no-caps
-            color="primary"
-            label="Make Payment"
-            v-if="open"
-            :loading="loading"
-            @click="paymentOption()"
-          />
-          <q-btn
-            flat
-            label="Cancel"
-            no-caps
-            color="negative"
-            @click="
-              open = false;
-              loading = false;
-            "
-          />
-        </q-card-actions>
-      </q-card>
-    </q-dialog> -->
-
+    
     <Payment
               v-if="
                 transaction.product.user_id == user.id &&
@@ -792,5 +672,7 @@ export default {
 
 
 <style scoped>
-
+.col-6{
+position:left;
+}
 </style>
