@@ -646,11 +646,28 @@ color: #000000;
 {
   .footer
   {
-    margin-top: -50%
+    margin-top: -90%;
   }
   .escrowagreement
   {
     padding-bottom: 4%;
+  }
+
+  .footertitle
+  {
+    white-space: normal;
+  }
+}
+@media screen and (max-width: 375px) {
+
+.footer
+{
+  height:auto;
+  margin-top: -105%
+}
+.footertitle
+  {
+    white-space: normal;
   }
 }
 @media screen and (max-width: 320px) {
@@ -658,7 +675,7 @@ color: #000000;
   .footer
   {
     height:auto;
-    margin-top: -120%
+    margin-top: -130%
   }
 
   .footertitle
