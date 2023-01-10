@@ -271,9 +271,11 @@
         </div>
       </div>
 
+
+
       <div class="row escrowagreement">
         <div class="col-xs-12 col-sm-12 col-md-12">
-          Please click <a href="#" class="escrowagreementlink">here</a> to read through the escrow <a href="#" class="escrowagreementlink">agreement</a> if you haven’t done so
+          Please click <router-link to="/escrow-agreement" class="escrowagreementlink">here</router-link> to read through the escrow <router-link to="/escrow-agreement" class="escrowagreementlink">agreement</router-link> if you haven’t done so
         </div>
       </div>
 
@@ -508,7 +510,7 @@ export default {
       return this.$q.localStorage.getItem("user_mode");
     },
     displayFooter() {
-      if ( this.$route.path == "/product/" + this.$route.params.slug)
+      if ( this.$route.path == "/product/" + this.$route.params.slug || this.$route.path == "/escrow-transaction/" + this.$route.params.T_ref )
       {
         return true;
       }
@@ -582,7 +584,7 @@ a {
 }
 
 .footer {
-  height: 258px;
+  height: auto;
   position: inherit;
   background: #f8f8f8;
   margin-top:-10%;
@@ -616,7 +618,8 @@ color: #000000;
 
 .paymentsecurity
 {
-  margin-top:33px;
+  margin-top:2%;
+  padding-bottom:1%;
 }
 
 .escrowagreementlink
@@ -631,7 +634,26 @@ color: #000000;
   color: #EB6117;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px)
+{
+  .footer
+  {
+    margin-top: -20%
+  }
+}
+
+@media screen and (max-width: 480px)
+{
+  .footer
+  {
+    margin-top: -50%
+  }
+  .escrowagreement
+  {
+    padding-bottom: 4%;
+  }
+}
+@media screen and (max-width: 320px) {
 
   .footer
   {
