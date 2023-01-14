@@ -1,166 +1,203 @@
 <template>
-  <q-page class="flex justify-center ">
+  <q-page class="flex justify-center">
     <!-- {{product}} -->
-<!-- start of referral link modal -->
-<q-dialog v-model="referral_modal">
-        <q-card>
-          <q-card-section>
-            <!-- <div class="text-h6">Alert</div> -->
-          </q-card-section>
-          <q-card-section>
-            <div class="text-center">
-              <q-icon name="check_circle" color="primary" size="xl" />
-            </div>
-            <div class="text-positive text-center">Product Referral Link</div>
-            <q-space />
-
-            <div class="text-center">
-              <q-btn
-                size="12px"
-                round
-                flat
-                color="primary"
-                class=""
-                icon="content_copy"
-                @click="copy_link('refLink')"
-              >
-                <q-tooltip>
-                  {{ copyL }}
-                </q-tooltip> </q-btn
-              ><br />
-              Your referral link for this product is
-              <a :href="refer_link">{{ refer_link }}</a>
-            </div>
-            <div>
-              Note that you will get a referral bonus of
-              {{ formatAsNaira(product.referral_amount) }} for each product when your
-              referral linK is used to buy a product
-            </div>
-          </q-card-section>
-          <q-card-actions align="right">
-            <q-btn flat label="OK" color="primary" v-close-popup />
-          </q-card-actions>
-        </q-card>
-        
-      </q-dialog>
-      <!-- end of referral link modal -->
-    <!-- product details card -->
-    <q-card v-if="product" class="my-card" bordered flat>
-        <!-- <q-img :src="'/product.svg'" spinner-color="white"
-      /> -->
-
-        <div class="row">
-          <!-- Left Section grouping all product image  -->
-          <div class="col-xs-12 col-sm-6 col-md-6 leftsection">
-
-<!-- section to display top icons -->
-
-<div class="row copybtncontainer_for_mobilescreen">
-
-<div class="col-xs-12 col-sm-12 col-md-12 copybtn">
-  <div><!-- copy button -->
-<q-btn
-            size="12px"
-            round
-            flat
-            color="primary"
-            class=""
-            icon="content_copy"
-            @click="copy_link"
-          >
-            <q-tooltip>
-              {{ copyL }}
-            </q-tooltip>
-          </q-btn></div>
-</div>
-</div>
-<div class="row escrowtitlecontainer">
-  <div class="col-xs-6 col-sm-6 col-md-6 productnumber">
-    <div class="row">
-      <div class="col-xs-6 col-sm-6 col-md-6" >
-        <q-img
-      src="../../assets/icons/material-symbols_confirmation-number.png"
-      spinner-color="white"
-      style="height: 25px; max-width: 25px"
-    />
-      </div>
-
-      <div class="col-xs-6 col-sm-6 col-md-6" >
-        {{ product.product_number}}
-      </div>
-    </div>
-  </div>
-  <div class="col-xs-6 col-sm-6 col-md-6 transactiontype">
-    <div class="row">
-      <div class="col-xs-6 col-sm-6 col-md-6" >
-        <q-img
-      src="../../assets/icons/mdi_lightbulb-question.png"
-      spinner-color="white"
-      style="height: 25px; max-width: 25px"
-    />
-      </div>
-
-      <div class="col-xs-6 col-sm-6 col-md-6" >
-        Escrow
-      </div>
-    </div>
-    <!-- <div>{{ product.transaction_type }}</div> -->
-
-
-  </div>
-</div>
-            <img :src="product.image !== 'default_product.png' ? product.image : base_image"
-            class="productimage"/>
+    <!-- start of referral link modal -->
+    <q-dialog v-model="referral_modal">
+      <q-card>
+        <q-card-section>
+          <!-- <div class="text-h6">Alert</div> -->
+        </q-card-section>
+        <q-card-section>
+          <div class="text-center">
+            <q-icon name="check_circle" color="primary" size="xl" />
           </div>
+          <div class="text-positive text-center">Product Referral Link</div>
+          <q-space />
 
-          <!-- Right Section grouping all product actions and details -->
-          <div class="col-xs-12 col-sm-6 col-md-6 rightsection">
-
-            <!-- section to display top icons -->
-<div class="row copybtncontainer">
-
-  <div class="col-xs-12 col-sm-12 col-md-12 ">
-    <div><!-- copy button -->
-<q-btn
+          <div class="text-center">
+            <q-btn
               size="12px"
               round
               flat
               color="primary"
               class=""
               icon="content_copy"
-              @click="copy_link"
+              @click="copy_link('refLink')"
             >
               <q-tooltip>
                 {{ copyL }}
-              </q-tooltip>
-            </q-btn></div>
+              </q-tooltip> </q-btn
+            ><br />
+            Your referral link for this product is
+            <a :href="refer_link">{{ refer_link }}</a>
+          </div>
+          <div>
+            Note that you will get a referral bonus of
+            {{ formatAsNaira(product.referral_amount) }} for each product when your
+            referral linK is used to buy a product
+          </div>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- end of referral link modal -->
+    <!-- product details card -->
+    <q-card v-if="product" class="my-card" bordered flat>
+      <!-- <q-img :src="'/product.svg'" spinner-color="white"
+      /> -->
 
-            <div class="copylinktext">
-              Copy Link
+      <div class="row">
+        <!-- Left Section grouping all product image  -->
+        <div class="col-xs-12 col-sm-6 col-md-6 leftsection">
+          <!-- section to display top icons -->
+
+          <div class="row copybtncontainer_for_mobilescreen">
+            <div class="col-xs-12 col-sm-12 col-md-12 copybtn">
+              <div>
+                <!-- copy button -->
+                <q-btn
+                  size="12px"
+                  round
+                  flat
+                  color="primary"
+                  class=""
+                  icon="content_copy"
+                  @click="copy_link"
+                >
+                  <q-tooltip>
+                    {{ copyL }}
+                  </q-tooltip>
+                </q-btn>
+              </div>
             </div>
-  </div>
-</div>
+          </div>
+          <div class="row escrowtitlecontainer">
+            <div class="col-xs-6 col-sm-6 col-md-6 productnumber">
+              <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <q-img
+                    src="../../assets/icons/material-symbols_confirmation-number.png"
+                    spinner-color="white"
+                    style="height: 25px; max-width: 25px"
+                  />
+                </div>
 
-
-            <!-- product name -->
-            <div class="productname">{{ product.name }}</div>
-
-
-            <!-- product details -->
-
-            <div class="productprice">
-              {{ formatAsNaira(product.price) }}
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  {{ product.product_number }}
+                </div>
+              </div>
             </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 transactiontype">
+              <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <q-img
+                    src="../../assets/icons/mdi_lightbulb-question.png"
+                    spinner-color="white"
+                    style="height: 25px; max-width: 25px"
+                  />
+                </div>
 
-            <div class="productquantity">{{ product.quantity }}</div>
-
-
-            <div class="productdescriptioncontainer">
-              <div class="productdescriptiontitle">Description:</div>
-              <div class="productdescription">{{ product.description ? product.description : "No Description" }}</div>
+                <div class="col-xs-6 col-sm-6 col-md-6">Escrow</div>
+              </div>
+              <!-- <div>{{ product.transaction_type }}</div> -->
             </div>
+          </div>
+          <img
+            :src="product.image !== 'default_product.png' ? product.image : base_image"
+            class="productimage"
+          />
+        </div>
 
-            <!-- <q-card-section class="column">
+        <!-- Right Section grouping all product actions and details -->
+        <div class="col-xs-12 col-sm-6 col-md-6 rightsection">
+          <!-- section to display top icons -->
+
+          <div
+            class="initiatorcontainer"
+            style="margin-top: 36px; font-family: 'Montserrat'; font-style: normal"
+          >
+            <q-img
+              src="../../assets/icons/material-symbols_person-pin-rounded.png"
+              spinner-color="white"
+              class="personpinicon"
+              style="height: 25px; max-width: 25px; margin-right: 12.12px"
+            />
+            Initiator Name
+
+            <q-img
+              src="../../assets/icons/boldtie.png"
+              spinner-color="white"
+              class="boldtie"
+              style="height: 20px; max-width: 20px; margin-left: 77px"
+            />
+
+            <q-img
+              src="../../assets/icons/material-symbols_lock-open-rounded.png"
+              spinner-color="white"
+              class="lockopen"
+              style="
+                height: 25px;
+                max-width: 25px;
+                margin-left: 77px;
+                margin-right: 12.12px;
+              "
+            />
+
+            Receiver
+          </div>
+          <div class="row copybtncontainer">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+              <div>
+                <!-- copy button -->
+                <q-btn
+                  size="12px"
+                  round
+                  flat
+                  color="primary"
+                  class=""
+                  icon="content_copy"
+                  @click="copy_link"
+                >
+                  <q-tooltip>
+                    {{ copyL }}
+                  </q-tooltip>
+                </q-btn>
+              </div>
+
+              <div class="copylinktext">Copy Link</div>
+            </div>
+          </div>
+
+          <!-- product name -->
+          <div class="productname">
+            <b>{{ product.name }}</b>
+          </div>
+
+          <!-- product details -->
+
+          <div class="productprice">
+            <b>{{ formatAsNaira(product.price) }}</b>
+          </div>
+
+          <div class="productquantity">
+            <q-img
+              src="../../assets/icons/mdi_cart-arrow-down.png"
+              spinner-color="white"
+              style="height: 25px; max-width: 25px"
+            />
+            {{ product.quantity }}
+          </div>
+
+          <div class="productdescriptioncontainer">
+            <div class="productdescriptiontitle"><b>Description:</b></div>
+            <div class="productdescription">
+              {{ product.description ? product.description : "No Description" }}
+            </div>
+          </div>
+
+          <!-- <q-card-section class="column">
 
               <q-card flat bordered>
                 {{ product.image !== 'default_product.png' ? product.image : base_image }}
@@ -203,97 +240,90 @@
               </q-card>
             </q-card-section> -->
 
-            <q-card-section class="create_edit_product">
-              <div v-if="product.user_id == user.id" class="editbtncontainer">
+          <q-card-section class="create_edit_product">
+            <div v-if="product.user_id == user.id" class="editbtncontainer">
+              <CreateProduct btnType="edit" :product="product" />
 
-                <CreateProduct btnType="edit" :product="product"  />
-
-                <!-- <q-btn
+              <!-- <q-btn
     v-if="product.transaction.length > 0"
     color="red"
     size="md"
     label="Delete Product"
     @click="deleteProduct()"
   /> -->
-              </div>
+            </div>
 
-              <div v-if="product.user_id != user.id">
-                <span v-if="product.product_status == true && product.quantity > 0">
-                  <span v-if="product.transaction_type == 'sell'">
-                    <q-btn
-                      v-if="Object.keys(user).length"
-                      color="secondary"
-                      size="md"
-                      class="q-mx-sm"
-                      label="Buy Product"
-                      @click="accept_modal = true"
-                    />
-                    <q-btn
-                      v-else
-                      color="secondary"
-                      size="md"
-                      class="q-mx-sm"
-                      label="Buy Product"
-                      @click="onLogin = true"
-                    />
-                  </span>
-                </span>
-                <span v-else>
-                  <q-badge
-                    color="red"
-                    text-color="white"
-                    label="Sorry!!! This product is currently not available"
+            <div v-if="product.user_id != user.id">
+              <span v-if="product.product_status == true && product.quantity > 0">
+                <span v-if="product.transaction_type == 'sell'">
+                  <q-btn
+                    v-if="Object.keys(user).length"
+                    color="secondary"
+                    size="md"
+                    class="q-mx-sm buyproductbtn"
+                    label="Buy Product"
+                    @click="accept_modal = true"
+                  />
+                  <q-btn
+                    v-else
+                    color="secondary"
+                    size="md"
+                    class="q-mx-sm  "
+                    label="Buy Product"
+                    @click="onLogin = true"
                   />
                 </span>
-              </div>
-            </q-card-section>
+              </span>
+              <span v-else>
+                <q-badge
+                  color="red"
+                  text-color="white"
+                  label="Sorry!!! This product is currently not available"
+                />
+              </span>
+            </div>
+          </q-card-section>
+        </div>
+      </div>
+
+      <div id="share-buttons" class="row sharebuttons">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <div class="row socialmediatitile">
+            <div class="col-xs-12 col-sm-12 col-md-12 socialmediatitilecolumn">
+              Share on social media
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 socialmediaiconscontainer">
+              <a class="facebook" target="blank">
+                <font-awesome-icon icon="fa-brands fa-facebook" />
+                <q-icon
+                  class="q-pa-sm cursor-pointer facebookicon"
+                  name="fab fa-facebook"
+                  size="md"
+                  @click="socialShare()"
+                />
+              </a>
+              <a class="twitter" target="blank">
+                <q-icon
+                  class="fab fa-twitter q-pa-sm cursor-pointer twittericon"
+                  size="md"
+                  @click="socialShare()"
+                />
+              </a>
+              <a class="whatsapp" target="blank">
+                <q-icon
+                  class="fab fa-whatsapp q-pa-sm cursor-pointer whatsappicon"
+                  size="md"
+                  @click="socialShare()"
+                />
+              </a>
+            </div>
           </div>
         </div>
-
-        <div id="share-buttons" class="row sharebuttons">
-
-        <div class="col-xs-12 col-sm-12 col-md-12">
-
-<div class="row socialmediatitile">
-  <div class="col-xs-12 col-sm-12 col-md-12 socialmediatitilecolumn">
-      Share on social media
-  </div>
-</div>
-
-<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-12 socialmediaiconscontainer">
-
-  <a class="facebook" target="blank">
-  <font-awesome-icon icon="fa-brands fa-facebook" />
-  <q-icon
-    class=" q-pa-sm cursor-pointer facebookicon"
-    name="fab fa-facebook"
-    size="md"
-    @click="socialShare()"
-  />
-
-</a>
-<a class="twitter" target="blank">
-  <q-icon
-    class="fab fa-twitter q-pa-sm cursor-pointer twittericon"
-    size="md"
-    @click="socialShare()"
-  />
-</a>
-<a class="whatsapp" target="blank">
-  <q-icon
-    class="fab fa-whatsapp q-pa-sm cursor-pointer whatsappicon"
-    size="md"
-    @click="socialShare()"
-  />
-</a>
-</div>
-</div>
-
-</div>
-
-</div>
-      </q-card>
+      </div>
+    </q-card>
 
     <q-dialog v-model="accept_modal" persistent>
       <q-card class="my-card" :style="ModelStyle">
@@ -337,7 +367,7 @@
       <!-- <Signup />  -->
     </q-dialog>
 
-<!-- dialog to login if user is not logged in -->
+    <!-- dialog to login if user is not logged in -->
     <q-dialog v-model="onLogin" persistent>
       <q-card class="my-card" :style="ModelStyle">
         <q-form @submit="login()" class="q-gutter-md">
@@ -462,24 +492,23 @@ export default {
     },
 
     socialShare() {
-      const link = encodeURI(window.location.href);// `https://paylidate.com/product/5VgJH231122153353/NxqE1OPIhW140722131816`
+      const link = encodeURI(window.location.href); // `https://paylidate.com/product/5VgJH231122153353/NxqE1OPIhW140722131816`
       const msg = encodeURIComponent(this.product.description);
-      const title = encodeURIComponent(document.querySelector('title').textContent);
+      const title = encodeURIComponent(document.querySelector("title").textContent);
 
       console.log([link, msg, title]);
 
-      const fb = document.querySelector('.facebook');
+      const fb = document.querySelector(".facebook");
       fb.href = `https://www.facebook.com/share.php?u=${link}`;
 
-      const twitter = document.querySelector('.twitter');
-      twitter.href = `https://twitter.com/share?&url=${link}&text=${msg}`
+      const twitter = document.querySelector(".twitter");
+      twitter.href = `https://twitter.com/share?&url=${link}&text=${msg}`;
 
-      const linkedIn = document.querySelector('.linkedin');
-      linkedIn.href = `https://linkedin.com/sharing/share-offsite/?url=${link}`
+      const linkedIn = document.querySelector(".linkedin");
+      linkedIn.href = `https://linkedin.com/sharing/share-offsite/?url=${link}`;
 
-      const whatsapp = document.querySelector('.whatsapp');
-      whatsapp.href = `https://api.whatsapp.com/send?phone=whatsappphonenumber&text=${link}`
-
+      const whatsapp = document.querySelector(".whatsapp");
+      whatsapp.href = `https://api.whatsapp.com/send?phone=whatsappphonenumber&text=${link}`;
     },
 
     async buyProduct() {
@@ -768,8 +797,8 @@ export default {
 <style scoped>
 .my-card {
   width: 120%;
-  height: 32rem;
-  margin-left:auto;
+  height: 34rem;
+  margin-left: auto;
   margin-right: auto;
   top: 20px;
 
@@ -777,167 +806,167 @@ export default {
   border: 0.3px solid #000000;
   border-radius: 3px;
 }
-.create_edit_product
-{
+.create_edit_product {
   padding: 0px;
   margin-top: 30px;
 }
-.sharebuttons
-{
+.sharebuttons {
   display: block;
 }
-.productname
-{
-  font-family: 'Montserrat';
-font-style: normal;
-font-weight: 900px;
-font-size: 30px;
-line-height: 48px;
+.productname {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 900px;
+  font-size: 30px;
+  line-height: 48px;
 
-color: #000000;
+  color: #000000;
 }
 
-.facebook, .twitter, .whatsapp
-{
+.facebook,
+.twitter,
+.whatsapp {
   text-decoration: none;
 }
 
-.facebookicon,  .whatsappicon, .twittericon
-{
-  color:  #319ED9;
+.facebookicon,
+.whatsappicon,
+.twittericon {
+  color: #319ed9;
 }
-.productprice
-{
-  font-family: 'Montserrat';
-font-style: normal;
-font-weight: 800px;
-font-size: 26px;
-line-height: 43px;
+.productprice {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 800px;
+  font-size: 26px;
+  line-height: 43px;
 
-color: #000000;
-
+  color: #000000;
 }
-.productimage
-{
-
-box-sizing: border-box;
-width: 275px;
-height: 275px;
-border: 1px solid #000000;
-border-radius: 3px;
-margin-left: 130px;
-margin-top: 3px;
-
+.productimage {
+  box-sizing: border-box;
+  width: 275px;
+  height: 275px;
+  border: 1px solid #000000;
+  border-radius: 3px;
+  margin-left: 130px;
+  margin-top: 3px;
 }
-.productdescriptiontitle
-{
-  font-family: 'Montserrat';
-font-style: normal;
-font-weight: 800px;
-font-size: 26px;
-line-height: 43px;
+.productdescriptiontitle {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 800px;
+  font-size: 26px;
+  line-height: 43px;
 
-color: #000000;
+  color: #000000;
 }
-.productdescription, .productquantity, .copylinktext, .productnumber, .transactiontype, .socialmediatitile
-{
-  font-family: 'Montserrat';
-font-style: normal;
-font-weight: 800px;
-font-size: 14px;
-line-height: 43px;
+.productdescription,
+.productquantity,
+.copylinktext,
+.productnumber,
+.transactiontype,
+.socialmediatitile {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 800px;
+  font-size: 14px;
+  line-height: 43px;
 
-color: #000000;
+  color: #000000;
 }
-.socialmediatitilecolumn, .socialmediaiconscontainer
-{
-  width:auto;
+.socialmediatitilecolumn,
+.socialmediaiconscontainer {
+  width: auto;
   margin-left: auto;
   margin-right: auto;
 }
-.sharebuttons
-{
+.sharebuttons {
   margin-top: 30px;
 }
-.copybtncontainer
-{
+.copybtncontainer {
   width: 12%;
   margin-left: 80%;
 }
-.escrowtitlecontainer
-{
+.escrowtitlecontainer {
   justify-content: space-between;
 }
-.productnumber
-{
-  width:auto;
+.productnumber {
+  width: auto;
   margin-left: 20%;
 }
-.facebook, .twitter
-  {
-    margin-right: 30px;
-  }
-.transactiontype
-{
-  width:auto;
+.facebook,
+.twitter {
+  margin-right: 30px;
+}
+.transactiontype {
+  width: auto;
   margin-right: 38%;
 }
-@media screen and (max-width: 480px)
-{
-  .my-card
-  {
+@media screen and (max-width: 480px) {
+  .my-card {
     height: auto;
   }
+  .initiatorcontainer {
+    display: flex !important;
+    justify-content: space-between !important;
+    width: fit-content !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 
-  .productimage
-  {
+  .boldtie {
+    margin-left: 10px !important;
+  }
+  .lockopen {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+  }
+  .buyproductbtn {
     margin-left: auto;
     margin-right: auto;
     display: block;
   }
-  .copybtncontainer
-  {
+  .productimage {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  .copybtncontainer {
     display: none;
   }
 
-  .transactiontype
-  {
-
+  .transactiontype {
     margin-right: 14%;
   }
 
-  .productnumber
-  {
+  .productnumber {
     margin-left: 8%;
   }
-  .productname
-  {
-    width:fit-content;
+  .productname {
+    width: fit-content;
     margin-left: auto;
-    margin-right:auto;
+    margin-right: auto;
     margin-top: 53px;
     font-size: 16px;
     font-weight: 900;
   }
-.productdescriptiontitle
-{
-  width:fit-content;
+  .productdescriptiontitle {
+    width: fit-content;
     margin-left: auto;
-    margin-right:auto;
+    margin-right: auto;
     margin-top: 15px;
     font-size: 16px;
     font-weight: 900;
-}
-.productdescription
-{
-  width:fit-content;
+  }
+  .productdescription {
+    width: fit-content;
     margin-left: auto;
     font-size: 14px;
-    margin-right:auto;
-}
-  .productprice
-  {
-    width:fit-content;
+    margin-right: auto;
+  }
+  .productprice {
+    width: fit-content;
     margin-left: auto;
     margin-right: auto;
     font-weight: 700;
@@ -945,77 +974,65 @@ color: #000000;
     line-height: 17px;
     margin-top: 16px;
   }
-  .editbtncontainer
-  {
+  .editbtncontainer {
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
   }
-  .productquantity
-  {
+  .productquantity {
     font-size: 14px;
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
   }
 
-  .copybtncontainer_for_mobilescreen
-    {
-      width: 10%;
-      margin-left: auto;
-    }
-    .copybtn
-    {
-      width: auto;
-    }
+  .copybtncontainer_for_mobilescreen {
+    width: 10%;
+    margin-left: auto;
+  }
+  .copybtn {
+    width: auto;
+  }
 }
 
-@media screen and (min-width: 768px)
-  {
-    .copybtncontainer_for_mobilescreen
-    {
-      display: none;
-    }
-
-    .productimage
-    {
-      margin-left: 10px;
-    }
-    .my-card
-    {
-      height: 34rem;
-    }
-    .copybtncontainer
-    {
-      width: fit-content;
-    }
-    .transactiontype
-    {
-      margin-right: 25%;
-    }
-    .productnumber
-    {
-      margin-left:6%;
-    }
-
-
+@media screen and (min-width: 768px) {
+  .copybtncontainer_for_mobilescreen {
+    display: none;
   }
 
-  /**laptops with really big screens */
-  @media screen and (min-width: 1024px)
-  {
-    .transactiontype
-    {
-      margin-right: 38%;
-    }
-    .productnumber
-    {
-      margin-left: 10%;
-    }
+  .lockopen,
+  .boldtie {
+    margin-left: 30px !important;
+  }
 
-    .productimage {
-    margin-left: 130px;
+  .productimage {
+    margin-left: 10px;
+  }
+  .my-card {
+    height: 35rem;
+  }
+  .copybtncontainer {
+    width: fit-content;
+  }
+  .transactiontype {
+    margin-right: 25%;
+  }
+  .productnumber {
+    margin-left: 6%;
+  }
 }
+
+/**laptops with really big screens */
+@media screen and (min-width: 1024px) {
+  .transactiontype {
+    margin-right: 28%;
+  }
+  .productnumber {
+    margin-left: 33%;
   }
 
+  .productimage {
+    margin-left: 210px;
+  }
+}
 </style>
