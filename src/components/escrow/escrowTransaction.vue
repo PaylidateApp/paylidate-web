@@ -196,7 +196,7 @@
         class="my-card"
         bordered
         flat
-        
+
        </q-card> -->
         <!-- <q-img :src="'/transaction.svg'" spinner-color="white"
       /> -->
@@ -205,7 +205,7 @@
             {{ transaction.product.name }}
           </div>
           <q-space /> -->
-          
+
            <!-- Left Section grouping all product image  -->
 
 
@@ -221,7 +221,7 @@
                 src="../../assets/icons/material-symbols_confirmation-number.png"
                 spinner-color="white"
                 style="height: 25px; max-width: 25px;"
-              /></span> 
+              /></span>
             <span>{{ transaction.product.product_number }}</span>
           </div>
 
@@ -274,7 +274,7 @@
                 /></span> <span>{{ transaction.product_initiator.name }}</span>
         </div>
         <div class="col-2">
-          <span> 
+          <span>
             <q-btn
             size="12px"
             round
@@ -307,14 +307,14 @@
                   transaction.description
                     ? transaction.description
                     : "No Description"
-                }} 
+                }}
         </span>
       </h6>
     </div>
 
 
     <div>
-    
+
     <Payment
               v-if="
                 transaction.product.user_id == user.id &&
@@ -328,7 +328,7 @@
                 transaction.product.transaction_type == 'sell'
               "
               :transaction="transaction"
-            /> 
+            />
     </div>
            <!-- <div class="text-bold text-h6 text-uppercase">
             {{ transaction.product.name }}
@@ -337,7 +337,7 @@
                  {{ transaction.quantity }}
               </div>
               <div class="text-bold" v-if="transaction.amount <= 1">
-                
+
                 {{
                   formatAsNaira(
                     transaction.product.price * transaction.quantity
@@ -345,7 +345,7 @@
                 }}
               </div>
               <div class="text-bold" v-else-if="transaction.referer_id">
-                
+
                 {{
                   formatAsNaira(
                     parseFloat(transaction.amount) +
@@ -428,7 +428,7 @@
               </div>
             </div>
           </span>
-        </q-card-section> --> 
+        </q-card-section> -->
         <!-- end of dispute -->
 
         <!-- <q-card-section class="column">
@@ -540,9 +540,9 @@
               />
             </div>
           </span>
-        </q-card-section> --> 
+        </q-card-section> -->
         <!-- end of refund -->
-<!-- 
+<!--
          <q-card-section v-if="user && transaction.payment" class="column">
           <span
             v-if="transaction.user_id == user.id || transaction.product.user_id"
@@ -582,7 +582,7 @@
               </q-card-section>
             </q-card>
           </span>
-        </q-card-section> 
+        </q-card-section>
 
          <q-card-section class="column">
           <div v-if="transaction.status == 2 && transaction.accept_transaction == true">
@@ -953,11 +953,11 @@
 
   </div>
 
-    
+
 
   </div>
 
-</div>
+
 </q-card>
 
 </template>
@@ -1340,7 +1340,7 @@ export default {
 
         this.transaction = res.data;
         this.report_form.sellerEmail = this.transaction.seller_email;
-        //console.log(res.data)
+        console.log(res.data)
 
         let bank = res.data.bank;
         if (bank) {
@@ -1506,10 +1506,10 @@ export default {
 <style scoped>
 
 .q-pa-md {
-  
+
   background: #f5f5f5 ;
   padding-bottom:50px;
-  
+
 }
 
 .mtest {
