@@ -10,62 +10,67 @@
       <div class="col-6 text-white Montserrat small-box-style">
         <div class="row small-box-style">
           <h2 class="big-title">
-          Enjoy <span style="color: #eb6117">Fast and Secure </span> Digital
-          Payments
-        </h2>
-        <div class="row caption-one text-center justify-between q-py-sm lt-md small-box-style">
-          <p>Make Payments</p>
-          <div class="q-pt-xs">
-            <img
-              src="../../statics/register_assets/Vector.png"
-              style="width: 0.9rem; height: 0.9rem"
-            />
-          </div>
+            Providing a secure and
+            <span style="color: #eb6117"> reliable way for buyers and</span>
+            sellers to transact online
+          </h2>
+          <div
+            class="row caption-one text-center justify-between q-py-sm lt-md small-box-style"
+          >
+            <p>Make Payments</p>
+            <div class="q-pt-xs">
+              <img
+                src="../../statics/register_assets/Vector.png"
+                style="width: 0.9rem; height: 0.9rem"
+              />
+            </div>
 
-          <p>Receive Delivery</p>
-          <div class="q-pt-xs">
-            <img
-              src="../../statics/register_assets/Vector.png"
-              style="width: 0.9rem; height: 0.9rem"
-            />
+            <p>Receive Delivery</p>
+            <div class="q-pt-xs">
+              <img
+                src="../../statics/register_assets/Vector.png"
+                style="width: 0.9rem; height: 0.9rem"
+              />
+            </div>
+            <P>Validate Payment</P>
           </div>
-          <P>Validate Payment</P>
-        </div>
-        <p class="subtitle-one q-pb-xl">
-          Helping millions of Nigerian buyers and sellers transact safely from
-          anywhere without doubt or fear
-        </p>
-        <div class="row caption-one text-center justify-between q-py-lg gt-sm">
-          <p>Make Payments</p>
-          <div class="q-pt-xs q-px-md">
-            <img
-              src="../../statics/register_assets/Vector.png"
-              style="width: 0.9rem; height: 0.9rem"
-            />
-          </div>
+          <p class="subtitle-one q-pb-xl">
+            Join the thousands of Nigerian buyers and sellers already protecting
+            their online transactions with Paylidate.
+          </p>
+          <div
+            class="row caption-one text-center justify-between q-py-lg gt-sm"
+          >
+            <p>Make Payments</p>
+            <div class="q-pt-xs q-px-md">
+              <img
+                src="../../statics/register_assets/Vector.png"
+                style="width: 0.9rem; height: 0.9rem"
+              />
+            </div>
 
-          <p>Receive Delivery</p>
-          <div class="q-pt-xs q-px-md">
-            <img
-              src="../../statics/register_assets/Vector.png"
-              style="width: 0.9rem; height: 0.9rem"
-            />
+            <p>Receive Delivery</p>
+            <div class="q-pt-xs q-px-md">
+              <img
+                src="../../statics/register_assets/Vector.png"
+                style="width: 0.9rem; height: 0.9rem"
+              />
+            </div>
+            <P>Validate Payment</P>
           </div>
-          <P>Validate Payment</P>
-        </div>
-        <div
-          class="row full-width justify-between caption-two q-py-xl gt-sm"
-          style="padding-top: 6rem"
-        >
-          <p>Buyer Protection</p>
-          |
-          <p>Seller Verification</p>
-          |
-          <p>Transaction Security</p>
-        </div>
+          <div
+            class="row full-width justify-between caption-two q-py-xl gt-sm"
+            style="padding-top: 6rem"
+          >
+            <p>Buyer Protection</p>
+            |
+            <p>Seller Verification</p>
+            |
+            <p>Transaction Security</p>
+          </div>
         </div>
       </div>
-      <div class="col-5 register-form" >
+      <div class="col-5 register-form">
         <q-card flat bordered style="min-width: 300px">
           <div class="column flex-center q-py-md">
             <img
@@ -168,7 +173,7 @@
 
     <div class="row full-width lt-md">
       <img
-      src="../../statics/register_assets/young_millennials_african_friends.png"
+        src="../../statics/register_assets/young_millennials_african_friends.png"
         style="width: 100%; padding-top: 55rem"
       />
     </div>
@@ -314,7 +319,6 @@ export default {
 }
 
 @media (max-width: 690px) {
-
   .column-style {
     display: flex;
     flex-direction: column;
@@ -328,7 +332,7 @@ export default {
   .subtitle-one {
     font-weight: 300;
     font-size: 0.7rem;
-    line-height: .8rem;
+    line-height: 0.8rem;
     text-align: center;
     padding-left: 1rem;
     padding-right: 1rem;
