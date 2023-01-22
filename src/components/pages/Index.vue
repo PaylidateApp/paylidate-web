@@ -4,7 +4,7 @@
     :class="$q.screen.gt.sm ? 'text-primary row q-pt-md' : 'text-primary row'"
     style="
       scroll-behavior: smooth;
-      font-family: 'Mukta', 'sans-serif';
+      font-family: 'Cabin', 'sans-serif';
       width: 100%;
     "
   >
@@ -32,7 +32,7 @@
               color: #0e3951;
               font-style: normal;
               font-weight: 650;
-              font-size: 0.875rem;
+              font-size: 0.8rem;
               line-height: 1.25rem;
             "
           >
@@ -55,7 +55,7 @@
               no-caps
               rounded-borders
               padding="10px 16px"
-              size="18px"
+              size="17px"
               class="Montserrat"
               label="Register"
               :to="{ name: 'register' }"
@@ -68,7 +68,7 @@
           <img
             src="../../statics/girlie.png"
             spinner-color="white"
-            style="width: 100%; padding-top: 5.9rem; padding-left: 0px"
+            style="width: 100%; padding-top: 5rem; padding-left: 0px"
           />
         </div>
       </div>
@@ -1930,10 +1930,6 @@ li {
   text-decoration: none;
 }
 
-.font-Nexa-Light {
-  font-family: Nexa Light;
-}
-
 .Montserrat {
   font-family: "Montserrat", sans-serif;
 }
@@ -1948,7 +1944,7 @@ h1 {
   font-size: 2.25rem;
   text-align: center;
   font-weight: 700;
-  font-family: "font-Nexa-Light";
+  font-family: 'Cabin', 'sans-serif';
   line-height: 2.6rem;
   color: #001140;
 }
@@ -2056,18 +2052,18 @@ a {
 
 .big-header {
   color: #001140;
-  font-family: "font-Nexa-Light";
+  font-family: 'Cabin', 'sans-serif';
   font-style: normal;
   font-weight: 700;
-  font-size: 3.75rem;
-  line-height: 4.31rem;
+  font-size: 3.7rem;
+  line-height: 4rem;
   text-align: left;
 }
 
 .big-paragraph {
   font-size: 1rem;
   font-weight: 550;
-  font-family: "Montserrat";
+  font-family: 'Cabin', 'sans-serif';
   line-height: 2rem;
   color: #89817d;
   text-align: left;

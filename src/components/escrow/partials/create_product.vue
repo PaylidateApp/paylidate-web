@@ -152,7 +152,7 @@
               <div v-else>
                 <div>
                   If you want this product to be referred by others, please add a
-                  referral bonus else live the field blank
+                  referral bonus else leave the field blank
                 </div>
                 <q-input
                   outlined
@@ -270,7 +270,7 @@
               <div v-else>
                 <div>
                   If you want this product to be referred by others, please add a
-                  referral bonus else live the field blank
+                  referral bonus else leave the field blank
                 </div>
                 <q-input
                   outlined
