@@ -190,7 +190,7 @@ export default {
         })
         const req = await this.$axios.get(process.env.Api + '/api/product')
         const res = req.data
-
+        console.log(res.data);
         this.content = res.data;
         //console.log(res.data);
          this.$q.loading.hide();

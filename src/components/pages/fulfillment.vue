@@ -46,7 +46,7 @@
 
               <q-card-section>
                 <div class="subtitle2">To be delivered to</div>
-                <div class="subtitle q-pt-sm">{{ product.buyers_name }}</div>
+                <div class="subtitle q-pt-sm">{{ product.buyers_name.name || product.buyers_name }}</div>
               </q-card-section>
 
               <q-separator />
@@ -182,7 +182,7 @@ export default {
         );
 
         const res = req.data;
-        console.log(res);
+        // console.log(res);
 
         if (res.status == "Success") {
           this.$q.loading.hide();
@@ -225,6 +225,7 @@ export default {
           process.env.Api + `/api/fulfillment/${this.hash}`
         );
         const res = req.data;
+         //console.log(res)
 
         this.product = res.data;
         this.$q.loading.hide();

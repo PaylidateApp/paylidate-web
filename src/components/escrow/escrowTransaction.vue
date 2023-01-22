@@ -1,9 +1,7 @@
 <template>
-  <q-page class="flex justify-center">
-    <!-- {{transaction}} -->
-    <div>
-      <!--start report transaction section -->
-      <q-dialog v-model="report">
+  <!-- <q-page class="flex justify-center"> -->
+
+    <!-- <q-dialog v-model="report">
         <q-card>
           <q-card-section>
             <div class="text-h6">Report Transaction</div>
@@ -67,11 +65,11 @@
             />
           </q-card-actions>
         </q-card>
-      </q-dialog>
+      </q-dialog> -->
       <!-- end of report transaction section -->
 
       <!--start request for Refund section -->
-      <q-dialog v-model="refund">
+      <!-- <q-dialog v-model="refund">
         <q-card>
           <q-card-section>
             <div class="text-h6">Request for Refund</div>
@@ -128,11 +126,11 @@
             />
           </q-card-actions>
         </q-card>
-      </q-dialog>
+      </q-dialog> -->
       <!-- end of request for Refund section -->
 
       <!--start request for withdrawal section -->
-      <q-dialog v-model="withdraw">
+      <!-- <q-dialog v-model="withdraw">
         <q-card>
           <q-card-section>
             <div class="text-h6">Request for withdrawal</div>
@@ -189,24 +187,95 @@
             />
           </q-card-actions>
         </q-card>
-      </q-dialog>
-      <!-- end of request for withdrawal section -->
+      </q-dialog> -->
+       <!-- end of request for withdrawal section -->
 
-      <q-card
+
+       <!-- <q-card
         v-if="transaction"
         class="my-card"
         bordered
         flat
-        style="max-width: 500px"
-      >
+
+       </q-card> -->
         <!-- <q-img :src="'/transaction.svg'" spinner-color="white"
       /> -->
-        <q-card-section class="row">
-          <div class="text-bold text-h6 text-uppercase">
+
+          <!-- <div class="text-bold text-h6 text-uppercase">
             {{ transaction.product.name }}
           </div>
-          <q-space />
-          <q-btn
+          <q-space /> -->
+
+           <!-- Left Section grouping all product image  -->
+
+
+  <!-- make payment starts -->
+<q-card class="q-pa-md">
+ <div class="row">
+  <div class="col-md-6 text-center">
+    <div class="row">
+      <div class="col-md-8 q-mx-auto col-12">
+        <div class="row">
+          <div class="col-6">
+            <span> <q-img
+                src="../../assets/icons/material-symbols_confirmation-number.png"
+                spinner-color="white"
+                style="height: 25px; max-width: 25px;"
+              /></span>
+            <span>{{ transaction.product.product_number }}</span>
+          </div>
+
+          <div class="col-6">
+            <span> <q-img
+                src="../../assets/icons/mdi_lightbulb-question.png"
+                spinner-color="white"
+                style="height: 25px; max-width: 25px;"
+                /></span> <span>Escrow</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="col-6  pic">
+        <img
+              style="width:300px; height:300px; border:solid 1px #000000; box-sizing: border-box; "
+              :src="
+                transaction.product.image !== 'default_transaction.png'
+                  ? transaction.product.image
+                  : base_image
+              "
+            />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+        <div class="col-12 font">
+        <div class="row">
+          <div class="col-4">
+            <span> <q-img
+                src="../../assets/icons/material-symbols_person-pin-rounded.png"
+                spinner-color="white"
+                style="height: 25px; max-width: 25px"
+                /></span> <span> {{ transaction.bank.bank_name }}</span>
+          </div>
+        <div class="col-2">
+          <span> <q-img
+                src="../../assets/icons/boldtie.png"
+                color="orange"
+                style="height: 25px; max-width: 25px"
+                /></span>
+        </div>
+        <div class="col-4 q-pr-md">
+          <span> <q-img
+                src="../../assets/icons/material-symbols_person-pin-rounded.png"
+                spinner-color="white"
+                style="height: 25px; max-width: 25px"
+                /></span> <span>{{ transaction.product_initiator.name }}</span>
+        </div>
+        <div class="col-2">
+          <span>
+            <q-btn
             size="12px"
             round
             flat
@@ -214,63 +283,61 @@
             class=""
             icon="content_copy"
             @click="copy_link"
+            copy link
           >
             <q-tooltip>
               {{ copyL }}
             </q-tooltip>
-          </q-btn>
-        </q-card-section>
+           </q-btn>
+           <br/>
+                Copy Link
+                </span>
+        </div>
+        </div>
+       </div>
 
-        <q-card-section class="column">
-          <div>Transaction Details</div>
-          <q-separator class="q-mb-sm" />
-          <q-card flat bordered>
-            <!-- {{ transaction.image !== 'default_transaction.png' ? transaction.image : base_image }} -->
-            <img
-              style="width: 427px"
-              :src="
-                transaction.product.image !== 'default_transaction.png'
-                  ? transaction.product.image
-                  : base_image
+      <div class="col-12"></div>
+    </div>
+
+    <div class="mtest">
+      <h5 class="text-bold text-uppercase q-mt-none" > {{ transaction.quantity }} {{ transaction.product.name }}</h5>
+      <h6 class="q-mt-none" style="line-height:0.5">Amount to pay: {{ formatAsNaira(transaction.amount) }}</h6>
+      <h6>Specification & Delivery: <br/>
+        <span class="smtxt"> {{
+                  transaction.description
+                    ? transaction.description
+                    : "No Description"
+                }}
+        </span>
+      </h6>
+    </div>
+
+
+    <div>
+
+    <Payment
+              v-if="
+                transaction.product.user_id == user.id &&
+                transaction.product.transaction_type == 'buy'
               "
+              :transaction="transaction"
             />
-            <q-card-section>
-              <div class="text-bold">
-                Product Number: {{ transaction.product.product_number }}
+            <Payment
+              v-if="
+                transaction.user_id == user.id &&
+                transaction.product.transaction_type == 'sell'
+              "
+              :transaction="transaction"
+            />
+    </div>
+           <!-- <div class="text-bold text-h6 text-uppercase">
+            {{ transaction.product.name }}
+           </div>
+           <div class="text-bold">
+                 {{ transaction.quantity }}
               </div>
-
-              <div class="text-bold">
-                Transaction Type:
-                <span
-                  v-if="
-                    transaction.product.transaction_type == 'buy' &&
-                    user.id == transaction.product.user_id
-                  "
-                >
-                  buy
-                </span>
-
-                <span
-                  v-else-if="
-                    transaction.product.transaction_type == 'sell' &&
-                    user.id == transaction.product.user_id
-                  "
-                >
-                  buy
-                </span>
-                <span v-else-if="transaction.product.transaction_type == 'buy'">
-                  sell
-                </span>
-                <span v-else> buy </span>
-              </div>
-
-              <div class="text-bold">Type: {{ transaction.product.type }}</div>
-              <div class="text-bold">
-                Total Quantity: {{ transaction.quantity }}
-              </div>
-
               <div class="text-bold" v-if="transaction.amount <= 1">
-                Total Price:
+
                 {{
                   formatAsNaira(
                     transaction.product.price * transaction.quantity
@@ -278,7 +345,7 @@
                 }}
               </div>
               <div class="text-bold" v-else-if="transaction.referer_id">
-                Total Price:
+
                 {{
                   formatAsNaira(
                     parseFloat(transaction.amount) +
@@ -288,31 +355,21 @@
               </div>
               <div class="text-bold" v-else>
                 Total Price: {{ formatAsNaira(transaction.amount) }}
-              </div>
+              </div> -->
 
-              <div class="text-bold" v-if="transaction.referer_id">
+              <!-- <div class="text-bold" v-if="transaction.referer_id">
                 Referral Bonus:
                 {{ formatAsNaira(parseFloat(transaction.referral.amount)) }}
-              </div>
+              </div> -->
 
-              <div class="text-bold">
+              <!-- <div class="text-bold">
                 Transaction Dispute:
                 {{ transaction.dispute ? "Dispute Opened" : "No dispute" }}
-              </div>
-              <div class="text-bold">
-                Description:
-                {{
-                  transaction.description
-                    ? transaction.description
-                    : "No Description"
-                }}
-              </div>
-            </q-card-section>
-          </q-card>
-        </q-card-section>
+              </div> -->
 
-        <!-- beginning of dispute -->
-        <q-card-section
+
+              <!-- beginning of dispute -->
+        <!-- <q-card-section
           v-if="
             Object.keys(user).length &&
             (transaction.user_id == user.id ||
@@ -371,10 +428,10 @@
               </div>
             </div>
           </span>
-        </q-card-section>
+        </q-card-section> -->
         <!-- end of dispute -->
 
-        <q-card-section class="column">
+        <!-- <q-card-section class="column">
           <div>Parties Details</div>
           <q-separator class="q-mb-sm" />
           <q-card class="my-card" flat bordered>
@@ -414,10 +471,10 @@
               </q-card-section>
             </q-card-section>
           </q-card>
-        </q-card-section>
+        </q-card-section> -->
 
         <!-- beginning of refund button -->
-        <q-card-section
+         <!-- <q-card-section
           v-if="
             Object.keys(user).length &&
             (transaction.user_id == user.id ||
@@ -483,10 +540,10 @@
               />
             </div>
           </span>
-        </q-card-section>
+        </q-card-section> -->
         <!-- end of refund -->
-
-        <q-card-section v-if="user && transaction.payment" class="column">
+<!--
+         <q-card-section v-if="user && transaction.payment" class="column">
           <span
             v-if="transaction.user_id == user.id || transaction.product.user_id"
           >
@@ -527,7 +584,7 @@
           </span>
         </q-card-section>
 
-        <q-card-section class="column">
+         <q-card-section class="column">
           <div v-if="transaction.status == 2 && transaction.accept_transaction == true">
             <div>
               <q-badge
@@ -582,9 +639,9 @@
             </span>
 
             <span v-else>
-              <span v-if="transaction.payment.withdrawn == false">
+              <span v-if="transaction.payment.withdrawn == false">  -->
                 <!-- button to request for a withdrawal -->
-                <q-btn
+                <!-- <q-btn
                   v-if="
                     transaction.product.user_id == user.id &&
                     transaction.product.transaction_type == 'sell'
@@ -818,12 +875,10 @@
                 @click="declineTransaction()"
               />
             </span>
-          </div>
-        </q-card-section>
-      </q-card>
-    </div>
+          </div> -->
 
-    <q-dialog v-model="onLogin" persistent>
+
+          <!-- <q-dialog v-model="onLogin" persistent>
       <q-card class="my-card" :style="ModelStyle">
         <q-form
           @submit="signup && onLogin ? register() : login()"
@@ -890,11 +945,21 @@
             />
           </q-card-actions>
         </q-form>
-      </q-card>
+      </q-card> -->
 
       <!-- <Signup />  -->
-    </q-dialog>
-  </q-page>
+
+
+
+  </div>
+
+
+
+  </div>
+
+
+</q-card>
+
 </template>
 
 <script>
@@ -1275,7 +1340,7 @@ export default {
 
         this.transaction = res.data;
         this.report_form.sellerEmail = this.transaction.seller_email;
-        //console.log(res.data)
+        console.log(res.data)
 
         let bank = res.data.bank;
         if (bank) {
@@ -1436,3 +1501,23 @@ export default {
   },
 };
 </script>
+
+
+<style scoped>
+
+.q-pa-md {
+
+  background: #f5f5f5 ;
+  padding-bottom:50px;
+
+}
+
+.mtest {
+  line-height: 0.5;
+}
+
+.smtxt {
+  font-size:15px;
+}
+
+</style>
