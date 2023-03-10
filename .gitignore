@@ -33,3 +33,5 @@ yarn-error.log*
 *.sln
 .env.dev
 yarn.lock
+.yarnrc
+.yarn/releases/yarn-1.22.19.cjs
