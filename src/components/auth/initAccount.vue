@@ -98,7 +98,7 @@ export default {
     },
     makePayment(dData) {
       FlutterwaveCheckout({
-        public_key: "FLWPUBK-4b7b5a9ed0f871bff8f2758190718d73-X",
+        public_key: "FLWPUBK-6c5f6cd6ea5cb1fbee0675a0e53e74ed-X",
         tx_ref: dData.ref,
         amount: dData.amount,
         currency: "NGN",
